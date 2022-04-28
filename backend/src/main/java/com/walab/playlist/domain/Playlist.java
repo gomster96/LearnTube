@@ -3,7 +3,7 @@ package com.walab.playlist.domain;
 import java.util.List;
 import javax.persistence.*;
 
-import com.walab.classroom.domain.lecture.content.Content;
+import com.walab.content.domain.Content;
 import com.walab.user.domain.User;
 import com.walab.video.domain.Video;
 

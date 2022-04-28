@@ -1,9 +1,9 @@
-package com.walab.classroom.domain.lecture.content;
+package com.walab.content.domain;
 
 import java.time.LocalDateTime;
 import javax.persistence.*;
 
-import com.walab.classroom.domain.lecture.Lecture;
+import com.walab.lecture.domain.Lecture;
 import com.walab.playlist.domain.Playlist;
 
 @Entity

@@ -1,11 +1,11 @@
-package com.walab.classroom.domain.lecture;
+package com.walab.lecture.domain;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import javax.persistence.*;
 
 import com.walab.classroom.domain.ClassRoom;
-import com.walab.classroom.domain.lecture.content.Content;
+import com.walab.content.domain.Content;
 
 import lombok.Getter;
 

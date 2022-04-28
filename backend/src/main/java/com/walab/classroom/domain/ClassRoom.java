@@ -4,8 +4,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import javax.persistence.*;
 
-import com.walab.classroom.domain.lecture.Lecture;
-import com.walab.classroom.domain.notice.Notice;
+import com.walab.lecture.domain.Lecture;
+import com.walab.notice.domain.Notice;
 import com.walab.classroom.domain.take.Take;
 import com.walab.user.domain.User;
 

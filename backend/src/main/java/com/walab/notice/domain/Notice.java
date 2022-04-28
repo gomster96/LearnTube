@@ -1,4 +1,4 @@
-package com.walab.classroom.domain.notice;
+package com.walab.notice.domain;
 
 import java.time.LocalDateTime;
 import javax.persistence.*;
