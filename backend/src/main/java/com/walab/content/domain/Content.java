@@ -6,7 +6,10 @@ import javax.persistence.*;
 import com.walab.lecture.domain.Lecture;
 import com.walab.playlist.domain.Playlist;
 
+import lombok.Getter;
+
 @Entity
+@Getter
 public class Content {
     @Id
     @GeneratedValue
