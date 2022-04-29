@@ -38,10 +38,7 @@ public class Content {
     public Content(Lecture lecture, ContentCUDto contentCUDto, Playlist playlist){
         addLecture(lecture);
         addPlaylist(playlist);
-        this.contentName = contentCUDto.getContentName();
-        this.contentDescription = contentCUDto.getContentDescription();
-        this.openDate = contentCUDto.getOpenDate();
-        this.closeDate = contentCUDto.getCloseDate();
+        setContentDatas(contentCUDto);
     }
     private void addLecture(Lecture lecture){
         this.lecture = lecture;
@@ -58,14 +55,19 @@ public class Content {
     }
 
     public void update(ContentCUDto contentCUDto, Playlist playlist){
+        setContentDatas(contentCUDto);
+        updatePlaylist(playlist);
+    }
+
+    public void setContentDatas(ContentCUDto contentCUDto){
         this.contentName = contentCUDto.getContentName();
         this.contentDescription = contentCUDto.getContentDescription();
         this.openDate = contentCUDto.getOpenDate();
         this.closeDate = contentCUDto.getCloseDate();
-        updatePlaylist(playlist);
     }
 
     public ContentDto toDto(){
         return new ContentDto(this.id, this.contentName, this.openDate, this.closeDate, this.playlist.getId());
     }
+
 }

@@ -1,8 +1,10 @@
 package com.walab.content.application;
 
-import com.walab.content.application.dto.ContentCUDto;
-import com.walab.content.application.dto.ContentDto;
-import com.walab.content.application.dto.ContentIdDto;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
+import com.walab.content.application.dto.*;
 import com.walab.content.domain.Content;
 import com.walab.content.domain.repository.ContentRepository;
 import com.walab.lecture.application.repository.LectureRepository;
@@ -19,19 +21,18 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ContentService {
     private final ContentRepository contentRepository;
-
-//     ToDo (playList, lecture) Repository 기능 구현되면 사용 예정
     private final PlaylistRepository playlistRepository;
     private final LectureRepository lectureRepository;
+
     @Transactional
-    public ContentIdDto delete(ContentIdDto contentIdDto){
+    public ContentIdDto delete(ContentIdDto contentIdDto) {
         Long deleteId = contentIdDto.getContentId();
         contentRepository.deleteById(deleteId);
         return contentIdDto;
     }
 
     @Transactional
-    public ContentDto create(ContentCUDto contentCreateDto, Long lectureId, Long playlistId){
+    public ContentDto create(ContentCUDto contentCreateDto, Long lectureId, Long playlistId) {
 
         // ToDo playList Repository 개발 후 사용 예정
         // Playlist playlist = playlistRepository.findById(playlistId).orElseThrow();
@@ -49,13 +50,29 @@ public class ContentService {
     }
 
     @Transactional
-    public ContentDto update(Long contentId, ContentCUDto contentCUDto, Long playlistId){
+    public ContentDto update(Long contentId, ContentCUDto contentCUDto, Long playlistId) {
         Content content = contentRepository.findById(contentId).orElseThrow();
-         Playlist playlist = playlistRepository.findById(playlistId).orElseThrow();
-        // ToDo playlist 개발시 변경 예정
-        playlistRepository.save(playlist);
+        Playlist playlist = playlistRepository.findById(playlistId).orElseThrow();
         content.update(contentCUDto, playlist);
 
         return content.toDto();
+    }
+
+    @Transactional
+    public ContentDetailDto findById(Long contentId) {
+
+
+        Content content = contentRepository.findContentById(contentId);
+        if (Objects.isNull(content.getPlaylist())) {
+            return new ContentDetailDto(content, null);
+        }
+        List<ContentVideoDto> contentVideoDtos = content.getPlaylist().getVideos()
+                                                        .stream()
+                                                        .map(ContentVideoDto::new)
+                                                        .collect(Collectors.toList());
+        ContentPlaylistDto contentPlaylistDto = new ContentPlaylistDto(content.getPlaylist(), contentVideoDtos);
+
+        return new ContentDetailDto(content, contentPlaylistDto);
+
     }
 }

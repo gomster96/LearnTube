@@ -1,6 +1,7 @@
 package com.walab.content.presentation;
 
 import com.walab.content.application.ContentService;
+import com.walab.content.application.dto.ContentDetailDto;
 import com.walab.content.application.dto.ContentDto;
 import com.walab.content.application.dto.ContentIdDto;
 import com.walab.content.presentation.request.ContentDeleteRequest;
@@ -26,7 +27,7 @@ public class ContentController {
         ContentIdResponse response = deletedContentIdDto.contentIdResponse();
         return ResponseEntity.ok(response);
     }
-
+    // ToDo contentDescription 이 포함되어 CREATE 될때 구분하기
     @PostMapping("/content")
     public ResponseEntity<ContentResponse> createContent(@RequestBody ContentCreateRequest request) {
         ContentDto createdContent = contentService.create(request.contentCUDto(), request.getLectureId(), request.getPlaylistId());
@@ -38,6 +39,13 @@ public class ContentController {
     public ResponseEntity<ContentResponse> updateContent(@RequestBody ContentUpdateRequest request){
         ContentDto updatedContent = contentService.update(request.getContentId(), request.contentCUDto(), request.getPlaylistId());
         ContentResponse response = updatedContent.contentResponse();
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/content")
+    public ResponseEntity<ContentDetailDto> getContent(@RequestParam Long contentId){
+        ContentDetailDto response = contentService.findById(contentId);
+
         return ResponseEntity.ok(response);
     }
 }
