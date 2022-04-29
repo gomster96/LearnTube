@@ -1,6 +1,7 @@
 package com.walab.content.domain;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 import javax.persistence.*;
 
 import com.walab.content.application.dto.ContentCUDto;
@@ -35,38 +36,48 @@ public class Content {
 
     private LocalDateTime closeDate;
 
-    public Content(Lecture lecture, ContentCUDto contentCUDto, Playlist playlist){
+    public Content(Lecture lecture, ContentCUDto contentCUDto) {
         addLecture(lecture);
-        addPlaylist(playlist);
         setContentDatas(contentCUDto);
     }
-    private void addLecture(Lecture lecture){
+
+    public Content(Lecture lecture, ContentCUDto contentCUDto, Playlist playlist) {
+        this(lecture, contentCUDto);
+        addPlaylist(playlist);
+    }
+
+    private void addLecture(Lecture lecture) {
         this.lecture = lecture;
         lecture.getContents().add(this);
     }
-    private void addPlaylist(Playlist playlist){
+
+    private void addPlaylist(Playlist playlist) {
         this.playlist = playlist;
         playlist.getContents().add(this);
     }
-    private void updatePlaylist(Playlist playlist){
+
+    private void updatePlaylist(Playlist playlist) {
         this.playlist.getContents().remove(this);
         this.playlist = playlist;
         playlist.getContents().add(this);
     }
 
-    public void update(ContentCUDto contentCUDto, Playlist playlist){
+    public void update(ContentCUDto contentCUDto, Playlist playlist) {
         setContentDatas(contentCUDto);
         updatePlaylist(playlist);
     }
 
-    public void setContentDatas(ContentCUDto contentCUDto){
+    public void setContentDatas(ContentCUDto contentCUDto) {
         this.contentName = contentCUDto.getContentName();
         this.contentDescription = contentCUDto.getContentDescription();
         this.openDate = contentCUDto.getOpenDate();
         this.closeDate = contentCUDto.getCloseDate();
     }
 
-    public ContentDto toDto(){
+    public ContentDto toDto() {
+        if (Objects.isNull(this.playlist)) {
+            return new ContentDto(this.id, this.contentName, this.openDate, this.closeDate, null);
+        }
         return new ContentDto(this.id, this.contentName, this.openDate, this.closeDate, this.playlist.getId());
     }
 

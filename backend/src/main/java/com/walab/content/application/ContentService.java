@@ -35,14 +35,20 @@ public class ContentService {
     public ContentDto create(ContentCUDto contentCreateDto, Long lectureId, Long playlistId) {
 
         // ToDo playList Repository 개발 후 사용 예정
-        // Playlist playlist = playlistRepository.findById(playlistId).orElseThrow();
-        // Lecture lecture = lectureRepository.findById(lectureId).orElseThrow();
+        //         Lecture lecture = lectureRepository.findById(lectureId).orElseThrow();
         Playlist playlist = new Playlist();
         playlistRepository.save(playlist);
         Lecture lecture = new Lecture();
         lectureRepository.save(lecture);
         // ToDo 각 repository들 개발되면 바꿀 예정
 
+        if (Objects.isNull(playlistId)) {
+            Content newContent = new Content(lecture, contentCreateDto);
+            Content savedContent = contentRepository.save(newContent);
+            return savedContent.toDto();
+        }
+        // ToDo 각 repository들 개발되면 바꿀 예정
+        //        Playlist playlist = playlistRepository.findById(playlistId).orElseThrow();
         Content newContent = new Content(lecture, contentCreateDto, playlist);
         Content savedContent = contentRepository.save(newContent);
 
