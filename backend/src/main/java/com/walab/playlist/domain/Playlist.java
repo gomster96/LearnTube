@@ -7,7 +7,15 @@ import com.walab.content.domain.Content;
 import com.walab.user.domain.User;
 import com.walab.video.domain.Video;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+
 @Entity
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Playlist {
     @Id
     @GeneratedValue
@@ -27,4 +35,9 @@ public class Playlist {
 
     @OneToMany(mappedBy = "playlist")
     private List<Video> videos;
+
+    public void setContent(Content content){
+        this.content = content;
+    }
+
 }
