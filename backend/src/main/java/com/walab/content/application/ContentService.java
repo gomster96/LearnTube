@@ -1,8 +1,6 @@
 package com.walab.content.application;
 
-import java.util.ArrayList;
-
-import com.walab.content.application.dto.ContentCreateDto;
+import com.walab.content.application.dto.ContentCUDto;
 import com.walab.content.application.dto.ContentDto;
 import com.walab.content.application.dto.ContentIdDto;
 import com.walab.content.domain.Content;
@@ -33,11 +31,11 @@ public class ContentService {
     }
 
     @Transactional
-    public ContentDto create(ContentCreateDto contentCreateDto, Long lectureId, Long playlistId){
+    public ContentDto create(ContentCUDto contentCreateDto, Long lectureId, Long playlistId){
 
         // ToDo playList Repository 개발 후 사용 예정
-        // Playlist playlist = playlistRepository.findById(playlistId);
-        // Lecture lecture = lectureRepository.findById(lectureId)
+        // Playlist playlist = playlistRepository.findById(playlistId).orElseThrow();
+        // Lecture lecture = lectureRepository.findById(lectureId).orElseThrow();
         Playlist playlist = new Playlist();
         playlistRepository.save(playlist);
         Lecture lecture = new Lecture();
@@ -48,5 +46,16 @@ public class ContentService {
         Content savedContent = contentRepository.save(newContent);
 
         return savedContent.toDto();
+    }
+
+    @Transactional
+    public ContentDto update(Long contentId, ContentCUDto contentCUDto, Long playlistId){
+        Content content = contentRepository.findById(contentId).orElseThrow();
+         Playlist playlist = playlistRepository.findById(playlistId).orElseThrow();
+        // ToDo playlist 개발시 변경 예정
+        playlistRepository.save(playlist);
+        content.update(contentCUDto, playlist);
+
+        return content.toDto();
     }
 }

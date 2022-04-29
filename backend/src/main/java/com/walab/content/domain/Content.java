@@ -3,7 +3,7 @@ package com.walab.content.domain;
 import java.time.LocalDateTime;
 import javax.persistence.*;
 
-import com.walab.content.application.dto.ContentCreateDto;
+import com.walab.content.application.dto.ContentCUDto;
 import com.walab.content.application.dto.ContentDto;
 import com.walab.lecture.domain.Lecture;
 import com.walab.playlist.domain.Playlist;
@@ -28,20 +28,20 @@ public class Content {
 
     private String contentDescription;
 
-    @OneToOne(mappedBy = "content")
+    @ManyToOne(fetch = FetchType.LAZY)
     private Playlist playlist;
 
     private LocalDateTime openDate;
 
     private LocalDateTime closeDate;
 
-    public Content(Lecture lecture,ContentCreateDto contentCreateDto, Playlist playlist){
+    public Content(Lecture lecture, ContentCUDto contentCUDto, Playlist playlist){
         addLecture(lecture);
         addPlaylist(playlist);
-        this.contentName = contentCreateDto.getContentName();
-        this.contentDescription = contentCreateDto.getContentDescription();
-        this.openDate = contentCreateDto.getOpenDate();
-        this.closeDate = contentCreateDto.getCloseDate();
+        this.contentName = contentCUDto.getContentName();
+        this.contentDescription = contentCUDto.getContentDescription();
+        this.openDate = contentCUDto.getOpenDate();
+        this.closeDate = contentCUDto.getCloseDate();
     }
     private void addLecture(Lecture lecture){
         this.lecture = lecture;
@@ -49,7 +49,20 @@ public class Content {
     }
     private void addPlaylist(Playlist playlist){
         this.playlist = playlist;
-        playlist.setContent(this);
+        playlist.getContents().add(this);
+    }
+    private void updatePlaylist(Playlist playlist){
+        this.playlist.getContents().remove(this);
+        this.playlist = playlist;
+        playlist.getContents().add(this);
+    }
+
+    public void update(ContentCUDto contentCUDto, Playlist playlist){
+        this.contentName = contentCUDto.getContentName();
+        this.contentDescription = contentCUDto.getContentDescription();
+        this.openDate = contentCUDto.getOpenDate();
+        this.closeDate = contentCUDto.getCloseDate();
+        updatePlaylist(playlist);
     }
 
     public ContentDto toDto(){

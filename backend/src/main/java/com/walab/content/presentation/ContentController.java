@@ -5,6 +5,7 @@ import com.walab.content.application.dto.ContentDto;
 import com.walab.content.application.dto.ContentIdDto;
 import com.walab.content.presentation.request.ContentDeleteRequest;
 import com.walab.content.presentation.request.ContentCreateRequest;
+import com.walab.content.presentation.request.ContentUpdateRequest;
 import com.walab.content.presentation.response.ContentIdResponse;
 import com.walab.content.presentation.response.ContentResponse;
 
@@ -28,8 +29,15 @@ public class ContentController {
 
     @PostMapping("/content")
     public ResponseEntity<ContentResponse> createContent(@RequestBody ContentCreateRequest request) {
-        ContentDto createdContent = contentService.create(request.contentCreateDto(), request.getLectureId(), request.getPlaylistId());
+        ContentDto createdContent = contentService.create(request.contentCUDto(), request.getLectureId(), request.getPlaylistId());
         ContentResponse response = createdContent.contentResponse();
+        return ResponseEntity.ok(response);
+    }
+
+    @PatchMapping("/content")
+    public ResponseEntity<ContentResponse> updateContent(@RequestBody ContentUpdateRequest request){
+        ContentDto updatedContent = contentService.update(request.getContentId(), request.contentCUDto(), request.getPlaylistId());
+        ContentResponse response = updatedContent.contentResponse();
         return ResponseEntity.ok(response);
     }
 }

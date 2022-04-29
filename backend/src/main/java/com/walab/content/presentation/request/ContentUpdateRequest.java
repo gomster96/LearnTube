@@ -9,15 +9,15 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ContentCreateRequest {
-    private Long lectureId;
+public class ContentUpdateRequest {
+    private Long contentId;
     private String contentName;
     private String contentDescription;
     private LocalDateTime openDate;
     private LocalDateTime closeDate;
     private Long playlistId;
 
-    public ContentCUDto contentCUDto(){
+    public ContentCUDto contentCUDto() {
         return new ContentCUDto(this);
     }
 }

@@ -1,5 +1,6 @@
 package com.walab.playlist.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 
@@ -24,8 +25,8 @@ public class Playlist {
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
-    @OneToOne
-    private Content content;
+    @OneToMany(mappedBy = "playlist")
+    private List<Content> contents = new ArrayList<>();
 
     private String playlistName;
 
@@ -35,9 +36,5 @@ public class Playlist {
 
     @OneToMany(mappedBy = "playlist")
     private List<Video> videos;
-
-    public void setContent(Content content){
-        this.content = content;
-    }
 
 }
