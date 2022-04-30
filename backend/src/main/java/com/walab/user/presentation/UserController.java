@@ -2,6 +2,7 @@ package com.walab.user.presentation;
 
 import com.walab.user.application.UserService;
 import com.walab.user.application.dto.UserDto;
+import com.walab.user.presentation.request.UserIdRequest;
 import com.walab.user.presentation.request.UserLoginRequest;
 import com.walab.user.presentation.response.UserResponse;
 
@@ -30,5 +31,13 @@ public class UserController {
         UserResponse response = userDto.userResponse();
 
         return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/user")
+    public ResponseEntity<Long> deleteUser(@RequestBody UserIdRequest request){
+        Long userId = request.getUserId();
+        userService.deleteUser(userId);
+
+        return ResponseEntity.ok(userId);
     }
 }

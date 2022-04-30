@@ -31,4 +31,9 @@ public class UserService {
         User user = userRepository.findById(userId).orElseThrow();
         return user.toDto();
     }
+
+    @Transactional
+    public void deleteUser(Long userId){
+        userRepository.deleteById(userId);
+    }
 }

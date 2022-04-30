@@ -27,7 +27,7 @@ public class ContentController {
         ContentIdResponse response = deletedContentIdDto.contentIdResponse();
         return ResponseEntity.ok(response);
     }
-    // ToDo contentDescription 이 포함되어 CREATE 될때 구분하기
+
     @PostMapping("/content")
     public ResponseEntity<ContentResponse> createContent(@RequestBody ContentCreateRequest request) {
         ContentDto createdContent = contentService.create(request.contentCUDto(), request.getLectureId(), request.getPlaylistId());
