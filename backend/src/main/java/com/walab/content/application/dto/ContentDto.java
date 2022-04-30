@@ -14,12 +14,14 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ContentDto {
+  
     private Long contentId;
     private String contentName;
     private String contentDescription;
     private LocalDateTime openDate;
     private LocalDateTime closeDate;
     private Long playlistId;
+
 
     public ContentResponse contentResponse() {
         return new ContentResponse(contentId, contentName, contentDescription, openDate, closeDate, playlistId);
