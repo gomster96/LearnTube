@@ -76,9 +76,9 @@ public class Content {
 
     public ContentDto toDto() {
         if (Objects.isNull(this.playlist)) {
-            return new ContentDto(this.id, this.contentName, this.openDate, this.closeDate, null);
+            return new ContentDto(this.id, this.contentName, this.contentDescription,this.openDate, this.closeDate, null);
         }
-        return new ContentDto(this.id, this.contentName, this.openDate, this.closeDate, this.playlist.getId());
+        return new ContentDto(this.id, this.contentName, this.contentDescription,this.openDate, this.closeDate, this.playlist.getId());
     }
 
 }

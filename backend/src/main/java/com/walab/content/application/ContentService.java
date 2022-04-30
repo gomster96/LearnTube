@@ -67,7 +67,6 @@ public class ContentService {
     @Transactional
     public ContentDetailDto findById(Long contentId) {
 
-
         Content content = contentRepository.findContentById(contentId);
         if (Objects.isNull(content.getPlaylist())) {
             return new ContentDetailDto(content, null);

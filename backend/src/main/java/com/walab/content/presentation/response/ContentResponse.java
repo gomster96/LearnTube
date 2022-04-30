@@ -14,6 +14,7 @@ import lombok.Setter;
 public class ContentResponse {
     private Long contentId;
     private String contentName;
+    private String contentDescription;
     private LocalDateTime openDate;
     private LocalDateTime closeDate;
     private Long playlistId;
