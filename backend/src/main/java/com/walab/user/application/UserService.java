@@ -26,4 +26,9 @@ public class UserService {
         return savedUser.toDto();
     }
 
+    @Transactional
+    public UserDto findById(Long userId){
+        User user = userRepository.findById(userId).orElseThrow();
+        return user.toDto();
+    }
 }

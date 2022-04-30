@@ -6,10 +6,7 @@ import com.walab.user.presentation.request.UserLoginRequest;
 import com.walab.user.presentation.response.UserResponse;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import lombok.RequiredArgsConstructor;
 
@@ -22,6 +19,14 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<UserResponse> login(@RequestBody UserLoginRequest request){
         UserDto userDto = userService.userLogin(request.userDto());
+        UserResponse response = userDto.userResponse();
+
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/user")
+    public ResponseEntity<UserResponse> getUser(@RequestParam Long userId){
+        UserDto userDto = userService.findById(userId);
         UserResponse response = userDto.userResponse();
 
         return ResponseEntity.ok(response);
