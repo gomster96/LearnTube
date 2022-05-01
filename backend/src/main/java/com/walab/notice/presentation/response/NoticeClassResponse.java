@@ -1,20 +1,18 @@
-package com.walab.notice.domain.request;
+package com.walab.notice.presentation.response;
 
-import com.walab.notice.applecation.dto.NoticeCUDto;
-import com.walab.notice.applecation.dto.NoticeDto;
-import com.walab.notice.domain.Notice;
-import lombok.Builder;
-import lombok.Data;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.PrePersist;
 import java.time.LocalDateTime;
 
-
 @Getter
 @Setter
-public class NoticeCreationRequest {
+@NoArgsConstructor
+@AllArgsConstructor
+public class NoticeClassResponse {
     private Long noticeId;
     private String title;
     private String content;
@@ -26,9 +24,5 @@ public class NoticeCreationRequest {
         this.modDate = LocalDateTime.now();
         return this.modDate;
     }
-
-    public NoticeCUDto noticeCUDto(){
-        return new NoticeCUDto(this);
-    }
-
 }
+
