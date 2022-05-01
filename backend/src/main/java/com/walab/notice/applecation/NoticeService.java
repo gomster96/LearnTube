@@ -1,59 +1,51 @@
 package com.walab.notice.applecation;
 
+import com.walab.classroom.domain.ClassRoom;
+import com.walab.classroom.domain.repository.ClassRoomRepository;
+import com.walab.notice.applecation.dto.*;
 import com.walab.notice.domain.repository.NoticeRepository;
 import com.walab.notice.domain.Notice;
-import com.walab.notice.domain.request.NoticeCreationRequest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class NoticeService {
 
     private final NoticeRepository noticeRepository;
-    
-    public Notice createNotice(NoticeCreationRequest request){
-        Notice notice = new Notice();
-        BeanUtils.copyProperties(request, notice);
-        return noticeRepository.save(notice);
+    private final ClassRoomRepository classRoomRepository;
+
+    @Transactional
+    public NoticeDto createNotice(NoticeCUDto noticeCreateDto, Long classId){
+        ClassRoom classRoom = classRoomRepository.findById(classId).orElseThrow();
+        Notice notice = new Notice(classRoom, noticeCreateDto);
+        Notice saveNotice = noticeRepository.save(notice);
+
+        return saveNotice.toDto();
     }
 
-    public Notice readNotice(long id) {
-        Optional<Notice> notice = noticeRepository.findById(id);
-        if(notice.isPresent()) {
-            return notice.get();
-        }
-        throw new EntityNotFoundException(
-                "Can't find any book under given id"
-        );
+    @Transactional
+    public NoticeDto updateNotice(Long noticeId, NoticeCUDto noticeUpdateDto) {
+        Notice updateNotice = noticeRepository.findById(noticeId).orElseThrow();
+        updateNotice.update(noticeUpdateDto);
+        return updateNotice.toDto();
     }
 
-    public List<Notice> readNotices() {
-        return noticeRepository.findAll();
+    @Transactional
+    public NoticeIdDto delete(NoticeIdDto noticeIdDto){
+        Long deleteId = noticeIdDto.getNoticeId();
+        noticeRepository.deleteById(deleteId);
+        return noticeIdDto;
     }
 
-
-    public Notice updateNotice(Long noticeId, NoticeCreationRequest request) {
-        Optional<Notice> optionalNotice = noticeRepository.findById(noticeId);
-        if (!optionalNotice.isPresent()){
-            throw new EntityNotFoundException(
-                    "Member not present in the database"
-            );
-        }
-        Notice notice = optionalNotice.get();
-        notice.setTitle(request.getTitle());
-        notice.setContent(request.getContent());
-        notice.setModDate(request.getModDate());
-        return noticeRepository.save(notice);
+    @Transactional
+    public List<NoticeDetailDto> getNotices(Long classId){
+        ClassRoom result = classRoomRepository.findById(classId).orElseThrow();
+//        result.getNotices().forEach(notice1 -> {System.out.println(notice1.getTitle());});
+        return result.getNotices().stream().map(NoticeDetailDto::new).collect(Collectors.toList());
     }
-
-    public void deleteNotice(Long id) {
-        noticeRepository.deleteById(id);
-    }
-
 }
