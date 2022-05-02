@@ -1,0 +1,127 @@
+.rs-technology{
+    .technology-item{
+        text-align: center;
+        padding: 20px 40px 20px 40px;
+        a{
+            overflow: hidden;
+        }
+    }
+    &.style2{
+        background-repeat: no-repeat;
+        background-position: top center;
+        background-size: cover;
+        background-color: #0C54B8;
+       .technology-wrap{
+            .rs-grid-figure{
+                position: relative;
+                text-align: center;
+                padding: 45px 30px 45px 30px;
+                border-style: solid;
+                border-width: 1px 1px 1px 1px;
+                border-color: #a7acb4;
+                border-radius: 4px 4px 4px 4px;
+                transition: all ease .4s;
+                .logo-img{
+                    overflow: hidden;
+                    a{
+                        overflow: hidden;
+                        display: inline-block;
+                        position: relative;
+                        .hover-img{
+                            transition: all ease .4s;
+                            filter: grayscale(100%);
+                            display: block;
+                            position: absolute;
+                            z-index: 1;
+                            top: 0;
+                            left: 0;
+                            visibility: hidden;
+                        }
+                        .main-img{
+                            transition: all ease .4s;
+                            filter: grayscale(100%);
+                        }
+                    }
+                }
+            }
+            .logo-title{
+                position: relative;
+                text-align: center;
+                padding: 30px 0px 0px 0px;
+                .title{
+                    font-size: 18px;
+                    font-weight: 600;
+                    text-transform: uppercase;
+                    color: $whiteColor;
+                    margin: 36px 0px 0px 0px;
+                }
+                &:before{
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 50%;
+                    height: 40px;
+                    width: 1px;
+                    transform: translateX(-50%);
+                    background-color: #a7acb4;
+                    -webkit-transition: all 0.25s ease;
+                    transition: all 0.25s ease;
+                }
+                &:after{
+                    content: '';
+                    position: absolute;
+                    top: 40px;
+                    left: 50.3%;
+                    height: 12px;
+                    border-radius: 50%;
+                    width: 12px;
+                    transform: translateX(-50%);
+                    background-color: #a7acb4;
+                    -webkit-transition: all 0.25s ease;
+                    transition: all 0.25s ease;
+                }
+            }
+            &:hover{
+                .rs-grid-figure{
+                    border-color: #fff;
+                    background-color: #fff;
+                    .logo-img{
+                        a{
+                            .hover-img{
+                                display: block;
+                                opacity: 3;
+                                visibility: visible;
+                                transform: translateY(0%);
+                                filter: grayscale(0%);
+                            }
+                            .main-img{
+                                display: block;
+                                visibility: hidden;
+                                transform: translateY(100%);
+                            }
+                        }
+                    }
+                }
+                .logo-title{
+                 
+                    &:before{
+                        background-color: #fff;
+                    }
+                    &:after{
+                        background-color: #fff;
+                    }
+                }
+            }
+       }
+    }
+}
+
+@media #{$xs} {
+    .rs-technology .technology-item img {
+        max-width: 150px;
+    }
+    .rs-technology.style2 .technology-wrap {
+        max-width: 240px;
+        margin: 0 auto;
+    }
+}

@@ -1,0 +1,133 @@
+/* Custom Container Width :1440px. */
+@media (min-width: 1440px) {
+    .container {
+        max-width: 1270px;
+        width: 100%;
+    }
+}
+
+/* Laptop :1600px. */
+@media #{$laptop} {
+    .hidden-laptop {
+        display: none !important;
+    }
+    .laptop-text-center {
+        text-align: center !important;
+    }
+}
+
+
+/* XL Device :1366px. */
+@media #{$xl} {
+    .hidden-xl {
+        display: none !important;
+    }
+    .xl-text-center {
+        text-align: center !important;
+    }
+}
+
+/* Lg Device :1199px. */
+@media #{$lg} {
+    .hidden-lg {
+        display: none !important;
+    }
+    .lg-text-center {
+        text-align: center !important;
+    }
+}
+
+
+/* Tablet desktop :768px. */
+@media #{$md} {
+    .hidden-md {
+        display: none !important;
+    }
+    .md-display-block {
+        display: block !important;
+    }
+    .md-pl-pr {
+        margin-left: -15px !important;
+        margin-right: -15px !important;
+        > [class*="col-"] {
+            padding-left: 15px !important;
+            padding-right: 15px !important;
+        }
+    }
+    .md-text-left {
+        text-align: left !important;
+    }
+    .md-text-center {
+        text-align: center !important;
+    }
+    .md-text-right {
+        text-align: right !important;
+    }
+    .order-last {
+        -webkit-order: unset;
+        -moz-box-ordinal-group: unset;
+        order: unset;
+    }
+    .md-order-first {
+        -webkit-order: -1;
+        -moz-box-ordinal-group: -1;
+        order: -1;
+    }
+    .readon.buy-now {
+        padding: 7px 32px;
+        top: -24px;
+    }
+}
+
+
+/* Tablet :767px. */
+@media #{$sm} {
+    .hidden-sm {
+        display: none !important;
+    }
+    .sm-pl-pr {
+        margin-left: -15px !important;
+        margin-right: -15px !important;
+        > [class*="col-"] {
+            padding-left: 15px !important;
+            padding-right: 15px !important;
+        }
+    }
+    .md-text-center {
+        text-align: center !important;
+    }
+    h3 {
+        font-size: 23px;
+    }
+    .rs-my-account .title,
+    .rs-team-Single .btm-info-team .con-info .title,
+    .rs-why-choose.style3 .features-wrap .title,
+    .rs-banner.style6 .banner-content .title,
+    .rs-call-action .action-wrap .title,
+    .rs-about.style4 .about-content .title,
+    .rs-banner.style5 .banner-content .title,
+    .sec-title5 .title,
+    .rs-banner.style3 .banner-content .title {
+        font-size: 28px;
+    }
+}
+
+/* Large Mobile :575px. */
+@media #{$xs} {
+    .hidden-xs {
+        display: none !important;
+    }
+    .xs-text-center {
+        text-align: center !important;
+    }
+}
+
+/* small mobile :480px. */
+@media #{$mobile} {
+    .hidden-mobile {
+        display: none !important;
+    }
+    .mobile-text-center {
+        text-align: center !important;
+    }
+}

@@ -1,0 +1,67 @@
+.progress-pie-part {
+    .pie-chart {
+        position: relative;
+        .circle-part {
+            display: inline-block;
+            position: relative;
+            .progress-number {
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                font-size: 30px;
+                font-weight: 600;
+                color: #102b3e;
+            }
+        }
+        .progress-title {
+            font-size: 22px;
+            line-height: 37px;
+            font-weight: 600;
+            color: $titleColor;
+            margin: 14px 0 0;
+        }
+    }
+}
+.rs-case-study {
+    background: linear-gradient(90deg, #03228f 40%, #0e73e4 90%);
+    .case-study {
+        padding: 113px 160px 194px 90px;
+        background-repeat: no-repeat;
+        background-position: top center;
+        background-size: cover;
+    }
+}
+
+
+@media #{$laptop} {
+    .rs-case-study .case-study {
+        padding: 110px 100px 120px 50px;
+    }
+}
+
+@media #{$lg} {
+    .rs-case-study .case-study {
+        padding: 112px 20px 80px 30px;
+    }
+}
+
+@media #{$only_lg} {
+    .progress-pie-part .pie-chart .progress-title {
+        font-size: 20px;
+        line-height: 30px;
+    }
+}
+
+@media #{$md} {
+    .rs-case-study .case-study {
+        padding: 75px 30px 20px;
+    }
+}
+
+@media #{$sm} {
+    .rs-case-study .rs-project.style3 .project-item {
+        max-width: 380px;
+        margin: 55px auto 0;
+    }
+}

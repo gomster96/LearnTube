@@ -1,0 +1,189 @@
+.rs-pricing{
+    position: relative;
+    .pricing-table{
+        padding: 27px 40px 0px 40px;
+        box-shadow: 0 0 30px #eee;
+        background: $whiteColor;
+        border-radius: 10px 10px 10px 10px;
+        position: relative;
+        text-align: center;
+        margin: 0px 7px 0px 0px;
+        .pricing-badge{
+            top: 30px;
+            left: 0px;
+            padding: 10px 23px 11px 23px;
+            background-color: #1273EB;
+            border-radius: 0px 30px 30px 0px;
+            font-size: 13px;
+            font-weight: 500;
+            text-transform: uppercase;
+            position: absolute;
+            color: #fff;
+            line-height: 1;
+            z-index: 1;
+            &.white-color-bg{
+                background: $whiteColor;
+                color: $primaryColor;
+            }
+            &.secondary-bg{
+                background: $secondaryColor;
+            }
+        }
+        .pricing-icon{
+            margin-bottom: 60px;
+            img{
+                width: 110px;
+            }
+        }
+        .pricing-table-price{
+            margin-bottom: 30px;
+            .pricing-table-bags{
+                .pricing-currency{
+                    font-size: 25px;
+                    font-weight: 600;
+                    color: $titleColor;
+                }
+                .table-price-text{
+                    font-size: 52px;
+                    font-weight: 600;
+                    color: $titleColor;
+                }
+                .table-period{
+                    color: #435761;
+                    font-size: 16px;
+                    font-weight: 500;
+                    display: block;
+                }
+            }
+        }
+        .pricing-table-body{
+            margin-bottom: 10px;
+            border-style: solid;
+            border-width: 1px 0px 0px 0px;
+            border-color: #EBEBEB;
+            padding: 18px 15px 4px 15px;
+            li{
+                text-align: left;
+                padding: 9px 15px 9px 0px;
+                margin-bottom: 0px;
+                font-size: 15px;
+                font-weight: 400;
+                position: relative;
+                &:after{
+                    position: absolute;
+                    font-family: "FontAwesome";
+                    right: 0;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    color: $primaryColor;
+                }
+                &.yes {
+                    &:after{
+                        content: "\f00c";
+                    }
+                }
+                &.no {
+                    &:after{
+                        content: "\f00d";
+                    }
+                }
+            }
+        }
+        &.primary-bg{
+            background-image: linear-gradient(70deg, #0B70E1 0%, #03228F 100%);
+            .pricing-table-price{
+                .pricing-table-bags{
+                    .pricing-currency{
+                        color: $whiteColor;
+                    }
+                    .table-price-text{
+                        color: $whiteColor;
+                    }
+                    .table-period{
+                       color: $whiteColor;
+                    }
+                }
+            }
+            .pricing-table-body{
+                border-color: #1F71C1;
+                li{
+                    color: $whiteColor;
+                    &:after{
+                        color: $whiteColor;
+                    }
+                }
+            }
+        }
+        &.light-gray-bg{
+            background-color: #F3F7FF;
+            border-style: solid;
+            border-width: 1px 1px 1px 1px;
+            border-color: #EBEBEB;
+            border-radius: 5px 5px 5px 5px;
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0);
+            .pricing-table-price{
+                .pricing-table-bags{
+                    .pricing-currency{
+                        color: $secondaryColor;
+                    }
+                    .table-price-text{
+                        color: $secondaryColor;
+                    }
+                }
+            }
+            .pricing-table-body{
+                li{
+                    
+                    &:after{
+                        color: $titleColor;
+                    }
+                }
+            }
+        }
+        &.new-style{
+            box-shadow: unset;
+            background: unset;
+            border-style: solid;
+            border-color: #EBEBEB;
+            border-width: 1px 1px 1px 1px;
+        } 
+        &.new-style2{
+            background: unset;
+            border-style: solid;
+            border-color: #EBEBEB;
+            border-width: 1px 1px 1px 1px;
+        }
+    }
+}
+
+@media #{$lg} {
+    .rs-pricing .pricing-table {
+        max-width: 500px;
+        margin: 0 auto;
+    }
+}
+
+@media #{$only_lg} {
+    .rs-pricing .pricing-table {
+        padding: 22px 30px 0;
+    }
+}
+
+@media #{$md} {
+    .rs-pricing .pricing-table .pricing-table-body {
+        margin-bottom: 32px;
+    }
+}
+
+@media #{$sm} {
+    .rs-pricing .pricing-table .pricing-table-price .pricing-table-bags .table-price-text {
+        font-size: 40px;
+    }
+}
+
+@media #{$mobile} {
+    .rs-pricing .pricing-table {
+        padding: 27px 27px 0;
+    }
+}
+
