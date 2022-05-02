@@ -1,6 +1,7 @@
 package com.walab.classroom.domain;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 
@@ -37,7 +38,7 @@ public class ClassRoom {
     private Boolean isActive;
 
     @OneToMany(mappedBy = "classRoom")
-    private List<Notice> notices;
+    private List<Notice> notices = new ArrayList<>();
 
     @OneToMany(mappedBy = "classRoom")
     private List<Lecture> lectures;
