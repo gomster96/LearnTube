@@ -33,7 +33,7 @@ public class UserController {
         return ResponseEntity.ok(response);
     }
 
-    @DeleteMapping("/user")
+    @PostMapping("/user/delete")
     public ResponseEntity<Long> deleteUser(@RequestBody UserIdRequest request){
         Long userId = request.getUserId();
         userService.deleteUser(userId);

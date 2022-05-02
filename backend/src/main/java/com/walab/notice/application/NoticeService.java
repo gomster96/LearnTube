@@ -1,8 +1,8 @@
-package com.walab.notice.applecation;
+package com.walab.notice.application;
 
 import com.walab.classroom.domain.ClassRoom;
 import com.walab.classroom.domain.repository.ClassRoomRepository;
-import com.walab.notice.applecation.dto.*;
+import com.walab.notice.application.dto.*;
 import com.walab.notice.domain.repository.NoticeRepository;
 import com.walab.notice.domain.Notice;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +21,7 @@ public class NoticeService {
 
     @Transactional
     public NoticeDto createNotice(NoticeCUDto noticeCreateDto, Long classId){
+
         ClassRoom classRoom = classRoomRepository.findById(classId).orElseThrow();
         Notice notice = new Notice(classRoom, noticeCreateDto);
         Notice saveNotice = noticeRepository.save(notice);

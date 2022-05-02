@@ -1,6 +1,6 @@
 package com.walab.notice.domain.request;
 
-import com.walab.notice.applecation.dto.NoticeIdDto;
+import com.walab.notice.application.dto.NoticeIdDto;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -1,8 +1,7 @@
-package com.walab.notice.applecation.dto;
+package com.walab.notice.application.dto;
 
 import com.walab.classroom.domain.ClassRoom;
-import com.walab.notice.domain.Notice;
-import com.walab.notice.applecation.dto.NoticeDetailDto;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

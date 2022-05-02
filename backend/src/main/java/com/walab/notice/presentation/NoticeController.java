@@ -1,7 +1,7 @@
 package com.walab.notice.presentation;
 
-import com.walab.notice.applecation.NoticeService;
-import com.walab.notice.applecation.dto.*;
+import com.walab.notice.application.NoticeService;
+import com.walab.notice.application.dto.*;
 
 import com.walab.notice.domain.repository.NoticeRepository;
 import com.walab.notice.domain.request.NoticeCreationRequest;
@@ -30,14 +30,14 @@ public class NoticeController {
         return ResponseEntity.ok(response);
     }
 
-    @PatchMapping(value ="notice")
+    @PostMapping(value ="notice/update")
     public ResponseEntity<NoticeResponse> updateNotice (@RequestBody NoticeUpdateRequest request) {
         NoticeDto updateNotice = noticeService.updateNotice(request.getNoticeId(), request.noticeCUDto());
         NoticeResponse response = updateNotice.noticeResponse();
         return ResponseEntity.ok(response);
     }
 
-    @DeleteMapping("notice")
+    @PostMapping("notice/delete")
     public ResponseEntity<NoticeIdResponse> deleteNotice (@RequestBody NoticeDeleteRequest request){
         NoticeIdDto deleteNoticeIdDto = noticeService.delete(request.toDto());
         NoticeIdResponse response = deleteNoticeIdDto.noticeIdResponse();
