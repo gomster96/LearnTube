@@ -41,3 +41,4 @@ public class LectureController {
         return ResponseEntity.ok(deleteId);
     }
 }
+

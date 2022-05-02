@@ -1,5 +1,6 @@
 package com.walab.lecture.application;
 
+
 import com.walab.classroom.domain.ClassRoom;
 import com.walab.classroom.domain.repository.ClassRoomRepository;
 import com.walab.content.domain.Content;
@@ -48,4 +49,5 @@ public class LectureService {
         lectureRepository.deleteById(lectureId);
         return lectureId;
     }
+
 }
