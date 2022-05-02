@@ -1,4 +1,4 @@
-package com.walab.notice.applecation.dto;
+package com.walab.notice.application.dto;
 
 import com.walab.notice.domain.Notice;
 import lombok.AllArgsConstructor;

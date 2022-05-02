@@ -30,7 +30,7 @@ public class Lecture {
     private ClassRoom classRoom;
 
     @OneToMany(mappedBy = "lecture")
-    private List<Content> contents;
+    private List<Content> contents = new ArrayList<>();
 
     private LocalDateTime modDate;
 

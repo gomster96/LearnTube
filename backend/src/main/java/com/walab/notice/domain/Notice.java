@@ -6,9 +6,9 @@ import javax.persistence.*;
 
 import com.walab.classroom.domain.ClassRoom;
 
-import com.walab.notice.applecation.dto.NoticeCUDto;
-import com.walab.notice.applecation.dto.NoticeDetailDto;
-import com.walab.notice.applecation.dto.NoticeDto;
+import com.walab.notice.application.dto.NoticeCUDto;
+import com.walab.notice.application.dto.NoticeDetailDto;
+import com.walab.notice.application.dto.NoticeDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

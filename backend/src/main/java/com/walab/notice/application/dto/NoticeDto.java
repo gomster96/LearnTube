@@ -1,6 +1,5 @@
-package com.walab.notice.applecation.dto;
+package com.walab.notice.application.dto;
 
-import com.walab.notice.presentation.response.NoticeIdResponse;
 import com.walab.notice.presentation.response.NoticeResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

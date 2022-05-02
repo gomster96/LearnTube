@@ -1,15 +1,11 @@
-package com.walab.notice.applecation.dto;
+package com.walab.notice.application.dto;
 
-import com.walab.notice.domain.Notice;
 import com.walab.notice.domain.request.NoticeCreationRequest;
 import com.walab.notice.domain.request.NoticeUpdateRequest;
-import com.walab.notice.presentation.response.NoticeClassResponse;
-import lombok.AllArgsConstructor;
+
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
 import javax.persistence.PrePersist;
 import java.time.LocalDateTime;
 

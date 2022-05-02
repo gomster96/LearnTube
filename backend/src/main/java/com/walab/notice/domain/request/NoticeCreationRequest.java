@@ -1,10 +1,7 @@
 package com.walab.notice.domain.request;
 
-import com.walab.notice.applecation.dto.NoticeCUDto;
-import com.walab.notice.applecation.dto.NoticeDto;
-import com.walab.notice.domain.Notice;
-import lombok.Builder;
-import lombok.Data;
+import com.walab.notice.application.dto.NoticeCUDto;
+
 import lombok.Getter;
 import lombok.Setter;
 

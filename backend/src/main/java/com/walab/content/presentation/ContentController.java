@@ -4,8 +4,8 @@ import com.walab.content.application.ContentService;
 import com.walab.content.application.dto.ContentDetailDto;
 import com.walab.content.application.dto.ContentDto;
 import com.walab.content.application.dto.ContentIdDto;
-import com.walab.content.presentation.request.ContentDeleteRequest;
 import com.walab.content.presentation.request.ContentCreateRequest;
+import com.walab.content.presentation.request.ContentDeleteRequest;
 import com.walab.content.presentation.request.ContentUpdateRequest;
 import com.walab.content.presentation.response.ContentIdResponse;
 import com.walab.content.presentation.response.ContentResponse;
@@ -21,7 +21,7 @@ import lombok.RequiredArgsConstructor;
 public class ContentController {
     private final ContentService contentService;
 
-    @DeleteMapping("/content")
+    @PostMapping("/content/delete")
     public ResponseEntity<ContentIdResponse> deleteContent(@RequestBody ContentDeleteRequest request) {
         ContentIdDto deletedContentIdDto = contentService.delete(request.toDto());
         ContentIdResponse response = deletedContentIdDto.contentIdResponse();
@@ -35,15 +35,15 @@ public class ContentController {
         return ResponseEntity.ok(response);
     }
 
-    @PatchMapping("/content")
-    public ResponseEntity<ContentResponse> updateContent(@RequestBody ContentUpdateRequest request){
+    @PostMapping("/content/update")
+    public ResponseEntity<ContentResponse> updateContent(@RequestBody ContentUpdateRequest request) {
         ContentDto updatedContent = contentService.update(request.getContentId(), request.contentCUDto(), request.getPlaylistId());
         ContentResponse response = updatedContent.contentResponse();
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/content")
-    public ResponseEntity<ContentDetailDto> getContent(@RequestParam Long contentId){
+    public ResponseEntity<ContentDetailDto> getContent(@RequestParam Long contentId) {
         ContentDetailDto response = contentService.findById(contentId);
 
         return ResponseEntity.ok(response);

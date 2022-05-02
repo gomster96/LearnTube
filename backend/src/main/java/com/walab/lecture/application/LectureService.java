@@ -9,7 +9,9 @@ import com.walab.lecture.application.dto.LectureDto;
 import com.walab.lecture.domain.Lecture;
 import com.walab.lecture.domain.dto.LectureDataDto;
 import com.walab.lecture.domain.repository.LectureRepository;
+
 import lombok.*;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,7 +44,8 @@ public class LectureService {
                 .collect(Collectors.toList());
     }
 
-    public void deleteLecture(Long lectureId) {
+    public Long deleteLecture(Long lectureId) {
         lectureRepository.deleteById(lectureId);
+        return lectureId;
     }
 }
