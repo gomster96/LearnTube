@@ -18,7 +18,8 @@ const YoutubeBoard = memo(({video, video: {snippet, contentDetails}, onVideoClic
     useEffect(function () {
         setSearchedVideos(video);
     });
-    let duration = 'PT9M33S';
+     let duration = 'PT9M33S';
+    //let duration = contentDetails.duration;
     //if(!contentDetails.duration) duration = 'PT9M50S';
     // 시간 customizing
     let whereH = duration.indexOf('H');
