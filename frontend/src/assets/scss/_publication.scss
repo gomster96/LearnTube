@@ -1,0 +1,45 @@
+.rs-publication{
+	.product-list{
+		.product-title {
+			margin-bottom: 0;
+			a {
+				color: $titleColor;
+				font-size: 22px;
+				&:hover{
+					color: $primaryColor;
+				}
+			}
+		}
+		.image-product{
+			position: relative;
+			.flaticon-basket{
+				position: absolute;
+				bottom: 150px;
+				right: 13px;
+				background: transparent;
+				opacity: 0;
+				visibility: hidden;
+				transition: 0.4s;
+				&:before{
+					font-size: 30px;
+					line-height: 45px;
+					color: #505050;
+					font-weight: 400;
+					background: #ffffff;
+					border: none;
+					padding: 8px 10px 8px;
+					height: 45px;
+					width: 45px;
+					line-height: 45px;
+				}
+			}
+			&:hover{
+				i{
+					opacity: 1;
+					visibility: visible;
+					bottom: 13px;
+				}
+			}
+		}
+	}
+}

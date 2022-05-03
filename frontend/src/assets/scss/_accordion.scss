@@ -1,0 +1,121 @@
+.accordion-box{
+    position:relative;
+    .accordion-item{
+        position:relative;
+        background-color:#ffffff;
+        border: none;
+        border-bottom:4px solid #f6f6f6;
+        box-shadow:0px 0px 30px rgba(0,0,0,0.10);        
+        .accordion__heading {
+            position: relative;
+            padding: 0;
+            border: none;
+            border-radius: unset;
+            .accordion__button {
+                button {
+                    position:relative;
+                    width: 100%;
+                    text-align: left;
+                    font-size:20px;
+                    margin-bottom:0px;
+                    cursor:pointer;
+                    line-height:24px;
+                    font-weight:600;
+                    color: $titleColor;
+                    padding: 0 25px;
+                    height: 65px;
+                    line-height: 65px;
+                    border: none;
+                    background-color: rgba(0,0,0,.03);
+                    text-decoration: none !important;
+                    text-transform:capitalize;
+                    transition:all 500ms ease;
+                    -moz-transition:all 500ms ease;
+                    -webkit-transition:all 500ms ease;
+                    -ms-transition:all 500ms ease;
+                    -o-transition:all 500ms ease;                    
+                }
+                &:after {
+                    position: absolute;
+                    font-family: FontAwesome;
+                    content: "\f078";
+                    right: 25px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    text-align: center;
+                    font-weight: 400;
+                    color: $titleColor;
+                    padding: unset;
+                    transition: $transition;
+                }
+                &[aria-expanded="true"] {
+                    &:after {
+                        content: "\f077";
+                    }
+                }
+            }
+        }
+        .content{
+            position:relative;
+            padding:0px 40px 25px;
+        }
+        .play-icon{
+            position:relative;
+            color:#626262;
+            font-size:18px;
+            text-align:center;
+            line-height: 40px;
+            display:inline-block;
+            transition:all 0.3s ease;
+            -moz-transition:all 0.3s ease;
+            -webkit-transition:all 0.3s ease;
+            -ms-transition:all 0.3s ease;
+            -o-transition:all 0.3s ease;
+            background-color:#ffffff;
+            &:before {
+                content: "";
+                position: absolute;
+                z-index: 0;
+                left: 0;
+                top: 50%;
+                transform: translateY(-50%);
+                display: block;
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                animation: pulse-border 1500ms ease-out infinite;
+                transition: all 0.3s ease; 
+            }
+            .fa{
+                position: relative;
+                width:40px;
+                height: 40px;
+                line-height: 40px;
+                left:0px;
+                z-index:99;
+                color: $orangeColor;
+                font-weight:400;
+                font-size:16px;
+                text-align: center;
+                border-radius:50%;
+                padding-left:4px;
+                margin-right:30px;
+                display: inline-block;
+                margin-top: -20px;
+                margin-left:-20px;
+                background-color:#ffffff;
+                transition: all 900ms ease;
+                -moz-transition: all 900ms ease;
+                -webkit-transition: all 900ms ease;
+                -ms-transition: all 900ms ease;
+                -o-transition: all 900ms ease;
+                box-shadow:0px 0px 15px rgba(0,0,0,0.10);
+            }
+            &:hover {
+                &:before {
+                    background: $orangeColor;
+                }
+            }
+        }
+    }
+}

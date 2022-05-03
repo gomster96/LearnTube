@@ -1,0 +1,153 @@
+.rs-skillbar {
+	&.style1 {
+		.progress-box {
+			position: relative;
+			margin-bottom: 20px;
+			height: 7px;
+			.progress-figure {
+				background-image: linear-gradient(190deg , #105aad 0%, #4e95ed 100%);
+				background-size: 1rem 1rem;
+				.Progress-count {
+					position: absolute;
+					top: -35px;
+					right: 0;
+					font-size: 16px;
+				}
+			}
+		}
+		.cl-skill-bar{
+            .skillbar-title {
+                font-weight: 500;
+                color: #212121;
+                font-size: 14px;
+                color: #212121;
+            }
+            .skillbar{
+                background: #eeeeee;
+                height: 7px;
+                margin: 10px 0 24px;
+                position: relative;
+                width: 100%;
+                .skillbar-bar{
+                background: $primaryColor;
+                width: 0;
+                margin-bottom: 0;              
+                height: 7px;
+                line-height: 7px;
+                background-color: transparent;
+                background-image: linear-gradient(190deg, #105AAD 0%, #4E95ED 100%);
+                background-size: 1rem 1rem;
+                }
+                .skill-bar-percent {
+                  height: 30px;
+                  line-height: 30px;
+                  position: absolute;
+                  right: 0;
+                  top: -38px;
+                  font-size: 16px;
+                  font-weight: 700;
+                  color: #0a0a0a;
+                }
+            }
+        }
+        &.modify1{
+            .cl-skill-bar{  
+                .skillbar-title {
+                   text-transform: uppercase;
+                }           
+                .skillbar{
+                    background-color: #DFEDFE;
+                    .skillbar-bar{
+                        background: $secondaryColor;
+                    }
+                    .skill-bar-percent {
+                        height: 30px;
+                        line-height: 30px;
+                        position: absolute;
+                        right: 0;
+                        top: -38px;
+                        font-size: 16px;
+                        font-weight: 700;
+                        color: #0a0a0a;
+                        &.white-color{
+                            color: #fff;
+                        }
+                    }
+                }
+            } 
+        }
+        &.modify2{
+           .cl-skill-bar{  
+               .skillbar-title {
+                  text-transform: uppercase;
+               }           
+               .skillbar{
+                   background: #fff;    
+                   border: 1px solid #0B70E1;
+                   height: 9px;
+                   border-radius: 0;
+                   overflow: visible;
+                   padding: 1px;
+                   .skillbar-bar{
+                        background: #007bff;
+                        background-image: linear-gradient(250deg, #0b70e1 19%, #03228f 100%);
+                        height: 5px;
+                    }
+                   .skill-bar-percent {
+                        right: 70px;
+                        color: #454545;
+                        font-weight: 400;
+                    }
+                }
+            }  
+        }
+        &.modify3{
+            padding: 0 120px 0 0;
+            .cl-skill-bar{ 
+               .skillbar{
+                    height: 8px;
+                    line-height: 8px;
+                    padding: 1px 1px 1px 1px;
+                    border-style: solid;
+                    border-width: 1px 1px 1px 1px;
+                    border-color: #FF571C;
+                    background-color: #BF1F1F00;
+                    border-radius: 3px 3px 3px 3px;
+                   .skillbar-bar{
+                      height: 100%;
+                      background: #FF571C;
+                    }
+                   .skill-bar-percent {
+                        right: 70px;
+                        color: #454545;
+                        font-weight: 400;
+                    }
+                    &.purple-style{
+                        border-color: #7E06E4;
+                        .skillbar-bar{
+                           background: #7E06E4;
+                        }
+                    }
+                    &.blue-style{
+                        border-color: #0073FF;
+                        .skillbar-bar{
+                           background: #0073FF;
+                        }
+                    }
+                }
+            }  
+        }
+        &.home4{
+            .progress-box{
+                margin-bottom: 26px;
+                .progress-figure{
+                    background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 
+                    25%, transparent 25%, transparent 50%,
+                    rgba(255, 255, 255, 0.15) 
+                    50%, rgba(255, 255, 255, 0.15) 75%, 
+                    transparent 75%, transparent);
+                }
+            }
+        }
+	}
+}

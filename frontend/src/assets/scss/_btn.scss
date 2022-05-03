@@ -1,0 +1,103 @@
+/* button style */
+.btn {
+	-moz-user-select: none;
+	background: #096bd8;
+	border: medium none;
+	display: inline-block;
+	font-size: 14px;
+	margin-bottom: 0;
+	padding: 20px 40px;
+	text-align: center;
+	text-transform: uppercase;
+	-ms-touch-action: manipulation;
+	touch-action: manipulation;
+	-webkit-transition: all 0.3s ease 0s;
+	-o-transition: all 0.3s ease 0s;
+	transition: all 0.3s ease 0s;
+	vertical-align: middle;
+	white-space: nowrap;
+	border-radius: 5px;
+	position: relative;
+	font-family: "cerebri_sansbold";
+}
+.btn-text {
+	color:$white;
+	position: relative;
+	transition: .3s;
+}
+.btn:hover .btn-text{color:$white;}
+.btn-text i {
+	padding-left: 5px;
+} 
+.btn-white{
+	background: $white;
+}
+.btn-white .btn-text {
+	color: #333333
+}
+.btn:hover .btn-text{color:$white;}   
+.breadcrumb > .active {
+	color: #888;
+}
+.pink-btn{
+	background: #d10459;
+}
+.pink-btn .btn-text{
+	color: #fff;
+}
+.pink-btn .btn-border{
+	background: #fff;
+}
+.btn-white:hover::before{
+	background: #fff;	
+}
+.btn-white .btn-text:hover{color:$black;}
+.btn-none::before{display: none;}
+.border-btn {
+	-moz-user-select: none;
+	border: 2px solid $white;
+	display: inline-block;
+	font-size: 14px;
+	margin-bottom: 0;
+	padding: 20px 40px;
+	text-align: center;
+	text-transform: uppercase;
+	-ms-touch-action: manipulation;
+	touch-action: manipulation;
+	-webkit-transition: all 0.3s ease 0s;
+	-o-transition: all 0.3s ease 0s;
+	transition: all 0.3s ease 0s;
+	vertical-align: middle;
+	white-space: nowrap;
+	border-radius: 5px;
+	position: relative;
+	font-family: $c_bold;
+}
+.btn-text {
+	color:$white;
+	position: relative;
+	transition: .3s;
+}
+.border-btn:hover{border-color:$theme-color;}
+.btn-text i {
+	padding-left: 5px;
+}                   
+.border-btn::before {
+	content: '';
+	width: 0;
+	height: 100%;
+	position: absolute;
+	bottom: 0;
+	left: 100%;
+	background: $theme-color;
+	-webkit-transition: all 0.3s ease;
+	transition: all 0.4s ease;
+	border-radius: 5px;
+}
+.border-btn:hover::before{
+	width: 100%;
+	left: 0;
+	-webkit-transition: width 0.3s ease;
+	transition: width 0.3s ease;
+	background: #1876df;
+}

@@ -1,0 +1,142 @@
+.rs-counter {
+    .counter-item {
+        .rs-count {
+            position: relative;
+            display: inline-block;
+            font-size: 42px;
+            line-height: 1;
+            color: #112958;
+            margin-bottom: 15px;
+            &:before {
+                content: '';
+                position: absolute;
+                right: 0;
+            }
+            &.plus {
+                &:before {
+                    content: '+';
+                }
+            }
+            &.kplus {
+                &:before {
+                    content: 'k+';
+                    right: -25px;
+                }
+            }
+            &.percent {
+                &:before {
+                    content: '%';
+                    right: -15px;
+                }
+            }
+        }
+        .title {
+            font-size: 22px;
+            color: $bodyColor;
+        }
+        .counter-text {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100%;
+            text-align: center;
+        }
+    }
+    &.style2-about{
+        .counter-item {
+            position: relative;
+            .rs-count {
+                color: $titleColor;
+            }
+            .title {
+                font-size: 22px;
+                color: $bodyColor;
+            }
+        }
+    }
+    &.style7{
+        .counter-item{
+            .rs-count{
+                &.purple-color{
+                    color: #c701f1;
+                } 
+                &.blue-color {
+                    color: #065ce8;
+                } 
+                &.pink-color{
+                    color: #f6075b;
+                } 
+                &.orange-color{
+                    color: #ffbc00;
+                }
+            }
+            .title{
+                color: $metaColor;
+            }
+        }
+    }
+    &.style-home8{
+        .counter-item{
+            padding: 40px 10px 32px 10px;
+            background-color: #F9F8F8;
+            border-radius: 4px 4px 4px 4px;
+            .rs-count{
+                color: $orangeColor;
+            }
+            .title{
+                color: $titleColor4;
+            }
+        }
+    }
+    &.home12-style{
+        .counter-item{
+            .rs-count{
+                color: $greenColor;
+                font-size: 42px;
+                font-weight: 900;
+                line-height: 51px;
+                font-family: "Nunito", Sans-serif;
+            }
+            .prefix{
+                color: $greenColor;
+                font-size: 42px;
+                font-weight: 900;
+                line-height: 51px;
+                font-family: "Nunito", Sans-serif;
+            }
+            .title{
+                color: $bodyColor;
+                &:hover{
+                    color: $greenColor;
+                }
+            }
+        }
+    }
+    &.home13-style{
+        .counter-item{
+            transition: all 500ms ease;
+            .rs-count{
+                color: $orangeColor;
+                font-size: 42px;
+                font-weight: 700;
+                line-height: 42px;
+                margin-bottom: 5px;
+            }
+            .title{
+                font-size: 22px;
+                font-weight: 500;
+                line-height: 37px;
+                color: $whiteColor;
+            }
+            &:hover{
+                transform: translateY(-5px);
+            }
+        }
+    }
+}
+@media #{$sm} {
+    .rs-counter .counter-item .rs-count {
+        font-size: 38px;
+    }
+}

@@ -1,0 +1,56 @@
+.rs-page-error{
+    padding: 250px 20px;
+    .error-text {
+        color: $titleColor;
+        text-align: center;
+        .error-code {
+            font-size: 100px;
+            color: $titleColor;
+            position: relative; 
+            &:after {
+                position: absolute;
+                content: '';
+                background: #eee;
+                height: 1px;
+                bottom: 0;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 600px;
+            }
+        }
+        h3.error-message {
+            color: $titleColor;
+        }
+        form {
+            position: relative;
+            max-width: 400px;
+            margin: 0 auto;
+            input {
+                border: 1px solid #ddd;
+                color: #444444;
+                padding: 10px 17px;
+                width: 100%;
+                border-radius: 5px;
+                margin-bottom: 19px;
+            }
+            button {
+                background: transparent;
+                border: medium none;
+                color: #666666;
+                padding: 11px 16px;
+                position: absolute;
+                right: 0px;
+                top: 0;
+                z-index: 10;
+                font-size: 20px;
+                outline: none;
+                border-radius: 25px;
+            }
+        }
+    }
+} 
+@media #{$sm} {
+    .rs-page-error {
+        padding: 150px 20px;
+    }
+}

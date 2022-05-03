@@ -1,0 +1,92 @@
+[
+    {
+      "id": "1",
+      "title": "Digital CC Camera",
+      "url": "digital-cc-camera",
+      "text": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "image": "assets/img/shop/1.jpg",
+      "category": "Business",
+      "price": "$150.00",
+      "salePrice": ""
+    },
+    {
+      "id": "2",
+      "title": "Digital Hand Watch",
+      "url": "digital-hand-watch",
+      "text": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "image": "assets/img/shop/2.jpg",
+      "category": "Business",
+      "price": "$55.00",
+      "salePrice": ""
+    },
+    {
+      "id": "3",
+      "title": "Digital Sound Mk",
+      "url": "digital-sound-mk",
+      "text": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "image": "assets/img/shop/3.jpg",
+      "category": "Business",
+      "price": "$50.00",
+      "salePrice": ""
+    },
+    {
+      "id": "4",
+      "title": "Droit Sound Mk",
+      "url": "droit-sound-mk",
+      "text": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "image": "assets/img/shop/4.jpg",
+      "category": "Business",
+      "price": "$30.00",
+      "salePrice": ""
+    },
+    {
+      "id": "5",
+      "title": "Electronics Device",
+      "url": "electronics-device",
+      "text": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "image": "assets/img/shop/5.jpg",
+      "category": "Business",
+      "price": "$50.00",
+      "salePrice": "$30.00"
+    },
+    {
+      "id": "6",
+      "title": "Head Phone Pro",
+      "url": "head-phone-pro",
+      "text": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "image": "assets/img/shop/6.jpg",
+      "category": "Business",
+      "price": "$60.00",
+      "salePrice": "$45.00"
+    },
+    {
+      "id": "7",
+      "title": "Portable Sound Mk",
+      "url": "portable-sound-mk",
+      "text": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "image": "assets/img/shop/7.jpg",
+      "category": "Business",
+      "price": "$150.00",
+      "salePrice": ""
+    },
+    {
+      "id": "8",
+      "title": "Smart Device Pm",
+      "url": "smart-device-pm",
+      "text": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "image": "assets/img/shop/8.jpg",
+      "category": "Business",
+      "price": "$75.00",
+      "salePrice": "$50.00"
+    },
+    {
+      "id": "9",
+      "title": "Smart Hand Watch",
+      "url": "smart-hand-watch",
+      "text": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "image": "assets/img/shop/9.jpg",
+      "category": "Business",
+      "price": "$75.00",
+      "salePrice": ""
+    }
+  ]

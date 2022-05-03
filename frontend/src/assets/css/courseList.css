@@ -1,0 +1,139 @@
+/* .pageTitle{
+    margin-top: 5% !important;
+    margin-bottom: 3% !important;
+} */
+
+.row-mk{
+    display:flex !important;
+    justify-content: space-between;
+    margin-bottom: 30px !important;
+    align-items: center;
+}
+
+/* 서칭 부분 css */
+.search-wrap-mk [type=search]{
+    border: 1px solid #ddd;
+    color: #444444;
+    padding: 12px 17px;
+    width: 80%;
+    min-width: 50%;
+    border-radius: 5px;
+    position: relative;
+}
+
+.search-btn-mk{
+    position: relative;
+}
+
+.search-btn-mk button {
+    background: transparent;
+    border: medium none;
+    color: #505050;
+    padding: 11px 15px 12px;
+    position: absolute;
+    display: block;
+    right: 20%;
+    top: 0; 
+    z-index: 10;
+    font-size: 20px;
+    border-radius: 0 5px 5px;
+}
+
+.search-btn-mk button:hover {
+    color: #6483d8;
+}
+
+.widget-area-mk{
+    width: 50% !important;
+}
+
+/* select 부분 css */
+.type-form-mk select {
+    display: block;
+    width: 20%;
+    min-width: 125px;
+    max-width: 150px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #ffffff;
+    padding: 0 40px 0 20px;
+    background: #6483d8;
+    border: none;
+    /* right:0; */
+    float:right;
+    border-radius: 4px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    transition: all 300ms ease;
+    cursor: pointer;
+}
+
+.type-form-mk .custom-select-box:before {
+    font-family: 'FontAwesome';
+    content: "\f107";
+    position: absolute;
+    right: 15px;
+    top: 18px;
+    transform: translateY(-50%);
+    display: block;
+    color: #ffffff;
+    font-size: 16px;
+    line-height: 1;
+}
+
+.type-form-mk .custom-select-box {
+    position: relative;
+}
+
+.type-form-mk {
+    position: relative;
+    float: right;
+}
+
+/**/
+/* .new-part{
+    background: #ff5421;
+} */
+.img-part{
+    position: relative;
+    margin-bottom: 15px !important;
+}
+.new-part{
+    position: absolute;
+    right: 5%;
+    top:5%;
+}
+.info-meta li {
+    display: inline;
+    padding: 0px 8px !important;
+    margin-right: 0 !important;
+    transition: all 0.3s ease;
+}
+
+.user{
+    border-right: 1px solid black;
+}
+
+.info-meta li.ratings span {
+    padding-left: 0px !important;
+}
+.title{
+    margin: 0 !important;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.creatorName{
+    margin: 0 !important;
+    line-height: 1.6;
+}
+.bottom-part{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.info-meta {
+    padding-top: 5px !important;
+}
