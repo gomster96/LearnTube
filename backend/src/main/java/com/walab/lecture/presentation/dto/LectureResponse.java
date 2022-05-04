@@ -15,5 +15,4 @@ public class LectureResponse {
     private Long lectureId;
     private int lectureNum;
     private LocalDateTime modDate;
-    private Long contentId;
 }
