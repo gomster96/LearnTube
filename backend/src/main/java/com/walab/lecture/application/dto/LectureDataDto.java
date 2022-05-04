@@ -1,22 +1,23 @@
 package com.walab.lecture.application.dto;
 
-import java.time.LocalDateTime;
-import java.util.List;
-
-import com.walab.content.application.dto.ContentDto;
-
+import com.walab.lecture.presentation.dto.LectureResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class LectureDto {
+public class LectureDataDto {
     private Long lectureId;
     private int lectureNum;
     private LocalDateTime modDate;
-    private List<ContentDto> contents;
+
+    public LectureResponse lectureResponse() {
+        return new LectureResponse(lectureId, lectureNum, modDate);
+    }
 }

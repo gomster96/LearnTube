@@ -3,16 +3,14 @@ package com.walab.lecture.domain;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import javax.persistence.*;
 
 import com.walab.classroom.domain.ClassRoom;
 import com.walab.common.BaseEntity;
-import com.walab.content.application.dto.ContentDto;
 import com.walab.content.domain.Content;
 
 import com.walab.lecture.application.dto.LectureCreateDto;
-import com.walab.lecture.application.dto.LectureDto;
+import com.walab.lecture.application.dto.LectureDataDto;
 import lombok.*;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
@@ -62,11 +60,7 @@ public class Lecture extends BaseEntity {
         this.lectureNum = lectureCreateDto.getLectureNum();
     }
 
-    public LectureDto toDto() {
-//        if (Objects.isNull(this.getContents()) {
-            return new LectureDto(this.id, this.lectureNum, this.modDate, null);
-//        }
-//        return new LectureDto(this.id, this.lectureNum, this.modDate, this.contents.getId());
-
+    public LectureDataDto toLectureDataDto() {
+            return new LectureDataDto(this.id, this.lectureNum, this.modDate);
     }
 }

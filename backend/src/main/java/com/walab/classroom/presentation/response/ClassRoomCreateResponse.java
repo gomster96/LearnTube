@@ -1,0 +1,19 @@
+package com.walab.classroom.presentation.response;
+
+import java.time.LocalDateTime;
+
+import lombok.*;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class ClassRoomCreateResponse {
+    private Long classId;
+    private String className;
+    private String classDescription;
+    private Long instructorId;
+    private String instructorName;
+    private LocalDateTime classRoomRegDate;
+    private LocalDateTime closeDate;
+}

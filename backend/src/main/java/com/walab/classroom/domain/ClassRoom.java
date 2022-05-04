@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.*;
 
 import com.walab.classroom.application.dto.ClassRoomCUDto;
+import com.walab.classroom.application.dto.ClassRoomDto;
 import com.walab.common.BaseEntity;
 import com.walab.lecture.domain.Lecture;
 import com.walab.notice.domain.Notice;
@@ -53,7 +54,7 @@ public class ClassRoom extends BaseEntity {
 
     private LocalDateTime closeDate;
 
-    public ClassRoom(ClassRoomCUDto classRoomCUDto){
+    public ClassRoom(ClassRoomCUDto classRoomCUDto) {
         this.className = classRoomCUDto.getClassName();
         this.classDescription = classRoomCUDto.getClassDescription();
         this.isOpened = classRoomCUDto.getIsOpened();
@@ -62,8 +63,19 @@ public class ClassRoom extends BaseEntity {
         this.closeDate = classRoomCUDto.getCloseDate();
     }
 
-    public ClassRoom(User instructor, ClassRoomCUDto classRoomCUDto){
+    public ClassRoom(User instructor, ClassRoomCUDto classRoomCUDto) {
         this(classRoomCUDto);
         this.instructor = instructor;
+    }
+
+    public ClassRoomDto toCreatResponseDto() {
+        return ClassRoomDto.builder()
+                           .classId(this.id)
+                           .className(this.className)
+                           .classDescription(this.classDescription)
+                           .instructor(this.instructor.toDto())
+                           .classRoomRegDate(this.getCreatedAt())
+                           .closeDate(this.closeDate)
+                           .build();
     }
 }
