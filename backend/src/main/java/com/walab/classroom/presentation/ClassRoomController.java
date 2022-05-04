@@ -4,8 +4,10 @@ import com.walab.classroom.application.ClassRoomService;
 import com.walab.classroom.application.dto.ClassRoomCUDto;
 import com.walab.classroom.application.dto.ClassRoomDto;
 import com.walab.classroom.presentation.request.ClassRoomCreateRequest;
+import com.walab.classroom.presentation.request.ClassRoomIdRequest;
 import com.walab.classroom.presentation.request.ClassRoomUpdateRequest;
 import com.walab.classroom.presentation.response.ClassRoomCreateResponse;
+import com.walab.classroom.presentation.response.ClassRoomIdResponse;
 import com.walab.classroom.presentation.response.ClassRoomUpdateResponse;
 
 import org.springframework.http.ResponseEntity;
@@ -34,6 +36,13 @@ public class ClassRoomController {
     public ResponseEntity<ClassRoomUpdateResponse> updateClassRoom(@RequestBody ClassRoomUpdateRequest request){
         ClassRoomDto classRoomDto = classRoomService.update(request.getClassId(), request.classRoomCUDto());
         ClassRoomUpdateResponse response = classRoomDto.classRoomUpdateResponse();
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/delete")
+    public ResponseEntity<ClassRoomIdResponse> deleteClassRoom(@RequestBody ClassRoomIdRequest request){
+        Long deletedClassId = classRoomService.delete(request.getClassId());
+        ClassRoomIdResponse response = new ClassRoomIdResponse(deletedClassId);
         return ResponseEntity.ok(response);
     }
 }

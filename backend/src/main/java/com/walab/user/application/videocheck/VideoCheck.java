@@ -16,7 +16,7 @@ import org.hibernate.annotations.Where;
 @Entity
 @Getter
 @NoArgsConstructor
-@SQLDelete(sql = "UPDATE videocheck SET deleted = true WHERE id = ?")
+@SQLDelete(sql = "UPDATE video_check SET deleted = true WHERE id = ?")
 @Where(clause = "deleted = false")
 public class VideoCheck extends BaseEntity {
 

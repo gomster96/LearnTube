@@ -29,9 +29,15 @@ public class ClassRoomService {
     }
 
     @Transactional
-    public  ClassRoomDto update(Long classId, ClassRoomCUDto classRoomCUDto){
+    public ClassRoomDto update(Long classId, ClassRoomCUDto classRoomCUDto) {
         ClassRoom classRoom = classRoomRepository.findById(classId).orElseThrow();
         classRoom.update(classRoomCUDto);
         return classRoom.toUpdateResponseDto();
+    }
+
+    @Transactional
+    public Long delete(Long classId){
+        classRoomRepository.deleteById(classId);
+        return classId;
     }
 }
