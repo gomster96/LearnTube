@@ -1,0 +1,186 @@
+.right_menu_togle{
+    background-image: linear-gradient( 90deg, #e2e9f7 0%, #ffffff 100%);
+    padding: 50px;
+    height: 100%;
+    width: 500px;
+    top: 0;
+    right: -500px;
+    z-index: 999999;
+    text-align: center;
+    transition: $transition;
+    position: fixed;
+    overflow-y: scroll;
+    .close-btn{
+        overflow: visible;
+        padding: 0;
+        .line {
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            span{
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%) rotate(45deg);
+                width: 1px !important;
+                height: 20px !important;
+                background: $whiteColor;
+                border: none !important;
+                transition: $transition;
+                &.line2 {
+                    transform: translate(-50%, -50%) rotate(-45deg);
+                }                        
+            }
+        }
+        
+        #nav-close {
+            position: relative;
+            float: unset;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            border: unset;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: $transition;
+            background: $primaryColor;
+            &:hover {
+                transform: rotate(180deg);
+            }
+        }
+    }
+    .canvas-logo{
+        padding-left: 0;
+        padding-bottom: 30px;
+        margin-top: 50px;
+        img {
+            max-height: 35px;
+        }
+    }
+    .offcanvas-gallery {
+        display: inline-block;
+        .gallery-img {
+            width: 33%;
+            float: left;
+            padding: 0 5px 10px;
+            .image-popup {
+                display: block;
+                overflow: hidden;
+                cursor: pointer;
+                img {
+                    transition: $transition;
+                }
+                &:hover {
+                    img {
+                        transform: scale(1.1);
+                    }
+                }
+            }
+        }
+
+        .react-photo-gallery--gallery {
+            img {
+                width: 30%;
+                float: left;
+                margin: 5px !important;
+            }
+        }
+    }
+    .map-img {
+        margin-top: 25px;
+    }
+    .sidebarnav_menu{
+        li{
+            a{
+                font-size: 17px;
+                color: #222;
+                padding-left: 0;
+                &:hover{
+                    color: $primaryColor;
+                }
+            }
+        }
+    }
+    .canvas-contact{
+        padding: 50px 0 0;
+        .social{
+            li{
+                display: inline-block;
+                padding-right: 20px;
+                a{
+                    color: $titleColor;
+                    i{
+                        font-size: 18px;
+                        font-weight: bold;
+                        text-align: center;
+                    }
+                    &:hover{
+                        color: $primaryColor;
+                    }
+                }
+                &:last-child{
+                    padding: 0;
+                }
+            }
+        }
+    }
+
+    &.orange_color {
+        .close-btn{            
+            #nav-close {
+                background: $orangeColor;
+            }
+        }
+        .sidebarnav_menu{
+            li{
+                a{
+                    &:hover{
+                        color: $orangeColor;
+                    }
+                }
+            }
+        }
+        .canvas-contact{
+            .social{
+                li{
+                    a{
+                        &:hover{
+                            color: $orangeColor;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+.full-width-header.home8-style4 .rs-header .right_menu_togle .close-btn #nav-close {
+    background: #6483d8;
+}
+.full-width-header.home8-style4 .rs-header .right_menu_togle .close-btn #nav-close {
+    background: #6483d8;
+}
+.offwrap {
+    cursor: url(../../assets/img/icon/close.png), auto;
+    width: 100%;
+    left: 100%;
+    transition: all 0.8s ease-out 0s;
+    position: fixed;
+    background: rgba(255, 255, 255, 0.3);
+    height: 100vh;
+    top: 0;
+    bottom: 0;
+    z-index: 999;
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+}
+body{
+    &.nav-expanded {
+        .right_menu_togle {
+            right: 0 !important;
+        }
+        .offwrap {
+            left: 0%;
+            transition: all 0.8s ease-out 0s;
+        }
+    }
+}

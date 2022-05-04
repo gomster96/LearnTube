@@ -1,0 +1,147 @@
+.widget-area{
+    .widget-title{
+        .title{
+            color: $titleColor;
+            font-size: 20px;
+            line-height: 26px;
+            font-weight: 600;
+            position: relative;
+            z-index: 1;
+            padding-bottom: 12px;
+            margin: 0;
+            &:before{
+                content: "";
+                position: absolute;
+                border: 0;
+                width: 50px;
+                height: 2px;
+                background: $primaryColor;
+                z-index: 1;
+                margin-left: 0;
+                bottom: 0;
+                left: 0;
+            }
+        }
+    }
+    .search-widget{
+        background: #fff;
+        padding: 40px 30px 40px;
+        box-shadow: 0 6px 25px rgba(0, 0, 0, 0.07);
+        border-radius: 10px;
+        .search-wrap{
+            position: relative;
+            [type=search] {
+                border: 1px solid #ddd;
+                color: #444444;
+                padding: 12px 17px;
+                width: 100%;
+                border-radius: 5px;
+                position: relative;
+            }
+            button{
+                background: transparent;
+                border: medium none;
+                color: $bodyColor;
+                padding: 11px 15px 12px;
+                position: absolute;
+                display: block;
+                right: 0px;
+                top: 0;
+                z-index: 10;
+                font-size: 20px;
+                border-radius: 0 5px 5px;
+                i{
+                    &:before{
+                        font-weight: 600;
+                        font-size: 18px;
+                    }
+                }
+                &:hover{
+                    color: $primaryColor;
+                }
+            }
+        }
+    }
+    .recent-posts{
+        background: #fff;
+        padding: 40px 30px;
+        box-shadow: 0 6px 25px rgba(0,0,0,.07);
+        border-radius: 10px;
+        .recent-post-widget{
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(0,0,0,.06);
+            .post-img{
+                width: 100px;
+                float: left;
+                padding-right: 15px;
+            }
+            .post-desc{
+                display: block;
+                font-size: 12px;
+                color: #888;
+                overflow: hidden;
+                a{
+                    font-size: 15px;
+                    line-height: 22px;
+                    font-weight: 500;
+                    color: $titleColor2;
+                    display: block;
+                    &:hover{
+                        color: $primaryColor;
+                    }
+                }
+                .date{
+                    display: block;
+                    i{
+                        margin-right: 5px;
+                        &:before{
+                            font-size: 12px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+.playlist{
+    background: #fff;
+    padding: 30px 10px;
+    box-shadow: 0 6px 25px rgba(0,0,0,.07);
+    border-radius: 10px;
+    .recent-post-widget{
+        margin-top: 15px;
+        padding-top: 15px;
+        border-top: 1px solid rgba(0,0,0,.06);
+        .post-img{
+            width: 100px;
+            float: left;
+            padding-right: 15px;
+        }
+        .post-desc{
+            display: block;
+            font-size: 12px;
+            color: #888;
+            overflow: hidden;
+            a{
+                font-size: 15px;
+                line-height: 22px;
+                font-weight: 500;
+                color: $titleColor2;
+                display: block;
+                &:hover{
+                    color: $primaryColor;
+                }
+            }
+            .date{
+                display: block;
+                i{
+                    margin-right: 5px;
+                    &:before{
+                        font-size: 12px;
+                    }
+                }
+            }
+        }
+    }
+}

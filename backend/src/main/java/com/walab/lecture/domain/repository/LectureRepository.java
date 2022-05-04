@@ -1,14 +1,10 @@
 package com.walab.lecture.domain.repository;
 
-import com.walab.lecture.application.dto.LectureContentDto;
 import com.walab.lecture.domain.Lecture;
-import com.walab.lecture.domain.dto.LectureDataDto;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.List;
 
 public interface LectureRepository extends JpaRepository<Lecture, Long> {
     @Query("select l from Lecture l where l.classRoom.id = :classId and l.lectureNum = :lectureNum")

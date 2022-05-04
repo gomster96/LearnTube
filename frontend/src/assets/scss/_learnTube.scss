@@ -1,0 +1,217 @@
+.classButton {
+    outline: none;
+    border: none;
+    padding: 12px 40px;
+    border-radius: 3px;
+    display: inline-block;
+    text-transform: capitalize;
+    font-size: 16px;
+    font-family: $bodyFont;
+    font-weight: 500;
+    color: $bodyColor;
+    position: relative;
+    overflow: hidden;
+    &.banner-style {
+        padding: 16px 40px;
+    }
+    &.mod {
+        text-transform: uppercase;
+        padding: 14px 31px;
+    }
+    &.transparent {
+        background: transparent;
+        color: $orangeColor;
+        border: 1px solid $orangeColor;
+        &:hover {
+            color: $whiteColor;
+            background: $orangeColor;
+        }
+    }
+    &.orange-transparent {
+        background: transparent;
+        color: $orangeColor;
+        border: 1px solid $orangeColor;
+        &:hover {
+            color: $whiteColor;
+            background: $orangeColor;
+        }
+    }
+    &.orange {
+        background: $orangeColor;
+        &:hover {
+            background: darken($orangeColor, 5%);
+        }
+    }
+  
+    &:hover {
+        background: darken($orangeColor, 5%);
+        color: $whiteColor;
+    }
+    &.gym-btn{
+        background: $orangeColor;
+        color: #ffffff;
+        border-radius: 4px;
+        font-weight: 500;
+        font-size: 16px;
+        text-transform: capitalize;
+        padding: 17px 28px;
+        &:hover{
+            opacity: 0.80;
+        }
+        &.get-now{
+            &:hover{
+                background: $whiteColor;
+                color: $orangeColor;
+            }
+        }
+    }
+    &.cta-btn{
+        background: $orangeColor;
+        color: #ffffff;
+        border-radius: 3px 3px 3px 3px;
+        font-family: "Rubik", Sans-serif;
+        font-size: 16px;
+        font-weight: 500;
+        text-transform: capitalize;
+        padding: 12px 30px 12px 30px;
+        &:hover{
+            color: #F0E3E3;
+            background: #6483d8;
+        }
+    }
+    &.cta-btn{
+        background: $orangeColor;
+        color: #ffffff;
+        border-radius: 3px 3px 3px 3px;
+        font-family: "Rubik", Sans-serif;
+        font-size: 16px;
+        font-weight: 500;
+        text-transform: capitalize;
+        padding: 12px 30px 12px 30px;
+        &:hover{
+            color: #F0E3E3;
+            background: #6483d8;
+        }
+    }
+    &.apply{
+       padding: 10px 30px 10px 30px;
+       &:hover{
+            color: unset;
+       }
+    }
+
+}
+.dashboard-tabs{
+    position:relative;
+    border: none;
+    .react-tabs__tab{
+        position:relative;
+        text-align:center;
+        width: 32.3%;
+        display: inline-block;
+        button{
+            position:relative;
+            display:block;
+            width: 100%;
+            font-size:14px;
+            background:none;
+            background: #FFFFFF;
+            color:#626262;
+            border: none;
+            font-weight:500;
+            line-height:24px;
+            padding:12px 40px 10px;
+            text-transform:capitalize;
+            transition:all 500ms ease;                
+        }
+        &:hover,
+        &.react-tabs__tab--selected{
+            button {
+                color:#ffffff;
+                background:#6483d8;
+                border-color: #6483d8;
+            }
+        }
+    }
+    .react-tabs__tab-panel{
+        position:relative;
+        overflow:hidden;
+        background-color:#ffffff;
+        .minutes{
+            position:relative;
+            color:#21a7d0;
+            font-size:14px;
+            font-weight:500;
+            margin-top:12px;
+        }
+    }
+}
+
+
+@media #{$lg} {
+    .dashboard-tabs .react-tabs__tab button {
+        padding: 12px 10px 10px;
+    }
+    .btn {
+        padding: 14px 20px;
+    }
+}
+@media #{$mobile} {
+    .dashboard-tabs .react-tabs__tab {
+        width: 100%;
+    }
+}
+    
+.createbtn {
+    width: 80px;
+    height: 40px;
+    background-color: $orangeColor; 
+    color: white;
+    border: none;
+    margin-left: 10px;
+}
+
+.canclebtn {
+    width: 80px;
+    height: 40px;
+    background-color: grey; 
+    color: white;
+    border: none;
+    margin-left: 10px;
+}
+
+.searchbtn {
+    padding: 40px 30px 40px;
+    position: relative;
+    [type=search] {
+        border: 1px solid #ddd;
+        color: #444444;
+        padding: 12px 17px;
+        width: 100%;
+        border-radius: 5px;
+        position: relative;
+    }
+    button{
+        background: transparent;
+        border: medium none;
+        color: $bodyColor;
+        padding: 11px 15px 12px;
+        position: absolute;
+        display: block;
+        right: 0px;
+        top: 0;
+        z-index: 10;
+        font-size: 20px;
+        border-radius: 0 5px 5px;
+        i{
+            padding: 45px 40px 40px;
+            &:before{
+                font-weight: 600;
+                font-size: 18px;
+            }
+        }
+        &:hover{
+            color: $primaryColor;
+        }
+    }
+}
