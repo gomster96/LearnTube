@@ -1,0 +1,70 @@
+
+// Font Family
+$bodyFont: 'Rubik', sans-serif;
+$titleFont: 'Nunito', sans-serif;
+
+// Colors
+$primaryColor:     #21a7d0;
+$secondaryColor:   #273c66;
+$secondaryColor2:  #1c335f;
+$titleColor:       #111111;
+$titleColor2:      #112958;
+$titleColor3:      #394459;
+$titleColor4:      #031a3d;
+$titleColor5:      #101010;
+$titleColor6:      #333333;
+$titleColor7:      #171F32;
+$whiteColor:       #ffffff;
+$bodyColor:        #505050;
+$bodyColor2:       #363636;
+$bodyColor3:       #54647b;
+$grayColor:        #f3f8f9;
+$graybg:           #f3f8f9;
+$secbg:            #f3f8f9;
+$metaColor:        #54647b;
+$orangeColor:      #6483d8;
+$purpleColor:      #c701f1;
+$yellowColor:      #f4bf00;
+$greenColor:       #0c8b51;
+// Gradient Backgrounds
+$gradient-bg: linear-gradient(180deg, $secondaryColor 0%, $primaryColor 100%);
+
+// Common
+$transition: all .3s ease;
+
+// Responsive Variables
+$laptop: 'only screen and (max-width: 1600px)';
+$xl : 'only screen and (max-width: 1366px)';
+$lg : 'only screen and (max-width: 1199px)';
+$only_lg : 'only screen and (min-width: 992px) and (max-width: 1199px)';
+$lg_to_sm : 'only screen and  (max-width: 1199px) and (min-width: 768px)';
+$md:'only screen and (max-width: 991px)';
+$sm: 'only screen and (max-width: 767px)';
+$xs: 'only screen and (max-width: 575px)';
+$mobile: 'only screen and (max-width: 480px)';
+
+
+
+
+
+// Removeable --------------------------------------------------------
+$white: #ffffff;
+$black: #333333;
+$grey:#f8f8f8;
+$grey-2:#f4f9fc;
+$theme-color: #096bd8;
+$theme-color-2: #6100b3;
+$body-color: #696969;
+$hr-border-color:#eceff8;
+$footer-bg:#091b29;
+$tab-bg:#1a1430; 
+$tab-color:#aeabba;
+$black-soft:#7e7e7e;
+$link-color:#e4ecf3;
+$border-color:#eaedff;
+$heading-color: #333333;
+
+$c_reg: 'cerebri_sansregular';
+$c_med: 'cerebri_sansmedium';
+$c_sem: 'cerebri_sanssemibold';
+$c_bold: 'cerebri_sansbold';

@@ -1,0 +1,295 @@
+.rs-process{
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    .process-wrap {
+        background: url(../img/bg/process-bg.jpg);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-color: #03228F;
+        margin: 0px 31px 0px 0px;
+        padding: 80px 40px 75px 40px;
+        transition: $transition;
+        border-radius: 10px 10px 10px 10px;
+        &.home7 {
+            padding: 100px 60px 100px 50px;
+        }
+    }
+    .rs-addon-number{
+        .number-text{
+            .number-area{
+                display: block;
+                font-size: 50px;
+                font-weight: 700;
+                line-height: 1.4;
+                color: $secondaryColor;
+            }
+            .number-title{
+                .title{
+                    font-size: 24px;
+                    line-height: 34px;
+                    font-weight: 600;
+                    color: $titleColor;
+                    margin-bottom: 10px;
+                }
+            }
+            .number-txt{
+                margin: 0;
+                padding-right: 34px;
+            }
+        }
+    }
+    &.modify1{
+        background-image: linear-gradient(140deg, #03228F 62%, #0E73E4 100%);
+        border-radius: 270px 0px 0px 0px;
+        .rs-addon-number{
+            .number-text{
+                margin: 0px 25px 0px 30px;
+                padding: 0px 48px 11px 48px;
+                background-color: #182AEE45;
+                border-radius: 10px 10px 50px 10px;
+                position: relative;
+                .number-area{
+                    font-size: 41px;
+                    font-weight: 600;
+                    line-height: 62px;
+                    position: relative;
+                    color: $whiteColor;
+                    display: inline-block;
+                    width: 70px;
+                    height: 70px;
+                    left: -70px;
+                    top: -30px;
+                    text-align: center;
+                    background: #06D3E5;
+                    transition: all 0.3s ease 0s;
+                    border-radius: 50%;
+                    &.green-bg{
+                        background: #3BCD4C;
+                    }
+                    &.plum-bg{
+                        background: #9439E9;
+                    }
+                    &.pink-bg{
+                        background: #f30876;
+                    }
+                }
+                .number-title{
+                    .title{
+                        color: $whiteColor;
+                        margin-bottom: 15px;
+                    }
+                }
+                .number-txt{
+                    color: $whiteColor;
+                    margin-bottom: 40px;
+                    padding-right: 0;
+                }
+            }
+        }
+    }
+    &.style2{
+        .addon-process{
+            .process-img{
+                padding: 10px 10px 10px 10px;
+                img{
+                    width: 100%;
+                    height: auto;
+                }
+            }
+            .process-text{
+                text-align: center;
+                padding: 15px 0 0;
+                .title{
+                    font-size: 24px;
+                    line-height: 32px;
+                    font-weight: 600;
+                    color: $titleColor2;
+                    margin-bottom: 0;
+                    &:hover{
+                        color: #061340;
+                    }
+                }
+            }
+        }
+    }
+    &.style3{
+        .rs-addon-number{
+            margin: 0px -10px 0px 0px;
+            padding: 37px 30px 37px 38px;
+            background-color: #FFFFFF;
+            border-bottom: 7px solid #095fd0;
+        }
+    } 
+    &.style4{
+        .rs-addon-number{
+            margin: 0px -10px 0px 0px;
+            padding: unset;
+            background-color: unset;
+            .number-text{
+                .number-area{ 
+                    display: inline-block;
+                    width: 50px;
+                    line-height: 50px;
+                    z-index: 1;
+                    position: relative;
+                    transition: all 0.3s ease 0s;
+                    text-align: center;
+                    width: 64px;
+                    height: 54px;
+                    top: -20px;
+                    &:after{
+                        content: "";
+                        width: 100%;
+                        height: 100%;
+                        position: absolute;
+                        top: -15px;
+                        left: 0;
+                        z-index: -1;
+                        transform: rotate(45deg);
+                        transition: all 0.3s ease 0s;
+                        border-radius: 50px 50px 50px 50px;
+                        background: #A0B3F8;
+                    }
+                }
+            }
+        }
+    }
+    &.style5{
+        .rs-addon-number{
+            .number-text{
+                .number-area{
+                    color: $whiteColor;
+                }
+                .number-title{
+                    .title{
+                       color: $whiteColor;
+                    }
+                }
+                .number-txt{
+                   color: $whiteColor;
+                }
+            }
+        }
+    }
+    &.style6{
+        .tab-area{
+            .nav{
+                border-bottom: unset;
+                li{
+                    padding: 20px 30px;
+                    display: block;
+                    position: relative;
+                    transition: all ease .6s;
+                    cursor: pointer;
+                    h3{
+                        font-size: 22px;
+                        line-height: 32px;
+                        font-weight: 600;
+                        color: $titleColor3;
+                        margin-bottom: 8px;
+                        text-decoration: underline;
+                    }
+                    p {
+                        font-size: 16px;
+                        line-height: 26px;
+                        font-weight: 400;
+                        color: $titleColor;
+                        height: 0;
+                        opacity: 0;
+                        margin: 0;
+                        transition: all ease .4s;
+                    }
+                    &.react-tabs__tab--selected {
+                        background: #f8f6ff;
+                        h3{
+                            color: $orangeColor;
+                        }
+                        p {
+                            height: auto;
+                            opacity: 1;
+                            transition: all ease .8s;
+                        }
+                    }
+                }
+            }
+           
+        }
+    }
+    .shape-animation{
+        position: relative;
+        .shape-process{
+            position: absolute;
+            left: 180px;
+            top: 50px
+        }
+    }
+}
+
+@media #{$only_lg} {
+    .rs-process.style3 .rs-addon-number {
+        padding: 30px 20px;
+    }
+    .rs-process.style6 .tab-area .nav li {
+        padding: 15px;
+    }
+    .rs-process.style6 .tab-area .nav li h3,
+    .tab-videos .popup-videos .title {
+        font-size: 20px;
+        line-height: 30px;
+    }
+}
+
+@media #{$lg} {
+    .rs-process {
+        .process-wrap {
+            margin: 0 15px 0 0;
+            padding: 70px 30px 65px;
+        }
+    }    
+}
+
+@media #{$md} {
+    .rs-process {
+        .process-wrap {
+            margin-right: 0;
+        }
+        &.style3 {
+            .rs-addon-number {
+                margin: 0;
+            }
+        }
+    }    
+}
+
+@media #{$mobile} {
+    .rs-project .sec-title2 .title {
+        font-size: 22px;
+    }
+    .rs-project.style1 .project-item .project-content .title {
+        font-size: 18px;
+        line-height: 1.2;
+        margin-bottom: 4px;
+    }
+
+    .rs-process.modify1 .rs-addon-number .number-text {
+        margin-left: 15px;
+        margin-right: 15px;
+        padding-left: 20px;
+        padding-right: 20px
+    }
+
+    .rs-process .process-wrap.home7 {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    .rs-process.style6 .tab-area .nav li {
+        padding: 15px;
+    }
+    .rs-process.style6 .tab-area .nav li h3,
+    .tab-videos .popup-videos .title {
+        font-size: 20px;
+        line-height: 30px;
+    }
+}

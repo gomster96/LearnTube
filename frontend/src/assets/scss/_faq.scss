@@ -1,0 +1,305 @@
+.rs-faq-part{
+    .content-part{
+        .title{
+            .text-part{
+                font-size: 20px;
+                color: $titleColor;
+                line-height: 28px;
+                font-weight: 700;
+                text-transform: uppercase;
+            }
+        }
+        .accordion{
+            border-width: 12px;
+            .card{
+                margin-bottom: 15px;
+                border: none;
+                &:last-child {
+                    margin-bottom: 0;
+                }
+                .card-header{
+                    padding: 0 !important;
+                    border: none;
+                    .card-link{
+                        font-size: 17px;
+                        font-weight: 600;
+                        line-height: 28px;
+                        color: $whiteColor;
+                        display: block;
+                        padding: 15px 15px;
+                        text-transform: capitalize;
+                        background: $primaryColor;
+                        &.collapsed {
+                            background: #f9f8ff;
+                            color: $bodyColor;
+                        }
+                    }
+                }
+                .card-body{
+                    background: $whiteColor;
+                    font-size: 15px;
+                    font-weight: 400;
+                    line-height: 25px;
+                    color: $bodyColor;
+                    padding: 15px 14px 15px !important;
+                    border: 1px solid #f9f8ff;
+                }
+            }
+        }
+    }
+    &.style1 {
+        .main-part{
+            background: #f9f8f8;
+            padding: 60px 60px 70px;
+            .title{
+                .text-part{
+                    font-size: 36px;
+                    color: $titleColor;
+                    line-height: 46px;
+                    font-weight: 700;
+                }
+            }
+            .faq-content{
+                .accordion-style1{
+                    border: none;
+                    .accordion-item{
+                        margin-bottom: 25px;
+                        border: none;
+                        &:last-child {
+                            margin-bottom: 0;
+                        }
+                        .card-header{
+                            display: flex;
+                            align-items: center;
+                            padding: 0 !important;
+                            border: none;
+                            .card-link{
+                                position: relative;
+                                display: block;
+                                width: 100%;
+                                padding: 0 60px;
+                                height: 65px;
+                                line-height: 65px;
+                                font-size: 16px;
+                                font-weight: 600;
+                                background: $whiteColor;
+								color: $titleColor;
+                                box-shadow: 0 0 49px 0 rgba(0, 0, 0, 0.08);
+                                &:after {
+                                    position: absolute;
+                                    font-family: "FontAwesome";
+                                    content: "\f0f3";
+                                    left: 25px;
+                                    top: 50%;
+                                    transform: translateY(-50%);
+                                    text-align: center;
+                                    font-weight: 400;
+                                    background: unset;
+                                    height: unset;
+                                    width: unset;
+                                }
+                            }
+							.card-link[aria-expanded=true],
+							.card-link[aria-selected=true] {
+								background: $primaryColor;
+								color: $whiteColor;
+								&:after {
+									content: "\f1f6";
+								}
+							}
+                        }
+                        .card-body{
+                            background: $whiteColor;
+                            font-size: 15px;
+                            font-weight: 400;
+                            line-height: 25px;
+                            color: $bodyColor;
+                            padding: 15px 14px 15px !important;
+                            width: 100%;
+                        }
+                    }
+                }
+            }
+            &.new-style{
+                background: #f3fcf8;
+                padding: 49px 50px 70px;
+                .faq-content{
+                    .accordion-style1{
+                        .accordion-item{
+                            .card-header{
+                                .card-link[aria-expanded=true],
+                                .card-link[aria-selected=true] {
+                                    background: $greenColor;
+                                }
+                            }
+                        }
+                    }
+                }
+            } 
+            &.innerpage {
+                padding: 0;
+                background: unset;
+                .title{
+                    .text-part{
+                        font-size: 25px;
+                        color: $titleColor;
+                        line-height: 35px;
+                        font-weight: 700;
+                        text-transform: uppercase;
+                    }
+                }
+                .faq-content{
+                    .accordion-style1{
+                        border: none;
+                        .accordion-item{
+                            .card-header{
+                                .card-link{
+                                    background: #f9f8ff;
+                                }
+                                .card-link[aria-expanded=true],
+                                .card-link[aria-selected=true] {
+                                    background: $orangeColor;
+                                    color: $whiteColor;
+                                }
+                            }
+                            .card-body{
+                                border: 1px solid #f9f8ff;
+                            }
+                        }
+                    }
+                }
+            }           
+        }
+        .img-part {
+            background: url(../img/faq/1.jpg);
+            background-size: cover;
+            background-position: center;
+            width: 100%;
+            height: 100%;
+            min-height: 615px;
+        }        
+    }
+
+    &.orange-style {
+        .content-part .accordion-style1 .accordion-item .card-header .card-link[aria-selected=true],
+        .content-part .accordion-style1 .accordion-item .card-header .card-link[aria-expanded=true],
+        .main-part .faq-content .accordion-style1 .accordion-item .card-header .card-link[aria-expanded=true],
+        .main-part .faq-content .accordion-style1 .accordion-item .card-header .card-link[aria-selected=true] {
+            background: $orangeColor;
+        }
+    } 
+   
+}
+
+/* Lg Device :1199px. */
+@media #{$lg} {    
+    .rs-faq-part.style1 .main-part .faq-content .accordion-style1 .accordion-item .card-header .card-link {
+        padding: 0 45px;
+    }
+    .rs-faq-part.style1 .main-part .faq-content .accordion-style1 .accordion-item .card-header .card-link::after {
+        left: 15px;
+    }
+    .rs-faq-part.style1 .main-part.new-style {
+        padding: 35px 35px 55px;
+    }
+    .rs-faq-part.style1 .main-part.new-style .title .text-part{
+        font-size: 30px;
+    }
+}
+
+/* Tablet desktop :992px to 1199px. */
+@media #{$only_lg} {
+    
+}
+
+/* Custom Container Width :992px. */
+@media (min-width: 992px) {
+    .rs-faq-part.style1 .main-part {
+        padding: 60px 50px 70px;
+    }
+    
+}
+
+/* Tablet desktop :991px. */
+@media #{$md} {
+    .rs-faq-part.style1 .img-part {     
+        height: 70%;
+        min-height: 570px;
+    }
+ 
+    .rs-faq-part.style1 .main-part .title .text-part {
+        font-size: 30px;
+        line-height: 40px;
+    }
+    .rs-faq-part.style1 .main-part {
+        padding: 50px 40px;
+    }
+    
+}
+
+/* Tablet :767px. */
+@media #{$sm} {
+    
+}
+
+/* Large Mobile :575px. */
+@media #{$xs} {
+    
+}
+
+/* small mobile :480px. */
+@media #{$mobile} {
+    .rs-faq-part.style1 .main-part.new-style .title .text-part{
+        font-size: 20px;
+    }
+    .rs-faq-part.style1 .main-part.new-style .faq-content .accordion .card .card-header .card-link {
+        font-size: 12px;
+        padding-right: 0px;
+        padding-left: 41px;
+    }
+    .rs-faq-part.style1 .main-part.new-style .faq-content .accordion .card .card-body {
+        padding: 20px 12px 28px !important;
+        font-size: 12px;
+    }
+    .rs-faq-part.style1 .main-part.new-style .title .text-part {
+        font-size: 19px;
+    }
+    .rs-faq-part.style1 .img-part {
+        height: auto;
+        min-height: 400px;
+    }
+    .rs-faq-part.style1 .main-part {
+        padding: 50px 15px;
+    }
+    .rs-faq-part.style1 .main-part .faq-content .accordion-style1 .accordion-item .card-header .card-link {
+        height: 50px;
+        line-height: 50px;
+    }
+    .rs-faq-part.style1 .main-part .title .text-part {
+        font-size: 22px;
+        line-height: 32px;
+    }
+    .rs-faq-part.style1 .main-part .faq-content .accordion-style1 .accordion-item .card-header .card-link {
+        font-size: 14px;
+        padding-right: 15px;
+        padding-left: 30px;
+    }
+    .rs-faq-part.style1 .main-part .faq-content .accordion-style1 .accordion-item .card-header .card-link::after {
+        left: 8px;
+    }
+    .rs-faq-part.style1 .main-part .faq-content .accordion-style1 .accordion-item .card-body {
+        font-size: 14px;
+        padding: 12px 10px 12px !important;
+    }
+    .rs-faq-part.style1 .main-part.new-style{
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    .rs-faq-part.style1 .main-part .faq-content .accordion-style1 .accordion-item .card-header .card-link {
+        height: auto;
+        line-height: 1.5;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    
+}

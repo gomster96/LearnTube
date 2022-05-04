@@ -1,0 +1,20 @@
+.rs-partner {
+    .partner-item {
+        a {
+            img {
+                max-width: 163px;
+                margin: 0 auto;
+            }
+        }
+    }
+    &.style2{
+        .partner-item {
+            a {
+                img {
+                    max-width: 100px;
+                    margin: 0 auto;
+                }
+            }
+        }
+    }
+}
