@@ -11,10 +11,7 @@ import com.walab.classroom.presentation.response.ClassRoomIdResponse;
 import com.walab.classroom.presentation.response.ClassRoomUpdateResponse;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import lombok.RequiredArgsConstructor;
 
@@ -44,5 +41,12 @@ public class ClassRoomController {
         Long deletedClassId = classRoomService.delete(request.getClassId());
         ClassRoomIdResponse response = new ClassRoomIdResponse(deletedClassId);
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping
+    public ResponseEntity<ClassRoomDto> getClassRoom(@RequestParam Long userId, @RequestParam Long classId){
+        //Todo 나중에 userId로 각 class의 video수강 완료에 대한 정보를 받아야한다.
+        ClassRoomDto classRoomDto = classRoomService.find(userId, classId);
+        return ResponseEntity.ok(classRoomDto);
     }
 }

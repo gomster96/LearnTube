@@ -40,4 +40,10 @@ public class ClassRoomService {
         classRoomRepository.deleteById(classId);
         return classId;
     }
+
+    @Transactional
+    public ClassRoomDto find(Long userId, Long classId){
+        ClassRoom classroom = classRoomRepository.findById(classId).orElseThrow();
+        return classroom.toDto();
+    }
 }

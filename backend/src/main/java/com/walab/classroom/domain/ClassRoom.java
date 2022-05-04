@@ -3,12 +3,15 @@ package com.walab.classroom.domain;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.persistence.*;
 
 import com.walab.classroom.application.dto.ClassRoomCUDto;
 import com.walab.classroom.application.dto.ClassRoomDto;
 import com.walab.common.BaseEntity;
+import com.walab.lecture.application.dto.LectureDto;
 import com.walab.lecture.domain.Lecture;
+import com.walab.notice.application.dto.NoticeDetailDto;
 import com.walab.notice.domain.Notice;
 import com.walab.classroom.domain.take.Take;
 import com.walab.user.domain.User;
@@ -100,6 +103,28 @@ public class ClassRoom extends BaseEntity {
                            .entryCode(this.entryCode)
                            .isActive(this.isActive)
                            .closeDate(this.closeDate)
+                           .build();
+    }
+
+    public ClassRoomDto toDto() {
+        List<LectureDto> lectureDtos = this.lectures.stream()
+                                                    .sorted((l1, l2) -> Integer.compare(l1.getLectureNum(), l2.getLectureNum()))
+                                                    .map(Lecture::toDto)
+                                                    .collect(Collectors.toList());
+        List<NoticeDetailDto> noticeDetailDtos = this.notices.stream()
+                                                             .map(NoticeDetailDto::new)
+                                                             .collect(Collectors.toList());
+        return ClassRoomDto.builder()
+                           .classId(this.id)
+                           .className(this.className)
+                           .classDescription(this.classDescription)
+                           .closeDate(closeDate)
+                           .isOpened(isOpened)
+                           .isActive(isActive)
+                           .classRoomRegDate(getCreatedAt())
+                           .instructor(this.instructor.toDto())
+                           .lectures(lectureDtos)
+                           .notices(noticeDetailDtos)
                            .build();
     }
 }
