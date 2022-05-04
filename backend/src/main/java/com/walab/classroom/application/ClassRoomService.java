@@ -19,11 +19,19 @@ import lombok.RequiredArgsConstructor;
 public class ClassRoomService {
     private final ClassRoomRepository classRoomRepository;
     private final UserRepository userRepository;
+
     @Transactional
-    public ClassRoomDto create(Long instructorId, ClassRoomCUDto classRoomCUDto){
+    public ClassRoomDto create(Long instructorId, ClassRoomCUDto classRoomCUDto) {
         User instructor = userRepository.findById(instructorId).orElseThrow();
         ClassRoom newClassRoom = new ClassRoom(instructor, classRoomCUDto);
         ClassRoom savedClassRoom = classRoomRepository.save(newClassRoom);
         return savedClassRoom.toCreatResponseDto();
+    }
+
+    @Transactional
+    public  ClassRoomDto update(Long classId, ClassRoomCUDto classRoomCUDto){
+        ClassRoom classRoom = classRoomRepository.findById(classId).orElseThrow();
+        classRoom.update(classRoomCUDto);
+        return classRoom.toUpdateResponseDto();
     }
 }

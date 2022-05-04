@@ -68,6 +68,15 @@ public class ClassRoom extends BaseEntity {
         this.instructor = instructor;
     }
 
+    public void update(ClassRoomCUDto dto) {
+        this.className = dto.getClassName();
+        this.classDescription = dto.getClassDescription();
+        this.closeDate = dto.getCloseDate();
+        this.isOpened = dto.getIsOpened();
+        this.entryCode = dto.getEntryCode();
+        this.isActive = dto.getIsActive();
+    }
+
     public ClassRoomDto toCreatResponseDto() {
         return ClassRoomDto.builder()
                            .classId(this.id)
@@ -78,6 +87,18 @@ public class ClassRoom extends BaseEntity {
                            .isActive(isActive)
                            .instructor(this.instructor.toDto())
                            .classRoomRegDate(this.getCreatedAt())
+                           .closeDate(this.closeDate)
+                           .build();
+    }
+
+    public ClassRoomDto toUpdateResponseDto() {
+        return ClassRoomDto.builder()
+                           .classId(this.id)
+                           .className(this.className)
+                           .classDescription(this.classDescription)
+                           .isOpened(this.isOpened)
+                           .entryCode(this.entryCode)
+                           .isActive(this.isActive)
                            .closeDate(this.closeDate)
                            .build();
     }
