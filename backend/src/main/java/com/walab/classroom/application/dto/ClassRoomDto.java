@@ -28,9 +28,8 @@ public class ClassRoomDto {
     private List<LectureDto> lectures;
     private List<NoticeDetailDto> notices;
 
-
     public ClassRoomCreateResponse classRoomCreateResponse() {
-        return new ClassRoomCreateResponse(classId, className, classDescription,
+        return new ClassRoomCreateResponse(classId, className, classDescription, isOpened, entryCode, isActive,
                 instructor.getUserId(), instructor.getName(), classRoomRegDate, closeDate);
     }
 }

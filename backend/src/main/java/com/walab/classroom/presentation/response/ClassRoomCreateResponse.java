@@ -12,6 +12,9 @@ public class ClassRoomCreateResponse {
     private Long classId;
     private String className;
     private String classDescription;
+    private Boolean isOpened;
+    private String entryCode;
+    private Boolean isActive;
     private Long instructorId;
     private String instructorName;
     private LocalDateTime classRoomRegDate;
