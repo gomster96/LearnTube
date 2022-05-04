@@ -6,6 +6,7 @@ import javax.persistence.*;
 
 import com.walab.classroom.domain.ClassRoom;
 import com.walab.classroom.domain.take.Take;
+import com.walab.common.BaseEntity;
 import com.walab.playlist.domain.Playlist;
 import com.walab.user.application.dto.UserDto;
 import com.walab.user.application.videocheck.VideoCheck;
@@ -13,12 +14,16 @@ import com.walab.user.application.videocheck.VideoCheck;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 @Entity
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
+@SQLDelete(sql = "UPDATE user SET deleted = true WHERE id = ?")
+@Where(clause = "deleted = false")
+public class User extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

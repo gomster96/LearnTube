@@ -7,19 +7,24 @@ import java.util.Objects;
 import javax.persistence.*;
 
 import com.walab.classroom.domain.ClassRoom;
+import com.walab.common.BaseEntity;
 import com.walab.content.application.dto.ContentDto;
 import com.walab.content.domain.Content;
 
 import com.walab.lecture.application.dto.LectureCreateDto;
 import com.walab.lecture.application.dto.LectureDto;
 import lombok.*;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Lecture {
+@SQLDelete(sql = "UPDATE lecture SET deleted = true WHERE id = ?")
+@Where(clause = "deleted = false")
+public class Lecture extends BaseEntity {
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private Long id;
