@@ -11,7 +11,9 @@ import YoutubeVideoSearchWidget from '../../components/Widget/YoutubeVideoSearch
 import axios from 'axios';
 import Youtube from '../../service/youtube';
 import YouTube from 'react-youtube';
-
+import Range from 'rc-slider';
+import Slider from 'rc-slider';
+import 'rc-slider/assets/index.css';
 
 
 // Image
@@ -35,16 +37,19 @@ const YoutubeSearch = () => {
     const [searchedVideos, setSearchedVideos] = useState([]);
     const [selectedVideo, setSelectedVideo] = useState(null);
     const [paginatedVideos, setPaginatedVideos] = useState([]);
+    const [rangeValue, setRangeValue] = useState(null);
+    const [isSelected, setIsSelected] = useState(false);
 
     const httpClient = axios.create({
         baseURL: 'https://www.googleapis.com/youtube/v3',
-        params: { key: 'AIzaSyDfZXlaz1ua-0YZefMsK6qcDs29zEmL2r4' },
+        params: { key: 'AIzaSyDekMHJYeFkVXqun-VIdBwM7xHA1ZZkuYk' },
 
     });
     const youtube = new Youtube(httpClient);
 
     const selectVideo = (video) => {
         setSelectedVideo(video);
+        setIsSelected(false);
         console.log(selectedVideo);
         console.log(selectedVideo.id);
     };
@@ -154,7 +159,12 @@ const YoutubeSearch = () => {
 
                                         <div className="col-12 register-section mx-md-4">
                                             <div className="container">
-                                                <div className="py-3 px-5">
+                                                <div className="row d-flex justify-content-end ms-3 me-1 mt-3">
+                                                    <button className="createbtn text-center" onClick={()=>setIsSelected(true)}>담기</button>
+                                                </div>
+                                                <div className={isSelected ? "py-3 px-5": "d-none"}>
+                                                    <Range allowCross={false} min={10} max={100}
+                                                        step={20} dots/>
                                                     <div className="text-start mb-10">
                                                         <div className="mt-3 mb-10 fs-3">영상 담기</div>
                                                     </div>
@@ -171,9 +181,7 @@ const YoutubeSearch = () => {
                                                                     <input type="text" id="tag" name="tag" placeholder="태그를 입력하세요. 쉼표로 구분됩니다." />
                                                                 </div>
                                                             </div>
-                                                            <div className="row d-flex justify-content-end ms-3 me-1 mt-3">
-                                                                <button className="createbtn text-center" >담기</button>
-                                                            </div>
+
                                                         </form>
                                                     </div>
                                                 </div>
