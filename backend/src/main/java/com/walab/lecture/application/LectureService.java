@@ -6,9 +6,9 @@ import com.walab.classroom.domain.repository.ClassRoomRepository;
 import com.walab.content.domain.Content;
 import com.walab.lecture.application.dto.LectureContentDto;
 import com.walab.lecture.application.dto.LectureCreateDto;
-import com.walab.lecture.application.dto.LectureDto;
+import com.walab.lecture.application.dto.LectureDataDto;
 import com.walab.lecture.domain.Lecture;
-import com.walab.lecture.domain.dto.LectureDataDto;
+
 import com.walab.lecture.domain.repository.LectureRepository;
 
 import lombok.*;
@@ -26,14 +26,14 @@ public class LectureService {
     private final ClassRoomRepository classRoomRepository;
 
     @Transactional
-    public LectureDto createLecture(LectureCreateDto lectureCreateDto, Long classId) {
+    public LectureDataDto createLecture(LectureCreateDto lectureCreateDto, Long classId) {
 
         ClassRoom classRoom = classRoomRepository.findById(classId).orElseThrow();
 
         Lecture newLecture = new Lecture(classRoom, lectureCreateDto);
         Lecture savedLecture = lectureRepository.save(newLecture);
 
-        return savedLecture.toDto();
+        return savedLecture.toLectureDataDto();
     }
 
     public List<LectureContentDto> findByLectureNum(Long classId, int lectureNum) {

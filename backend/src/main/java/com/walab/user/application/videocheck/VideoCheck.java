@@ -4,14 +4,21 @@ import java.time.LocalDateTime;
 
 import javax.persistence.*;
 
+import com.walab.common.BaseEntity;
 import com.walab.user.domain.User;
 import com.walab.video.domain.Video;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 @Entity
 @Getter
-public class VideoCheck {
+@NoArgsConstructor
+@SQLDelete(sql = "UPDATE video_check SET deleted = true WHERE id = ?")
+@Where(clause = "deleted = false")
+public class VideoCheck extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
