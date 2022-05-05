@@ -2,8 +2,10 @@ package com.walab.classroom.application.dto.take;
 
 import java.time.LocalDateTime;
 
+import com.walab.classroom.domain.ClassRoom;
 import com.walab.classroom.domain.take.Take;
 import com.walab.classroom.presentation.response.ClassRoomDashboardResponse;
+import com.walab.classroom.presentation.response.ClassRoomManagedResponse;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,6 +23,7 @@ public class TakeClassRoomDto {
     private int videoCheck;
     private String lastestNotice;
     private int numberOfTake;
+    private boolean isActive;
     private LocalDateTime classRoomRegDate;
 
     public TakeClassRoomDto(Take take) {
@@ -35,7 +38,22 @@ public class TakeClassRoomDto {
         this.classRoomRegDate = take.getClassRoom().getCreatedAt();
     }
 
+    public TakeClassRoomDto(ClassRoom classRoom){
+        this.classId = classRoom.getId();
+        this.className = classRoom.getClassName();
+        this.instructorName = classRoom.getInstructor().getName();
+        this.lastestNotice = classRoom.getLastestNoticeTitle();
+        // ToDo N+1 발생 예정 해결법 찾기 getTake한번당 한번 쿼리 발생
+        this.isActive = classRoom.getIsActive();
+        this.numberOfTake = classRoom.getTakes().size();
+        this.classRoomRegDate = classRoom.getCreatedAt();
+    }
+
     public ClassRoomDashboardResponse classRoomTakeResponse() {
         return new ClassRoomDashboardResponse(classId, className, instructorName, videoCheck, lastestNotice, numberOfTake, classRoomRegDate);
+    }
+
+    public ClassRoomManagedResponse classRoomManagedResponse(){
+        return new ClassRoomManagedResponse(classId, className, instructorName, lastestNotice, numberOfTake, isActive ,classRoomRegDate);
     }
 }

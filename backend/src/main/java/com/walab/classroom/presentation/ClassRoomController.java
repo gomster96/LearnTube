@@ -124,4 +124,13 @@ public class ClassRoomController {
                                                                  .collect(Collectors.toList());
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping("/manages")
+    public ResponseEntity<List<ClassRoomManagedResponse>> getManagedClassRooms(@RequestParam Long userId) {
+        List<TakeClassRoomDto> managedClasses = classRoomService.getManagedClasses(userId);
+        List<ClassRoomManagedResponse> response = managedClasses.stream()
+                                                                .map(TakeClassRoomDto::classRoomManagedResponse)
+                                                                .collect(Collectors.toList());
+        return ResponseEntity.ok(response);
+    }
 }
