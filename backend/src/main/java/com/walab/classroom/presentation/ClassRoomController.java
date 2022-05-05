@@ -1,13 +1,16 @@
 package com.walab.classroom.presentation;
 
 import com.walab.classroom.application.ClassRoomService;
-import com.walab.classroom.application.dto.ClassRoomCUDto;
+import com.walab.classroom.application.TakeService;
 import com.walab.classroom.application.dto.ClassRoomDto;
+import com.walab.classroom.application.dto.ClassRoomEnrollDto;
 import com.walab.classroom.presentation.request.ClassRoomCreateRequest;
+import com.walab.classroom.presentation.request.ClassRoomEnrollRequest;
 import com.walab.classroom.presentation.request.ClassRoomIdRequest;
 import com.walab.classroom.presentation.request.ClassRoomUpdateRequest;
 import com.walab.classroom.presentation.response.ClassRoomCreateResponse;
 import com.walab.classroom.presentation.response.ClassRoomIdResponse;
+import com.walab.classroom.presentation.response.ClassRoomEnrollResponse;
 import com.walab.classroom.presentation.response.ClassRoomUpdateResponse;
 
 import org.springframework.http.ResponseEntity;
@@ -21,6 +24,7 @@ import lombok.RequiredArgsConstructor;
 public class ClassRoomController {
 
     private final ClassRoomService classRoomService;
+    private final TakeService takeService;
 
     @PostMapping
     public ResponseEntity<ClassRoomCreateResponse> createClassRoom(@RequestBody ClassRoomCreateRequest request){
@@ -48,5 +52,12 @@ public class ClassRoomController {
         //Todo 나중에 userId로 각 class의 video수강 완료에 대한 정보를 받아야한다.
         ClassRoomDto classRoomDto = classRoomService.find(userId, classId);
         return ResponseEntity.ok(classRoomDto);
+    }
+
+    @PostMapping("/enroll")
+    public ResponseEntity<ClassRoomEnrollResponse> enrollClassRoom(@RequestBody ClassRoomEnrollRequest request){
+        ClassRoomEnrollDto classRoomEnrollDto = takeService.create(request.getUserId(), request.getClassId());
+        ClassRoomEnrollResponse response = classRoomEnrollDto.classRoomEnrollResponse();
+        return ResponseEntity.ok(response);
     }
 }

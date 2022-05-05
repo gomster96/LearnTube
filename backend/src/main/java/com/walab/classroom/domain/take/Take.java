@@ -29,5 +29,12 @@ public class Take extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private ClassRoom classRoom;
 
-    private int status;
+    private int status = 0;
+
+    public Take(User user, ClassRoom classRoom){
+        this.user = user;
+        this.classRoom = classRoom;
+        user.addTake(this);
+        classRoom.addTake(this);
+    }
 }
