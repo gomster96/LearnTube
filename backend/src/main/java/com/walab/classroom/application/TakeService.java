@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.walab.classroom.application.dto.ClassRoomEnrollDto;
+import com.walab.classroom.application.dto.take.TakeClassRoomDto;
 import com.walab.classroom.application.dto.take.TakeUserDto;
 import com.walab.classroom.domain.ClassRoom;
 import com.walab.classroom.domain.repository.ClassRoomRepository;
@@ -26,9 +27,10 @@ public class TakeService {
 
     @Transactional
     public ClassRoomEnrollDto create(Long userId, Long classId) {
-
         User user = userRepository.findById(userId).orElseThrow();
         ClassRoom classRoom = classRoomRepository.findById(classId).orElseThrow();
+        // ToDo 이미 수강중인 수업인지 아닌지 확인 필요함
+        // ToDo Reject된 상태라면 어떻게 해야할까? 다시 만들 수 있도록 해야하나?
         Take take = new Take(user, classRoom);
         Take saveTake = takeRepository.save(take);
         return new ClassRoomEnrollDto(saveTake.getId(), classRoom.getClassName());
@@ -38,7 +40,7 @@ public class TakeService {
     public List<TakeUserDto> getTakeWaitUsers(Long classId) {
         List<Take> takes = takeRepository.getWaitTakeByClassId(classId);
         return takes.stream()
-                    .map(Take::toTakeUserDto)
+                    .map(TakeUserDto::new)
                     .collect(Collectors.toList());
     }
 
@@ -72,8 +74,20 @@ public class TakeService {
         // ToDo N+1 발생 -> 성능 안좋음 -> 나중에 바꾸기
         takes.forEach(Take::rejectTake);
         return takes.stream()
-                    .map(Take::toTakeUserDto)
+                    .map(TakeUserDto::new)
                     .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public List<TakeClassRoomDto> getTakingClasses(Long userId) {
+        List<Take> takes = takeRepository.findDashboardTakeByUserId(userId, true);
+        return takes.stream().map(TakeClassRoomDto::new).collect(Collectors.toList());
+    }
+
+    @Transactional
+    public List<TakeClassRoomDto> getClosedClasses(Long userId) {
+        List<Take> takes = takeRepository.findDashboardTakeByUserId(userId, false);
+        return takes.stream().map(TakeClassRoomDto::new).collect(Collectors.toList());
     }
 }
 
