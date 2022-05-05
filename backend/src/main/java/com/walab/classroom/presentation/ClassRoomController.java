@@ -95,4 +95,11 @@ public class ClassRoomController {
                                                               .collect(Collectors.toList());
         return ResponseEntity.ok(response);
     }
+
+    @PostMapping("/reject")
+    public ResponseEntity<TakeAcceptRejectResponse> rejectUser(@RequestBody TakeIdRequest request) {
+        TakeUserDto takeUserDto = takeService.updateReject(request.getTakeId());
+        TakeAcceptRejectResponse response = takeUserDto.takeAcceptRejectResponse();
+        return ResponseEntity.ok(response);
+    }
 }

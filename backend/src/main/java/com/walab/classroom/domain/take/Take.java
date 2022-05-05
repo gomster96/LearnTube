@@ -42,6 +42,7 @@ public class Take extends BaseEntity {
     public void acceptTake(){
         this.status = 1;
     }
+    public void rejectTake() { this.status = 2;}
     public TakeUserDto toTakeUserDto() {
         return new TakeUserDto(this);
     }

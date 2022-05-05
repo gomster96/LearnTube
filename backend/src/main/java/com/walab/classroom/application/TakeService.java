@@ -58,5 +58,12 @@ public class TakeService {
                     .map(Take::toTakeUserDto)
                     .collect(Collectors.toList());
     }
+
+    @Transactional
+    public TakeUserDto updateReject(Long takeId) {
+        Take take = takeRepository.findById(takeId).orElseThrow();
+        take.rejectTake();
+        return take.toTakeUserDto();
+    }
 }
 
