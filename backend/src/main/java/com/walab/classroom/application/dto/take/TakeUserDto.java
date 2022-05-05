@@ -1,6 +1,7 @@
 package com.walab.classroom.application.dto.take;
 
 import com.walab.classroom.domain.take.Take;
+import com.walab.classroom.presentation.response.take.TakeAcceptRejectResponse;
 import com.walab.classroom.presentation.response.take.TakeUserResponse;
 
 import lombok.AllArgsConstructor;
@@ -27,5 +28,9 @@ public class TakeUserDto {
 
     public TakeUserResponse takeUserResponse(){
         return new TakeUserResponse(takeId, userId, name, email);
+    }
+
+    public TakeAcceptRejectResponse takeAcceptRejectResponse(){
+        return new TakeAcceptRejectResponse(takeId, name, email);
     }
 }

@@ -41,5 +41,12 @@ public class TakeService {
                     .map(Take::toTakeUserDto)
                     .collect(Collectors.toList());
     }
+
+    @Transactional
+    public TakeUserDto updateAccept(Long takeId){
+        Take take = takeRepository.findById(takeId).orElseThrow();
+        take.acceptTake();
+        return take.toTakeUserDto();
+    }
 }
 

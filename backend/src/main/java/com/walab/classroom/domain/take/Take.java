@@ -39,6 +39,9 @@ public class Take extends BaseEntity {
         classRoom.addTake(this);
     }
 
+    public void acceptTake(){
+        this.status = 1;
+    }
     public TakeUserDto toTakeUserDto() {
         return new TakeUserDto(this);
     }

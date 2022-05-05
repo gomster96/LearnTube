@@ -9,9 +9,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class TakeUserResponse {
+public class TakeAcceptRejectResponse {
     private Long takeId;
-    private Long userId;
     private String username;
     private String email;
 }

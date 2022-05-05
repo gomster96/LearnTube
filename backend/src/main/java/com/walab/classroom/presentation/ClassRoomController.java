@@ -12,10 +12,12 @@ import com.walab.classroom.presentation.request.ClassRoomCreateRequest;
 import com.walab.classroom.presentation.request.ClassRoomEnrollRequest;
 import com.walab.classroom.presentation.request.ClassRoomIdRequest;
 import com.walab.classroom.presentation.request.ClassRoomUpdateRequest;
+import com.walab.classroom.presentation.request.take.TakeIdRequest;
 import com.walab.classroom.presentation.response.ClassRoomCreateResponse;
 import com.walab.classroom.presentation.response.ClassRoomIdResponse;
 import com.walab.classroom.presentation.response.ClassRoomEnrollResponse;
 import com.walab.classroom.presentation.response.ClassRoomUpdateResponse;
+import com.walab.classroom.presentation.response.take.TakeAcceptRejectResponse;
 import com.walab.classroom.presentation.response.take.TakeUserResponse;
 import com.walab.user.application.UserService;
 import com.walab.user.application.dto.UserDto;
@@ -76,5 +78,10 @@ public class ClassRoomController {
         return ResponseEntity.ok(response);
     }
 
-//    @PostMapping("")
+    @PostMapping("/accept")
+    public ResponseEntity<TakeAcceptRejectResponse> acceptUser(@RequestBody TakeIdRequest request){
+        TakeUserDto takeUserDto = takeService.updateAccept(request.getTakeId());
+        TakeAcceptRejectResponse response = takeUserDto.takeAcceptRejectResponse();
+        return ResponseEntity.ok(response);
+    }
 }
