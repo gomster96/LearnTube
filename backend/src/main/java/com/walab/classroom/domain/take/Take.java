@@ -4,6 +4,7 @@ import javax.persistence.*;
 
 import com.walab.classroom.domain.ClassRoom;
 import com.walab.common.BaseEntity;
+import com.walab.user.application.dto.UserDto;
 import com.walab.user.domain.User;
 
 import lombok.AllArgsConstructor;
@@ -36,5 +37,9 @@ public class Take extends BaseEntity {
         this.classRoom = classRoom;
         user.addTake(this);
         classRoom.addTake(this);
+    }
+
+    public UserDto toUserDto(){
+        return new UserDto(this);
     }
 }

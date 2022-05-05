@@ -1,5 +1,6 @@
 package com.walab.user.application.dto;
 
+import com.walab.classroom.domain.take.Take;
 import com.walab.user.presentation.response.UserResponse;
 
 import lombok.AllArgsConstructor;
@@ -19,6 +20,12 @@ public class UserDto {
     public UserDto(String name, String email) {
         this.name = name;
         this.email = email;
+    }
+
+    public UserDto(Take take){
+        this.userId = take.getUser().getId();
+        this.name = take.getUser().getName();
+        this.email = take.getUser().getEmail();
     }
 
     public UserResponse userResponse(){

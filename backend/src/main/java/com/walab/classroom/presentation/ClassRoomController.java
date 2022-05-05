@@ -1,5 +1,8 @@
 package com.walab.classroom.presentation;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.walab.classroom.application.ClassRoomService;
 import com.walab.classroom.application.TakeService;
 import com.walab.classroom.application.dto.ClassRoomDto;
@@ -12,6 +15,9 @@ import com.walab.classroom.presentation.response.ClassRoomCreateResponse;
 import com.walab.classroom.presentation.response.ClassRoomIdResponse;
 import com.walab.classroom.presentation.response.ClassRoomEnrollResponse;
 import com.walab.classroom.presentation.response.ClassRoomUpdateResponse;
+import com.walab.user.application.UserService;
+import com.walab.user.application.dto.UserDto;
+import com.walab.user.presentation.response.UserResponse;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -58,6 +64,13 @@ public class ClassRoomController {
     public ResponseEntity<ClassRoomEnrollResponse> enrollClassRoom(@RequestBody ClassRoomEnrollRequest request){
         ClassRoomEnrollDto classRoomEnrollDto = takeService.create(request.getUserId(), request.getClassId());
         ClassRoomEnrollResponse response = classRoomEnrollDto.classRoomEnrollResponse();
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/wait-list")
+    public ResponseEntity<List<UserResponse>> getEnrollmentWaitList(@RequestParam Long classId){
+        List<UserDto> takeWaitUsers = takeService.getTakeWaitUsers(classId);
+        List<UserResponse> response = takeWaitUsers.stream().map(UserDto::userResponse).collect(Collectors.toList());
         return ResponseEntity.ok(response);
     }
 }
