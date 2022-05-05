@@ -43,10 +43,20 @@ public class TakeService {
     }
 
     @Transactional
-    public TakeUserDto updateAccept(Long takeId){
+    public TakeUserDto updateAccept(Long takeId) {
         Take take = takeRepository.findById(takeId).orElseThrow();
         take.acceptTake();
         return take.toTakeUserDto();
+    }
+
+    @Transactional
+    public List<TakeUserDto> updateAllAccept(Long classId) {
+        List<Take> takes = takeRepository.getWaitTakeByClassId(classId);
+        // ToDo N+1 발생 -> 성능 안좋음 -> 나중에 바꾸기
+        takes.forEach(Take::acceptTake);
+        return takes.stream()
+                    .map(Take::toTakeUserDto)
+                    .collect(Collectors.toList());
     }
 }
 
