@@ -1,7 +1,5 @@
 package com.walab.classroom.application;
 
-import java.util.Optional;
-
 import com.walab.classroom.application.dto.ClassRoomCUDto;
 import com.walab.classroom.application.dto.ClassRoomDto;
 import com.walab.classroom.domain.ClassRoom;
@@ -36,14 +34,17 @@ public class ClassRoomService {
     }
 
     @Transactional
-    public Long delete(Long classId){
+    public Long delete(Long classId) {
         classRoomRepository.deleteById(classId);
         return classId;
     }
 
     @Transactional
-    public ClassRoomDto find(Long userId, Long classId){
+    public ClassRoomDto find(Long userId, Long classId) {
+        //ToDo ClassRoom Data 받아오는 query 성능 향상시키기
+        // N+1 문제가 발생하지않도록
         ClassRoom classroom = classRoomRepository.findById(classId).orElseThrow();
         return classroom.toDto();
     }
+
 }

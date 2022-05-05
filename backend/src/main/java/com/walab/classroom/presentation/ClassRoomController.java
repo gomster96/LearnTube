@@ -7,16 +7,14 @@ import com.walab.classroom.application.ClassRoomService;
 import com.walab.classroom.application.TakeService;
 import com.walab.classroom.application.dto.ClassRoomDto;
 import com.walab.classroom.application.dto.ClassRoomEnrollDto;
+import com.walab.classroom.application.dto.take.TakeClassRoomDto;
 import com.walab.classroom.application.dto.take.TakeUserDto;
 import com.walab.classroom.presentation.request.ClassRoomCreateRequest;
 import com.walab.classroom.presentation.request.ClassRoomEnrollRequest;
 import com.walab.classroom.presentation.request.ClassRoomIdRequest;
 import com.walab.classroom.presentation.request.ClassRoomUpdateRequest;
 import com.walab.classroom.presentation.request.take.TakeIdRequest;
-import com.walab.classroom.presentation.response.ClassRoomCreateResponse;
-import com.walab.classroom.presentation.response.ClassRoomIdResponse;
-import com.walab.classroom.presentation.response.ClassRoomEnrollResponse;
-import com.walab.classroom.presentation.response.ClassRoomUpdateResponse;
+import com.walab.classroom.presentation.response.*;
 import com.walab.classroom.presentation.response.take.TakeAcceptRejectResponse;
 import com.walab.classroom.presentation.response.take.TakeUserResponse;
 import com.walab.user.application.UserService;
@@ -109,6 +107,15 @@ public class ClassRoomController {
         List<TakeAcceptRejectResponse> response = takeUserDtos.stream()
                                                               .map(TakeUserDto::takeAcceptRejectResponse)
                                                               .collect(Collectors.toList());
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/takes")
+    public ResponseEntity<List<ClassRoomTakeResponse>> getTakingClassRooms(@RequestParam Long userId) {
+        List<TakeClassRoomDto> takingClasses = takeService.getTakingClasses(userId);
+        List<ClassRoomTakeResponse> response = takingClasses.stream()
+                                                            .map(TakeClassRoomDto::classRoomTakeResponse)
+                                                            .collect(Collectors.toList());
         return ResponseEntity.ok(response);
     }
 }
