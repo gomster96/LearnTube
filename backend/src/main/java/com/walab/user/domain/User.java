@@ -49,6 +49,10 @@ public class User extends BaseEntity {
         this.email = email;
     }
 
+    public void addTake(Take take){
+        this.takes.add(take);
+    }
+
     public UserDto toDto(){
         return new UserDto(id, name, email);
     }

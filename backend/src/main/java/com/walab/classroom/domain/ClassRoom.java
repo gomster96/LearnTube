@@ -71,6 +71,10 @@ public class ClassRoom extends BaseEntity {
         this.instructor = instructor;
     }
 
+    public void addTake(Take take){
+        this.takes.add(take);
+    }
+
     public void update(ClassRoomCUDto dto) {
         this.className = dto.getClassName();
         this.classDescription = dto.getClassDescription();
