@@ -7,21 +7,16 @@ import com.walab.classroom.application.ClassRoomService;
 import com.walab.classroom.application.TakeService;
 import com.walab.classroom.application.dto.ClassRoomDto;
 import com.walab.classroom.application.dto.ClassRoomEnrollDto;
+import com.walab.classroom.application.dto.take.TakeClassRoomDto;
 import com.walab.classroom.application.dto.take.TakeUserDto;
 import com.walab.classroom.presentation.request.ClassRoomCreateRequest;
 import com.walab.classroom.presentation.request.ClassRoomEnrollRequest;
 import com.walab.classroom.presentation.request.ClassRoomIdRequest;
 import com.walab.classroom.presentation.request.ClassRoomUpdateRequest;
 import com.walab.classroom.presentation.request.take.TakeIdRequest;
-import com.walab.classroom.presentation.response.ClassRoomCreateResponse;
-import com.walab.classroom.presentation.response.ClassRoomIdResponse;
-import com.walab.classroom.presentation.response.ClassRoomEnrollResponse;
-import com.walab.classroom.presentation.response.ClassRoomUpdateResponse;
+import com.walab.classroom.presentation.response.*;
 import com.walab.classroom.presentation.response.take.TakeAcceptRejectResponse;
 import com.walab.classroom.presentation.response.take.TakeUserResponse;
-import com.walab.user.application.UserService;
-import com.walab.user.application.dto.UserDto;
-import com.walab.user.presentation.response.UserResponse;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -109,6 +104,33 @@ public class ClassRoomController {
         List<TakeAcceptRejectResponse> response = takeUserDtos.stream()
                                                               .map(TakeUserDto::takeAcceptRejectResponse)
                                                               .collect(Collectors.toList());
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/takes")
+    public ResponseEntity<List<ClassRoomDashboardResponse>> getTakingClassRooms(@RequestParam Long userId) {
+        List<TakeClassRoomDto> takingClasses = takeService.getTakingClasses(userId);
+        List<ClassRoomDashboardResponse> response = takingClasses.stream()
+                                                                 .map(TakeClassRoomDto::classRoomTakeResponse)
+                                                                 .collect(Collectors.toList());
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/closed")
+    public ResponseEntity<List<ClassRoomDashboardResponse>> getClosedClassRooms(@RequestParam Long userId) {
+        List<TakeClassRoomDto> closedClasses = takeService.getClosedClasses(userId);
+        List<ClassRoomDashboardResponse> response = closedClasses.stream()
+                                                                 .map(TakeClassRoomDto::classRoomTakeResponse)
+                                                                 .collect(Collectors.toList());
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/manages")
+    public ResponseEntity<List<ClassRoomManagedResponse>> getManagedClassRooms(@RequestParam Long userId) {
+        List<TakeClassRoomDto> managedClasses = classRoomService.getManagedClasses(userId);
+        List<ClassRoomManagedResponse> response = managedClasses.stream()
+                                                                .map(TakeClassRoomDto::classRoomManagedResponse)
+                                                                .collect(Collectors.toList());
         return ResponseEntity.ok(response);
     }
 }

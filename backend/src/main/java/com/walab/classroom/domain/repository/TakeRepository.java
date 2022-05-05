@@ -14,4 +14,15 @@ public interface TakeRepository extends JpaRepository<Take, Long> {
             "where t.classRoom.id = :classId " +
             "and t.status = 0 ")
     List<Take> getWaitTakeByClassId(@Param("classId") Long classId);
+
+    @Query("select distinct t from Take t " +
+            "left join fetch t.user as u " +
+            "left join fetch  t.classRoom as c " +
+            "left join fetch c.instructor " +
+            "left join fetch c.notices " +
+            "where u.id = :userId " +
+            "and c.isActive = :isActive " +
+            "and t.status = 1")
+    List<Take> findDashboardTakeByUserId(@Param("userId") Long userId, @Param("isActive") boolean isActive);
+
 }
