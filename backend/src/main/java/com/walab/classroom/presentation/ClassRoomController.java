@@ -7,6 +7,7 @@ import com.walab.classroom.application.ClassRoomService;
 import com.walab.classroom.application.TakeService;
 import com.walab.classroom.application.dto.ClassRoomDto;
 import com.walab.classroom.application.dto.ClassRoomEnrollDto;
+import com.walab.classroom.application.dto.take.TakeUserDto;
 import com.walab.classroom.presentation.request.ClassRoomCreateRequest;
 import com.walab.classroom.presentation.request.ClassRoomEnrollRequest;
 import com.walab.classroom.presentation.request.ClassRoomIdRequest;
@@ -15,6 +16,7 @@ import com.walab.classroom.presentation.response.ClassRoomCreateResponse;
 import com.walab.classroom.presentation.response.ClassRoomIdResponse;
 import com.walab.classroom.presentation.response.ClassRoomEnrollResponse;
 import com.walab.classroom.presentation.response.ClassRoomUpdateResponse;
+import com.walab.classroom.presentation.response.take.TakeUserResponse;
 import com.walab.user.application.UserService;
 import com.walab.user.application.dto.UserDto;
 import com.walab.user.presentation.response.UserResponse;
@@ -68,9 +70,11 @@ public class ClassRoomController {
     }
 
     @GetMapping("/wait-list")
-    public ResponseEntity<List<UserResponse>> getEnrollmentWaitList(@RequestParam Long classId){
-        List<UserDto> takeWaitUsers = takeService.getTakeWaitUsers(classId);
-        List<UserResponse> response = takeWaitUsers.stream().map(UserDto::userResponse).collect(Collectors.toList());
+    public ResponseEntity<List<TakeUserResponse>> getEnrollmentWaitList(@RequestParam Long classId){
+        List<TakeUserDto> takeWaitUsers = takeService.getTakeWaitUsers(classId);
+        List<TakeUserResponse> response = takeWaitUsers.stream().map(TakeUserDto::takeUserResponse).collect(Collectors.toList());
         return ResponseEntity.ok(response);
     }
+
+//    @PostMapping("")
 }

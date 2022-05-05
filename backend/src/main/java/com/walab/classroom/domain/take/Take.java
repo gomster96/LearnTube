@@ -2,9 +2,9 @@ package com.walab.classroom.domain.take;
 
 import javax.persistence.*;
 
+import com.walab.classroom.application.dto.take.TakeUserDto;
 import com.walab.classroom.domain.ClassRoom;
 import com.walab.common.BaseEntity;
-import com.walab.user.application.dto.UserDto;
 import com.walab.user.domain.User;
 
 import lombok.AllArgsConstructor;
@@ -21,7 +21,7 @@ import org.hibernate.annotations.Where;
 @Where(clause = "deleted = false")
 public class Take extends BaseEntity {
     @Id
-    @GeneratedValue(strategy =  GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -32,14 +32,14 @@ public class Take extends BaseEntity {
 
     private int status = 0;
 
-    public Take(User user, ClassRoom classRoom){
+    public Take(User user, ClassRoom classRoom) {
         this.user = user;
         this.classRoom = classRoom;
         user.addTake(this);
         classRoom.addTake(this);
     }
 
-    public UserDto toUserDto(){
-        return new UserDto(this);
+    public TakeUserDto toTakeUserDto() {
+        return new TakeUserDto(this);
     }
 }

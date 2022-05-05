@@ -22,12 +22,6 @@ public class UserDto {
         this.email = email;
     }
 
-    public UserDto(Take take){
-        this.userId = take.getUser().getId();
-        this.name = take.getUser().getName();
-        this.email = take.getUser().getEmail();
-    }
-
     public UserResponse userResponse(){
         return new UserResponse(userId, name, email);
     }

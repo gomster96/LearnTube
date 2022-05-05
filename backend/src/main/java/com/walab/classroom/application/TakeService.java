@@ -4,11 +4,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.walab.classroom.application.dto.ClassRoomEnrollDto;
+import com.walab.classroom.application.dto.take.TakeUserDto;
 import com.walab.classroom.domain.ClassRoom;
 import com.walab.classroom.domain.repository.ClassRoomRepository;
 import com.walab.classroom.domain.repository.TakeRepository;
 import com.walab.classroom.domain.take.Take;
-import com.walab.user.application.dto.UserDto;
 import com.walab.user.domain.User;
 import com.walab.user.domain.repository.UserRepository;
 
@@ -35,10 +35,10 @@ public class TakeService {
     }
 
     @Transactional
-    public List<UserDto> getTakeWaitUsers(Long classId) {
+    public List<TakeUserDto> getTakeWaitUsers(Long classId) {
         List<Take> takes = takeRepository.getWaitTakeByClassId(classId);
         return takes.stream()
-                    .map(Take::toUserDto)
+                    .map(Take::toTakeUserDto)
                     .collect(Collectors.toList());
     }
 }
