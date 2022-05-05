@@ -65,5 +65,15 @@ public class TakeService {
         take.rejectTake();
         return take.toTakeUserDto();
     }
+
+    @Transactional
+    public List<TakeUserDto> updateAllReject(Long classId) {
+        List<Take> takes = takeRepository.getWaitTakeByClassId(classId);
+        // ToDo N+1 발생 -> 성능 안좋음 -> 나중에 바꾸기
+        takes.forEach(Take::rejectTake);
+        return takes.stream()
+                    .map(Take::toTakeUserDto)
+                    .collect(Collectors.toList());
+    }
 }
 

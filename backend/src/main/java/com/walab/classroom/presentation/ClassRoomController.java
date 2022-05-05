@@ -102,4 +102,13 @@ public class ClassRoomController {
         TakeAcceptRejectResponse response = takeUserDto.takeAcceptRejectResponse();
         return ResponseEntity.ok(response);
     }
+
+    @PostMapping("/reject-all")
+    public ResponseEntity<List<TakeAcceptRejectResponse>> rejectAllUser(@RequestBody ClassRoomIdRequest request) {
+        List<TakeUserDto> takeUserDtos = takeService.updateAllReject(request.getClassId());
+        List<TakeAcceptRejectResponse> response = takeUserDtos.stream()
+                                                              .map(TakeUserDto::takeAcceptRejectResponse)
+                                                              .collect(Collectors.toList());
+        return ResponseEntity.ok(response);
+    }
 }
