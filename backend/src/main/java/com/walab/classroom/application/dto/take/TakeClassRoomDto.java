@@ -3,7 +3,7 @@ package com.walab.classroom.application.dto.take;
 import java.time.LocalDateTime;
 
 import com.walab.classroom.domain.take.Take;
-import com.walab.classroom.presentation.response.ClassRoomTakeResponse;
+import com.walab.classroom.presentation.response.ClassRoomDashboardResponse;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -35,7 +35,7 @@ public class TakeClassRoomDto {
         this.classRoomRegDate = take.getClassRoom().getCreatedAt();
     }
 
-    public ClassRoomTakeResponse classRoomTakeResponse() {
-        return new ClassRoomTakeResponse(classId, className, instructorName, videoCheck, lastestNotice, numberOfTake, classRoomRegDate);
+    public ClassRoomDashboardResponse classRoomTakeResponse() {
+        return new ClassRoomDashboardResponse(classId, className, instructorName, videoCheck, lastestNotice, numberOfTake, classRoomRegDate);
     }
 }

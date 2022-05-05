@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ClassRoomTakeResponse {
+public class ClassRoomDashboardResponse {
     private Long classId;
     private String className;
     private String instructorName;

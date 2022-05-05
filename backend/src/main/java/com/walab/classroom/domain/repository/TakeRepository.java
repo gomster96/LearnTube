@@ -21,7 +21,8 @@ public interface TakeRepository extends JpaRepository<Take, Long> {
             "left join fetch c.instructor " +
             "left join fetch c.notices " +
             "where u.id = :userId " +
-            "and c.isActive = true " +
+            "and c.isActive = :isActive " +
             "and t.status = 1")
-    List<Take> findActiveClassByUserId(@Param("userId") Long userId);
+    List<Take> findDashboardTakeByUserId(@Param("userId") Long userId, @Param("isActive") boolean isActive);
+
 }

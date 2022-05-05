@@ -79,10 +79,15 @@ public class TakeService {
     }
 
     @Transactional
-    public List<TakeClassRoomDto> getTakingClasses(Long userId){
-        List<Take> takes = takeRepository.findActiveClassByUserId(userId);
-        List<TakeClassRoomDto> takeClassRoomDtos = takes.stream().map(TakeClassRoomDto::new).collect(Collectors.toList());
-        return takeClassRoomDtos;
+    public List<TakeClassRoomDto> getTakingClasses(Long userId) {
+        List<Take> takes = takeRepository.findDashboardTakeByUserId(userId, true);
+        return takes.stream().map(TakeClassRoomDto::new).collect(Collectors.toList());
+    }
+
+    @Transactional
+    public List<TakeClassRoomDto> getClosedClasses(Long userId) {
+        List<Take> takes = takeRepository.findDashboardTakeByUserId(userId, false);
+        return takes.stream().map(TakeClassRoomDto::new).collect(Collectors.toList());
     }
 }
 

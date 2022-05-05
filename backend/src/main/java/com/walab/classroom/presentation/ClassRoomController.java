@@ -17,9 +17,6 @@ import com.walab.classroom.presentation.request.take.TakeIdRequest;
 import com.walab.classroom.presentation.response.*;
 import com.walab.classroom.presentation.response.take.TakeAcceptRejectResponse;
 import com.walab.classroom.presentation.response.take.TakeUserResponse;
-import com.walab.user.application.UserService;
-import com.walab.user.application.dto.UserDto;
-import com.walab.user.presentation.response.UserResponse;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -111,11 +108,20 @@ public class ClassRoomController {
     }
 
     @GetMapping("/takes")
-    public ResponseEntity<List<ClassRoomTakeResponse>> getTakingClassRooms(@RequestParam Long userId) {
+    public ResponseEntity<List<ClassRoomDashboardResponse>> getTakingClassRooms(@RequestParam Long userId) {
         List<TakeClassRoomDto> takingClasses = takeService.getTakingClasses(userId);
-        List<ClassRoomTakeResponse> response = takingClasses.stream()
-                                                            .map(TakeClassRoomDto::classRoomTakeResponse)
-                                                            .collect(Collectors.toList());
+        List<ClassRoomDashboardResponse> response = takingClasses.stream()
+                                                                 .map(TakeClassRoomDto::classRoomTakeResponse)
+                                                                 .collect(Collectors.toList());
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/closed")
+    public ResponseEntity<List<ClassRoomDashboardResponse>> getClosedClassRooms(@RequestParam Long userId) {
+        List<TakeClassRoomDto> closedClasses = takeService.getClosedClasses(userId);
+        List<ClassRoomDashboardResponse> response = closedClasses.stream()
+                                                                 .map(TakeClassRoomDto::classRoomTakeResponse)
+                                                                 .collect(Collectors.toList());
         return ResponseEntity.ok(response);
     }
 }
