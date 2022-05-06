@@ -36,20 +36,19 @@ const YoutubeSearch = () => {
     const [selectedVideo, setSelectedVideo] = useState(null);
     const [realNewViewCount, setNewViewCount] = useState(0);
     const [realFinalDuration, setFinalDuration] = useState('');
+    const [cart,setCart] = useState({});
 
     const httpClient = axios.create({
         baseURL: 'https://www.googleapis.com/youtube/v3',
-        params: { key: 'AIzaSyCOE8yAf5-5TrvgQgcaMZIMjR588joHBas' },
+        params: { key: 'AIzaSyAAQWtwJTH3tLOjqFz7ICVtcUlF_mCJ8xg' },
 
     });
     const youtube = new Youtube(httpClient);
-    let duration;
     let finalDuration = '';
-    let viewCountInt;
-    let newViewCount;
+    let duration,viewCountInt,newViewCount;
     const selectVideo = (video) => {
         setSelectedVideo(video);
-        // console.log(selectedVideo);
+        console.log(selectedVideo);
         // console.log(selectedVideo.id);
         //조회수 커스터마이징
         duration = video.contentDetails.duration;
@@ -82,7 +81,6 @@ const YoutubeSearch = () => {
             } else sec = tempDuration[0].substring(2, temp_length);
             finalDuration = finalDuration + sec + "초";
         }
-        console.log(finalDuration);
         setFinalDuration(finalDuration);
         //조회수 커스텀
         viewCountInt = parseFloat(video.statistics.viewCount);
@@ -93,10 +91,21 @@ const YoutubeSearch = () => {
         } else if (viewCountInt > 1000) {
             newViewCount = (viewCountInt / 1000.0).toFixed(1) + "천"; 
         } else newViewCount = viewCountInt;
-        console.log(newViewCount);
         setNewViewCount(newViewCount);
     };
 
+    let newId;
+    const addVideoToCart = (video) => {
+        newId = video.id;
+        cart[newId] = video;
+        console.log(cart);
+    };
+
+    const deleteVideoFromCart = (id) => {
+        console.log(id);
+        delete cart[id];
+        console.log(cart);
+    };
 
     // query를 받아와서 search 후 searchedVideos에 결과 저장
     const search = useCallback(
@@ -170,7 +179,8 @@ const YoutubeSearch = () => {
                                     <div className="widget-area">
                                         <YoutubeVideoListWidget videos={searchedVideos.items}
                                             onVideoClick={selectVideo} nextPageToken={searchedVideos.nextPageToken}
-                                            prevPageToken={searchedVideos.prevPageToken} getToken={getToken} />
+                                            prevPageToken={searchedVideos.prevPageToken} getToken={getToken} 
+                                            cartClick={addVideoToCart} cartUnclick={deleteVideoFromCart} cart={cart}/>
                                     </div>
                                 </div>
 
@@ -178,7 +188,8 @@ const YoutubeSearch = () => {
                                     <div className="widget-area">
                                         <YoutubeVideoListWidget videos={searchedVideos.items}
                                             onVideoClick={selectVideo} nextPageToken={searchedVideos.nextPageToken}
-                                            prevPageToken={searchedVideos.prevPageToken} getToken={getToken} />
+                                            prevPageToken={searchedVideos.prevPageToken} getToken={getToken} 
+                                            cartClick={addVideoToCart} cartUnclick={deleteVideoFromCart} cart={cart}/>
                                     </div>
                                 </div>}
 
