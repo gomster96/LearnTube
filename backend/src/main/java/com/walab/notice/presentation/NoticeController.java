@@ -17,34 +17,34 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api")
+@RequestMapping(value = "/api/notice")
 @RequiredArgsConstructor
 public class NoticeController {
     private final NoticeService noticeService;
     private final NoticeRepository noticeRepository;
 
-    @PostMapping(value = "notice")
+    @PostMapping
     public ResponseEntity<NoticeResponse> createNotice (@RequestBody NoticeCreationRequest request) {
         NoticeDto createNotice = noticeService.createNotice(request.noticeCUDto(), request.getClassId());
         NoticeResponse response = createNotice.noticeResponse();
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping(value ="notice/update")
+    @PostMapping(value ="/update")
     public ResponseEntity<NoticeResponse> updateNotice (@RequestBody NoticeUpdateRequest request) {
         NoticeDto updateNotice = noticeService.updateNotice(request.getNoticeId(), request.noticeCUDto());
         NoticeResponse response = updateNotice.noticeResponse();
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("notice/delete")
+    @PostMapping("/delete")
     public ResponseEntity<NoticeIdResponse> deleteNotice (@RequestBody NoticeDeleteRequest request){
         NoticeIdDto deleteNoticeIdDto = noticeService.delete(request.toDto());
         NoticeIdResponse response = deleteNoticeIdDto.noticeIdResponse();
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("notice")
+    @GetMapping
     public ResponseEntity<Object> getNotices(@RequestParam Long classId){
         List<NoticeDetailDto> noticeList =  noticeService.getNotices(classId);
 

@@ -1,5 +1,6 @@
-package com.walab.lecture.presentation.dto;
+package com.walab.lecture.application.dto;
 
+import com.walab.lecture.presentation.dto.LectureResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,8 +12,12 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class LectureResponse {
+public class LectureDataDto {
     private Long lectureId;
     private int lectureNum;
     private LocalDateTime modDate;
+
+    public LectureResponse lectureResponse() {
+        return new LectureResponse(lectureId, lectureNum, modDate);
+    }
 }

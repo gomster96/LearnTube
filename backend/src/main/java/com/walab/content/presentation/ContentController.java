@@ -16,33 +16,33 @@ import org.springframework.web.bind.annotation.*;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/content")
 @RequiredArgsConstructor
 public class ContentController {
     private final ContentService contentService;
 
-    @PostMapping("/content/delete")
+    @PostMapping("/delete")
     public ResponseEntity<ContentIdResponse> deleteContent(@RequestBody ContentDeleteRequest request) {
         ContentIdDto deletedContentIdDto = contentService.delete(request.toDto());
         ContentIdResponse response = deletedContentIdDto.contentIdResponse();
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/content")
+    @PostMapping
     public ResponseEntity<ContentResponse> createContent(@RequestBody ContentCreateRequest request) {
         ContentDto createdContent = contentService.create(request.contentCUDto(), request.getLectureId(), request.getPlaylistId());
         ContentResponse response = createdContent.contentResponse();
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/content/update")
+    @PostMapping("/update")
     public ResponseEntity<ContentResponse> updateContent(@RequestBody ContentUpdateRequest request) {
         ContentDto updatedContent = contentService.update(request.getContentId(), request.contentCUDto(), request.getPlaylistId());
         ContentResponse response = updatedContent.contentResponse();
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/content")
+    @GetMapping
     public ResponseEntity<ContentDetailDto> getContent(@RequestParam Long contentId) {
         ContentDetailDto response = contentService.findById(contentId);
 

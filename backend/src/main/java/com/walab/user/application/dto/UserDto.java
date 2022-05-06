@@ -1,5 +1,6 @@
 package com.walab.user.application.dto;
 
+import com.walab.classroom.domain.take.Take;
 import com.walab.user.presentation.response.UserResponse;
 
 import lombok.AllArgsConstructor;

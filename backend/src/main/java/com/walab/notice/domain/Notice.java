@@ -6,18 +6,23 @@ import javax.persistence.*;
 
 import com.walab.classroom.domain.ClassRoom;
 
+import com.walab.common.BaseEntity;
 import com.walab.notice.application.dto.NoticeCUDto;
 import com.walab.notice.application.dto.NoticeDetailDto;
 import com.walab.notice.application.dto.NoticeDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 @Entity
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Notice {
+@SQLDelete(sql = "UPDATE notice SET deleted = true WHERE id = ?")
+@Where(clause = "deleted = false")
+public class Notice extends BaseEntity {
     @Id
     @GeneratedValue
     private Long id;
