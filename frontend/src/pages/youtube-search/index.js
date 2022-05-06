@@ -45,7 +45,7 @@ const YoutubeSearch = () => {
 
     const httpClient = axios.create({
         baseURL: 'https://www.googleapis.com/youtube/v3',
-        params: { key: 'AIzaSyDfZXlaz1ua-0YZefMsK6qcDs29zEmL2r4' },
+        params: { key: 'AIzaSyDqKZObFZR0r6En1VhiWiA5ym7wmXGuQ00' },
 
     });
     const youtube = new Youtube(httpClient);
@@ -202,7 +202,7 @@ const YoutubeSearch = () => {
                                         <div class="col-12 my-5 lh-base">
                                             <div class="mx-md-3 fs-3 text-start">{selectedVideo.snippet.title}</div>
                                             <div class="d-flex fw-light">
-                                                <div class="mx-1 fs-5 text-start text-muted">{selectedVideo.snippet.channelTitle}</div>
+                                                <div class="mx-3 fs-5 text-start text-muted">{selectedVideo.snippet.channelTitle}</div>
                                                 <div class="mx-2"></div>
                                                 <div class="mx-1 border-start border-secondary"></div>
                                                 <div class="ms-3 fs-5 text-start text-muted">조회수 {selectedVideo.statistics.viewCount ? realNewViewCount : '0'}회</div>

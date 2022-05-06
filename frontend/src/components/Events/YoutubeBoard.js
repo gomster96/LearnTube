@@ -69,40 +69,27 @@ const YoutubeBoard = memo(({ video, video: { snippet, contentDetails }, onVideoC
     //조회수 customizing 끝
 
     return (
-        <div className='courses-item p-0 m-1 rounded-0' onClick={onClick}>
-            <div className="m-0" >
-                <img style={{ height: '100px' }}
-                    src={snippet.thumbnails.medium.url}
-                    alt={snippet.title}
-                />
-            </div>
-            <div className="content-part" style={{ width: '60%' }}>
-                <div className="row ps-3 mb-3">
-                    <h3 className="title">
-                        <Link >{snippet.title ? snippet.title : '강의제목'}</Link>
-                        <ModalVideo channel='youtube' autoplay isOpen={isOpen} videoId={video.id} onClose={() => { openModal(); }} />
-                    </h3>
+        <div>
+
+            <div className="p-1 row " onClick={onClick}>
+                <div className="m-0 col-md-3 col-sm-12" >
+                    <img className="img-fluid" style={{minWidth: '100px'}}
+                        src={snippet.thumbnails.medium.url}
+                        alt={snippet.title}
+                    />
                 </div>
-                <div className="info-meta p-0">
-                    <div className="row">
-                        <ul>
-                            <li>
-                                <i className="fa fa-user pe-1 "></i> {snippet.channelTitle ? snippet.channelTitle : '-'}
-                            </li>
-                            {/* <li>
-                                <i className="fa fa-youtube-play pe-1 "></i> {viewCount ? newViewCount : '0'}
-                            </li>
-                            <li>
-                                <i className="fa fa-clock-o pe-1"></i>{duration? finalDuration : '0'}
-                            </li>  */}
-                            {/* <li>
-                                <i className="fa fa-clock-o pe-1"></i>{duration ? finalDuration : '0'}
-                            </li>  */}
-                            {/* <li>
-                                    <i className="fa fa-calendar-o pe-1"></i>{regDate ? regDate : '-'} 
-                            </li> */}
-                        </ul>
+                <div className="col-md-9 col-sm-12">
+                    <div className="d-flex h4">
+                        {snippet.title ? snippet.title : '영상제목'}
                     </div>
+                    <div className="d-flex fw-light ms-0 ps-0">
+                        {snippet.channelTitle ? snippet.channelTitle : '채널명'}
+                        <div class="mx-1 border-start border-secondary"></div> {snippet.publishTime ? snippet.publishTime.slice(0, 10) : '등록일'}
+                    </div>
+                    <div className="d-flex fw-light">
+                        {snippet.description ? snippet.description : '영상설명'}
+                    </div>
+
                 </div>
             </div>
         </div>
