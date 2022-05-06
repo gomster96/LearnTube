@@ -98,16 +98,15 @@ const YoutubeBoard = memo(({ video, video: { snippet, contentDetails }, onVideoC
                             {/* <li>
                                 <i className="fa fa-clock-o pe-1"></i>{duration ? finalDuration : '0'}
                             </li>  */}
-                                {/* <li>
+                            {/* <li>
                                     <i className="fa fa-calendar-o pe-1"></i>{regDate ? regDate : '-'} 
                             </li> */}
-                            </ul>
-                        </div>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
-    )
+    );
 });
 
 export default YoutubeBoard
