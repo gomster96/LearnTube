@@ -69,28 +69,25 @@ const YoutubeBoard = memo(({ video, video: { snippet, contentDetails }, onVideoC
     //조회수 customizing 끝
 
     return (
-        <div>
-
-            <div className="p-1 row " onClick={onClick}>
-                <div className="m-0 col-md-3 col-sm-12" >
-                    <img className="img-fluid" style={{minWidth: '100px'}}
-                        src={snippet.thumbnails.medium.url}
-                        alt={snippet.title}
-                    />
+        <div className="p-1 row " onClick={onClick}>
+            <div className="m-0 col-md-3 col-sm-12" >
+                <img className="img-fluid" style={{ minWidth: '100px' }}
+                    src={snippet.thumbnails.medium.url}
+                    alt={snippet.title}
+                />
+            </div>
+            <div className="col-md-9 col-sm-12">
+                <div className="d-flex h4">
+                    {snippet.title ? snippet.title : '영상제목'}
                 </div>
-                <div className="col-md-9 col-sm-12">
-                    <div className="d-flex h4">
-                        {snippet.title ? snippet.title : '영상제목'}
-                    </div>
-                    <div className="d-flex fw-light ms-0 ps-0">
-                        {snippet.channelTitle ? snippet.channelTitle : '채널명'}
-                        <div class="mx-1 border-start border-secondary"></div> {snippet.publishTime ? snippet.publishTime.slice(0, 10) : '등록일'}
-                    </div>
-                    <div className="d-flex fw-light">
-                        {snippet.description ? snippet.description : '영상설명'}
-                    </div>
-
+                <div className="d-flex fw-light ms-0 ps-0">
+                    {snippet.channelTitle ? snippet.channelTitle : '채널명'}
+                    <div class="mx-1 border-start border-secondary"></div> {snippet.publishTime ? snippet.publishTime.slice(0, 10) : '등록일'}
                 </div>
+                <div className="d-flex fw-light">
+                    {snippet.description ? snippet.description : '영상설명'}
+                </div>
+
             </div>
         </div>
     );
