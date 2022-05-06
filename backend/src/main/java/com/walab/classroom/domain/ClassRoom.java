@@ -3,6 +3,7 @@ package com.walab.classroom.domain;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import javax.persistence.*;
 
@@ -71,6 +72,10 @@ public class ClassRoom extends BaseEntity {
         this.instructor = instructor;
     }
 
+    public void addTake(Take take) {
+        this.takes.add(take);
+    }
+
     public void update(ClassRoomCUDto dto) {
         this.className = dto.getClassName();
         this.classDescription = dto.getClassDescription();
@@ -78,6 +83,17 @@ public class ClassRoom extends BaseEntity {
         this.isOpened = dto.getIsOpened();
         this.entryCode = dto.getEntryCode();
         this.isActive = dto.getIsActive();
+    }
+
+    public String getLastestNoticeTitle() {
+
+        Optional<Notice> lastestNotice = this.notices.stream()
+                                                     .sorted((n1, n2) -> n2.getModDate().compareTo(n1.getModDate()))
+                                                     .findFirst();
+        if (lastestNotice.isPresent()) {
+            return lastestNotice.get().getTitle();
+        }
+        return "공지가 없습니다.";
     }
 
     public ClassRoomDto toCreatResponseDto() {
