@@ -1,29 +1,55 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
 
-import CourseDashBoard from '../../components/Courses/CourseDashBoard';
+import CourseDashBoard from "../../components/Courses/CourseDashBoard";
 
 // Course courseImg
-import courseImg1 from '../../assets/img/courses/1.jpg';
-import courseImg2 from '../../assets/img/courses/2.jpg';
-import courseImg3 from '../../assets/img/courses/3.jpg';
-import courseImg4 from '../../assets/img/courses/4.jpg';
-import courseImg5 from '../../assets/img/courses/5.jpg';
-import courseImg6 from '../../assets/img/courses/6.jpg';
-import courseImg7 from '../../assets/img/courses/7.jpg';
-import courseImg8 from '../../assets/img/courses/8.jpg';
+import courseImg1 from "../../assets/img/courses/1.jpg";
+import courseImg2 from "../../assets/img/courses/2.jpg";
+import courseImg3 from "../../assets/img/courses/3.jpg";
+import courseImg4 from "../../assets/img/courses/4.jpg";
+import courseImg5 from "../../assets/img/courses/5.jpg";
+import courseImg6 from "../../assets/img/courses/6.jpg";
+import courseImg7 from "../../assets/img/courses/7.jpg";
+import courseImg8 from "../../assets/img/courses/8.jpg";
 
 const CoursePartClosed = (props) => {
+    const initClosedData = [
+        {
+            classId: "",
+            className: "",
+            instructorName: "",
+            latestNotice: "",
+            numberOfTake: "",
+            active: "",
+            classRoomRegDate: "",
+        },
+    ];
+    const [closedData, setClosedData] = useState(initClosedData);
+    useEffect(() => {
+        const fetchClosedClassRoom = async () => {
+            try {
+                const response = await axios.get("http://localhost:8080/api/classroom/closed?userId=1");
+                console.log(response.data);
+                setClosedData(response.data);
+                // setContents(classRoomData.lectures[0].contents[0]);
+                // console.log("set : ", contents);
+            } catch (err) {
+                console.log("err >> ", err);
+            }
+        };
+        fetchClosedClassRoom();
+    }, []);
 
     const listClassAdd = () => {
-        document.getElementById("rs-popular-course").classList.add('list-view');
+        document.getElementById("rs-popular-course").classList.add("list-view");
     };
 
     const listClassRemove = () => {
-        document.getElementById("rs-popular-course").classList.remove('list-view');
+        document.getElementById("rs-popular-course").classList.remove("list-view");
     };
 
-    
     return (
         <div id="rs-popular-course" className="rs-popular-courses list-view style1 course-view-style orange-style rs-inner-blog white-bg pb-100 md-pt-70 md-pb-80 text-start">
             <div className="container">
@@ -32,8 +58,12 @@ const CoursePartClosed = (props) => {
                         <div className="course-search-part">
                             <div className="course-view-part ">
                                 <div className="view-icons">
-                                    <button onClick={listClassAdd} className="view-list "><i className="fa fa-list-ul"></i></button>
-                                    <button onClick={listClassRemove} className="view-grid mr-10 list-view"><i className="fa fa-th-large"></i></button>
+                                    <button onClick={listClassAdd} className="view-list ">
+                                        <i className="fa fa-list-ul"></i>
+                                    </button>
+                                    <button onClick={listClassRemove} className="view-grid mr-10 list-view">
+                                        <i className="fa fa-th-large"></i>
+                                    </button>
                                 </div>
                                 <div className="view-text">Showing 1-9 of 11 results</div>
                             </div>
@@ -51,41 +81,34 @@ const CoursePartClosed = (props) => {
                                 </form>
                             </div>
                         </div>
-
-                        <div className="course-part clearfix m-0">
-                            <CourseDashBoard
-                                courseClass="courses-item"
-                                courseImg={courseImg1}
-                                courseTitle="(종료됨) 영리한 프로그래밍을 위한 알고리즘 강좌"
-                                notice="특강"
-                                progress={60}
-                                openDate="2022.03"
-                                creatorName="양지후"
-                            />
-                            <CourseDashBoard
-                                courseClass="courses-item right"
-                                courseImg={courseImg2}
-                                courseTitle="(종료됨) 그림으로 쉽게 배우는 운영체제"
-                                notice="공지"
-                                progress={80}
-                                openDate="2022.02"
-                                creatorName="이지슬"
-                            />
-                            <CourseDashBoard
-                                courseClass="courses-item"
-                                courseImg={courseImg3}
-                                courseTitle="(종료됨) 프로그래밍 시작하기 : 파이썬 입문"
-                                notice="공지"
-                                progress={60}
-                                openDate="2022.01"
-                                creatorName="양지후"
-                            />
-                        </div>
+                        {Array.isArray(closedData)
+                            ? closedData.map((closedDatas, i) => (
+                                  <div className="course-part clearfix m-0">
+                                      <CourseDashBoard
+                                          courseClass="courses-item"
+                                          courseImg={courseImg1}
+                                          courseTitle={closedData[i].className}
+                                          notice={closedData[i].latestNotice}
+                                          progress={60}
+                                          openDate={closedData[i].classRoomRegDate.split("T")[0]}
+                                          creatorName={closedData[i].instructorName}
+                                      />
+                                  </div>
+                              ))
+                            : null}
                         <div className="pagination-area orange-color text-center mt-30 md-mt-0">
                             <ul className="pagination-part">
-                                <li className="active"><Link to="#">1</Link></li>
-                                <li><Link to="#">2</Link></li>
-                                <li><Link to="#">Next <i className="fa fa-long-arrow-right"></i></Link></li>
+                                <li className="active">
+                                    <Link to="#">1</Link>
+                                </li>
+                                <li>
+                                    <Link to="#">2</Link>
+                                </li>
+                                <li>
+                                    <Link to="#">
+                                        Next <i className="fa fa-long-arrow-right"></i>
+                                    </Link>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -93,6 +116,6 @@ const CoursePartClosed = (props) => {
             </div>
         </div>
     );
-}
+};
 
 export default CoursePartClosed;

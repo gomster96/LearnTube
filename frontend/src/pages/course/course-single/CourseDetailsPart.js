@@ -1,28 +1,69 @@
-import React from 'react';
-import CourseSidebar from './CourseSidebar';
-import CourseDetailsTab from './CourseDetailsTab';
+import React, { useEffect, useState } from "react";
+import CourseSidebar from "./CourseSidebar";
+import CurriculumPart from "./CurriculumPart";
+import axios from "axios";
 
 const CourseDetailsPart = () => {
+  const initClassRoomData = {
+    classId: "",
+    className: "",
+    classDescription: "",
+    closeDate: "",
+    isOpened: "",
+    entryCode: "",
+    isActive: "",
+    classRoomRegDate: "",
+    instructor: {
+      userId: "",
+      name: "",
+      email: "",
+    },
+    lectures: [
+      {
+        lectureId: "",
+        lectureNum: "",
+        modDate: "",
+        contents: [],
+      },
+    ],
+    notices: [],
+  };
+  const [classRoomData, setClassRoomData] = useState(initClassRoomData);
+  useEffect(() => {
+    const fetchClassRoom = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:8080/api/classroom?userId=1&classId=1"
+        );
+        console.log(response.data);
+        setClassRoomData(response.data);
+        // setContents(classRoomData.lectures[0].contents[0]);
+        // console.log("set : ", contents);
+      } catch (err) {
+        console.log("err >> ", err);
+      }
+    };
+    fetchClassRoom();
+  }, []);
 
-    return (
-        <React.Fragment>
-            <div className="intro-section gray-bg pt-94 pb-100 md-pt-80 md-pb-80 loaded">
-                <div className="container">
-                    <h5>커리큘럼</h5>
-                    <h3>영리한 프로그래밍을 위한 알고리즘 강좌</h3>
-                    <div className="row clearfix">
-                        <div className="col-lg-8 md-mb-50">
-                            <CourseDetailsTab />
-                        </div>
-                        <div className="video-column col-lg-4">
-                            <CourseSidebar />
-                        </div>
-                    </div>
-                </div>
+  return (
+    <React.Fragment>
+      <div className="intro-section gray-bg pt-94 pb-100 md-pt-80 md-pb-80 loaded">
+        <div className="container">
+          <h5>커리큘럼</h5>
+          <h3>{classRoomData.className}</h3>
+          <div className="row clearfix">
+            <div className="col-lg-8 md-mb-50">
+              <CurriculumPart classRoomData={classRoomData} />
             </div>
-
-        </React.Fragment>
-    )
-}
+            <div className="video-column col-lg-4">
+              <CourseSidebar classRoomData={classRoomData} />
+            </div>
+          </div>
+        </div>
+      </div>
+    </React.Fragment>
+  );
+};
 
 export default CourseDetailsPart;
