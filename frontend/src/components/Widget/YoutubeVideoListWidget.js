@@ -11,7 +11,8 @@ const YoutubeVideoListWidget = ({ videos, onVideoClick, nextPageToken, prevPageT
     };
     useEffect(function () {
         setSearchedVideos(videos);
-        console.log(searchedVideos);
+        // console.log(videos);
+        // console.log(searchedVideos);
     }, [videos]);
 
     return searchedVideos ? (
@@ -40,7 +41,7 @@ const YoutubeVideoListWidget = ({ videos, onVideoClick, nextPageToken, prevPageT
                 </div>
             </div>
         </div>
-    ) : <div>검색중...</div>
+    ) : (<div>검색중...</div>)
 }
 
 export default YoutubeVideoListWidget;

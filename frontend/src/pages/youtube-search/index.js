@@ -34,19 +34,67 @@ const YoutubeSearch = () => {
     const [newQuery, setNewQuery] = useState("한동대학교");
     const [searchedVideos, setSearchedVideos] = useState([]);
     const [selectedVideo, setSelectedVideo] = useState(null);
-    const [paginatedVideos, setPaginatedVideos] = useState([]);
+    const [realNewViewCount, setNewViewCount] = useState(0);
+    const [realFinalDuration, setFinalDuration] = useState('');
 
     const httpClient = axios.create({
         baseURL: 'https://www.googleapis.com/youtube/v3',
-        params: { key: 'AIzaSyDfZXlaz1ua-0YZefMsK6qcDs29zEmL2r4' },
+        params: { key: 'AIzaSyCOE8yAf5-5TrvgQgcaMZIMjR588joHBas' },
 
     });
     const youtube = new Youtube(httpClient);
-
+    let duration;
+    let finalDuration = '';
+    let viewCountInt;
+    let newViewCount;
     const selectVideo = (video) => {
         setSelectedVideo(video);
-        console.log(selectedVideo);
-        console.log(selectedVideo.id);
+        // console.log(selectedVideo);
+        // console.log(selectedVideo.id);
+        //조회수 커스터마이징
+        duration = video.contentDetails.duration;
+        if(!video.contentDetails.duration) duration = 'PT9M50S';
+        let whereH = duration.indexOf('H');
+        let whereM = duration.indexOf('M');
+        let whereS = duration.indexOf('S');
+        let hour, min, sec;
+        if (whereH > -1) {
+            let tempDuration = duration.split('H');
+            let temp_length = tempDuration[0].length;
+            hour = tempDuration[0].substring(2, temp_length);
+            finalDuration = finalDuration + hour + "시간 ";
+        }
+        if (whereM > -1) {
+            let tempDuration = duration.split('M');
+            let temp_length = tempDuration[0].length;
+            if (whereH > -1) {
+                min = tempDuration[0].substring(whereH + 1, temp_length);
+            } else min = tempDuration[0].substring(2, temp_length);
+            finalDuration = finalDuration + min + "분 ";
+        }
+        if (whereS > -1) {
+            let tempDuration = duration.split('S');
+            let temp_length = tempDuration[0].length;
+            if (whereH > -1 && whereM == -1) {
+                sec = tempDuration[0].substring(whereH + 1, temp_length);
+            } else if (whereM > -1) {
+                sec = tempDuration[0].substring(whereM + 1, temp_length);
+            } else sec = tempDuration[0].substring(2, temp_length);
+            finalDuration = finalDuration + sec + "초";
+        }
+        console.log(finalDuration);
+        setFinalDuration(finalDuration);
+        //조회수 커스텀
+        viewCountInt = parseFloat(video.statistics.viewCount);
+        if (viewCountInt >= 100000000) {
+             newViewCount = (viewCountInt / 100000000.0).toFixed(1) + "억"; 
+        } else if (viewCountInt >= 10000) {
+             newViewCount = (viewCountInt / 10000.0).toFixed(0) + "만"; 
+        } else if (viewCountInt > 1000) {
+            newViewCount = (viewCountInt / 1000.0).toFixed(1) + "천"; 
+        } else newViewCount = viewCountInt;
+        console.log(newViewCount);
+        setNewViewCount(newViewCount);
     };
 
 
@@ -66,7 +114,6 @@ const YoutubeSearch = () => {
         async (value) => {
             await youtube.getTokenDetail(newQuery, value).then(function (response) {
                 setSearchedVideos(response);
-                setPaginatedVideos(response.items);
             })
         }, [youtube],
     );
@@ -145,7 +192,12 @@ const YoutubeSearch = () => {
                                                 <div class="ms-md-5 ps-md-5 fs-5 text-start text-muted">{selectedVideo.snippet.channelTitle}</div>
                                                 <div class="mx-2"></div>
                                                 <div class="mx-1 border-start border-secondary"></div>
-                                                <div class="ms-3 fs-5 text-start text-muted">조회수 {selectedVideo.statistics.viewCount}회</div>
+                                                <div class="ms-3 fs-5 text-start text-muted">조회수 {selectedVideo.statistics.viewCount? realNewViewCount: '0'}회</div>
+                                                <div class="mx-2"></div>
+                                                <div class="mx-1 border-start border-secondary"></div>
+                                                <div class="ms-3 fs-5 text-start text-muted">영상 총 시간 {selectedVideo.contentDetails.duration? realFinalDuration : '0'}</div>
+                                                <div class="mx-2"></div>
+                                                <div class="mx-1 border-start border-secondary"></div>
                                                 <div class="ms-3 fs-5 text-start text-mute">{selectedVideo.snippet.publishTime.slice(0, 10)}</div>
                                             </div>
                                             <div class="mx-5 px-5 my-3 border-bottom"></div>
