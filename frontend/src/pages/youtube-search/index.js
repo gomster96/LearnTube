@@ -13,7 +13,7 @@ import Youtube from '../../service/youtube';
 import YouTube from 'react-youtube';
 import Range from 'rc-slider';
 import Slider from 'rc-slider';
-import 'rc-slider/assets/index.css';
+import 'rc-slider/assets/index.css'
 
 
 // Image
@@ -37,21 +37,65 @@ const YoutubeSearch = () => {
     const [searchedVideos, setSearchedVideos] = useState([]);
     const [selectedVideo, setSelectedVideo] = useState(null);
     const [paginatedVideos, setPaginatedVideos] = useState([]);
-    const [rangeValue, setRangeValue] = useState(null);
-    const [isSelected, setIsSelected] = useState(false);
 
     const httpClient = axios.create({
         baseURL: 'https://www.googleapis.com/youtube/v3',
-        params: { key: 'AIzaSyDekMHJYeFkVXqun-VIdBwM7xHA1ZZkuYk' },
+        params: { key: 'AIzaSyDfZXlaz1ua-0YZefMsK6qcDs29zEmL2r4' },
 
     });
     const youtube = new Youtube(httpClient);
-
+    let duration;
+    let finalDuration = '';
+    let viewCountInt;
+    let newViewCount;
     const selectVideo = (video) => {
         setSelectedVideo(video);
-        setIsSelected(false);
-        console.log(selectedVideo);
-        console.log(selectedVideo.id);
+        // console.log(selectedVideo);
+        // console.log(selectedVideo.id);
+        //조회수 커스터마이징
+        duration = video.contentDetails.duration;
+        if(!video.contentDetails.duration) duration = 'PT9M50S';
+        let whereH = duration.indexOf('H');
+        let whereM = duration.indexOf('M');
+        let whereS = duration.indexOf('S');
+        let hour, min, sec;
+        if (whereH > -1) {
+            let tempDuration = duration.split('H');
+            let temp_length = tempDuration[0].length;
+            hour = tempDuration[0].substring(2, temp_length);
+            finalDuration = finalDuration + hour + "시간 ";
+        }
+        if (whereM > -1) {
+            let tempDuration = duration.split('M');
+            let temp_length = tempDuration[0].length;
+            if (whereH > -1) {
+                min = tempDuration[0].substring(whereH + 1, temp_length);
+            } else min = tempDuration[0].substring(2, temp_length);
+            finalDuration = finalDuration + min + "분 ";
+        }
+        if (whereS > -1) {
+            let tempDuration = duration.split('S');
+            let temp_length = tempDuration[0].length;
+            if (whereH > -1 && whereM == -1) {
+                sec = tempDuration[0].substring(whereH + 1, temp_length);
+            } else if (whereM > -1) {
+                sec = tempDuration[0].substring(whereM + 1, temp_length);
+            } else sec = tempDuration[0].substring(2, temp_length);
+            finalDuration = finalDuration + sec + "초";
+        }
+        console.log(finalDuration);
+        setFinalDuration(finalDuration);
+        //조회수 커스텀
+        viewCountInt = parseFloat(video.statistics.viewCount);
+        if (viewCountInt >= 100000000) {
+            newViewCount = (viewCountInt / 100000000.0).toFixed(1) + "억";
+        } else if (viewCountInt >= 10000) {
+            newViewCount = (viewCountInt / 10000.0).toFixed(0) + "만";
+        } else if (viewCountInt > 1000) {
+            newViewCount = (viewCountInt / 1000.0).toFixed(1) + "천";
+        } else newViewCount = viewCountInt;
+        console.log(newViewCount);
+        setNewViewCount(newViewCount);
     };
 
 
@@ -159,12 +203,7 @@ const YoutubeSearch = () => {
 
                                         <div className="col-12 register-section mx-md-4">
                                             <div className="container">
-                                                <div className="row d-flex justify-content-end ms-3 me-1 mt-3">
-                                                    <button className="createbtn text-center" onClick={()=>setIsSelected(true)}>담기</button>
-                                                </div>
-                                                <div className={isSelected ? "py-3 px-5": "d-none"}>
-                                                    <Range allowCross={false} min={10} max={100}
-                                                        step={20} dots/>
+                                                <div className="py-3 px-5">
                                                     <div className="text-start mb-10">
                                                         <div className="mt-3 mb-10 fs-3">영상 담기</div>
                                                     </div>
@@ -181,7 +220,9 @@ const YoutubeSearch = () => {
                                                                     <input type="text" id="tag" name="tag" placeholder="태그를 입력하세요. 쉼표로 구분됩니다." />
                                                                 </div>
                                                             </div>
-
+                                                            <div className="row d-flex justify-content-end ms-3 me-1 mt-3">
+                                                                <button className="createbtn text-center" >담기</button>
+                                                            </div>
                                                         </form>
                                                     </div>
                                                 </div>

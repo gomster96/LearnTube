@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 import javax.persistence.*;
 
+import com.walab.common.BaseEntity;
 import com.walab.content.application.dto.ContentCUDto;
 import com.walab.content.application.dto.ContentDto;
 import com.walab.lecture.domain.Lecture;
@@ -12,12 +13,16 @@ import com.walab.playlist.domain.Playlist;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 @Entity
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Content {
+@SQLDelete(sql = "UPDATE content SET deleted = true WHERE id = ?")
+@Where(clause = "deleted = false")
+public class Content extends BaseEntity {
     @Id
     @GeneratedValue
     private Long id;
