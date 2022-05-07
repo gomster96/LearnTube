@@ -1,12 +1,16 @@
 package com.walab.playlist.application.dto;
 
 import com.walab.playlist.presentation.response.PlaylistResponse;
+import com.walab.video.application.dto.VideoDto;
+import com.walab.video.domain.Video;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -20,8 +24,15 @@ public class MyPlaylistDto {
     private String userName;
     private String thumbnail;
 
+    private List<Video> videos;
+
 
     public PlaylistResponse playlistResponse() {
-        return new PlaylistResponse(this.playlistId, this.name, this.description, this.userName, this.thumbnail);
+        List<VideoDto> newVideos = new ArrayList<>();
+        for (Video video: videos) {
+            VideoDto tempVideo = new VideoDto(video.getId(),video.getYoutubeId(),video.getTitle(),video.getNewTitle(),video.getStart_s(),video.getEnd_s(),video.getTag(),video.getSeq(),video.getMaxLength(),video.getDuration());
+            newVideos.add(tempVideo);
+        }
+        return new PlaylistResponse(this.playlistId, this.name, this.description, this.userName, this.thumbnail, newVideos);
     }
 }

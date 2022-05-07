@@ -41,12 +41,11 @@ public class Playlist extends BaseEntity {
 
     private String thumbnailld;
 
-
     @OneToMany(mappedBy = "playlist")
-    private List<Video> videos;
+    private List<Video> videos = new ArrayList<>();
 
     public MyPlaylistDto myPlaylistDto(){
-        return new MyPlaylistDto(this.id, this.playlistName, this.description, this.user.getName(), this.thumbnailld);
+        return new MyPlaylistDto(this.id, this.playlistName, this.description, this.user.getName(), this.thumbnailld, this.videos);
     }
 
 

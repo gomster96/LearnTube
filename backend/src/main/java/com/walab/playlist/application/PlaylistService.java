@@ -6,6 +6,7 @@ import com.walab.playlist.domain.Playlist;
 import com.walab.playlist.domain.repository.PlaylistRepository;
 import com.walab.user.domain.User;
 import com.walab.user.domain.repository.UserRepository;
+import com.walab.video.domain.Video;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,11 +19,14 @@ import java.util.stream.Collectors;
 public class PlaylistService {
     private final PlaylistRepository playlistRepository;
     private final UserRepository userRepository;
+    //private final VideoRepository videoRepository;
 
     public List<MyPlaylistDto> getPlaylist(Long userId) {
         User user = userRepository.findById(userId).orElseThrow();
         List<Playlist> playlists = user.getPlaylists();
-
+//        for (Playlist playlist: playlists) {
+//            List<Video> videos = videoRepository.findById(playlist.getId());
+//        }
         List<MyPlaylistDto> playlist = playlists.stream().map(Playlist::myPlaylistDto).collect(Collectors.toList());
 
         return playlist;
