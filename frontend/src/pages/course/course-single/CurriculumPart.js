@@ -69,7 +69,7 @@ const CurriculumPart = (props) => {
         };
 
         axios
-            .post("http://localhost:3000/api/notice", JSON.stringify(body), {
+            .post("http://localhost:8080/api/notice", JSON.stringify(body), {
                 headers: {
                     "Content-Type": `application/json`,
                 },
@@ -90,7 +90,7 @@ const CurriculumPart = (props) => {
         };
 
         axios
-            .post("http://localhost:3000/api/notice/update", JSON.stringify(body), {
+            .post("http://localhost:8080/api/notice/update", JSON.stringify(body), {
                 headers: {
                     "Content-Type": `application/json`,
                 },
@@ -106,7 +106,7 @@ const CurriculumPart = (props) => {
         };
         if (window.confirm("정말 삭제하시겠습니까?") == true) {
             axios
-                .post("http://localhost:3000/api/notice/delete", JSON.stringify(body), {
+                .post("http://localhost:8080/api/notice/delete", JSON.stringify(body), {
                     headers: {
                         "Content-Type": `application/json`,
                     },
@@ -119,18 +119,15 @@ const CurriculumPart = (props) => {
     };
 
     const deleteContent = async (e) => {
-        let body = {
-            contentId: e,
-        };
+        let body = { contentId: e };
         if (window.confirm("정말 삭제하시겠습니까?") == true) {
             const response = await axios
-                .post("http://localhost:3000/api/content/delete", JSON.stringify(body), {
+                .post("http://localhost:8080/api/content/delete", JSON.stringify(body), {
                     headers: {
                         "Content-Type": "application/json",
                     },
                 })
                 .then((res) => console.log(res));
-
             alert("삭제되었습니다.");
             window.location.reload();
         } else {
