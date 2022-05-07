@@ -8,9 +8,12 @@ const PlaylistBoard = (props) => {
 
     const [newPlaylistTitle, setNewPlaylistTitle] = useState(false);
 
+    const [isClicked, setIsClicked] = useState(false);
+
     const onClick = useCallback(() => {
         onPlaylistClick(playlistTitle);
         setNewPlaylistTitle(playlistTitle);
+        setIsClicked(!isClicked);
     }, [onPlaylistClick, playlistTitle]);
 
     return (
@@ -22,7 +25,7 @@ const PlaylistBoard = (props) => {
                 />
             </div>
             <div className="col-lg-8 col-sm-12 pt-2">
-                <div className="d-flex h4 text-start">
+                <div className={isClicked ? "d-flex h4 text-start orange-color" : "d-flex h4 text-start"}>
                     {playlistTitle ? playlistTitle : '강의제목'}
                 </div>
                 <div className="d-flex fw-light ms-0 ps-0">
