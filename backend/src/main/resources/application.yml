@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    url: jdbc:Mysql://walab.handong.edu:3306/learntube
+    username: learntube
+    password: learntube1212
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+  h2:
+    console:
+      enabled: false
+  properties:
+    hibernate:
+      default_batch_fetch_size: 100
+logging:
+  level:
+    org.hibernate.SQL: debug
+    org.hibernate.type: trace

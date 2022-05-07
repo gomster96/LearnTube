@@ -25,7 +25,7 @@ const CoursePart = (props) => {
     useEffect(() => {
         const fetchTakesClassRoom = async () => {
             try {
-                const response = await axios.get("http://localhost:8080/api/classroom/takes?userId=1");
+                const response = await axios.get("http://localhost:3000/api/classroom/takes?userId=1");
                 console.log(response.data);
                 setTakesData(response.data);
                 // setContents(classRoomData.lectures[0].contents[0]);

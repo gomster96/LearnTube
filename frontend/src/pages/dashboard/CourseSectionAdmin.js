@@ -30,7 +30,7 @@ const CoursePartAdmin = (props) => {
     useEffect(() => {
         const fetchManagesClassRoom = async () => {
             try {
-                const response = await axios.get("http://localhost:8080/api/classroom/manages?userId=1");
+                const response = await axios.get("http://localhost:3000/api/classroom/manages?userId=1");
                 console.log(response.data);
                 setManagesData(response.data);
                 // setContents(classRoomData.lectures[0].contents[0]);
