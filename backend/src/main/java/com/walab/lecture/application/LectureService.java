@@ -28,8 +28,9 @@ public class LectureService {
     @Transactional
     public LectureDataDto createLecture(LectureCreateDto lectureCreateDto, Long classId) {
 
-        ClassRoom classRoom = classRoomRepository.findById(classId).orElseThrow();
 
+        ClassRoom classRoom = classRoomRepository.findFirstByClassById(classId).orElseThrow();
+        lectureCreateDto.setLectureNum(classRoom.getLectures().size() + 1);
         Lecture newLecture = new Lecture(classRoom, lectureCreateDto);
         Lecture savedLecture = lectureRepository.save(newLecture);
 

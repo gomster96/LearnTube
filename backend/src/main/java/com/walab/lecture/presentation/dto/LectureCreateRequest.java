@@ -10,11 +10,8 @@ import java.time.LocalDateTime;
 @Setter
 public class LectureCreateRequest {
     private Long classId;
-    private int lectureNum;
-    private LocalDateTime modDate;
-    private Long contentsId;
 
     public LectureCreateDto lectureCreateDto() {
-        return new LectureCreateDto(this);
+        return new LectureCreateDto(1);
     }
 }
