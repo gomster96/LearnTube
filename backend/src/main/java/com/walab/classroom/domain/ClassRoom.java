@@ -139,6 +139,7 @@ public class ClassRoom extends BaseEntity {
                            .isActive(isActive)
                            .classRoomRegDate(getCreatedAt())
                            .instructor(this.instructor.toDto())
+                            .takeNum(this.takes.size())
                            .lectures(lectureDtos)
                            .notices(noticeDetailDtos)
                            .build();
