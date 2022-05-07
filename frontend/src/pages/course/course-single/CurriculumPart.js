@@ -15,6 +15,14 @@ import { faBorderNone } from "@fortawesome/free-solid-svg-icons";
 
 // import { Button, Modal } from "react-bootstrap";
 const CurriculumPart = (props) => {
+  const data = { ...props };
+  // const [noticeData, setNoticeData] = useState([]);
+
+  // setNoticeData(props.classRoomData.notices);
+
+  // console.log("classRoomData : ", data.classRoomData);
+  // console.log("noticeData: ", noticeData);
+
   const inputRef = useRef();
   const [isOpen, setIsOpen] = useState(false);
   const openModal = () => setIsOpen(!isOpen);
@@ -23,25 +31,20 @@ const CurriculumPart = (props) => {
   const createNotice = () => setNoticeCreateOpen(!isNoticeCreateOpen);
   const cancleCreateNotice = () => setNoticeCreateOpen(!isNoticeCreateOpen);
 
-  const initCreateBody = {
-    classId: props.classRoomData.classId,
-    title: "",
-    content: "",
-  };
-  const [createBody, setCreateBody] = useState(initCreateBody);
-
   const [isNoticeUpdateOpen, setNoticeUpdateOpen] = useState(false);
   const updateNotice = () => setNoticeUpdateOpen(!isNoticeUpdateOpen);
   const cancleUpdateNotice = () => setNoticeUpdateOpen(!isNoticeUpdateOpen);
 
   const [noticeIdx, setNoticeIdx] = useState(0);
-  console.log("hello classId ", props.classRoomData.classId);
+  console.log("hello classId ", data.classRoomData.classId);
+
   const clickModalHandler = (params) => {
     console.log("hello ", params);
     setNoticeIdx(params);
-    console.log("noticeIdx: ", noticeIdx);
-    console.log("notice id ", props.classRoomData.notices[noticeIdx].id);
+    console.log("noticeIdx: ", params);
+    console.log("notice id ", data.classRoomData.notices[params].id);
   };
+
   const [noticeTitle, setNoticeTitle] = useState("");
   const [noticeContent, setNoticeContent] = useState("");
 
@@ -62,51 +65,68 @@ const CurriculumPart = (props) => {
 
   const noticeCreateHandler = (e) => {
     // console.log(e.target.value);
+    // setNoticeData({
+    //   ...noticeData,
+    //   title: noticeTitle,
+    //   content: noticeContent,
+    // });
 
     console.log(noticeTitle);
     console.log(noticeContent);
 
-    let body = {
-      classId: props.classRoomData.classId,
+    const body = {
+      classId: data.classRoomData.classId,
       title: noticeTitle,
       content: noticeContent,
     };
 
-    axios
-      .post("http://localhost:8080/api/notice", JSON.stringify(body), {
-        headers: {
-          "Content-Type": `application/json`,
-        },
-      })
-      .then((res) => console.log(res));
+    const async = async () => {
+      await axios
+        .post("http://localhost:8080/api/notice", JSON.stringify(body), {
+          headers: {
+            "Content-Type": `application/json`,
+          },
+        })
+        .then((res) => console.log(res));
+
+      console.log("create!!");
+    };
+    async();
   };
 
   const noticeUpdateHandler = (e) => {
-    // console.log(e.target.value);
-
-    console.log(noticeTitle);
-    console.log(noticeContent);
-    console.log("notice id ", props.classRoomData.notices[noticeIdx].id);
+    //console.log(e);
+    // console.log(noticeTitle);
+    // console.log(noticeContent);
+    console.log(data.classRoomData);
+    console.log("update notice id ", data.classRoomData.notices[noticeIdx].id);
     let body = {
-      noticeId: props.classRoomData.notices[noticeIdx].id,
-      title: noticeTitle,
-      content: noticeContent,
+      noticeId: data.classRoomData.notices[noticeIdx].id,
+      title: noticeTitle
+        ? noticeTitle
+        : data.classRoomData.notices[noticeIdx].title,
+      content: noticeContent
+        ? noticeContent
+        : data.classRoomData.noties[noticeIdx].content,
     };
-
-    axios
-      .post("http://localhost:8080/api/notice/update", JSON.stringify(body), {
-        headers: {
-          "Content-Type": `application/json`,
-        },
-      })
-      .then((res) => console.log(res));
+    const async = async () => {
+      await axios
+        .post("http://localhost:8080/api/notice/update", JSON.stringify(body), {
+          headers: {
+            "Content-Type": `application/json`,
+          },
+        })
+        .then((res) => console.log(res));
+      console.log("update !!");
+    };
+    async();
   };
 
   const noticeDeleteHandler = (e) => {
     // console.log(e.target.value);
-    console.log("notice id ", props.classRoomData.notices[e].id);
+    console.log("notice id ", data.classRoomData.notices[e].id);
     let body = {
-      noticeId: props.classRoomData.notices[e].id,
+      noticeId: data.classRoomData.notices[e].id,
     };
     if (window.confirm("정말 삭제하시겠습니까?") == true) {
       axios
@@ -123,7 +143,7 @@ const CurriculumPart = (props) => {
   };
   return (
     <>
-      {props.classRoomData ? (
+      {data.classRoomData ? (
         <div className="content">
           {/* {noticeData.map((notices, i) => (
                         <h6>{noticeData[i].title}</h6>
@@ -299,8 +319,8 @@ const CurriculumPart = (props) => {
                 </AccordionItemButton>
               </AccordionItemHeading>
               <AccordionItemPanel className="card-body acc-content current">
-                {Array.isArray(props.classRoomData.notices)
-                  ? props.classRoomData.notices.map((notices, i) => (
+                {Array.isArray(data.classRoomData.notices)
+                  ? data.classRoomData.notices.map((notices, i) => (
                       <div className="content">
                         <div className="clearfix">
                           {/* 공지 모달 open */}
@@ -360,7 +380,7 @@ const CurriculumPart = (props) => {
                                             style={{ paddingBottom: "1rem" }}
                                           >
                                             {
-                                              props.classRoomData.notices[
+                                              data.classRoomData.notices[
                                                 noticeIdx
                                               ].title
                                             }
@@ -374,7 +394,7 @@ const CurriculumPart = (props) => {
                                               style={{ fontSize: "20px" }}
                                             >
                                               {
-                                                props.classRoomData.notices[
+                                                data.classRoomData.notices[
                                                   noticeIdx
                                                 ].content
                                               }
@@ -384,17 +404,17 @@ const CurriculumPart = (props) => {
                                         <br></br>
                                         <p className="text-muted">
                                           수정시간:
-                                          {props.classRoomData.notices[
+                                          {data.classRoomData.notices[
                                             noticeIdx
                                           ].modDate.split("T")[0] +
                                             " " +
-                                            props.classRoomData.notices[
+                                            data.classRoomData.notices[
                                               noticeIdx
                                             ].modDate
                                               .split("T")[1]
                                               .split(":")[0] +
                                             ":" +
-                                            props.classRoomData.notices[
+                                            data.classRoomData.notices[
                                               noticeIdx
                                             ].modDate
                                               .split("T")[1]
@@ -421,7 +441,7 @@ const CurriculumPart = (props) => {
                           </Modal>
                           <div
                             className="pull-left popup-videos play-icon "
-                            key={props.classRoomData.notices[i].id}
+                            key={data.classRoomData.notices[i].id}
                             onClick={() => {
                               openModal();
                               clickModalHandler(i);
@@ -431,7 +451,62 @@ const CurriculumPart = (props) => {
                               className="fa fa-list"
                               style={{ zIndex: "0" }}
                             ></i>
-                            {props.classRoomData.notices[i].title}
+                            {data.classRoomData.notices[i].title}
+                          </div>
+                          <div className="pull-right">
+                            <div className="minutes">
+                              <div>
+                                <span
+                                  onClick={() => {
+                                    updateNotice();
+                                    clickModalHandler(i);
+                                  }}
+                                >
+                                  <i
+                                    className="fa fa-edit"
+                                    id="editNotice"
+                                    style={{
+                                      padding: "5px",
+
+                                      zIndex: "0",
+                                    }}
+                                  ></i>
+                                </span>
+                                <span
+                                  onClick={() => {
+                                    noticeDeleteHandler(i);
+                                  }}
+                                >
+                                  <i
+                                    className="fa fa-trash"
+                                    style={{
+                                      padding: "5px",
+
+                                      zIndex: "0",
+                                    }}
+                                  ></i>
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="pull-right">
+                            <div
+                              className="minutes"
+                              style={{ paddingRight: "15px" }}
+                            >
+                              최종 수정시간:
+                              {data.classRoomData.notices[i].modDate.split(
+                                "T"
+                              )[0] +
+                                " " +
+                                data.classRoomData.notices[i].modDate
+                                  .split("T")[1]
+                                  .split(":")[0] +
+                                ":" +
+                                data.classRoomData.notices[i].modDate
+                                  .split("T")[1]
+                                  .split(":")[1]}
+                            </div>
                           </div>
                           {/* 공지 수정 */}
                           <Modal
@@ -498,7 +573,7 @@ const CurriculumPart = (props) => {
                                               value={
                                                 noticeTitle
                                                   ? noticeTitle
-                                                  : props.classRoomData.notices[
+                                                  : data.classRoomData.notices[
                                                       noticeIdx
                                                     ].title
                                               }
@@ -519,7 +594,7 @@ const CurriculumPart = (props) => {
                                               value={
                                                 noticeContent
                                                   ? noticeContent
-                                                  : props.classRoomData.notices[
+                                                  : data.classRoomData.notices[
                                                       noticeIdx
                                                     ].content
                                               }
@@ -556,6 +631,7 @@ const CurriculumPart = (props) => {
                                             className="canclebtn"
                                             onClick={() => {
                                               cancleUpdateNotice();
+                                              noticeCancelHandler();
                                             }}
                                           >
                                             <span className="txt">취소</span>
@@ -565,7 +641,7 @@ const CurriculumPart = (props) => {
                                             className="createbtn text-center pt-2"
                                             onClick={() => {
                                               updateNotice();
-                                              noticeUpdateHandler();
+                                              noticeUpdateHandler(i);
                                             }}
                                           >
                                             저장
@@ -578,42 +654,6 @@ const CurriculumPart = (props) => {
                               </div>
                             </div>
                           </Modal>
-                          <div className="pull-right">
-                            <div className="minutes">
-                              <div>
-                                <span
-                                  onClick={() => {
-                                    updateNotice();
-                                    clickModalHandler(i);
-                                  }}
-                                >
-                                  <i
-                                    className="fa fa-edit"
-                                    id="editNotice"
-                                    style={{
-                                      padding: "5px",
-
-                                      zIndex: "0",
-                                    }}
-                                  ></i>
-                                </span>
-                                <span
-                                  onClick={() => {
-                                    noticeDeleteHandler(i);
-                                  }}
-                                >
-                                  <i
-                                    className="fa fa-trash"
-                                    style={{
-                                      padding: "5px",
-
-                                      zIndex: "0",
-                                    }}
-                                  ></i>
-                                </span>
-                              </div>
-                            </div>
-                          </div>
                         </div>
                       </div>
                     ))
@@ -621,8 +661,8 @@ const CurriculumPart = (props) => {
               </AccordionItemPanel>
             </AccordionItem>
             {/* 강의 */}
-            {Array.isArray(props.classRoomData.lectures)
-              ? props.classRoomData.lectures.map((lectures, i) => (
+            {Array.isArray(data.classRoomData.lectures)
+              ? data.classRoomData.lectures.map((lectures, i) => (
                   <AccordionItem className="accordion-item" uuid="c">
                     <AccordionItemHeading>
                       <AccordionItemButton>
@@ -638,7 +678,7 @@ const CurriculumPart = (props) => {
                               display: "flex",
                             }}
                           >
-                            {props.classRoomData.lectures[i].lectureNum}강
+                            {data.classRoomData.lectures[i].lectureNum}강
                           </div>
 
                           <div
@@ -682,8 +722,8 @@ const CurriculumPart = (props) => {
                       </AccordionItemButton>
                     </AccordionItemHeading>
                     <AccordionItemPanel className="card-body acc-content">
-                      {Array.isArray(props.classRoomData.lectures)
-                        ? props.classRoomData.lectures[i].contents.map(
+                      {Array.isArray(data.classRoomData.lectures)
+                        ? data.classRoomData.lectures[i].contents.map(
                             (contents, j) => (
                               <div className="content">
                                 <div className="clearfix">
@@ -704,8 +744,9 @@ const CurriculumPart = (props) => {
                                     >
                                       <i className="fa fa-play"></i>
                                       {
-                                        props.classRoomData.lectures[i]
-                                          .contents[j].contentName
+                                        data.classRoomData.lectures[i].contents[
+                                          j
+                                        ].contentName
                                       }
                                     </Link>
                                   </div>
@@ -715,19 +756,19 @@ const CurriculumPart = (props) => {
                                       style={{ paddingTop: "10px" }}
                                     >
                                       마감일:
-                                      {props.classRoomData.lectures[i].contents[
+                                      {data.classRoomData.lectures[i].contents[
                                         j
                                       ].closeDate.split("T")[0] +
                                         " " +
-                                        props.classRoomData.lectures[
-                                          i
-                                        ].contents[j].closeDate
+                                        data.classRoomData.lectures[i].contents[
+                                          j
+                                        ].closeDate
                                           .split("T")[1]
                                           .split(":")[0] +
                                         ":" +
-                                        props.classRoomData.lectures[
-                                          i
-                                        ].contents[j].closeDate
+                                        data.classRoomData.lectures[i].contents[
+                                          j
+                                        ].closeDate
                                           .split("T")[1]
                                           .split(":")[1]}
                                     </div>
