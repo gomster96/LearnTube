@@ -2,6 +2,7 @@ package com.walab.user.application;
 
 import java.util.Optional;
 
+import com.walab.exception.user.UserNotFoundException;
 import com.walab.user.application.dto.UserDto;
 import com.walab.user.domain.User;
 import com.walab.user.domain.repository.UserRepository;
@@ -28,7 +29,7 @@ public class UserService {
 
     @Transactional
     public UserDto findById(Long userId){
-        User user = userRepository.findById(userId).orElseThrow();
+        User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
         return user.toDto();
     }
 

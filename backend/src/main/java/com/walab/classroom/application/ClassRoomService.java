@@ -9,6 +9,7 @@ import com.walab.classroom.application.dto.take.TakeClassRoomDto;
 import com.walab.classroom.domain.ClassRoom;
 import com.walab.classroom.domain.repository.ClassRoomRepository;
 import com.walab.exception.classroom.ClassRoomNotFoundException;
+import com.walab.exception.user.UserNotFoundException;
 import com.walab.user.domain.User;
 import com.walab.user.domain.repository.UserRepository;
 
@@ -25,7 +26,7 @@ public class ClassRoomService {
 
     @Transactional
     public ClassRoomDto create(Long instructorId, ClassRoomCUDto classRoomCUDto) {
-        User instructor = userRepository.findById(instructorId).orElseThrow();
+        User instructor = userRepository.findById(instructorId).orElseThrow(UserNotFoundException::new);
         ClassRoom newClassRoom = new ClassRoom(instructor, classRoomCUDto);
         ClassRoom savedClassRoom = classRoomRepository.save(newClassRoom);
         return savedClassRoom.toCreatResponseDto();

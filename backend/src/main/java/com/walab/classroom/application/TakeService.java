@@ -10,6 +10,9 @@ import com.walab.classroom.domain.ClassRoom;
 import com.walab.classroom.domain.repository.ClassRoomRepository;
 import com.walab.classroom.domain.repository.TakeRepository;
 import com.walab.classroom.domain.take.Take;
+import com.walab.exception.classroom.ClassRoomNotFoundException;
+import com.walab.exception.classroom.TakeNotFoundException;
+import com.walab.exception.user.UserNotFoundException;
 import com.walab.user.domain.User;
 import com.walab.user.domain.repository.UserRepository;
 
@@ -27,8 +30,8 @@ public class TakeService {
 
     @Transactional
     public ClassRoomEnrollDto create(Long userId, Long classId) {
-        User user = userRepository.findById(userId).orElseThrow();
-        ClassRoom classRoom = classRoomRepository.findById(classId).orElseThrow();
+        User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
+        ClassRoom classRoom = classRoomRepository.findById(classId).orElseThrow(ClassRoomNotFoundException::new);
         Take take = new Take(user, classRoom);
         Take saveTake = takeRepository.save(take);
         return new ClassRoomEnrollDto(saveTake.getId(), classRoom.getClassName());
@@ -44,7 +47,7 @@ public class TakeService {
 
     @Transactional
     public TakeUserDto updateAccept(Long takeId) {
-        Take take = takeRepository.findById(takeId).orElseThrow();
+        Take take = takeRepository.findById(takeId).orElseThrow(TakeNotFoundException::new);
         take.acceptTake();
         return take.toTakeUserDto();
     }
@@ -61,7 +64,7 @@ public class TakeService {
 
     @Transactional
     public TakeUserDto updateReject(Long takeId) {
-        Take take = takeRepository.findById(takeId).orElseThrow();
+        Take take = takeRepository.findById(takeId).orElseThrow(TakeNotFoundException::new);
         takeRepository.deleteById(takeId);
         return take.toTakeUserDto();
     }
