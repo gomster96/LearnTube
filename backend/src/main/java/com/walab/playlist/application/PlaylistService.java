@@ -1,7 +1,10 @@
 package com.walab.playlist.application;
 
+import com.walab.content.application.dto.ContentPlaylistDto;
 import com.walab.playlist.application.dto.MyPlaylistDto;
+import com.walab.playlist.domain.Playlist;
 import com.walab.playlist.domain.repository.PlaylistRepository;
+import com.walab.user.domain.User;
 import com.walab.user.domain.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,9 +19,12 @@ public class PlaylistService {
     private final PlaylistRepository playlistRepository;
     private final UserRepository userRepository;
 
-//    @Transactional
-//    public List<MyPlaylistDto> getPlaylist(Long userId){
-//        List<MyPlaylistDto> result = playlistRepository.findPlaylistById(userId).orElseThrow();
-//        return result.stream().map(MyPlaylistDto::new).collect(Collectors.toList());
-//    }
+    public List<MyPlaylistDto> getPlaylist(Long userId) {
+        User user = userRepository.findById(userId).orElseThrow();
+        List<Playlist> playlists = user.getPlaylists();
+
+        List<MyPlaylistDto> playlist = playlists.stream().map(Playlist::myPlaylistDto).collect(Collectors.toList());
+
+        return playlist;
+    }
 }

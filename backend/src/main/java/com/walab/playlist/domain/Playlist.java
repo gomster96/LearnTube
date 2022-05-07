@@ -1,11 +1,13 @@
 package com.walab.playlist.domain;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 
 import com.walab.common.BaseEntity;
 import com.walab.content.domain.Content;
+import com.walab.playlist.application.dto.MyPlaylistDto;
 import com.walab.user.domain.User;
 import com.walab.video.domain.Video;
 
@@ -39,7 +41,13 @@ public class Playlist extends BaseEntity {
 
     private String thumbnailld;
 
+
     @OneToMany(mappedBy = "playlist")
     private List<Video> videos;
+
+    public MyPlaylistDto myPlaylistDto(){
+        return new MyPlaylistDto(this.id, this.playlistName, this.description, this.user.getName(), this.thumbnailld);
+    }
+
 
 }

@@ -14,18 +14,14 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class MyPlaylistDto {
     private Long playlistId;
-
     private String name;
-
     private String description;
-    private Long userId;
-    private String thumbnail;
-    private LocalDateTime totalTime;
 
-    public MyPlaylistDto(MyPlaylistDto myPlaylistDto) {
-    }
+    private String userName;
+    private String thumbnail;
+
 
     public PlaylistResponse playlistResponse() {
-        return new PlaylistResponse(this.playlistId, this.name, this.description, this.userId, this.thumbnail, this.totalTime);
+        return new PlaylistResponse(this.playlistId, this.name, this.description, this.userName, this.thumbnail);
     }
 }
