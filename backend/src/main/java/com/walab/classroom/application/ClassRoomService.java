@@ -8,6 +8,7 @@ import com.walab.classroom.application.dto.ClassRoomDto;
 import com.walab.classroom.application.dto.take.TakeClassRoomDto;
 import com.walab.classroom.domain.ClassRoom;
 import com.walab.classroom.domain.repository.ClassRoomRepository;
+import com.walab.exception.classroom.ClassRoomNotFoundException;
 import com.walab.user.domain.User;
 import com.walab.user.domain.repository.UserRepository;
 
@@ -32,7 +33,7 @@ public class ClassRoomService {
 
     @Transactional
     public ClassRoomDto update(Long classId, ClassRoomCUDto classRoomCUDto) {
-        ClassRoom classRoom = classRoomRepository.findById(classId).orElseThrow();
+        ClassRoom classRoom = classRoomRepository.findById(classId).orElseThrow(ClassRoomNotFoundException::new);
         classRoom.update(classRoomCUDto);
         return classRoom.toUpdateResponseDto();
     }
@@ -46,7 +47,7 @@ public class ClassRoomService {
     @Transactional
     public ClassRoomDto find(Long userId, Long classId) {
 
-        ClassRoom classroom = classRoomRepository.findById(classId).orElseThrow();
+        ClassRoom classroom = classRoomRepository.findById(classId).orElseThrow(ClassRoomNotFoundException::new);
 
         return classroom.toDto();
     }
