@@ -64,15 +64,18 @@ public class TakeService {
     @Transactional
     public TakeUserDto updateReject(Long takeId) {
         Take take = takeRepository.findById(takeId).orElseThrow();
-        take.rejectTake();
+        takeRepository.deleteById(takeId);
         return take.toTakeUserDto();
     }
 
     @Transactional
     public List<TakeUserDto> updateAllReject(Long classId) {
         List<Take> takes = takeRepository.getWaitTakeByClassId(classId);
+        List<Long> takeIds = takes.stream().map(Take::getId).collect(Collectors.toList());
+        takeRepository.deleteAllById(takeIds);
+
         // ToDo N+1 발생 -> 성능 안좋음 -> 나중에 바꾸기
-        takes.forEach(Take::rejectTake);
+//        takes.forEach(Take::rejectTake);
         return takes.stream()
                     .map(TakeUserDto::new)
                     .collect(Collectors.toList());
