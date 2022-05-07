@@ -6,11 +6,11 @@ import { Button } from "react-bootstrap";
 import axios from "axios";
 
 const UpdateContent = (props) => {
-    console.log(props.content.contentId);
     const [isOpen, setIsOpen] = useState(false);
     const openModal = () => setIsOpen(!isOpen);
     const [isPlaylistOpen, setIsPlaylistOpen] = useState(false);
     const openPlaylistModal = () => setIsPlaylistOpen(!isPlaylistOpen);
+
     const initUpdateContentData = {
         contentId: props.content.contentId,
         contentName: props.content.contentName,
@@ -19,6 +19,7 @@ const UpdateContent = (props) => {
         closeDate: props.content.closeDate,
         playlistId: props.content.playlistId,
     };
+
     const [updateContentData, setUpdateContentData] = useState(initUpdateContentData);
     const [createResponse, setCreateResponse] = useState();
 
@@ -27,14 +28,11 @@ const UpdateContent = (props) => {
             ...updateContentData,
             [e.target.name]: e.target.value.trim(),
         });
-        console.log(updateContentData);
     };
 
     const handleSubmit = async () => {
-        console.log("수정 submit 진입!!");
-
         const response = await axios
-            .post("http://localhost:3000/api/content/update", JSON.stringify(updateContentData), {
+            .post("http://localhost:8080/api/content/update", JSON.stringify(updateContentData), {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

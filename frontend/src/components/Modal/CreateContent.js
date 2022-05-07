@@ -10,6 +10,7 @@ const CreateContent = (props) => {
     const openModal = () => setIsOpen(!isOpen);
     const [isPlaylistOpen, setIsPlaylistOpen] = useState(false);
     const openPlaylistModal = () => setIsPlaylistOpen(!isPlaylistOpen);
+
     const initCreateContentData = {
         lectureId: props.lectureId,
         contentName: "",
@@ -18,6 +19,7 @@ const CreateContent = (props) => {
         closeDate: "",
         playlistId: 1,
     };
+
     const [createContentData, setCreateContentData] = useState(initCreateContentData);
     const [createResponse, setCreateResponse] = useState();
 
@@ -27,14 +29,11 @@ const CreateContent = (props) => {
             [e.target.name]: e.target.value.trim(),
             lectureId: props.lectureId,
         });
-        console.log(createContentData);
     };
 
     const handleSubmit = async () => {
-        console.log("진입!!");
-
         const response = await axios
-            .post("http://localhost:3000/api/content", JSON.stringify(createContentData), {
+            .post("http://localhost:8080/api/content", JSON.stringify(createContentData), {
                 method: "POST",
                 headers: {
                     // Accept: "application/json",
