@@ -29,8 +29,6 @@ public class TakeService {
     public ClassRoomEnrollDto create(Long userId, Long classId) {
         User user = userRepository.findById(userId).orElseThrow();
         ClassRoom classRoom = classRoomRepository.findById(classId).orElseThrow();
-        // ToDo 이미 수강중인 수업인지 아닌지 확인 필요함
-        // ToDo Reject된 상태라면 어떻게 해야할까? 다시 만들 수 있도록 해야하나?
         Take take = new Take(user, classRoom);
         Take saveTake = takeRepository.save(take);
         return new ClassRoomEnrollDto(saveTake.getId(), classRoom.getClassName());
@@ -54,8 +52,8 @@ public class TakeService {
     @Transactional
     public List<TakeUserDto> updateAllAccept(Long classId) {
         List<Take> takes = takeRepository.getWaitTakeByClassId(classId);
-        // ToDo N+1 발생 -> 성능 안좋음 -> 나중에 바꾸기
-        takes.forEach(Take::acceptTake);
+        takeRepository.changeStatusByClassID(classId);
+
         return takes.stream()
                     .map(Take::toTakeUserDto)
                     .collect(Collectors.toList());
@@ -71,11 +69,8 @@ public class TakeService {
     @Transactional
     public List<TakeUserDto> updateAllReject(Long classId) {
         List<Take> takes = takeRepository.getWaitTakeByClassId(classId);
-        List<Long> takeIds = takes.stream().map(Take::getId).collect(Collectors.toList());
-        takeRepository.deleteAllById(takeIds);
+        takeRepository.deleteWaitTakeByClassId(classId);
 
-        // ToDo N+1 발생 -> 성능 안좋음 -> 나중에 바꾸기
-//        takes.forEach(Take::rejectTake);
         return takes.stream()
                     .map(TakeUserDto::new)
                     .collect(Collectors.toList());

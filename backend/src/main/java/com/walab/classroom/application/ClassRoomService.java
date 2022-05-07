@@ -45,8 +45,7 @@ public class ClassRoomService {
 
     @Transactional
     public ClassRoomDto find(Long userId, Long classId) {
-        //ToDo ClassRoom Data 받아오는 query 성능 향상시키기
-        // N+1 문제가 발생하지않도록
+
         ClassRoom classroom = classRoomRepository.findById(classId).orElseThrow();
 
         return classroom.toDto();
