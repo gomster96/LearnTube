@@ -30,7 +30,7 @@ const CoursePartClosed = (props) => {
     useEffect(() => {
         const fetchClosedClassRoom = async () => {
             try {
-                const response = await axios.get("http://localhost:8080/api/classroom/closed?userId=1");
+                const response = await axios.get("http://localhost:3000/api/classroom/closed?userId=1");
                 console.log(response.data);
                 setClosedData(response.data);
                 // setContents(classRoomData.lectures[0].contents[0]);
