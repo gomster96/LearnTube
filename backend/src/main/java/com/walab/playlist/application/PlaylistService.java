@@ -1,6 +1,5 @@
 package com.walab.playlist.application;
 
-import com.walab.classroom.application.dto.take.TakeClassRoomDto;
 import com.walab.playlist.application.dto.MyPlaylistDto;
 import com.walab.playlist.domain.repository.PlaylistRepository;
 import com.walab.user.domain.repository.UserRepository;

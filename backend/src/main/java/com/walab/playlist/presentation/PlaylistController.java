@@ -20,7 +20,7 @@ public class PlaylistController {
     private final PlaylistService playlistService;
     private final PlaylistRepository playlistRepository;
 //    public ResponseEntity<Object> getPlaylist(@RequestParam Long userId){
-//        List<MyPlaylistDto> playlistList =  playlistService.getPlaylist(userId);
+////        List<MyPlaylistDto> playlistList =  playlistService.getPlaylist(userId);
 //
 //        return ResponseEntity.ok(playlistList);
 //

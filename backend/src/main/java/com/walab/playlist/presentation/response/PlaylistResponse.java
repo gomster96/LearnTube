@@ -13,6 +13,7 @@ public class PlaylistResponse {
     private String name;
     private String description;
     private Long userId;
+    private String thumbnail;
     private LocalDateTime totalTime;
     @Builder
     public PlaylistResponse(Long userId){
