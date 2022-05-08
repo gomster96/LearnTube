@@ -111,6 +111,7 @@ const YoutubeSearch = () => {
         console.log(id);
         delete cart[id];
         console.log(cart);
+        setIsChanged(true);
     };
 
     useEffect(function(){
