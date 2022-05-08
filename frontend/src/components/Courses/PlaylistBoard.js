@@ -1,21 +1,24 @@
-import React, {useState, useCallback} from 'react';
+import React, {useState, useCallback, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import { ProgressBar } from 'react-bootstrap';
 
 
 const PlaylistBoard = (props) => {
-    const { playlistTitle, playlistImg, playlistTime, playlistVideo, creatorName, openDate, playlistDescription, onPlaylistClick } = props;
+    const { playlistTitle, playlistImg, playlistTime, playlistVideo, creatorName, openDate, playlistDescription, videos, onPlaylistClick } = props;
 
-    const [newPlaylistTitle, setNewPlaylistTitle] = useState(false);
+    const [newPlaylistTitle, setNewPlaylistTitle] = useState([]);
 
     const [isClicked, setIsClicked] = useState(false);
 
     const onClick = useCallback(() => {
-        onPlaylistClick(playlistTitle);
-        setNewPlaylistTitle(playlistTitle);
+        onPlaylistClick(videos);
+        setNewPlaylistTitle(videos);
+        console.log(videos);
         setIsClicked(!isClicked);
-    }, [onPlaylistClick, playlistTitle]);
-
+    }, [onPlaylistClick, videos]);
+    useEffect(() => {
+        console.log(videos);
+    }, []);
     return (
         <div className="p-1 row" onClick={onClick}>
             <div className="col-lg-4 col-sm-12" >
