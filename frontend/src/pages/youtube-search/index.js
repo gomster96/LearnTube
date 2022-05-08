@@ -40,7 +40,7 @@ const YoutubeSearch = () => {
     const [realNewViewCount, setNewViewCount] = useState(0);
     const [realFinalDuration, setFinalDuration] = useState('');
     const [isSelected, setIsSelected] = useState(false);
-    const [cart,setCart] = useState({});
+    const [cart, setCart] = useState({});
 
     const httpClient = axios.create({
         baseURL: 'https://www.googleapis.com/youtube/v3',
@@ -48,11 +48,11 @@ const YoutubeSearch = () => {
     });
     const youtube = new Youtube(httpClient);
     let finalDuration = '';
-    let duration,viewCountInt,newViewCount;
+    let duration, viewCountInt, newViewCount;
     const selectVideo = (video) => {
         setIsSelected(false);
         setSelectedVideo(video);
-        console.log(selectedVideo);
+        //console.log(selectedVideo);
         // console.log(selectedVideo.id);
         //조회수 커스터마이징
         duration = video.contentDetails.duration;
@@ -189,8 +189,8 @@ const YoutubeSearch = () => {
                                     <div className="widget-area">
                                         <YoutubeVideoListWidget videos={searchedVideos.items}
                                             onVideoClick={selectVideo} nextPageToken={searchedVideos.nextPageToken}
-                                            prevPageToken={searchedVideos.prevPageToken} getToken={getToken} 
-                                            cartClick={addVideoToCart} cartUnclick={deleteVideoFromCart} cart={cart}/>
+                                            prevPageToken={searchedVideos.prevPageToken} getToken={getToken}
+                                            cartClick={addVideoToCart} cartUnclick={deleteVideoFromCart} cart={cart} />
 
                                     </div>
                                 </div>
@@ -199,8 +199,8 @@ const YoutubeSearch = () => {
                                     <div className="widget-area">
                                         <YoutubeVideoListWidget videos={searchedVideos.items}
                                             onVideoClick={selectVideo} nextPageToken={searchedVideos.nextPageToken}
-                                            prevPageToken={searchedVideos.prevPageToken} getToken={getToken} 
-                                            cartClick={addVideoToCart} cartUnclick={deleteVideoFromCart} cart={cart}/>
+                                            prevPageToken={searchedVideos.prevPageToken} getToken={getToken}
+                                            cartClick={addVideoToCart} cartUnclick={deleteVideoFromCart} cart={cart} />
                                     </div>
                                 </div>}
 
@@ -247,8 +247,9 @@ const YoutubeSearch = () => {
                                                                     <input type="text" id="tag" name="tag" placeholder="태그를 입력하세요. 쉼표로 구분됩니다." />
                                                                 </div>
                                                             </div>
-                                                            <div className="row d-flex justify-content-end ms-3 me-1 mt-3">
-                                                                <button className="createbtn text-center">저장</button>
+                                                            <div className="row d-flex justify-content-end ms-3 me-1 mt-3" onClick={() => addVideoToCart(selectedVideo)}>
+                                                                {/* <button className="createbtn text-center" >저장</button> */}
+                                                                저장!!
                                                             </div>
                                                         </form>
                                                     </div>

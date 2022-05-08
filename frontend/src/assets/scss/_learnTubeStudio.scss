@@ -8,6 +8,9 @@
 
 .cart{
     height: 30px;
+    width: auto;
+    min-height: 30px;
+    min-width: 30px;
 }
 
 .cart:hover{
@@ -23,3 +26,13 @@
     text-overflow: ellipsis;
     overflow: hidden;
 }
+
+// .row {
+//     --bs-gutter-x: 1.5rem;
+//     --bs-gutter-y: 0;
+//     display: flex;
+//     flex-wrap:inherit;
+//     margin-top: calc(-1 * var(--bs-gutter-y));
+//     margin-right: calc(-.5 * var(--bs-gutter-x));
+//     margin-left: calc(-.5 * var(--bs-gutter-x));
+// }

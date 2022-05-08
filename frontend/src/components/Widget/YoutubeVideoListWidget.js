@@ -15,6 +15,10 @@ const YoutubeVideoListWidget = ({ videos, onVideoClick, nextPageToken, prevPageT
         // console.log(searchedVideos);
     }, [videos]);
 
+    useEffect(function(){
+        console.log(cart);
+    },[cart]);
+
     return searchedVideos ? (
         <div className=" mb-50 py-3 ">
             <div id="rs-popular-course" className="rs-popular-courses list-view style1 course-view-style orange-style rs-inner-blog white-bg pb-100 md-pt-70 md-pb-80 text-start">
@@ -22,6 +26,7 @@ const YoutubeVideoListWidget = ({ videos, onVideoClick, nextPageToken, prevPageT
                     <div className="course-part clearfix m-0">
                         {searchedVideos.map(function(video){
                             let isAlreadyIncart = cart.hasOwnProperty(video.id.videoId);
+                            //console.log(video.snippet.title+" "+isAlreadyIncart);
                             return <YoutubeBoard
                                 key={video.id.videoId}
                                 video={video}
@@ -30,6 +35,7 @@ const YoutubeVideoListWidget = ({ videos, onVideoClick, nextPageToken, prevPageT
                                 addVideoToCart={cartClick}
                                 deleteVideoFromCart = {cartUnclick}
                                 isAlreadyIncart= {isAlreadyIncart}
+                                cart={cart}
                                 //duration={video.contentDetails.duration}
                                 //viewCount ={video.statistics.viewCount}
                             />
