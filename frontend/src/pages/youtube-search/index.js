@@ -41,10 +41,11 @@ const YoutubeSearch = () => {
     const [realFinalDuration, setFinalDuration] = useState('');
     const [isSelected, setIsSelected] = useState(false);
     const [cart, setCart] = useState({});
+    const [isChanged, setIsChanged] = useState(false);
 
     const httpClient = axios.create({
         baseURL: 'https://www.googleapis.com/youtube/v3',
-        params: { key: 'AIzaSyAAQWtwJTH3tLOjqFz7ICVtcUlF_mCJ8xg' },
+        params: { key: 'AIzaSyCOE8yAf5-5TrvgQgcaMZIMjR588joHBas' },
     });
     const youtube = new Youtube(httpClient);
     let finalDuration = '';
@@ -103,6 +104,7 @@ const YoutubeSearch = () => {
         newId = video.id;
         cart[newId] = video;
         console.log(cart);
+        setIsChanged(true);
     };
 
     const deleteVideoFromCart = (id) => {
@@ -111,6 +113,9 @@ const YoutubeSearch = () => {
         console.log(cart);
     };
 
+    useEffect(function(){
+        setIsChanged(false);
+    },[isChanged]);
     // query를 받아와서 search 후 searchedVideos에 결과 저장
     const search = useCallback(
         (query) => {
@@ -185,6 +190,8 @@ const YoutubeSearch = () => {
                             </div> */}
                             {/* video를 선택했을 경우 화면 반으로 나눠서 구성 */}
                             {selectedVideo ?
+                                (
+                                isChanged?
                                 (<div className="col-lg-6 col-md-7">
                                     <div className="widget-area">
                                         <YoutubeVideoListWidget videos={searchedVideos.items}
@@ -193,8 +200,17 @@ const YoutubeSearch = () => {
                                             cartClick={addVideoToCart} cartUnclick={deleteVideoFromCart} cart={cart} />
 
                                     </div>
-                                </div>
+                                </div>)
+                                :
+                                (<div className="col-lg-6 col-md-7">
+                                    <div className="widget-area">
+                                        <YoutubeVideoListWidget videos={searchedVideos.items}
+                                            onVideoClick={selectVideo} nextPageToken={searchedVideos.nextPageToken}
+                                            prevPageToken={searchedVideos.prevPageToken} getToken={getToken}
+                                            cartClick={addVideoToCart} cartUnclick={deleteVideoFromCart} cart={cart} />
 
+                                    </div>
+                                </div>)
                                 ) : <div className="col-md-12 col-12">
                                     <div className="widget-area">
                                         <YoutubeVideoListWidget videos={searchedVideos.items}

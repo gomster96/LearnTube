@@ -5,6 +5,7 @@ import YoutubeBoard from '../../components/Events/YoutubeBoard';
 
 const YoutubeVideoListWidget = ({ videos, onVideoClick, nextPageToken, prevPageToken, getToken,cartClick,cartUnclick,cart }) => {
     const [searchedVideos, setSearchedVideos] = useState([]);
+    const [newCart,setNewCart] = useState({});
 
     const clickPageToken = (value) => {
         getToken(value);
@@ -17,15 +18,20 @@ const YoutubeVideoListWidget = ({ videos, onVideoClick, nextPageToken, prevPageT
 
     useEffect(function(){
         console.log(cart);
+        setNewCart(cart);
     },[cart]);
 
+    console.log(cart);
     return searchedVideos ? (
         <div className=" mb-50 py-3 ">
             <div id="rs-popular-course" className="rs-popular-courses list-view style1 course-view-style orange-style rs-inner-blog white-bg pb-100 md-pt-70 md-pb-80 text-start">
                 <div className="container">
                     <div className="course-part clearfix m-0">
                         {searchedVideos.map(function(video){
-                            let isAlreadyIncart = cart.hasOwnProperty(video.id.videoId);
+                            //console.log(video.id);                            
+                            let isAlreadyIncart = newCart.hasOwnProperty(video.id);
+                            if(newCart.hasOwnProperty(video.id)) console.log(video.snippet.title+" "+isAlreadyIncart);
+
                             //console.log(video.snippet.title+" "+isAlreadyIncart);
                             return <YoutubeBoard
                                 key={video.id.videoId}
@@ -35,7 +41,7 @@ const YoutubeVideoListWidget = ({ videos, onVideoClick, nextPageToken, prevPageT
                                 addVideoToCart={cartClick}
                                 deleteVideoFromCart = {cartUnclick}
                                 isAlreadyIncart= {isAlreadyIncart}
-                                cart={cart}
+                                cart={newCart}
                                 //duration={video.contentDetails.duration}
                                 //viewCount ={video.statistics.viewCount}
                             />
