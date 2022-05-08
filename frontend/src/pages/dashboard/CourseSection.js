@@ -30,8 +30,6 @@ const CoursePart = (props) => {
         );
         console.log(response.data);
         setTakesData(response.data);
-        // setContents(classRoomData.lectures[0].contents[0]);
-        // console.log("set : ", contents);
       } catch (err) {
         console.log("err >> ", err);
       }
@@ -96,6 +94,7 @@ const CoursePart = (props) => {
                       userCount={takesData[i].numberOfTake}
                       openDate={takesData[i].classRoomRegDate.split("T")[0]}
                       creatorName={takesData[i].instructorName}
+                      classId={takesData[i].classId}
                     />
                   </div>
                 ))
