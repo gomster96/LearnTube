@@ -56,7 +56,7 @@ const CourseSidebar = (props) => {
           <li className="students-feature">
             <i className="fa fa-users"></i>
             <span className="label">Students</span>
-            <span className="value">21</span>
+            <span className="value">{props.classRoomData.takeNum}</span>
           </li>
         </ul>
       </div>

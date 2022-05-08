@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { ProgressBar } from "react-bootstrap";
-
+import { useHistory } from "react-router-dom";
 const CourseDashBoard = (props) => {
   const {
     courseClass,
@@ -12,8 +12,10 @@ const CourseDashBoard = (props) => {
     notice,
     creatorName,
     openDate,
+    classId,
   } = props;
-
+  const history = useHistory();
+  console.log("c id : ", classId);
   return (
     <div className={courseClass ? courseClass : "courses-item"}>
       <div className="img-part">
@@ -21,8 +23,13 @@ const CourseDashBoard = (props) => {
       </div>
       <div className="content-part" style={{ width: "60%" }}>
         <div className="row">
-          <h3 className="title">
-            <Link to="/course/course-single">
+          <h3 className="title" onClick={() => {}}>
+            <Link
+              to={{
+                pathname: "/course/course-single",
+                state: { classId: classId },
+              }}
+            >
               {courseTitle ? courseTitle : "강의제목"}
             </Link>
           </h3>
@@ -51,7 +58,7 @@ const CourseDashBoard = (props) => {
             <div className="col">
               <ul>
                 <li className="user">
-                  <i className="fa fa-user"></i> {userCount ? userCount : "245"}
+                  <i className="fa fa-user"></i> {userCount ? userCount : 0}
                 </li>
                 <li className="ratings">
                   <span>{openDate ? openDate : "-"}</span>
