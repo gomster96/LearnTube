@@ -9,7 +9,7 @@ const UpdateNotice = (props) => {
   const i = props.i;
 
   const data = { ...props };
-  console.log("data ", data);
+  //console.log("data ", data);
   const [isOpen, setIsOpen] = useState(false);
   const openModal = () => setIsOpen(!isOpen);
 

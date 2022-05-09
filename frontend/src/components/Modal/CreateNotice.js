@@ -6,6 +6,8 @@ const CreateNotice = (props) => {
   let userId = 1;
   const instructorId = props.instructorId;
   const classId = props.classId;
+  const [noticeData, setNoticeData] = useState(props.noticeData);
+  if (noticeData) console.log("noticeData", noticeData);
 
   const data = { ...props };
   //console.log("data ", data);
@@ -27,12 +29,16 @@ const CreateNotice = (props) => {
 
   const noticeTitleHandler = (e) => {
     console.log(e.target.value);
-    setNoticeTitle(e.target.value);
+    // setNoticeTitle(e.target.value);
+    setNoticeData({ ...setNoticeData, [e.target.name]: e.target.value });
+    console.log(noticeData);
   };
 
   const noticeContentHandler = (e) => {
     console.log(e.target.value);
-    setNoticeContent(e.target.value);
+    // setNoticeContent(e.target.value);
+    setNoticeData({ ...setNoticeData, [e.target.name]: e.target.value });
+    console.log(noticeData);
   };
 
   const noticeCreateHandler = (e) => {
@@ -125,7 +131,7 @@ const CreateNotice = (props) => {
                         <textarea
                           type="textarea"
                           id="description"
-                          name="description"
+                          name="content"
                           value={noticeContent}
                           onChange={noticeContentHandler}
                           placeholder="설명을 입력하세요"

@@ -18,11 +18,17 @@ import { faBorderNone } from "@fortawesome/free-solid-svg-icons";
 import CreateNotice from "../../../components/Modal/CreateNotice";
 import UpdateNotice from "../../../components/Modal/UpdateNotice";
 import DeleteNotice from "../../../components/Modal/DeleteNotice";
+import ReadNotice from "../../../components/Modal/ReadNotice";
 
 const CurriculumPart = (props) => {
   const data = { ...props };
+  const noticeData = { ...props.noticeData };
+  const setNoticeData = { ...props.setNoticeData };
+  console.log("noticeData", noticeData[0]);
+  console.log("setNoticeData", setNoticeData);
   let userId = 1;
 
+  const title = useState();
   const [isOpen, setIsOpen] = useState(false);
   const openModal = () => setIsOpen(!isOpen);
 
@@ -31,7 +37,6 @@ const CurriculumPart = (props) => {
   const clickModalHandler = (params) => {
     setNoticeIdx(params);
   };
-
   const createLecture = async (e) => {
     let body = {
       classId: e,
@@ -95,7 +100,7 @@ const CurriculumPart = (props) => {
   };
   return (
     <>
-      {data.classRoomData ? (
+      {noticeData ? (
         <div className="content">
           <Accordion className="accordion-box" preExpanded={"a"}>
             <AccordionItem className="accordion-item" uuid="a">
@@ -127,6 +132,8 @@ const CurriculumPart = (props) => {
                           <CreateNotice
                             instructorId={props.classRoomData.instructor.userId}
                             classId={props.classRoomData.classId}
+                            noticeData={noticeData}
+                            setNoticeData={setNoticeData}
                           />
                         </span>
                       ) : null}
@@ -135,140 +142,23 @@ const CurriculumPart = (props) => {
                 </AccordionItemButton>
               </AccordionItemHeading>
               <AccordionItemPanel className="card-body acc-content current">
-                {Array.isArray(data.classRoomData.notices)
-                  ? data.classRoomData.notices.map((notices, i) => (
+                {noticeData ? (
+                  <>
+                    {Object.values(noticeData).map((notices, i) => (
                       <div className="content">
+                        {" "}
                         <div className="clearfix">
-                          {/* 공지 모달 open */}
-                          <Modal
-                            isOpen={isOpen}
-                            onClose={() => {
-                              openModal();
-                            }}
-                            onRequestClose={() => setIsOpen(false)}
-                            style={{
-                              overlay: {
-                                zIndex: "100",
-                                position: "fixed",
-                                top: 0,
-                                left: 0,
-                                right: 0,
-                                bottom: 0,
-                                backgroundColor: "rgb(0, 0, 0, 0.55)",
-                              },
-                              content: {
-                                position: "absolute",
-                                top: "20%",
-                                left: "30%",
-                                right: "30%",
-                                bottom: "20%",
-                                background: "#fff",
-                                overflow: "auto",
-                                WebkitOverflowScrolling: "touch",
-                                outline: "none",
-                                padding: "0px",
-                              },
-                            }}
-                          >
-                            <div className="">
-                              <div className="register-section ">
-                                <div className="container">
-                                  <div className="py-3 px-5">
-                                    <div
-                                      className="sec-title text-center mb-10"
-                                      style={{ paddingBottom: "0.7rem" }}
-                                    >
-                                      <h2 className="title mt-3 mb-10">
-                                        Notice
-                                      </h2>
-                                      <hr></hr>
-                                    </div>
-                                    <div className="styled-form">
-                                      <div id="form-messages"></div>
-                                      <form
-                                        id="contact-form"
-                                        method="post"
-                                        action="#"
-                                      >
-                                        <div className="row clearfix">
-                                          <h4
-                                            className="title mt-3 mb-10"
-                                            style={{ paddingBottom: "1rem" }}
-                                          >
-                                            {
-                                              data.classRoomData.notices[
-                                                noticeIdx
-                                              ].title
-                                            }
-                                          </h4>
-                                          <div
-                                            className="form-group col-lg-12 mb-25"
-                                            style={{ paddingBottom: "7rem" }}
-                                          >
-                                            <div
-                                              className="my-2"
-                                              style={{ fontSize: "20px" }}
-                                            >
-                                              {
-                                                data.classRoomData.notices[
-                                                  noticeIdx
-                                                ].content
-                                              }
-                                            </div>
-                                          </div>
-                                        </div>
-                                        <br></br>
-                                        <p className="text-muted">
-                                          수정시간:
-                                          {data.classRoomData.notices[
-                                            noticeIdx
-                                          ].modDate.split("T")[0] +
-                                            " " +
-                                            data.classRoomData.notices[
-                                              noticeIdx
-                                            ].modDate
-                                              .split("T")[1]
-                                              .split(":")[0] +
-                                            ":" +
-                                            data.classRoomData.notices[
-                                              noticeIdx
-                                            ].modDate
-                                              .split("T")[1]
-                                              .split(":")[1]}
-                                        </p>
-                                        <hr></hr>
-                                        <div className="row d-flex justify-content-end ms-3 me-1 mt-3">
-                                          <button
-                                            type="submit"
-                                            className="createbtn text-center pt-2"
-                                            onClick={() => {
-                                              openModal();
-                                            }}
-                                          >
-                                            <span className="txt">확인</span>
-                                          </button>
-                                        </div>
-                                      </form>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </Modal>
-                          <div
-                            className="pull-left popup-videos play-icon "
-                            key={data.classRoomData.notices[i].id}
-                            onClick={() => {
-                              openModal();
-                              clickModalHandler(i);
-                            }}
-                          >
-                            <i
-                              className="fa fa-list"
-                              style={{ zIndex: "0" }}
-                            ></i>
-                            {data.classRoomData.notices[i].title}
+                          <div>
+                            <ReadNotice
+                              notices={data.classRoomData.notices}
+                              instructorId={
+                                data.classRoomData.instructor.userId
+                              }
+                              noticeIdx={i}
+                            />
                           </div>
+
+                          {/* ////////// */}
                           <div className="pull-right">
                             <div className="minutes">
                               {props.classRoomData.instructor.userId ===
@@ -301,31 +191,28 @@ const CurriculumPart = (props) => {
                             </div>
                           </div>
                           <div className="pull-right">
-                            <div
-                              className="minutes"
-                              style={{
-                                paddingTop: "10px",
-                                paddingRight: "15px",
-                              }}
-                            >
-                              최종 수정시간:
-                              {data.classRoomData.notices[i].modDate.split(
-                                "T"
-                              )[0] +
-                                " " +
-                                data.classRoomData.notices[i].modDate
-                                  .split("T")[1]
-                                  .split(":")[0] +
-                                ":" +
-                                data.classRoomData.notices[i].modDate
-                                  .split("T")[1]
-                                  .split(":")[1]}
-                            </div>
+                            {notices.modDate ? (
+                              <div
+                                className="minutes"
+                                style={{
+                                  paddingTop: "10px",
+                                  paddingRight: "15px",
+                                }}
+                              >
+                                최종 수정시간:
+                                {notices.modDate.split("T")[0] +
+                                  " " +
+                                  notices.modDate.split("T")[1].split(":")[0] +
+                                  ":" +
+                                  notices.modDate.split("T")[1].split(":")[1]}
+                              </div>
+                            ) : null}
                           </div>
                         </div>
                       </div>
-                    ))
-                  : null}
+                    ))}
+                  </>
+                ) : null}
               </AccordionItemPanel>
             </AccordionItem>
             {/* 강의 */}

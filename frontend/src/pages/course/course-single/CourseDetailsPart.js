@@ -33,6 +33,12 @@ function CourseDetailsPart() {
   const [classRoomData, setClassRoomData] = useState(initClassRoomData);
   const cid = useLocation().state.classId;
 
+  const noticeInit = {
+    notices: [{ id: "", title: "", content: "", modDate: "" }],
+  };
+
+  const [noticeData, setNoticeData] = useState(noticeInit);
+
   useEffect(() => {
     const fetchClassRoom = async () => {
       try {
@@ -42,6 +48,9 @@ function CourseDetailsPart() {
         console.log(response.data);
         setClassRoomData(response.data);
         console.log("cid", cid);
+
+        setNoticeData(response.data.notices);
+        console.log("p noticeData", noticeData);
       } catch (err) {
         console.log("err >> ", err);
       }
@@ -57,7 +66,11 @@ function CourseDetailsPart() {
           <h3>{classRoomData.className}</h3>
           <div className="row clearfix">
             <div className="col-lg-8 md-mb-50">
-              <CurriculumPart classRoomData={classRoomData} />
+              <CurriculumPart
+                classRoomData={classRoomData}
+                noticeData={noticeData}
+                setNoticeData={setNoticeData}
+              />
             </div>
             <div className="video-column col-lg-4">
               <CourseSidebar classRoomData={classRoomData} />
