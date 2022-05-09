@@ -35,7 +35,7 @@ const Playlist = () => {
             </Helmet>
             <OffWrap />
             <Header
-                parentMenu='pages'
+                parentMenu='learntube'
                 secondParentMenu='event'
                 headerNormalLogo={Logo}
                 headerStickyLogo={Logo}
