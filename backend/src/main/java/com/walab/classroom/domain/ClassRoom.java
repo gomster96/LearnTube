@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import javax.persistence.*;
 
 import com.walab.classroom.application.dto.ClassRoomCUDto;
+import com.walab.classroom.application.dto.ClassRoomCourseDto;
 import com.walab.classroom.application.dto.ClassRoomDto;
 import com.walab.common.BaseEntity;
 import com.walab.lecture.application.dto.LectureDto;
@@ -145,5 +146,9 @@ public class ClassRoom extends BaseEntity {
                            .lectures(lectureDtos)
                            .notices(noticeDetailDtos)
                            .build();
+    }
+
+    public ClassRoomCourseDto toCourseDto(){
+        return new ClassRoomCourseDto(this.id, this.className, this.instructor.getName(), this.takes.size(), this.getCreatedAt());
     }
 }
