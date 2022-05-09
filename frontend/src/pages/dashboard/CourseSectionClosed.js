@@ -15,19 +15,19 @@ import courseImg7 from "../../assets/img/courses/7.jpg";
 import courseImg8 from "../../assets/img/courses/8.jpg";
 
 const CoursePartClosed = (props) => {
-  const initClosedData = [
-    {
-      classId: "",
-      className: "",
-      instructorName: "",
-      latestNotice: "",
-      numberOfTake: "",
-      active: "",
-      classRoomRegDate: "",
-    },
-  ];
+  // const initClosedData = [
+  //   {
+  //     classId: "",
+  //     className: "",
+  //     instructorName: "",
+  //     latestNotice: "",
+  //     numberOfTake: "",
+  //     active: "",
+  //     classRoomRegDate: "",
+  //   },
+  // ];
 
-  const [closedData, setClosedData] = useState(initClosedData);
+  const [closedData, setClosedData] = useState(null);
   const history = useHistory();
   useEffect(() => {
     const fetchClosedClassRoom = async () => {
@@ -89,7 +89,7 @@ const CoursePartClosed = (props) => {
                 </form>
               </div>
             </div>
-            {Array.isArray(closedData)
+            {(closedData)
               ? closedData.map((closedDatas, i) => (
                   <div
                     className="course-part clearfix m-0"

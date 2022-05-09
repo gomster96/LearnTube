@@ -11,18 +11,8 @@ import courseImg3 from "../../assets/img/courses/3.jpg";
 
 const CoursePart = (props) => {
 
-  const initTakesData = [
-    {
-      classId: "",
-      className: "",
-      instructorName: "",
-      videoCheck: "",
-      latestNotice: "",
-      numberOfTake: "",
-      classRoomRegDate: "",
-    },
-  ];
-  const [takesData, setTakesData] = useState(initTakesData);
+
+  const [takesData, setTakesData] = useState(null);
   useEffect(() => {
     const fetchTakesClassRoom = async () => {
       try {
@@ -83,8 +73,7 @@ const CoursePart = (props) => {
                 </form>
               </div>
             </div>
-            {Array.isArray(takesData)
-              ? takesData.map((takeData, i) => (
+            {takesData ? takesData.map((takeData, i) => (
                   <div className="course-part clearfix m-0">
                     <CourseDashBoard
                       courseClass="courses-item"

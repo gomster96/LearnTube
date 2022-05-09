@@ -15,7 +15,7 @@ const CourseDashBoard = (props) => {
     classId,
   } = props;
   const history = useHistory();
-  console.log("c id : ", classId);
+  // console.log("c id : ", classId);
   return (
     <div className={courseClass ? courseClass : "courses-item"}>
       <div className="img-part">
