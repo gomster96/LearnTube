@@ -1,9 +1,11 @@
 package com.walab.classroom.application;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.walab.classroom.application.dto.ClassRoomCUDto;
+import com.walab.classroom.application.dto.ClassRoomCourseDto;
 import com.walab.classroom.application.dto.ClassRoomDto;
 import com.walab.classroom.application.dto.take.TakeClassRoomDto;
 import com.walab.classroom.domain.ClassRoom;
@@ -13,6 +15,7 @@ import com.walab.exception.user.UserNotFoundException;
 import com.walab.user.domain.User;
 import com.walab.user.domain.repository.UserRepository;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -55,8 +58,16 @@ public class ClassRoomService {
 
     @Transactional
     public List<TakeClassRoomDto> getManagedClasses(Long userId){
-        List<ClassRoom> classRooms = classRoomRepository.findClassRoomByInstructorId(userId);
+        List<ClassRoom> classRooms = classRoomRepository.findByInstructorId(userId);
         return classRooms.stream().map(TakeClassRoomDto::new).collect(Collectors.toList());
+    }
+
+    @Transactional
+    public List<ClassRoomCourseDto> findClassRoomsByPage(Pageable pageable){
+        List<ClassRoom> classRooms = classRoomRepository.findByPage(pageable);
+        return classRooms.stream()
+                  .map(ClassRoom::toCourseDto)
+                  .collect(Collectors.toList());
     }
 
 }
