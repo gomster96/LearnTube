@@ -19,6 +19,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/api/notice")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class NoticeController {
     private final NoticeService noticeService;
     private final NoticeRepository noticeRepository;

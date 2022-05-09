@@ -26,6 +26,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/api/classroom")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class ClassRoomController {
 
     private final ClassRoomService classRoomService;
