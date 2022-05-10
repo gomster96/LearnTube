@@ -29,26 +29,29 @@ const CreateNotice = (props) => {
 
   const noticeTitleHandler = (e) => {
     console.log(e.target.value);
-    // setNoticeTitle(e.target.value);
+    setNoticeTitle(e.target.value);
     setNoticeData({ ...setNoticeData, [e.target.name]: e.target.value });
     console.log(noticeData);
   };
 
   const noticeContentHandler = (e) => {
     console.log(e.target.value);
-    // setNoticeContent(e.target.value);
+    setNoticeContent(e.target.value);
     setNoticeData({ ...setNoticeData, [e.target.name]: e.target.value });
-    console.log(noticeData);
   };
 
   const noticeCreateHandler = (e) => {
-    console.log(noticeTitle);
-    console.log(noticeContent);
+    console.log(noticeData.title);
+    console.log(noticeData.content);
+    // console.log(noticeTitle);
+    // console.log(noticeContent);
 
     let body = {
       classId: classId,
-      title: noticeTitle,
-      content: noticeContent,
+      //   title: noticeTitle,
+      //   content: noticeContent,
+      title: noticeData.title,
+      content: noticeData.content,
     };
 
     const async = async () => {
