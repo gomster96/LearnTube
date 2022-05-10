@@ -42,6 +42,8 @@ const YoutubeSearch = () => {
     const [isSelected, setIsSelected] = useState(false);
     const [cart, setCart] = useState({});
     const [isChanged, setIsChanged] = useState(false);
+    const [newTitle, setNewTitle] = useState('');
+    const [newDescription, setNewDescription] = useState('');
 
     const httpClient = axios.create({
         baseURL: 'https://www.googleapis.com/youtube/v3',
@@ -51,6 +53,8 @@ const YoutubeSearch = () => {
     let finalDuration = '';
     let duration, viewCountInt, newViewCount;
     const selectVideo = (video) => {
+        setNewTitle('');
+        setNewDescription('');
         setIsSelected(false);
         setSelectedVideo(video);
         //console.log(selectedVideo);
@@ -102,6 +106,10 @@ const YoutubeSearch = () => {
     let newId;
     const addVideoToCart = (video) => {
         newId = video.id;
+        //newTitle&newDescription 삽입
+        video.snippet.newTitle = newTitle;
+        video.snippet.newDescription = newDescription;
+        console.log(video.snippet.newTitle +"\n"+newDescription);
         cart[newId] = video;
         console.log(cart);
         setIsChanged(true);
@@ -133,7 +141,7 @@ const YoutubeSearch = () => {
         async (value) => {
             await youtube.getTokenDetail(newQuery, value).then(function (response) {
                 setSearchedVideos(response);
-                setPaginatedVideos(response.items);
+                //setPaginatedVideos(response.items);
             })
         }, [youtube],
     );
@@ -142,7 +150,13 @@ const YoutubeSearch = () => {
         setIsSelected(!isSelected);
     }
 
+    const titleChange = (e) => {
+        setNewTitle(e.target.value);
+      };
 
+    const descriptionChange = (e) => {
+        setNewDescription(e.target.value);
+      };
 
     // 처음 페이지를 로딩할 때 default로 query 값 설정
     useEffect(async function () {
@@ -257,11 +271,12 @@ const YoutubeSearch = () => {
                                                             <div className="row clearfix">
                                                                 <div className="form-group col-lg-12 mb-25">
                                                                     <div className="my-2 text-start">영상 제목<span className="ms-1" style={{ color: 'red' }}>*</span></div>
-                                                                    <input type="text" id="title" name="title" placeholder="제목을 입력하세요" required />
+                                                                    <input type="text" id="title" name="title" placeholder="제목을 입력하세요" value={newTitle} onChange={titleChange} required />
                                                                 </div>
                                                                 <div className="form-group col-lg-12">
-                                                                    <div className="my-2 text-start">태그</div>
-                                                                    <input type="text" id="tag" name="tag" placeholder="태그를 입력하세요. 쉼표로 구분됩니다." />
+                                                                    <div className="my-2 text-start">설명</div>
+                                                                    <input type="text" id="description" name="description" placeholder="설명을 입력하세요. 쉼표로 구분됩니다." 
+                                                                    value={newDescription} onChange={descriptionChange}/>
                                                                 </div>
                                                             </div>
                                                             <div className="row d-flex justify-content-end ms-3 me-1 mt-3" onClick={() => addVideoToCart(selectedVideo)}>
