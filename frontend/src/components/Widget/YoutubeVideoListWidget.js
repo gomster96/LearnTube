@@ -21,7 +21,6 @@ const YoutubeVideoListWidget = ({ videos, onVideoClick, nextPageToken, prevPageT
         setNewCart(cart);
     },[cart]);
 
-    console.log(cart);
     return searchedVideos ? (
         <div className=" mb-50 py-3 ">
             <div id="rs-popular-course" className="rs-popular-courses list-view style1 course-view-style orange-style rs-inner-blog white-bg pb-100 md-pt-70 md-pb-80 text-start">
@@ -30,7 +29,7 @@ const YoutubeVideoListWidget = ({ videos, onVideoClick, nextPageToken, prevPageT
                         {searchedVideos.map(function(video){
                             //console.log(video.id);                            
                             let isAlreadyIncart = newCart.hasOwnProperty(video.id);
-                            if(newCart.hasOwnProperty(video.id)) console.log(video.snippet.title+" "+isAlreadyIncart);
+                            //if(newCart.hasOwnProperty(video.id)) console.log(video.snippet.title+" "+isAlreadyIncart);
 
                             //console.log(video.snippet.title+" "+isAlreadyIncart);
                             return <YoutubeBoard
