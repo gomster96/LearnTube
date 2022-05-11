@@ -112,6 +112,10 @@ const YoutubeSearch = () => {
         console.log(video.snippet.newTitle +"\n"+newDescription);
         cart[newId] = video;
         console.log(cart);
+        for (const prop in cart) {
+            console.log(prop);
+            console.log(cart[prop]);
+        }
         setIsChanged(true);
     };
 
