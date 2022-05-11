@@ -6,6 +6,7 @@ import Footer from '../../components/Layout/Footer/Footer';
 import OffWrap from '../../components/Layout/Header/OffWrap';
 import SearchModal from '../../components/Layout/Header/SearchModal';
 import ScrollToTop from '../../components/Common/ScrollTop';
+import CartVideo from './cart';
 
 import 'rc-slider/assets/index.css'
 
@@ -212,6 +213,8 @@ const Cart = () => {
         }
     }
     const [videoList, setVideoList] = useState(videos);
+    const [cartList, setCartList] = useState({});
+
     // const addCart = useCallback(() =>{
     //     console.log("add to cart");
     //         addVideoToCart(video);
@@ -223,13 +226,23 @@ const Cart = () => {
     //     deleteVideoFromCart(video.id);
     // },[]);
     useEffect(function () {
-        setVideoList(videos); 
+        setVideoList(videos);
+        for (const prop in videoList) {
+            console.log(prop);
+            console.log(videoList[prop]);
+            console.log("hel", videoList[prop]);
+            Object.assign(cartList, videoList[prop]);
+        }
+        console.log(JSON.stringify(cartList));
+        // setCartList(cartList);
     }, []);
-    console.log(videoList.eIrMbAQSU34);
-    videoList.map((video, i) => (
-        console.log(videoList.eIrMbAQSU34)
-    ));
+    //console.log(videoList.eIrMbAQSU34);
 
+    // videoList.map((video, i) => (
+    //     console.log(videoList.eIrMbAQSU34)
+    // ));
+    console.log(JSON.stringify(cartList));
+    
     return (
         <React.Fragment>
             <Helmet>
@@ -251,36 +264,35 @@ const Cart = () => {
                 <div className="px-5">
                     <div className="container">
                         <h3 className="ps-4 mb-0"><i className="fa fa-play-circle-o pe-1 pt-3"></i>DFS</h3>
-                        {/* <div className="row mt-5">
-                            <div className="p-1 row " >
-                                <div className="m-0 col-md-3 col-sm-12 d-flex justify-content-center">
-                                    <img className="img-fluid" style={{ minWidth: '100px', marginBottom: '10%' }}
-                                        src={videos[0].snippet.thumbnails.medium.url}
-                                        alt={videos[0].snippet.title} 
-                                    />
-                                </div>
-                                <div className="col-md-8 col-sm-12" >
-                                    <div className="d-flex h4">
-                                        {videos[0].snippet.title ? videos[0].snippet.title : '영상제목'}
+                        <div className="row mt-5">
+                           {Object.values(cartList).map((videos, i) => (
+                               
+  
+                                <div  key={i} className="p-1 row "  >
+                                    <div className="m-0 col-md-3 col-sm-12 d-flex justify-content-center">
+                                        <img className="img-fluid" style={{ minWidth: '100px', marginBottom: '10%' }}
+                                            src={videos.snippet.thumbnails.medium.url}
+                                            alt={videos.snippet.title}
+                                        />
                                     </div>
-                                    <div className="d-flex fw-light ms-0 ps-0">
-                                        {videos[0].snippet.channelTitle ? videos[0].snippet.channelTitle : '채널명'}
-                                        <div class="mx-1 border-start border-secondary"></div> {videos[0].snippet.publishTime ? videos[0].snippet.publishTime.slice(0, 10) : '등록일'}
-                                    </div>
-                                    <div className="d-flex fw-light">
-                                        {videos[0].snippet.description ? videos[0].snippet.description : '영상설명'}
-                                    </div>
+                                    <div className="col-md-8 col-sm-12" >
+                                        <div className="d-flex h4">
+                                            {videos.snippet.title ? videos.snippet.title : '영상제목'}
+                                        </div>
+                                        <div className="d-flex fw-light ms-0 ps-0">
+                                            {videos.snippet.channelTitle ? videos.snippet.channelTitle : '채널명'}
+                                            <div class="mx-1 border-start border-secondary"></div> {videos.snippet.publishTime ? videos.snippet.publishTime.slice(0, 10) : '등록일'}
+                                        </div>
+                                        <div className="d-flex fw-light">
+                                            {videos.snippet.description ? videos.snippet.description : '영상설명'}
+                                        </div>
 
+                                    </div>
+                                    <hr></hr>
                                 </div>
-                                 <div className='col-md-1 d-flex justify-content-center align-items-center'>
-                                    {isAdded || isAlreadyIncart
-                                        ? <img src={outOfCart} className='cart m-2' alt='delete from cart' onClick={deleteCart}></img>
-                                        : <img src={cartImg} className='cart m-2' alt='add to cart' onClick={addCart}></img>}
-                                </div> *
-                                <hr></hr>
-                            </div>
-
-                        </div> */}
+                            ))}
+                             
+                        </div>
                     </div>
 
                 </div>
