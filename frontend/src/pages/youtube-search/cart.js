@@ -264,19 +264,21 @@ const Cart = () => {
                 <div className="px-5">
                     <div className="container">
                         <h3 className="ps-4 mb-0"><i className="fa fa-play-circle-o pe-1 pt-3"></i>DFS</h3>
-                        <div className="row mt-5">
-                           {Object.values(cartList).map((videos, i) => (
-                               
+                        <div className="row mt-100">
+                           {/* {Object.values(cartList).map((videos, i) => ( */}
+                            {/* <div  key={i} className="p-1 row "  > */}
   
-                                <div  key={i} className="p-1 row "  >
+                                <div className="p-1 row "  >
                                     <div className="m-0 col-md-3 col-sm-12 d-flex justify-content-center">
                                         <img className="img-fluid" style={{ minWidth: '100px', marginBottom: '10%' }}
-                                            src={videos.snippet.thumbnails.medium.url}
-                                            alt={videos.snippet.title}
+                                            // src={videos.snippet.thumbnails.medium.url}
+                                            // alt={videos.snippet.title}
+                                            src="https://i.ytimg.com/vi/UmnCZ7-9yDY/default.jpg"
+                                            
                                         />
                                     </div>
                                     <div className="col-md-8 col-sm-12" >
-                                        <div className="d-flex h4">
+                                        {/* <div className="d-flex h4">
                                             {videos.snippet.title ? videos.snippet.title : '영상제목'}
                                         </div>
                                         <div className="d-flex fw-light ms-0 ps-0">
@@ -285,12 +287,21 @@ const Cart = () => {
                                         </div>
                                         <div className="d-flex fw-light">
                                             {videos.snippet.description ? videos.snippet.description : '영상설명'}
+                                        </div> */}
+                                        <div className="d-flex h4">
+                                            영상제목
                                         </div>
-
+                                        <div className="d-flex fw-light ms-0 ps-0">
+                                            채널명
+                                            <div class="mx-1 border-start border-secondary"></div> 등록일
+                                        </div>
+                                        <div className="d-flex fw-light">
+                                           영상설명
+                                        </div>
                                     </div>
                                     <hr></hr>
                                 </div>
-                            ))}
+                            {/* ))} */}
                              
                         </div>
                     </div>
