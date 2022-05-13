@@ -11,6 +11,7 @@ import PlaylistWidget from '../../components/Widget/PlaylistWidget';
 import MyPlaylistWidget from '../../components/Widget/MyPlaylistWidget';
 import SearchWidget from '../../components/Widget/SearchWidget';
 import CreatePlaylistWidget from '../../components/Widget/CreatePlaylistWidget';
+import axios from "axios";
 
 
 import Modal from 'react-modal';
@@ -19,15 +20,39 @@ import favIcon from '../../assets/img/fav-orange.png';
 import Logo from '../../assets/img/logo/Learntube-logos_transparent.png';
 import footerLogo from '../../assets/img/logo/lite-logo.png';
 
-// Event Images
-import eventImg1 from '../../assets/img/event/home12/1.jpg';
-import eventImg2 from '../../assets/img/event/home12/2.jpg';
-import eventImg3 from '../../assets/img/event/home12/3.jpg';
-import eventImg4 from '../../assets/img/event/home12/4.jpg';
-
 const Playlist = () => {
+
+    const initCreatePlaylist = {
+        title: "",
+        description: "",
+        tag: "",
+    };
+
     const [isOpen, setIsOpen] = useState(false);
     const openModal = () => setIsOpen(!isOpen);
+    const [createPlaylist, setCreatePlaylist] = useState(initCreatePlaylist);
+    const [createResponse, setCreateResponse] = useState();
+
+    const handleChange = (e) => {
+        setCreatePlaylist({
+            ...createPlaylist,
+            [e.target.name]: e.target.value.trim(),
+        });
+    };
+
+    const handleSubmit = async () => {
+        console.log(JSON.stringify(createPlaylist));
+        // const response = await axios
+        //     .post("http://localhost:3000/api/playlist", JSON.stringify(createPlaylist), {
+        //         method: "POST",
+        //         headers: {
+        //             // Accept: "application/json",
+        //             "Content-Type": "application/json",
+        //         },
+        //     })
+        //     .then((res) => console.log(res));
+        // setCreateResponse(response);
+    }
     return (
         <React.Fragment>
             <Helmet>
@@ -102,20 +127,23 @@ const Playlist = () => {
                                                         <div className="row clearfix">
                                                             <div className="form-group col-lg-12 mb-25">
                                                                 <div className="my-2">Playlist 이름<span className="ms-1" style={{ color: 'red' }}>*</span></div>
-                                                                <input type="text" id="title" name="title" placeholder="제목을 입력하세요" required />
+                                                                <input type="text" id="title" name="title" placeholder="제목을 입력하세요" onChange={handleChange} required />
                                                             </div>
                                                             <div className="form-group col-lg-12">
                                                                 <div className="my-2">Playlist 설명</div>
-                                                                <input type="textarea" id="description" name="description" value="" placeholder="설명을 입력하세요" />
+                                                                <input type="textarea" id="description" name="description" onChange={handleChange} placeholder="설명을 입력하세요" />
                                                             </div>
                                                             <div className="form-group col-lg-12">
                                                                 <div className="my-2">Playlist 태그</div>
-                                                                <input type="text" id="tag" name="tag" value="" placeholder="태그를 입력하세요. 쉼표로 구분됩니다." />
+                                                                <input type="text" id="tag" name="tag" onChange={handleChange} placeholder="태그를 입력하세요. 쉼표로 구분됩니다." />
                                                             </div>
                                                         </div>
                                                         <div className="row d-flex justify-content-end ms-3 me-1 mt-3">
                                                             <button type="submit" className="canclebtn" onClick={() => { openModal(); }}><span className="txt">취소</span></button>
-                                                            <Link className="createbtn text-center pt-2" to="/learntube-studio/youtubeSearch">생성</Link>
+                                                            <Link className="createbtn text-center pt-2" to={{
+                                                                pathname: "/learntube-studio/youtubeSearch",
+                                                                state: { title: createPlaylist.title }
+                                                            }} onClick={handleSubmit}>생성</Link>
                                                         </div>
                                                     </form>
                                                 </div>

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useState, useCallback } from 'react';
 import { Helmet } from 'react-helmet';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Header from '../../components/Layout/Header/Header';
 import Footer from '../../components/Layout/Footer/Footer';
 import OffWrap from '../../components/Layout/Header/OffWrap';
@@ -24,7 +24,7 @@ import footerLogo from '../../assets/img/logo/lite-logo.png';
 import cartPage from '../../assets/img/icon/trolley.png';
 
 const YoutubeSearch = () => {
-
+    const location = useLocation();
 
     const opts = {
         height: '420',
@@ -38,7 +38,6 @@ const YoutubeSearch = () => {
     const [newQuery, setNewQuery] = useState("한동대학교");
     const [searchedVideos, setSearchedVideos] = useState([]);
     const [selectedVideo, setSelectedVideo] = useState(null);
-    const [paginatedVideos, setPaginatedVideos] = useState([]);
     const [realNewViewCount, setNewViewCount] = useState(0);
     const [realFinalDuration, setFinalDuration] = useState('');
     const [isSelected, setIsSelected] = useState(false);
@@ -46,6 +45,7 @@ const YoutubeSearch = () => {
     const [isChanged, setIsChanged] = useState(false);
     const [newTitle, setNewTitle] = useState('');
     const [newDescription, setNewDescription] = useState('');
+    const [playlistName, setPlaylistName] = useState('');
 
     const httpClient = axios.create({
         baseURL: 'https://www.googleapis.com/youtube/v3',
@@ -169,6 +169,9 @@ const YoutubeSearch = () => {
         let searchedResults = await youtube.search('한동대학교');
         setSearchedVideos(searchedResults);
         console.log(searchedVideos);
+        console.log(location);
+        setPlaylistName(location.state.title);
+        console.log(location.state.title);
     }, []);
 
 
@@ -194,7 +197,7 @@ const YoutubeSearch = () => {
             <div className="rs-event orange-style pb-100 md-pb-80">
                 <div className="px-5">
                     <div className="container">
-                        <h3 className="ps-2 mb-0"><i className="fa fa-play-circle-o pe-1 pt-3"></i>DFS</h3>
+                        <h3 className="ps-2 mb-0"><i className="fa fa-play-circle-o pe-1 pt-3"></i>{location.state.title ? playlistName : '제목'}</h3>
                         <div className="widget-area d-flex align-items-center">
                             < YoutubeVideoSearchWidget onSearch={search} />
                             <Link 
