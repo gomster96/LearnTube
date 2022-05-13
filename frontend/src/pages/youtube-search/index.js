@@ -21,6 +21,7 @@ import 'rc-slider/assets/index.css'
 import favIcon from '../../assets/img/fav-orange.png';
 import Logo from '../../assets/img/logo/Learntube-logos_transparent.png';
 import footerLogo from '../../assets/img/logo/lite-logo.png';
+import cartPage from '../../assets/img/icon/trolley.png';
 
 const YoutubeSearch = () => {
 
@@ -194,10 +195,14 @@ const YoutubeSearch = () => {
                 <div className="px-5">
                     <div className="container">
                         <h3 className="ps-2 mb-0"><i className="fa fa-play-circle-o pe-1 pt-3"></i>DFS</h3>
-                        <div className="widget-area">
+                        <div className="widget-area d-flex align-items-center">
                             < YoutubeVideoSearchWidget onSearch={search} />
-                            <Link className="text-center pt-2" to="/learntube-studio/youtubeSearch">
-                                장바구니
+                            <Link 
+                                className="pt-2" 
+                                to={{pathname : "/learntube-studio/myCart",
+                                    state:{cart: cart }}} 
+                                >
+                                    <img src={cartPage} className='goToCart' alt='go to cart page' ></img>
                             </Link>
                         </div>
                     </div>
