@@ -27,7 +27,7 @@ const YoutubeSearch = () => {
 
 
     const opts = {
-        height: '420',
+        height: '360',
         width: '560',
         playerVars: {
             // https://developers.google.com/youtube/player_parameters
@@ -249,7 +249,7 @@ const YoutubeSearch = () => {
                                 </div>}
 
                             {selectedVideo ? (
-                                <div className="col-lg-6 col-md-5 col-sm-12">
+                                <div className="col-lg-6 col-md-5 col-sm-12 overflow-auto mb-500" style={{position: "fixed", right: "0", bottom: "600px;",height: "500px"}}>
                                     <YouTube videoId={selectedVideo.id} opts={opts} />
                                     <div class="row">
                                         <div class="col-12 my-5 lh-base">
