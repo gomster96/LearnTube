@@ -23,6 +23,7 @@ const Cart = () => {
     //console.log(videos);
     const [videoList, setVideoList] = useState(location.state.cart);
     const [cartList, setCartList] = useState([]);
+    const [playlistName, setPlaylistName] = useState('');
     
     let tempArray = [];
     useEffect(function () {
@@ -36,6 +37,7 @@ const Cart = () => {
             let tempJson = JSON.stringify(videoList[prop]);
             tempArray.push(tempJson);
             setCartList(tempArray);
+            setPlaylistName(location.state.title);
         }
         
     }, []);
@@ -65,7 +67,7 @@ const Cart = () => {
             <div className="rs-event orange-style pb-100 md-pb-80">
                 <div className="px-5">
                     <div className="container">
-                        <h3 className="ps-4 mb-0"><i className="fa fa-play-circle-o pe-1 pt-3 mb-4"></i>DFS Playlist 영상 </h3>
+                        <h3 className="ps-4 mb-0"><i className="fa fa-play-circle-o pe-1 pt-3 mb-4"></i>{playlistName? playlistName : 'playlist 이름'}</h3>
                         <div className="row mt-5">
                            { cartList.map(function(video,i) {
                                let newObject = JSON.parse(video);

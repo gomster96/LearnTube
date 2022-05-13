@@ -203,7 +203,7 @@ const YoutubeSearch = () => {
                             <Link 
                                 className="pt-2" 
                                 to={{pathname : "/learntube-studio/myCart",
-                                    state:{cart: cart }}} 
+                                    state:{cart: cart, title: playlistName}}} 
                                 >
                                     <img src={cartPage} className='goToCart' alt='go to cart page' ></img>
                             </Link>
