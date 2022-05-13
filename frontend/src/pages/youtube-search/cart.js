@@ -65,19 +65,19 @@ const Cart = () => {
             <div className="rs-event orange-style pb-100 md-pb-80">
                 <div className="px-5">
                     <div className="container">
-                        <h3 className="ps-4 mb-0"><i className="fa fa-play-circle-o pe-1 pt-3"></i>DFS</h3>
+                        <h3 className="ps-4 mb-0"><i className="fa fa-play-circle-o pe-1 pt-3 mb-4"></i>DFS Playlist 영상 </h3>
                         <div className="row mt-5">
                            { cartList.map(function(video,i) {
                                let newObject = JSON.parse(video);
                                 //console.log(newObject.snippet.thumbnails.medium.url);
-                                return <div key={i} className="p-1 row "  >
-                                    <div className="m-0 col-md-3 col-sm-12 d-flex justify-content-center">
+                                return <div key={i} className="p-2 col-lg-3 col-sm-6 mt-10"  >
+                                    <div className="m-0 row-3 justify-content-center">
                                         <img className="img-fluid" style={{ minWidth: '100px', marginBottom: '10%' }}
                                             src={newObject.snippet.thumbnails.medium.url}
                                             alt={newObject.snippet.title}
                                         />
                                     </div>
-                                    <div className="col-md-8 col-sm-12" >
+                                    <div style={{minHeight: "160px", maxHeight:"160px"}} >
                                         <div className="d-flex h4">
                                             {newObject.snippet.title ? newObject.snippet.title : '영상제목'}
                                         </div>
@@ -90,7 +90,10 @@ const Cart = () => {
                                         </div>
 
                                     </div>
-                                    <hr></hr>
+                                    <div className="d-flex justify-content-end me-1 mt-1">
+                                            <button className="createbtn text-center me-3">삭제</button>
+                                        </div>
+                              
                                 </div>
                            })}
                              
