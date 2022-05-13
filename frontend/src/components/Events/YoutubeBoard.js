@@ -43,7 +43,7 @@ const YoutubeBoard = memo(({ video, video: { snippet, contentDetails }, onVideoC
     // },[cart]);
 
     return (
-        <div className="p-1 row " >
+        <div className="p-0 row " >
                 <div className="m-0 col-md-3 col-sm-12 d-flex justify-content-center">
                     <img className="img-fluid" style={{ minWidth: '100px',marginBottom: '10%'}}
                         src={snippet.thumbnails.medium.url}

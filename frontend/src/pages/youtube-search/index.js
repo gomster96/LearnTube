@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useState, useCallback } from 'react';
 import { Helmet } from 'react-helmet';
+import { Link } from 'react-router-dom';
 import Header from '../../components/Layout/Header/Header';
 import Footer from '../../components/Layout/Footer/Footer';
 import OffWrap from '../../components/Layout/Header/OffWrap';
@@ -20,6 +21,7 @@ import 'rc-slider/assets/index.css'
 import favIcon from '../../assets/img/fav-orange.png';
 import Logo from '../../assets/img/logo/Learntube-logos_transparent.png';
 import footerLogo from '../../assets/img/logo/lite-logo.png';
+import cartPage from '../../assets/img/icon/trolley.png';
 
 const YoutubeSearch = () => {
 
@@ -192,13 +194,20 @@ const YoutubeSearch = () => {
             <div className="rs-event orange-style pb-100 md-pb-80">
                 <div className="px-5">
                     <div className="container">
-                        <h3 className="ps-4 mb-0"><i className="fa fa-play-circle-o pe-1 pt-3"></i>DFS</h3>
-                        <div className="widget-area">
+                        <h3 className="ps-2 mb-0"><i className="fa fa-play-circle-o pe-1 pt-3"></i>DFS</h3>
+                        <div className="widget-area d-flex align-items-center">
                             < YoutubeVideoSearchWidget onSearch={search} />
+                            <Link 
+                                className="pt-2" 
+                                to={{pathname : "/learntube-studio/myCart",
+                                    state:{cart: cart }}} 
+                                >
+                                    <img src={cartPage} className='goToCart' alt='go to cart page' ></img>
+                            </Link>
                         </div>
                     </div>
                     <div class="text-center dashboard-tabs">
-                        <div className="intro-info-tabs border-none row mx-5">
+                        <div className="intro-info-tabs border-none row">
                             {/* <div className="col-md-4">
                                 <div className="widget-area">
                                     <YoutubeVideoListWidget videos={searchedVideos}

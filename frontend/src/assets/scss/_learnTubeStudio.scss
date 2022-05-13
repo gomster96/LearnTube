@@ -27,12 +27,16 @@
     overflow: hidden;
 }
 
-// .row {
-//     --bs-gutter-x: 1.5rem;
-//     --bs-gutter-y: 0;
-//     display: flex;
-//     flex-wrap:inherit;
-//     margin-top: calc(-1 * var(--bs-gutter-y));
-//     margin-right: calc(-.5 * var(--bs-gutter-x));
-//     margin-left: calc(-.5 * var(--bs-gutter-x));
-// }
+@media only screen and (max-width: 991px){
+    .md-pt-70 {
+        padding-top: 0px;
+    }
+}
+
+.goToCart{
+    height: 50px;
+    width: auto;
+    border: 2px solid black;
+    border-radius: 5px;
+    padding: 5px;
+}

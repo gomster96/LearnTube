@@ -36,7 +36,7 @@ const YoutubeVideoSearchWidget = memo(({ onSearch }) => {
         //         <button type="submit" value="Search" onClick={onClick}><i className="fa fa-search"></i></button>
         //     </div>
         // </div>
-        <div className=" col search-wrap searchbtn">
+        <div className=" col-md-6 search-wrap searchbtn">
             <input type="search" placeholder="플레이리스트에 추가할 영상을 검색하세요" name="s" className="search-input" ref={inputRef} onKeyPress={onKeyPress} />
             <button type="submit" value="Search" onClick={onClick}><i className="fa fa-search"></i></button>
         </div>
