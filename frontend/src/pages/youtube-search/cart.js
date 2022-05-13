@@ -213,7 +213,7 @@ const Cart = () => {
         }
     }
     const [videoList, setVideoList] = useState(videos);
-    const [cartList, setCartList] = useState({});
+    const [cartList, setCartList] = useState([]);
 
     // const addCart = useCallback(() =>{
     //     console.log("add to cart");
@@ -225,23 +225,27 @@ const Cart = () => {
     //     setIsAdded(false);
     //     deleteVideoFromCart(video.id);
     // },[]);
+    
+    let tempArray = [];
     useEffect(function () {
         setVideoList(videos);
+        //console.log(videoList);
         for (const prop in videoList) {
             console.log(prop);
             console.log(videoList[prop]);
-            console.log("hel", videoList[prop]);
-            Object.assign(cartList, videoList[prop]);
+            // //Object.assign(cartList, videoList[prop]);
+            
+            let tempJson = JSON.stringify(videoList[prop]);
+            tempArray.push(tempJson);
+            setCartList(tempArray);
         }
-        console.log(JSON.stringify(cartList));
-        // setCartList(cartList);
+        
     }, []);
-    //console.log(videoList.eIrMbAQSU34);
-
+    console.log(cartList);
     // videoList.map((video, i) => (
     //     console.log(videoList.eIrMbAQSU34)
     // ));
-    console.log(JSON.stringify(cartList));
+   // console.log(JSON.stringify(cartList));
     
     return (
         <React.Fragment>
@@ -265,32 +269,32 @@ const Cart = () => {
                     <div className="container">
                         <h3 className="ps-4 mb-0"><i className="fa fa-play-circle-o pe-1 pt-3"></i>DFS</h3>
                         <div className="row mt-5">
-                           {Object.values(cartList).map((videos, i) => (
-                               
-  
-                                <div  key={i} className="p-1 row "  >
+                           { cartList.map(function(video) {
+                               let newObject = JSON.parse(video);
+                                console.log(newObject.snippet.thumbnails.medium.url);
+                                return <div  className="p-1 row "  >
                                     <div className="m-0 col-md-3 col-sm-12 d-flex justify-content-center">
                                         <img className="img-fluid" style={{ minWidth: '100px', marginBottom: '10%' }}
-                                            src={videos.snippet.thumbnails.medium.url}
-                                            alt={videos.snippet.title}
+                                            src={newObject.snippet.thumbnails.medium.url}
+                                            alt={newObject.snippet.title}
                                         />
                                     </div>
                                     <div className="col-md-8 col-sm-12" >
                                         <div className="d-flex h4">
-                                            {videos.snippet.title ? videos.snippet.title : '영상제목'}
+                                            {newObject.snippet.title ? newObject.snippet.title : '영상제목'}
                                         </div>
                                         <div className="d-flex fw-light ms-0 ps-0">
-                                            {videos.snippet.channelTitle ? videos.snippet.channelTitle : '채널명'}
-                                            <div class="mx-1 border-start border-secondary"></div> {videos.snippet.publishTime ? videos.snippet.publishTime.slice(0, 10) : '등록일'}
+                                            {newObject.snippet.channelTitle ? newObject.snippet.channelTitle : '채널명'}
+                                            <div class="mx-1 border-start border-secondary"></div> {newObject.snippet.publishTime ? newObject.snippet.publishTime.slice(0, 10) : '등록일'}
                                         </div>
                                         <div className="d-flex fw-light">
-                                            {videos.snippet.description ? videos.snippet.description : '영상설명'}
+                                            {newObject.snippet.description ? newObject.snippet.description : '영상설명'}
                                         </div>
 
                                     </div>
                                     <hr></hr>
                                 </div>
-                            ))}
+                           })}
                              
                         </div>
                     </div>
