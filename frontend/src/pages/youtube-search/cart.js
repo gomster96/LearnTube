@@ -67,9 +67,10 @@ const Cart = () => {
     }
 
     const saveCart = async ()=>{
+        let toObject = JSON.parse(cartList);
         window.alert("저장되었습니다!");
         const response = await axios
-            .post("http://localhost:3000/api/playlist_video", videoList, {
+            .post("http://localhost:3000/api/playlist_video", toObject, {
                 method: "POST",
                 headers: {
                     // Accept: "application/json",
