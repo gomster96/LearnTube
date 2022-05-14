@@ -27,14 +27,15 @@ const Cart = () => {
     const [cartList, setCartList] = useState([]);
     const [playlistName, setPlaylistName] = useState('');
     const [createResponse, setCreateResponse] = useState();
+    const [isDeleted, setIsDeleted] = useState(false);
 
     let tempArray = [];
     useEffect(function () {
         setVideoList(videos);
         //console.log(videoList);
         for (const prop in videoList) {
-            console.log(prop);
-            console.log(videoList[prop]);
+            //console.log(prop);
+            //console.log(videoList[prop]);
             // //Object.assign(cartList, videoList[prop]);
 
             let tempJson = JSON.stringify(videoList[prop]);
@@ -42,9 +43,28 @@ const Cart = () => {
             setCartList(tempArray);
             setPlaylistName(location.state.title);
         }
-
+        setIsDeleted(false);
     }, []);
-    console.log(cartList);
+    //console.log(cartList);
+
+    //한번 로드 후 삭제로 인해 바뀔때 사용하는 useEffect
+    useEffect(function () {
+        console.log(isDeleted);
+        setIsDeleted(false);
+    }, [isDeleted]);
+
+    function deleteVideo (video,num){
+        setIsDeleted(true);
+        console.log(video.id);
+        let temp = cartList;
+        temp.splice(num,1);
+        setCartList(temp);
+        console.log(cartList);
+        //setIsDeleted(true);
+        console.log(isDeleted);
+        //setCartList(videoList.filter(video => video.num !== num));
+        //console.log(cartList); 
+    }
 
     const saveCart = async ()=>{
         window.alert("저장되었습니다!");
@@ -115,7 +135,7 @@ const Cart = () => {
 
                                     </div>
                                     <div className="d-flex justify-content-end me-1 mt-1">
-                                        <button className="createbtn text-center me-3">삭제</button>
+                                        <button className="createbtn text-center me-3" onClick={(e)=>{deleteVideo(newObject,i, e)}}>삭제</button>
                                     </div>
 
                                 </div>
