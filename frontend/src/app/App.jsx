@@ -1,5 +1,10 @@
-import React from 'react';
-import { Route, BrowserRouter as Router, Switch, withRouter } from 'react-router-dom';
+import React from "react";
+import {
+  Route,
+  BrowserRouter as Router,
+  Switch,
+  withRouter,
+} from "react-router-dom";
 
 //Custom Components
 import YoutubeSearch from '../pages/youtube-search';
@@ -15,7 +20,7 @@ import MyPlaylist from '../pages/playlist/myPlaylist';
 import Error from '../pages/404';
 import LoadTop from '../components/Common/ScrollTop/LoadTop'
 import CreateMyPlaylist from '../pages/playlist/createMyPlaylist';
-
+import Login from "../pages/login";
 
 const App = () => {
     return (
@@ -31,6 +36,7 @@ const App = () => {
                     <Route path="/dashboard" component={DashBoard} />
                     <Route path="/" exact component={Main} />
                     <Route path="/home" component={Home} />
+                    <Route path="/login" component={Login} />
                     <Route path="/course" exact component={CourseOne} />
                     <Route path="/course/course-single" component={CourseSingle} />
                     <Route path="/course-categories" component={CourseCategoryPage} />

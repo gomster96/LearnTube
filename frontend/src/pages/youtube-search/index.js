@@ -38,6 +38,7 @@ const YoutubeSearch = () => {
     const [newQuery, setNewQuery] = useState("한동대학교");
     const [searchedVideos, setSearchedVideos] = useState([]);
     const [selectedVideo, setSelectedVideo] = useState(null);
+    const [paginatedVideos, setPaginatedVideos] = useState([]);
     const [realNewViewCount, setNewViewCount] = useState(0);
     const [realFinalDuration, setFinalDuration] = useState('');
     const [isSelected, setIsSelected] = useState(false);
@@ -50,8 +51,10 @@ const YoutubeSearch = () => {
     const httpClient = axios.create({
         baseURL: 'https://www.googleapis.com/youtube/v3',
         params: { key: 'AIzaSyCOE8yAf5-5TrvgQgcaMZIMjR588joHBas' },
+
     });
     const youtube = new Youtube(httpClient);
+    let duration;
     let finalDuration = '';
     let duration, viewCountInt, newViewCount;
     const selectVideo = (video) => {
@@ -92,6 +95,7 @@ const YoutubeSearch = () => {
             } else sec = tempDuration[0].substring(2, temp_length);
             finalDuration = finalDuration + sec + "초";
         }
+        console.log(finalDuration);
         setFinalDuration(finalDuration);
         //조회수 커스텀
         viewCountInt = parseFloat(video.statistics.viewCount);
@@ -102,6 +106,7 @@ const YoutubeSearch = () => {
         } else if (viewCountInt > 1000) {
             newViewCount = (viewCountInt / 1000.0).toFixed(1) + "천";
         } else newViewCount = viewCountInt;
+        console.log(newViewCount);
         setNewViewCount(newViewCount);
     };
 
@@ -200,10 +205,10 @@ const YoutubeSearch = () => {
                         <h3 className="ps-2 mb-0"><i className="fa fa-play-circle-o pe-1 pt-3"></i>{location.state.title ? playlistName : '제목'}</h3>
                         <div className="widget-area d-flex align-items-center">
                             < YoutubeVideoSearchWidget onSearch={search} />
-                            <Link 
-                                className="pt-2" 
+                            <Link
+                                className="pt-2"
                                 to={{pathname : "/learntube-studio/myCart",
-                                    state:{cart: cart, title: playlistName}}} 
+                                    state:{cart: cart, title: playlistName}}}
                                 >
                                     <img src={cartPage} className='goToCart' alt='go to cart page' ></img>
                             </Link>
@@ -221,8 +226,6 @@ const YoutubeSearch = () => {
                             </div> */}
                             {/* video를 선택했을 경우 화면 반으로 나눠서 구성 */}
                             {selectedVideo ?
-                                (
-                                isChanged?
                                 (<div className="col-lg-6 col-md-7">
                                     <div className="widget-area">
                                         <YoutubeVideoListWidget videos={searchedVideos.items}
@@ -291,7 +294,7 @@ const YoutubeSearch = () => {
                                                                 </div>
                                                                 <div className="form-group col-lg-12">
                                                                     <div className="my-2 text-start">설명</div>
-                                                                    <input type="text" id="description" name="description" placeholder="설명을 입력하세요. 쉼표로 구분됩니다." 
+                                                                    <input type="text" id="description" name="description" placeholder="설명을 입력하세요. 쉼표로 구분됩니다."
                                                                     value={newDescription} onChange={descriptionChange}/>
                                                                 </div>
                                                             </div>

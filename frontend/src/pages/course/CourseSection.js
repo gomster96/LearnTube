@@ -1,60 +1,61 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import axios, * as others from 'axios';
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import axios, * as others from "axios";
 
-import CourseSidebar from './CourseSidebarSection';
-import '../../assets/css/courseList.css';
-import CourseSingleTwoCopy from '../../components/Courses/CourseSingleTwoCopy';
+import CourseSidebar from "./CourseSidebarSection";
+import "../../assets/css/courseList.css";
+import CourseSingleTwoCopy from "../../components/Courses/CourseSingleTwoCopy";
 
 // Course courseImg
-import courseImg1 from '../../assets/img/courses/1.jpg';
+import courseImg1 from "../../assets/img/courses/1.jpg";
 
 const CoursePart = (props) => {
-
     //const [courses, setCourse] = useState(null);
     const [courses, setCourse] = useState({});
     //const [courses, setCourse] = useState(null);
 
     const getCourse = async () => {
-        const courseData = await axios.get("/api/courses");
+        const courseData = await axios.get("http://localhost:8080/api/classroom/courses", {
+            params: {
+                page: 0,
+                size: 12,
+            },
+        });
         //console.log(courseData.data);
+        console.log(courseData.data);
         setCourse(courseData.data);
-        // console.log("courses");
-        // console.log(courses);
     };
 
     useEffect(() => {
         getCourse();
-    },[]);
+    }, []);
 
     const listClassAdd = () => {
-        document.getElementById("rs-popular-course").classList.add('list-view');
+        document.getElementById("rs-popular-course").classList.add("list-view");
     };
 
     const listClassRemove = () => {
-        document.getElementById("rs-popular-course").classList.remove('list-view');
+        document.getElementById("rs-popular-course").classList.remove("list-view");
     };
 
     //console.log(courses[0][1].className)
-    const data_ent = Object.entries(courses)
+    const data_ent = Object.entries(courses);
     //console.log(typeof data_ent[0][1].regDate)
-    const renderCourses = data_ent.map(
-            (oneCourse, index) => {
-                return (
-                    <div className="col-lg-4 col-md-6">
-                        <CourseSingleTwoCopy
-                            courseClass="courses-item mb-30"
-                            courseId={oneCourse[1].classId}
-                            courseImg={courseImg1}
-                            courseTitle={oneCourse[1].className} 
-                            newCourse="New"
-                            openDate={oneCourse[1].regDate}
-                            creatorName={oneCourse[1].instructorName}
-                        />
-                    </div>
-                ) 
-            }
-        )
+    const renderCourses = data_ent.map((oneCourse, index) => {
+        return (
+            <div className="col-lg-4 col-md-6">
+                <CourseSingleTwoCopy
+                    courseClass="courses-item mb-30"
+                    courseId={oneCourse[1].classId}
+                    courseImg={courseImg1}
+                    courseTitle={oneCourse[1].className}
+                    newCourse="New"
+                    openDate={oneCourse[1].regDate}
+                    creatorName={oneCourse[1].instructorName}
+                />
+            </div>
+        );
+    });
 
     return (
         <div id="rs-popular-course" className="rs-popular-courses style1 course-view-style orange-style rs-inner-blog white-bg pb-100 md-pb-80">
@@ -65,14 +66,14 @@ const CoursePart = (props) => {
                     </div> */}
                     {/* <div className="col-lg pr-50 md-pr-14"> */}
                     {/* <h3 className='pageTitle'>모든 강의 보기</h3> */}
-                    <div className='row-mk'>
+                    <div className="row-mk">
                         <div className="widget-area-mk">
-
                             <div className="search-wrap-mk search-btn-mk">
                                 <input type="search" placeholder="Searching..." name="s" className="search-input" value="" />
-                                <button type="submit" value="Search"><i className=" flaticon-search"></i></button>
+                                <button type="submit" value="Search">
+                                    <i className=" flaticon-search"></i>
+                                </button>
                             </div>
-
                         </div>
                         <div className="widget-area">
                             <div className="type-form-mk">
@@ -91,7 +92,7 @@ const CoursePart = (props) => {
                         </div>
                     </div>
                     {renderCourses}
-                    
+
                     {/* <div className="col-lg-4 col-md-6">
                         <CourseSingleTwoCopy
                             courseClass="courses-item mb-30"
@@ -177,6 +178,6 @@ const CoursePart = (props) => {
             </div>
         </div>
     );
-}
+};
 
 export default CoursePart;
