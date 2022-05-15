@@ -28,13 +28,14 @@ public class ClassRoomRepositoryCustomImpl extends QuerydslRepositorySupport imp
     }
 
     @Override
-    public Page<ClassRoom> searchClassRoomByCondition(int condition, Pageable pageable) {
+    public Page<ClassRoom> searchClassRoomByCondition(int condition, String keyword, Pageable pageable) {
 
         JPAQuery<ClassRoom> query = queryFactory.select(classRoom)
                                                 .from(classRoom)
                                                 .leftJoin(classRoom.takes)
                                                 .leftJoin(classRoom.instructor)
                                                 .where(classRoom.isActive.eq(true))
+                                                .where(classRoom.className.containsIgnoreCase(keyword).or(classRoom.instructor.name.containsIgnoreCase(keyword)))
                                                 .orderBy(courseOrder(condition))
                                                 .distinct()
                                                 .fetchJoin();
@@ -45,11 +46,15 @@ public class ClassRoomRepositoryCustomImpl extends QuerydslRepositorySupport imp
     }
 
 
-    private OrderSpecifier<?> courseOrder(int condition){
-        if(condition == 0) return classRoom.createdAt.desc();
-        else if(condition == 1) return classRoom.takes.size().desc();
-        else if(condition == 2) return classRoom.className.asc();
-        else return null;
+    private OrderSpecifier<?> courseOrder(int condition) {
+        if (condition == 0)
+            return classRoom.createdAt.desc();
+        else if (condition == 1)
+            return classRoom.takes.size().desc();
+        else if (condition == 2)
+            return classRoom.className.asc();
+        else
+            return null;
     }
 
 }

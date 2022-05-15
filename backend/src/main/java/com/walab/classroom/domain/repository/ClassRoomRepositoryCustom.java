@@ -6,5 +6,5 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface ClassRoomRepositoryCustom {
-    Page<ClassRoom> searchClassRoomByCondition(int condition, Pageable pageable);
+    Page<ClassRoom> searchClassRoomByCondition(int condition, String keyword,Pageable pageable);
 }

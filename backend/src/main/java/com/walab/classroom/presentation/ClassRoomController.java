@@ -138,12 +138,12 @@ public class ClassRoomController {
     }
 
     @GetMapping("/courses")
-    public ResponseEntity<List<ClassRoomCourseResponse>> getCourses(@RequestParam int condition, Pageable pageable){
+    public ResponseEntity<List<ClassRoomCourseResponse>> getCourses(@RequestParam int condition, @RequestParam String keyword, Pageable pageable) {
 
-        List<ClassRoomCourseDto> courseClassRooms = classRoomService.findClassRoomsByPage(condition, pageable);
+        List<ClassRoomCourseDto> courseClassRooms = classRoomService.findClassRoomsByPage(condition, keyword, pageable);
         List<ClassRoomCourseResponse> response = courseClassRooms.stream()
-                                                                .map(ClassRoomCourseDto::classRoomCourseResponse)
-                                                                .collect(Collectors.toList());
+                                                                 .map(ClassRoomCourseDto::classRoomCourseResponse)
+                                                                 .collect(Collectors.toList());
         return ResponseEntity.ok(response);
     }
 }

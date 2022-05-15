@@ -64,9 +64,9 @@ public class ClassRoomService {
     }
 
     @Transactional
-    public List<ClassRoomCourseDto> findClassRoomsByPage(int condition, Pageable pageable){
+    public List<ClassRoomCourseDto> findClassRoomsByPage(int condition, String keyword, Pageable pageable){
 
-        Page<ClassRoom> classRooms = classRoomRepository.searchClassRoomByCondition(condition, pageable);
+        Page<ClassRoom> classRooms = classRoomRepository.searchClassRoomByCondition(condition, keyword, pageable);
 
         return classRooms.get()
                          .map(ClassRoom::toCourseDto)
