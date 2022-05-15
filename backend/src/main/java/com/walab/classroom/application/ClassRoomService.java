@@ -15,6 +15,7 @@ import com.walab.exception.user.UserNotFoundException;
 import com.walab.user.domain.User;
 import com.walab.user.domain.repository.UserRepository;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -63,11 +64,14 @@ public class ClassRoomService {
     }
 
     @Transactional
-    public List<ClassRoomCourseDto> findClassRoomsByPage(Pageable pageable){
-        List<ClassRoom> classRooms = classRoomRepository.findByPage(pageable);
-        return classRooms.stream()
-                  .map(ClassRoom::toCourseDto)
-                  .collect(Collectors.toList());
+    public List<ClassRoomCourseDto> findClassRoomsByPage(int condition, Pageable pageable){
+
+        Page<ClassRoom> classRooms = classRoomRepository.searchClassRoomByCondition(condition, pageable);
+
+        return classRooms.get()
+                         .map(ClassRoom::toCourseDto)
+                         .collect(Collectors.toList());
+
     }
 
 }

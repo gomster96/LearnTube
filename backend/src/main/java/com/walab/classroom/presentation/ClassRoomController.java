@@ -138,10 +138,9 @@ public class ClassRoomController {
     }
 
     @GetMapping("/courses")
-    public ResponseEntity<List<ClassRoomCourseResponse>> getCourses(Pageable pageable){
-        // ToDo QueryDSL 사용하여 orderBy에 대한 조건 나중에 바꾸기
-        // 생성시간 빠른순, 느린순, takeNum 많은 순 등으로 sort 해야한다. 
-        List<ClassRoomCourseDto> courseClassRooms = classRoomService.findClassRoomsByPage(pageable);
+    public ResponseEntity<List<ClassRoomCourseResponse>> getCourses(@RequestParam int condition, Pageable pageable){
+
+        List<ClassRoomCourseDto> courseClassRooms = classRoomService.findClassRoomsByPage(condition, pageable);
         List<ClassRoomCourseResponse> response = courseClassRooms.stream()
                                                                 .map(ClassRoomCourseDto::classRoomCourseResponse)
                                                                 .collect(Collectors.toList());
