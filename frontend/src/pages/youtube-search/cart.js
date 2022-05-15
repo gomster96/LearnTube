@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useState, useCallback } from 'react';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import Header from '../../components/Layout/Header/Header';
 import Footer from '../../components/Layout/Footer/Footer';
@@ -8,6 +8,7 @@ import OffWrap from '../../components/Layout/Header/OffWrap';
 import SearchModal from '../../components/Layout/Header/SearchModal';
 import ScrollToTop from '../../components/Common/ScrollTop';
 import CartVideo from './cart';
+import axios from "axios";
 
 import 'rc-slider/assets/index.css'
 
@@ -15,6 +16,7 @@ import 'rc-slider/assets/index.css'
 import favIcon from '../../assets/img/fav-orange.png';
 import Logo from '../../assets/img/logo/Learntube-logos_transparent.png';
 import footerLogo from '../../assets/img/logo/lite-logo.png';
+import save from '../../assets/img/icon/save.png';
 
 const Cart = () => {
     const location = useLocation();
@@ -23,28 +25,62 @@ const Cart = () => {
     //console.log(videos);
     const [videoList, setVideoList] = useState(location.state.cart);
     const [cartList, setCartList] = useState([]);
-    
+    const [playlistName, setPlaylistName] = useState('');
+    const [createResponse, setCreateResponse] = useState();
+    const [isDeleted, setIsDeleted] = useState(false);
+
     let tempArray = [];
     useEffect(function () {
         setVideoList(videos);
         //console.log(videoList);
         for (const prop in videoList) {
-            console.log(prop);
-            console.log(videoList[prop]);
+            //console.log(prop);
+            //console.log(videoList[prop]);
             // //Object.assign(cartList, videoList[prop]);
-            
+
             let tempJson = JSON.stringify(videoList[prop]);
             tempArray.push(tempJson);
             setCartList(tempArray);
+            setPlaylistName(location.state.title);
         }
-        
+        setIsDeleted(false);
     }, []);
-    console.log(cartList);
-    // videoList.map((video, i) => (
-    //     console.log(videoList.eIrMbAQSU34)
-    // ));
-   // console.log(JSON.stringify(cartList));
-    
+    //console.log(cartList);
+
+    //한번 로드 후 삭제로 인해 바뀔때 사용하는 useEffect
+    useEffect(function () {
+        console.log(isDeleted);
+        setIsDeleted(false);
+    }, [isDeleted]);
+
+    function deleteVideo (video,num){
+        setIsDeleted(true);
+        console.log(video.id);
+        let temp = cartList;
+        temp.splice(num,1);
+        setCartList(temp);
+        console.log(cartList);
+        //setIsDeleted(true);
+        console.log(isDeleted);
+        //setCartList(videoList.filter(video => video.num !== num));
+        //console.log(cartList); 
+    }
+
+    const saveCart = async ()=>{
+        let toObject = JSON.parse(cartList);
+        window.alert("저장되었습니다!");
+        const response = await axios
+            .post("http://localhost:3000/api/playlist_video", toObject, {
+                method: "POST",
+                headers: {
+                    // Accept: "application/json",
+                    "Content-Type": "application/json",
+                },
+            })
+            .then((res) => console.log(res));
+        setCreateResponse(response);
+    }
+
     return (
         <React.Fragment>
             <Helmet>
@@ -65,10 +101,19 @@ const Cart = () => {
             <div className="rs-event orange-style pb-100 md-pb-80">
                 <div className="px-5">
                     <div className="container">
-                        <h3 className="ps-4 mb-0"><i className="fa fa-play-circle-o pe-1 pt-3 mb-4"></i>DFS Playlist 영상 </h3>
+                        <div className='d-flex align-items-center'>
+                            <h3 className="ps-4 mb-0"><i className="fa fa-play-circle-o pe-1 pt-3 mb-3"></i>{playlistName ? playlistName : 'playlist 이름'}</h3>
+                            <Link
+                                    className="pt-2"
+                                    to={{ pathname: "/learntube-studio" }}
+                                    onClick={saveCart}
+                                >
+                                <img src={save} className='save' alt='save' ></img>
+                            </Link>
+                        </div>
                         <div className="row mt-5">
-                           { cartList.map(function(video,i) {
-                               let newObject = JSON.parse(video);
+                            {cartList.map(function (video, i) {
+                                let newObject = JSON.parse(video);
                                 //console.log(newObject.snippet.thumbnails.medium.url);
                                 return <div key={i} className="p-2 col-lg-3 col-sm-6 mt-10"  >
                                     <div className="m-0 row-3 justify-content-center">
@@ -77,7 +122,7 @@ const Cart = () => {
                                             alt={newObject.snippet.title}
                                         />
                                     </div>
-                                    <div style={{minHeight: "160px", maxHeight:"160px"}} >
+                                    <div style={{ minHeight: "160px", maxHeight: "160px" }} >
                                         <div className="d-flex h4">
                                             {newObject.snippet.title ? newObject.snippet.title : '영상제목'}
                                         </div>
@@ -91,12 +136,12 @@ const Cart = () => {
 
                                     </div>
                                     <div className="d-flex justify-content-end me-1 mt-1">
-                                            <button className="createbtn text-center me-3">삭제</button>
-                                        </div>
-                              
+                                        <button className="createbtn text-center me-3" onClick={(e)=>{deleteVideo(newObject,i, e)}}>삭제</button>
+                                    </div>
+
                                 </div>
-                           })}
-                             
+                            })}
+                            
                         </div>
                     </div>
 
