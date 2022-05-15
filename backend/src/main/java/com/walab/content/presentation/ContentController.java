@@ -18,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/api/content")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class ContentController {
     private final ContentService contentService;
 

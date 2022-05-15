@@ -16,7 +16,9 @@ public interface ClassRoomRepository extends JpaRepository<ClassRoom, Long> {
             "where i.id = :instructorId ")
     List<ClassRoom> findClassRoomByInstructorId(@Param("instructorId") Long instructorId);
 
-    //ToDo ClassRoom Data 받아오는 query 성능 향상시키기
-    // N+1 문제가 발생하지않도록
+    @Query("select c from ClassRoom c " +
+            "left join fetch c.lectures " +
+            "where c.id = :classId")
+    Optional<ClassRoom> findFirstByClassById(Long classId);
 
 }

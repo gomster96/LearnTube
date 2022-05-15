@@ -19,8 +19,10 @@ import com.walab.user.domain.User;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
+
 
 @Entity
 @Getter
@@ -139,6 +141,7 @@ public class ClassRoom extends BaseEntity {
                            .isActive(isActive)
                            .classRoomRegDate(getCreatedAt())
                            .instructor(this.instructor.toDto())
+                           .takeNum(this.takes.size())
                            .lectures(lectureDtos)
                            .notices(noticeDetailDtos)
                            .build();

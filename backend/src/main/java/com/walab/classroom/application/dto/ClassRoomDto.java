@@ -26,6 +26,7 @@ public class ClassRoomDto {
     private Boolean isActive;
     private LocalDateTime classRoomRegDate;
     private UserDto instructor;
+    private int takeNum;
     private List<LectureDto> lectures;
     private List<NoticeDetailDto> notices;
 

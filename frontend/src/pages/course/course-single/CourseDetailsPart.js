@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import CourseSidebar from "./CourseSidebar";
 import CurriculumPart from "./CurriculumPart";
 import axios from "axios";
-
-const CourseDetailsPart = () => {
+import { useHistory } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+function CourseDetailsPart() {
   const initClassRoomData = {
     classId: "",
     className: "",
@@ -28,17 +29,19 @@ const CourseDetailsPart = () => {
     ],
     notices: [],
   };
+
   const [classRoomData, setClassRoomData] = useState(initClassRoomData);
+  const cid = useLocation().state.classId;
+
   useEffect(() => {
     const fetchClassRoom = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8080/api/classroom?userId=1&classId=1"
+          `http://localhost:8080/api/classroom?userId=1&classId=${cid}`
         );
         console.log(response.data);
         setClassRoomData(response.data);
-        // setContents(classRoomData.lectures[0].contents[0]);
-        // console.log("set : ", contents);
+        console.log("cid", cid);
       } catch (err) {
         console.log("err >> ", err);
       }
@@ -64,6 +67,6 @@ const CourseDetailsPart = () => {
       </div>
     </React.Fragment>
   );
-};
+}
 
 export default CourseDetailsPart;
