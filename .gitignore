@@ -26,3 +26,5 @@ log/
 target/
 
 *.class
+backend/src/main/resources/application.yml
+.gitignore

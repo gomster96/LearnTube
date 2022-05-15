@@ -5,20 +5,22 @@ import YouTube from 'react-youtube';
 import Modal from 'react-modal';
 import ModalVideo from 'react-modal-video';
 
-const YoutubeBoard = memo(({video, video: {snippet, contentDetails}, onVideoClick}) => {
+const YoutubeBoard = memo(({ video, video: { snippet, contentDetails }, onVideoClick }) => {
 
     const onClick = useCallback(() => {
         onVideoClick(video);
+        setIsSelected(true);
     }, [onVideoClick, video]);
 
     const [isOpen, setIsOpen] = useState(false);
+    const [isSelected, setIsSelected] = useState(false);
     const openModal = () => setIsOpen(!isOpen);
 
     const [searchedVideos, setSearchedVideos] = useState([]);
     useEffect(function () {
         setSearchedVideos(video);
     });
-     //let duration = 'PT9M33S';
+    // let duration = 'PT9M33S';
     //let duration = contentDetails.duration;
     //if(!contentDetails.duration) duration = 'PT9M50S';
     // 시간 customizing
@@ -58,11 +60,11 @@ const YoutubeBoard = memo(({video, video: {snippet, contentDetails}, onVideoClic
     // let viewCountInt = parseFloat(viewCount);
     // let newViewCount;
     // if (viewCountInt >= 100000000) {
-    //      newViewCount = (viewCountInt / 100000000.0).toFixed(1) + "억"; 
+    //      newViewCount = (viewCountInt / 100000000.0).toFixed(1) + "억";
     // } else if (viewCountInt >= 10000) {
-    //      newViewCount = (viewCountInt / 10000.0).toFixed(0) + "만"; 
+    //      newViewCount = (viewCountInt / 10000.0).toFixed(0) + "만";
     // } else if (viewCountInt > 1000) {
-    //     newViewCount = (viewCountInt / 1000.0).toFixed(1) + "천"; 
+    //     newViewCount = (viewCountInt / 1000.0).toFixed(1) + "천";
     // } else newViewCount = viewCountInt;
     //조회수 customizing 끝
 
@@ -104,7 +106,7 @@ const YoutubeBoard = memo(({video, video: {snippet, contentDetails}, onVideoClic
                 </div>
             </div>
         </div>
-    )
+    );
 });
 
 export default YoutubeBoard
