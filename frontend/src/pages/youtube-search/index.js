@@ -54,7 +54,6 @@ const YoutubeSearch = () => {
 
     });
     const youtube = new Youtube(httpClient);
-    let duration;
     let finalDuration = '';
     let duration, viewCountInt, newViewCount;
     const selectVideo = (video) => {
@@ -235,17 +234,7 @@ const YoutubeSearch = () => {
 
                                     </div>
                                 </div>)
-                                :
-                                (<div className="col-lg-6 col-md-7">
-                                    <div className="widget-area">
-                                        <YoutubeVideoListWidget videos={searchedVideos.items}
-                                            onVideoClick={selectVideo} nextPageToken={searchedVideos.nextPageToken}
-                                            prevPageToken={searchedVideos.prevPageToken} getToken={getToken}
-                                            cartClick={addVideoToCart} cartUnclick={deleteVideoFromCart} cart={cart} />
-
-                                    </div>
-                                </div>)
-                                ) : <div className="col-md-12 col-12">
+                                : <div className="col-md-12 col-12">
                                     <div className="widget-area">
                                         <YoutubeVideoListWidget videos={searchedVideos.items}
                                             onVideoClick={selectVideo} nextPageToken={searchedVideos.nextPageToken}
