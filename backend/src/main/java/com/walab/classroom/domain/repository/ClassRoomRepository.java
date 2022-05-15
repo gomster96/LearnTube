@@ -10,7 +10,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 import java.util.Optional;
 
-public interface ClassRoomRepository extends JpaRepository<ClassRoom, Long> {
+public interface ClassRoomRepository extends JpaRepository<ClassRoom, Long>, ClassRoomRepositoryCustom {
 
     @Query("select distinct c from ClassRoom c " +
             "left join fetch c.instructor as i " +
