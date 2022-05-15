@@ -19,6 +19,7 @@ import com.walab.classroom.presentation.response.*;
 import com.walab.classroom.presentation.response.take.TakeAcceptRejectResponse;
 import com.walab.classroom.presentation.response.take.TakeUserResponse;
 
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -141,6 +142,15 @@ public class ClassRoomController {
     public ResponseEntity<List<ClassRoomCourseResponse>> getCourses(@RequestParam int condition, @RequestParam String keyword, Pageable pageable) {
 
         List<ClassRoomCourseDto> courseClassRooms = classRoomService.findClassRoomsByPage(condition, keyword, pageable);
+        List<ClassRoomCourseResponse> response = courseClassRooms.stream()
+                                                                 .map(ClassRoomCourseDto::classRoomCourseResponse)
+                                                                 .collect(Collectors.toList());
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/popular")
+    public ResponseEntity<List<ClassRoomCourseResponse>> getPopularCourses(){
+        List<ClassRoomCourseDto> courseClassRooms = classRoomService.findClassRoomsByPage(1, "", PageRequest.of(0,3));
         List<ClassRoomCourseResponse> response = courseClassRooms.stream()
                                                                  .map(ClassRoomCourseDto::classRoomCourseResponse)
                                                                  .collect(Collectors.toList());
