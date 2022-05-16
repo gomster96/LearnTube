@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useState, useCallback } from 'react';
 import { Helmet } from 'react-helmet';
+import { Link, useLocation } from 'react-router-dom';
 import Header from '../../components/Layout/Header/Header';
 import Footer from '../../components/Layout/Footer/Footer';
 import OffWrap from '../../components/Layout/Header/OffWrap';
@@ -20,12 +21,13 @@ import 'rc-slider/assets/index.css'
 import favIcon from '../../assets/img/fav-orange.png';
 import Logo from '../../assets/img/logo/Learntube-logos_transparent.png';
 import footerLogo from '../../assets/img/logo/lite-logo.png';
+import cartPage from '../../assets/img/icon/trolley.png';
 
 const YoutubeSearch = () => {
-
+    const location = useLocation();
 
     const opts = {
-        height: '420',
+        height: '360',
         width: '560',
         playerVars: {
             // https://developers.google.com/youtube/player_parameters
@@ -40,23 +42,26 @@ const YoutubeSearch = () => {
     const [realNewViewCount, setNewViewCount] = useState(0);
     const [realFinalDuration, setFinalDuration] = useState('');
     const [isSelected, setIsSelected] = useState(false);
-
-
+    const [cart, setCart] = useState({});
+    const [isChanged, setIsChanged] = useState(false);
+    const [newTitle, setNewTitle] = useState('');
+    const [newDescription, setNewDescription] = useState('');
+    const [playlistName, setPlaylistName] = useState('');
 
     const httpClient = axios.create({
         baseURL: 'https://www.googleapis.com/youtube/v3',
-        params: { key: 'AIzaSyDfZXlaz1ua-0YZefMsK6qcDs29zEmL2r4' },
+        params: { key: 'AIzaSyCOE8yAf5-5TrvgQgcaMZIMjR588joHBas' },
 
     });
     const youtube = new Youtube(httpClient);
-    let duration;
     let finalDuration = '';
-    let viewCountInt;
-    let newViewCount;
+    let duration, viewCountInt, newViewCount;
     const selectVideo = (video) => {
+        setNewTitle('');
+        setNewDescription('');
         setIsSelected(false);
         setSelectedVideo(video);
-        // console.log(selectedVideo);
+        //console.log(selectedVideo);
         // console.log(selectedVideo.id);
         //조회수 커스터마이징
         duration = video.contentDetails.duration;
@@ -104,7 +109,32 @@ const YoutubeSearch = () => {
         setNewViewCount(newViewCount);
     };
 
+    let newId;
+    const addVideoToCart = (video) => {
+        newId = video.id;
+        //newTitle&newDescription 삽입
+        video.snippet.newTitle = newTitle;
+        video.snippet.newDescription = newDescription;
+        console.log(video.snippet.newTitle +"\n"+newDescription);
+        cart[newId] = video;
+        console.log(cart);
+        for (const prop in cart) {
+            console.log(prop);
+            console.log(cart[prop]);
+        }
+        setIsChanged(true);
+    };
 
+    const deleteVideoFromCart = (id) => {
+        console.log(id);
+        delete cart[id];
+        console.log(cart);
+        setIsChanged(true);
+    };
+
+    useEffect(function(){
+        setIsChanged(false);
+    },[isChanged]);
     // query를 받아와서 search 후 searchedVideos에 결과 저장
     const search = useCallback(
         (query) => {
@@ -121,7 +151,7 @@ const YoutubeSearch = () => {
         async (value) => {
             await youtube.getTokenDetail(newQuery, value).then(function (response) {
                 setSearchedVideos(response);
-                setPaginatedVideos(response.items);
+                //setPaginatedVideos(response.items);
             })
         }, [youtube],
     );
@@ -130,13 +160,22 @@ const YoutubeSearch = () => {
         setIsSelected(!isSelected);
     }
 
+    const titleChange = (e) => {
+        setNewTitle(e.target.value);
+      };
 
+    const descriptionChange = (e) => {
+        setNewDescription(e.target.value);
+      };
 
     // 처음 페이지를 로딩할 때 default로 query 값 설정
     useEffect(async function () {
         let searchedResults = await youtube.search('한동대학교');
         setSearchedVideos(searchedResults);
         console.log(searchedVideos);
+        console.log(location);
+        setPlaylistName(location.state.title);
+        console.log(location.state.title);
     }, []);
 
 
@@ -162,13 +201,20 @@ const YoutubeSearch = () => {
             <div className="rs-event orange-style pb-100 md-pb-80">
                 <div className="px-5">
                     <div className="container">
-                        <h3 className="ps-4 mb-0"><i className="fa fa-play-circle-o pe-1 pt-3"></i>DFS</h3>
-                        <div className="widget-area">
+                        <h3 className="ps-2 mb-0"><i className="fa fa-play-circle-o pe-1 pt-3"></i>{location.state.title ? playlistName : '제목'}</h3>
+                        <div className="widget-area d-flex align-items-center">
                             < YoutubeVideoSearchWidget onSearch={search} />
+                            <Link
+                                className="pt-2"
+                                to={{pathname : "/learntube-studio/myCart",
+                                    state:{cart: cart, title: playlistName}}}
+                                >
+                                    <img src={cartPage} className='goToCart' alt='go to cart page' ></img>
+                            </Link>
                         </div>
                     </div>
                     <div class="text-center dashboard-tabs">
-                        <div className="intro-info-tabs border-none row mx-5">
+                        <div className="intro-info-tabs border-none row">
                             {/* <div className="col-md-4">
                                 <div className="widget-area">
                                     <YoutubeVideoListWidget videos={searchedVideos}
@@ -183,26 +229,28 @@ const YoutubeSearch = () => {
                                     <div className="widget-area">
                                         <YoutubeVideoListWidget videos={searchedVideos.items}
                                             onVideoClick={selectVideo} nextPageToken={searchedVideos.nextPageToken}
-                                            prevPageToken={searchedVideos.prevPageToken} getToken={getToken}/>
-                                    </div>
-                                </div>
+                                            prevPageToken={searchedVideos.prevPageToken} getToken={getToken}
+                                            cartClick={addVideoToCart} cartUnclick={deleteVideoFromCart} cart={cart} />
 
-                                ) : <div className="col-md-12 col-12">
+                                    </div>
+                                </div>)
+                                : <div className="col-md-12 col-12">
                                     <div className="widget-area">
                                         <YoutubeVideoListWidget videos={searchedVideos.items}
                                             onVideoClick={selectVideo} nextPageToken={searchedVideos.nextPageToken}
-                                            prevPageToken={searchedVideos.prevPageToken} getToken={getToken} />
+                                            prevPageToken={searchedVideos.prevPageToken} getToken={getToken}
+                                            cartClick={addVideoToCart} cartUnclick={deleteVideoFromCart} cart={cart} />
                                     </div>
                                 </div>}
 
                             {selectedVideo ? (
-                                <div className="col-lg-6 col-md-5 col-sm-12">
+                                <div className="col-lg-6 col-md-5 col-sm-12 overflow-auto mb-500" style={{position: "fixed", right: "0", bottom: "600px;",height: "500px"}}>
                                     <YouTube videoId={selectedVideo.id} opts={opts} />
                                     <div class="row">
                                         <div class="col-12 my-5 lh-base">
                                             <div class="mx-md-3 fs-3 text-start">{selectedVideo.snippet.title}</div>
                                             <div class="d-flex fw-light">
-                                                <div class="mx-1 fs-5 text-start text-muted">{selectedVideo.snippet.channelTitle}</div>
+                                                <div class="mx-3 fs-5 text-start text-muted">{selectedVideo.snippet.channelTitle}</div>
                                                 <div class="mx-2"></div>
                                                 <div class="mx-1 border-start border-secondary"></div>
                                                 <div class="ms-3 fs-5 text-start text-muted">조회수 {selectedVideo.statistics.viewCount ? realNewViewCount : '0'}회</div>
@@ -231,15 +279,17 @@ const YoutubeSearch = () => {
                                                             <div className="row clearfix">
                                                                 <div className="form-group col-lg-12 mb-25">
                                                                     <div className="my-2 text-start">영상 제목<span className="ms-1" style={{ color: 'red' }}>*</span></div>
-                                                                    <input type="text" id="title" name="title" placeholder="제목을 입력하세요" required />
+                                                                    <input type="text" id="title" name="title" placeholder="제목을 입력하세요" value={newTitle} onChange={titleChange} required />
                                                                 </div>
                                                                 <div className="form-group col-lg-12">
-                                                                    <div className="my-2 text-start">태그</div>
-                                                                    <input type="text" id="tag" name="tag" placeholder="태그를 입력하세요. 쉼표로 구분됩니다." />
+                                                                    <div className="my-2 text-start">설명</div>
+                                                                    <input type="text" id="description" name="description" placeholder="설명을 입력하세요. 쉼표로 구분됩니다."
+                                                                    value={newDescription} onChange={descriptionChange}/>
                                                                 </div>
                                                             </div>
-                                                            <div className="row d-flex justify-content-end ms-3 me-1 mt-3">
-                                                                <button className="createbtn text-center">저장</button>
+                                                            <div className="row d-flex justify-content-end ms-3 me-1 mt-3" onClick={() => addVideoToCart(selectedVideo)}>
+                                                                {/* <button className="createbtn text-center" >저장</button> */}
+                                                                저장!!
                                                             </div>
                                                         </form>
                                                     </div>

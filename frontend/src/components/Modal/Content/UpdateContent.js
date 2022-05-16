@@ -32,7 +32,7 @@ const UpdateContent = (props) => {
 
     const handleSubmit = async () => {
         const response = await axios
-            .post("http://localhost:8080/api/content/update", JSON.stringify(updateContentData), {
+            .post("http://localhost:3000/api/content/update", JSON.stringify(updateContentData), {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

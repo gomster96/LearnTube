@@ -5,47 +5,49 @@ import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 function CourseDetailsPart() {
-    const initClassRoomData = {
-        classId: "",
-        className: "",
-        classDescription: "",
-        closeDate: "",
-        isOpened: "",
-        entryCode: "",
-        isActive: "",
-        classRoomRegDate: "",
-        instructor: {
-            userId: "",
-            name: "",
-            email: "",
-        },
-        lectures: [
-            {
-                lectureId: "",
-                lectureNum: "",
-                modDate: "",
-                contents: [],
-            },
-        ],
-        notices: [],
+  const initClassRoomData = {
+    classId: "",
+    className: "",
+    classDescription: "",
+    closeDate: "",
+    isOpened: "",
+    entryCode: "",
+    isActive: "",
+    classRoomRegDate: "",
+    instructor: {
+      userId: "",
+      name: "",
+      email: "",
+    },
+    lectures: [
+      {
+        lectureId: "",
+        lectureNum: "",
+        modDate: "",
+        contents: [],
+      },
+    ],
+    notices: [],
+  };
+
+  const [classRoomData, setClassRoomData] = useState(initClassRoomData);
+  const cid = useLocation().state.classId;
+
+  useEffect(() => {
+    const fetchClassRoom = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:8080/api/classroom?userId=1&classId=${cid}`
+        );
+        console.log(response.data);
+        setClassRoomData(response.data);
+        console.log("cid", cid);
+      } catch (err) {
+        console.log("err >> ", err);
+      }
     };
-
-    const [classRoomData, setClassRoomData] = useState(initClassRoomData);
-    const cid = useLocation().state.classId;
-
-    useEffect(() => {
-        const fetchClassRoom = async () => {
-            try {
-                const response = await axios.get(`http://localhost:8080/api/classroom?userId=1&classId=${cid}`);
-                console.log(response.data);
-                setClassRoomData(response.data);
-                console.log("cid", cid);
-            } catch (err) {
-                console.log("err >> ", err);
-            }
-        };
-        fetchClassRoom();
-    }, []);
+    fetchClassRoom();
+  }, []);
 
     return (
         <React.Fragment>

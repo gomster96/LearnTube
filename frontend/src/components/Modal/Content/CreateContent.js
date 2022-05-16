@@ -61,7 +61,7 @@ const CreateContent = (props) => {
 
     const handleSubmit = async () => {
         const response = await axios
-            .post("http://localhost:8080/api/content", JSON.stringify(createContentData), {
+            .post("http://localhost:3000/api/content", JSON.stringify(createContentData), {
                 method: "POST",
                 headers: {
                     // Accept: "application/json",

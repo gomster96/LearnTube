@@ -15,18 +15,8 @@ import courseImg7 from "../../assets/img/courses/7.jpg";
 import courseImg8 from "../../assets/img/courses/8.jpg";
 
 const CoursePartAdmin = (props) => {
-  const initManagesData = [
-    {
-      classId: "",
-      className: "",
-      instructorName: "",
-      latestNotice: "",
-      numberOfTake: "",
-      active: "",
-      classRoomRegDate: "",
-    },
-  ];
-  const [managesData, setManagesData] = useState(initManagesData);
+  
+  const [managesData, setManagesData] = useState(null);
   const history = useHistory();
   useEffect(() => {
     const fetchManagesClassRoom = async () => {
@@ -88,7 +78,7 @@ const CoursePartAdmin = (props) => {
                 </form>
               </div>
             </div>
-            {Array.isArray(managesData)
+            {managesData
               ? managesData.map((manageData, i) => (
                   <div
                     className="course-part clearfix m-0"
