@@ -75,4 +75,7 @@ public class Lecture extends BaseEntity {
                                                     .collect(Collectors.toList());
         return new LectureDto(this.id, this.lectureNum, this.modDate, contentDtos);
     }
+    public void decreaseLectureNum(){
+        this.lectureNum--;
+    }
 }

@@ -21,7 +21,7 @@ public interface ClassRoomRepository extends JpaRepository<ClassRoom, Long>, Cla
     @Query("select c from ClassRoom c " +
             "left join fetch c.lectures " +
             "where c.id = :classId")
-    Optional<ClassRoom> findFirstByClassById(Long classId);
+    Optional<ClassRoom> findFirstByClassById(@Param("classId") Long classId);
 
     @Query("select c from ClassRoom  c " +
             "left join fetch c.takes " +
@@ -29,4 +29,10 @@ public interface ClassRoomRepository extends JpaRepository<ClassRoom, Long>, Cla
             "where c.isActive = true " +
             "order by c.createdAt desc ")
     List<ClassRoom> findByPage(Pageable pageable);
+
+    @Query("select c " +
+            "from ClassRoom  c, Lecture  l " +
+            "left join fetch c.lectures " +
+            "where l.classRoom.id = c.id ")
+    Optional<ClassRoom> findFirstByLectureId(@Param("lectureId") Long lectureId);
 }
