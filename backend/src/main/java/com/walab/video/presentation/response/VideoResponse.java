@@ -11,6 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class VideoResponse {
     private Long id;
+    private Long playlistId;
     private String youtubeId;
     private String title;
     private String newTitle;
