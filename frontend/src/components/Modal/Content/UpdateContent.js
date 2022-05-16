@@ -5,43 +5,40 @@ import Modal from "react-modal";
 import { Button } from "react-bootstrap";
 import axios from "axios";
 
-const CreateContent = (props) => {
+const UpdateContent = (props) => {
     const [isOpen, setIsOpen] = useState(false);
     const openModal = () => setIsOpen(!isOpen);
     const [isPlaylistOpen, setIsPlaylistOpen] = useState(false);
     const openPlaylistModal = () => setIsPlaylistOpen(!isPlaylistOpen);
 
-    const initCreateContentData = {
-        lectureId: props.lectureId,
-        contentName: "",
-        contentDescription: "",
-        openDate: "",
-        closeDate: "",
-        playlistId: 1,
+    const initUpdateContentData = {
+        contentId: props.content.contentId,
+        contentName: props.content.contentName,
+        contentDescription: props.content.contentDescription,
+        openDate: props.content.openDate,
+        closeDate: props.content.closeDate,
+        playlistId: props.content.playlistId,
     };
 
-    const [createContentData, setCreateContentData] = useState(initCreateContentData);
+    const [updateContentData, setUpdateContentData] = useState(initUpdateContentData);
     const [createResponse, setCreateResponse] = useState();
 
     const handleChange = (e) => {
-        setCreateContentData({
-            ...createContentData,
-            [e.target.name]: e.target.value.trim(),
-            lectureId: props.lectureId,
+        setUpdateContentData({
+            ...updateContentData,
+            [e.target.name]: e.target.value,
         });
     };
 
     const handleSubmit = async () => {
         const response = await axios
-            .post("http://localhost:8080/api/content", JSON.stringify(createContentData), {
+            .post("http://localhost:8080/api/content/update", JSON.stringify(updateContentData), {
                 method: "POST",
                 headers: {
-                    // Accept: "application/json",
                     "Content-Type": "application/json",
                 },
             })
             .then((res) => console.log(res));
-        setCreateResponse(response);
         openModal();
         window.location.reload();
     };
@@ -83,7 +80,7 @@ const CreateContent = (props) => {
                         <div className="container">
                             <div className="py-3 px-5">
                                 <div className="sec-title text-center mb-10">
-                                    <h2 className="title mt-3 mb-10">Content 추가</h2>
+                                    <h2 className="title mt-3 mb-10">Content 수정</h2>
                                 </div>
                                 <div className="styled-form">
                                     <div id="form-messages"></div>
@@ -96,7 +93,15 @@ const CreateContent = (props) => {
                                                         *
                                                     </span>
                                                 </div>
-                                                <input type="text" id="contentName" name="contentName" placeholder="제목을 입력하세요" onChange={handleChange} required />
+                                                <input
+                                                    type="text"
+                                                    id="contentName"
+                                                    name="contentName"
+                                                    placeholder="제목을 입력하세요"
+                                                    value={updateContentData.contentName}
+                                                    onChange={handleChange}
+                                                    required
+                                                />
                                             </div>
                                             <div className="form-group col-lg-12">
                                                 <div className="my-2">
@@ -105,7 +110,26 @@ const CreateContent = (props) => {
                                                         *
                                                     </span>
                                                 </div>
-                                                <input type="textarea" id="contentDescription" name="contentDescription" placeholder="내용을 입력하세요" onChange={handleChange} required />
+                                                <textarea
+                                                    type="textarea"
+                                                    id="contentDescription"
+                                                    name="contentDescription"
+                                                    placeholder="내용을 입력하세요"
+                                                    value={updateContentData.contentDescription}
+                                                    onChange={handleChange}
+                                                    style={{
+                                                        position: "relative",
+                                                        borderRadius: "0px",
+                                                        padding: "6px 30px",
+                                                        width: "100%",
+                                                        color: "#222222",
+                                                        fontSize: "16px",
+                                                        transition: "all 500ms ease",
+                                                        border: "none",
+                                                        boxShadow: "0 0 30px #eee",
+                                                    }}
+                                                    required
+                                                />
                                             </div>
                                             <div className="form-group col-lg-12">
                                                 <div className="my-2">
@@ -114,7 +138,7 @@ const CreateContent = (props) => {
                                                         *
                                                     </span>
                                                 </div>
-                                                <input type="datetime-local" id="openDate" name="openDate" onChange={handleChange} />
+                                                <input type="datetime-local" id="openDate" name="openDate" value={updateContentData.openDate} onChange={handleChange} />
                                             </div>
                                             <div className="form-group col-lg-12">
                                                 <div className="my-2">
@@ -123,7 +147,7 @@ const CreateContent = (props) => {
                                                         *
                                                     </span>
                                                 </div>
-                                                <input type="datetime-local" id="closeDate" name="closeDate" onChange={handleChange} />
+                                                <input type="datetime-local" id="closeDate" name="closeDate" value={updateContentData.closeDate} onChange={handleChange} />
                                             </div>
                                             <div className="form-group col-lg-12">
                                                 <div className="my-2">
@@ -155,12 +179,12 @@ const CreateContent = (props) => {
                     </div>
                 </div>
             </Modal>
-            <span onClick={openModal} key={createContentData.lectureId}>
+            <span onClick={openModal}>
                 <i
-                    className="fa fa-plus p-1"
+                    className="fa fa-edit"
+                    id="editContent"
                     style={{
-                        display: "flex",
-                        padding: "3px",
+                        padding: "5px",
                         zIndex: "0",
                     }}
                 ></i>
@@ -169,4 +193,4 @@ const CreateContent = (props) => {
     );
 };
 
-export default CreateContent;
+export default UpdateContent;
