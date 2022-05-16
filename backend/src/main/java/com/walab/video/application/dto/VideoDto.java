@@ -15,6 +15,8 @@ public class VideoDto {
 
         private Long id;
 
+        private Long playlistId;
+
         private String youtubeId;
 
         private String title;
@@ -33,7 +35,8 @@ public class VideoDto {
 
         private float duration;
 
-        public VideoResponse videoResponse() {
-                return new VideoResponse(this.id, this.youtubeId, this.title, this.newTitle, this.start_s, this.end_s, this.tag, this.seq, this.maxLength, this.duration);
+
+    public VideoResponse videoResponse() {
+                return new VideoResponse(this.id, this.playlistId, this.youtubeId, this.title, this.newTitle, this.start_s, this.end_s, this.tag, this.seq, this.maxLength, this.duration);
         }
 }

@@ -30,7 +30,7 @@ public class MyPlaylistDto {
     public PlaylistResponse playlistResponse() {
         List<VideoDto> newVideos = new ArrayList<>();
         for (Video video: videos) {
-            VideoDto tempVideo = new VideoDto(video.getId(),video.getYoutubeId(),video.getTitle(),video.getNewTitle(),video.getStart_s(),video.getEnd_s(),video.getTag(),video.getSeq(),video.getMaxLength(),video.getDuration());
+            VideoDto tempVideo = new VideoDto(video.getId(), video.getPlaylist().getId(), video.getYoutubeId(),video.getTitle(),video.getNewTitle(),video.getStart_s(),video.getEnd_s(),video.getTag(),video.getSeq(),video.getMaxLength(),video.getDuration());
             newVideos.add(tempVideo);
         }
         return new PlaylistResponse(this.playlistId, this.name, this.description, this.userName, this.thumbnail, newVideos);
