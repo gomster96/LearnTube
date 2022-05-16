@@ -1,32 +1,60 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import ModalVideo from "react-modal-video";
 import Modal from "react-modal";
-import { Button } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import axios from "axios";
 
 const CreateContent = (props) => {
-    const [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState();
     const openModal = () => setIsOpen(!isOpen);
-    const [isPlaylistOpen, setIsPlaylistOpen] = useState(false);
-    const openPlaylistModal = () => setIsPlaylistOpen(!isPlaylistOpen);
-
+    const [playlistOpen, setPlaylistOpen] = useState(false);
+    const userId = props.instructorId;
     const initCreateContentData = {
         lectureId: props.lectureId,
         contentName: "",
         contentDescription: "",
         openDate: "",
         closeDate: "",
-        playlistId: 1,
+        playlistId: "",
     };
 
+    const initPlaylistsData = [
+        {
+            id: "",
+            name: "",
+            description: "",
+            creater: "",
+            totalTime: "",
+            videos: [
+                {
+                    id: "",
+                    videoTitle: "",
+                    start_s: "",
+                    end_s: "",
+                    seq: "",
+                    duration: "",
+                },
+            ],
+            playlistRegDate: "",
+        },
+    ];
+
     const [createContentData, setCreateContentData] = useState(initCreateContentData);
-    const [createResponse, setCreateResponse] = useState();
+    const [playlistsData, setPlaylists] = useState(initPlaylistsData);
+
+    const loadPlaylists = async () => {
+        try {
+            const response = await axios.get(`http://localhost:8080/api/playlist?userId='${props.userId}`);
+            console.log(response.data);
+            setPlaylists(response.data);
+        } catch (err) {
+            console.log("err >> ", err);
+        }
+    };
 
     const handleChange = (e) => {
         setCreateContentData({
             ...createContentData,
-            [e.target.name]: e.target.value.trim(),
+            [e.target.name]: e.target.value,
             lectureId: props.lectureId,
         });
     };
@@ -41,7 +69,6 @@ const CreateContent = (props) => {
                 },
             })
             .then((res) => console.log(res));
-        setCreateResponse(response);
         openModal();
         window.location.reload();
     };
@@ -87,6 +114,7 @@ const CreateContent = (props) => {
                                 </div>
                                 <div className="styled-form">
                                     <div id="form-messages"></div>
+
                                     <form id="contact-form">
                                         <div className="row clearfix">
                                             <div className="form-group col-lg-12 mb-25">
@@ -105,7 +133,25 @@ const CreateContent = (props) => {
                                                         *
                                                     </span>
                                                 </div>
-                                                <input type="textarea" id="contentDescription" name="contentDescription" placeholder="내용을 입력하세요" onChange={handleChange} required />
+                                                <textarea
+                                                    type="textarea"
+                                                    id="contentDescription"
+                                                    name="contentDescription"
+                                                    placeholder="내용을 입력하세요"
+                                                    onChange={handleChange}
+                                                    style={{
+                                                        position: "relative",
+                                                        borderRadius: "0px",
+                                                        padding: "6px 30px",
+                                                        width: "100%",
+                                                        color: "#222222",
+                                                        fontSize: "16px",
+                                                        transition: "all 500ms ease",
+                                                        border: "none",
+                                                        boxShadow: "0 0 30px #eee",
+                                                    }}
+                                                    required
+                                                />
                                             </div>
                                             <div className="form-group col-lg-12">
                                                 <div className="my-2">
@@ -114,7 +160,7 @@ const CreateContent = (props) => {
                                                         *
                                                     </span>
                                                 </div>
-                                                <input type="datetime-local" id="openDate" name="openDate" onChange={handleChange} />
+                                                <input type="datetime-local" id="openDate" name="openDate" onChange={handleChange} required />
                                             </div>
                                             <div className="form-group col-lg-12">
                                                 <div className="my-2">
@@ -123,22 +169,56 @@ const CreateContent = (props) => {
                                                         *
                                                     </span>
                                                 </div>
-                                                <input type="datetime-local" id="closeDate" name="closeDate" onChange={handleChange} />
+                                                <input type="datetime-local" id="closeDate" name="closeDate" onChange={handleChange} required />
                                             </div>
                                             <div className="form-group col-lg-12">
                                                 <div className="my-2">
-                                                    <Button onClick={openPlaylistModal} style={{ backgroundColor: "#6483d8" }}>
-                                                        Playlist 추가
-                                                    </Button>
+                                                    <button
+                                                        className="fa fa-plus"
+                                                        onClick={() => {
+                                                            setPlaylistOpen(true);
+                                                            loadPlaylists();
+                                                        }}
+                                                        style={{ backgroundColor: "#6483d8", border: "0px", borderRadius: "10px", color: "white", width: "30px", height: "30px", marginRight: "10px" }}
+                                                    ></button>
+                                                    Playlist 추가하기
                                                 </div>
                                             </div>
+                                            {playlistOpen === true ? (
+                                                <div style={{ marginBottom: "50px" }}>
+                                                    {Array.isArray(playlistsData)
+                                                        ? playlistsData.map((playlists, i) => (
+                                                              <div class="dropdown show">
+                                                                  <Form.Select aria-label="SelectBox">
+                                                                      {playlistsData === true ? (
+                                                                          <option
+                                                                              key="playlistsData"
+                                                                              id="playlistId"
+                                                                              name="playlistId"
+                                                                              onChange={() => {
+                                                                                  handleChange(playlistsData[i].id);
+                                                                              }}
+                                                                          >
+                                                                              {playlistsData[i].name}
+                                                                          </option>
+                                                                      ) : (
+                                                                          <option key="playlistsData">Playlist가 존재하지 않습니다.</option>
+                                                                      )}
+                                                                  </Form.Select>
+                                                              </div>
+                                                          ))
+                                                        : null}
+                                                </div>
+                                            ) : null}
                                         </div>
+
                                         <div className="row d-flex justify-content-end ms-3 me-1 mt-3">
                                             <Button
                                                 type="submit"
                                                 className="canclebtn"
-                                                style={{ height: "2px", justifyContent: "center" }}
+                                                style={{ height: "2px" }}
                                                 onClick={() => {
+                                                    setPlaylistOpen(false);
                                                     openModal();
                                                 }}
                                             >
@@ -155,11 +235,11 @@ const CreateContent = (props) => {
                     </div>
                 </div>
             </Modal>
-            <span onClick={openModal} key={createContentData.lectureId}>
+            <span onClick={openModal}>
                 <i
                     className="fa fa-plus p-1"
+                    id="createContent"
                     style={{
-                        display: "flex",
                         padding: "3px",
                         zIndex: "0",
                     }}

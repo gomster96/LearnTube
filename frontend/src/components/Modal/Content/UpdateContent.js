@@ -26,7 +26,7 @@ const UpdateContent = (props) => {
     const handleChange = (e) => {
         setUpdateContentData({
             ...updateContentData,
-            [e.target.name]: e.target.value.trim(),
+            [e.target.name]: e.target.value,
         });
     };
 
@@ -110,13 +110,24 @@ const UpdateContent = (props) => {
                                                         *
                                                     </span>
                                                 </div>
-                                                <input
+                                                <textarea
                                                     type="textarea"
                                                     id="contentDescription"
                                                     name="contentDescription"
                                                     placeholder="내용을 입력하세요"
                                                     value={updateContentData.contentDescription}
                                                     onChange={handleChange}
+                                                    style={{
+                                                        position: "relative",
+                                                        borderRadius: "0px",
+                                                        padding: "6px 30px",
+                                                        width: "100%",
+                                                        color: "#222222",
+                                                        fontSize: "16px",
+                                                        transition: "all 500ms ease",
+                                                        border: "none",
+                                                        boxShadow: "0 0 30px #eee",
+                                                    }}
                                                     required
                                                 />
                                             </div>
@@ -171,10 +182,9 @@ const UpdateContent = (props) => {
             <span onClick={openModal}>
                 <i
                     className="fa fa-edit"
-                    id="editNotice"
+                    id="editContent"
                     style={{
                         padding: "5px",
-
                         zIndex: "0",
                     }}
                 ></i>
