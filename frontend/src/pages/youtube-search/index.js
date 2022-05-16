@@ -170,7 +170,7 @@ const YoutubeSearch = () => {
 
     // 처음 페이지를 로딩할 때 default로 query 값 설정
     useEffect(async function () {
-        let searchedResults = await youtube.search('한동대학교');
+        let searchedResults = await youtube.search(location.state.title);
         setSearchedVideos(searchedResults);
         console.log(searchedVideos);
         console.log(location);
