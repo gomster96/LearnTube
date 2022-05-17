@@ -1,7 +1,9 @@
 package com.walab.playlist.application;
 
 import com.walab.content.application.dto.ContentPlaylistDto;
+import com.walab.exception.user.UserNotFoundException;
 import com.walab.playlist.application.dto.MyPlaylistDto;
+import com.walab.playlist.application.dto.PlaylistCUDto;
 import com.walab.playlist.domain.Playlist;
 import com.walab.playlist.domain.repository.PlaylistRepository;
 import com.walab.user.domain.User;
@@ -31,4 +33,12 @@ public class PlaylistService {
 
         return playlist;
     }
+
+    public MyPlaylistDto create(Long userId, PlaylistCUDto playlistCUDto) {
+        User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
+        Playlist newPlaylist = new Playlist(user, playlistCUDto);
+        Playlist savedPlaylist = playlistRepository.save(newPlaylist);
+        return savedPlaylist.toCreateResponseDto();
+    }
+
 }
