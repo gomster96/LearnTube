@@ -8,6 +8,7 @@ import javax.persistence.*;
 import com.walab.common.BaseEntity;
 import com.walab.content.domain.Content;
 import com.walab.playlist.application.dto.MyPlaylistDto;
+import com.walab.playlist.application.dto.PlaylistNameDto;
 import com.walab.user.domain.User;
 import com.walab.video.domain.Video;
 
@@ -48,5 +49,8 @@ public class Playlist extends BaseEntity {
         return new MyPlaylistDto(this.id, this.playlistName, this.description, this.user.getName(), this.thumbnailld, this.videos);
     }
 
+    public PlaylistNameDto playlistNameDto(){
+        return new PlaylistNameDto(this.id, this.playlistName);
+    }
 
 }

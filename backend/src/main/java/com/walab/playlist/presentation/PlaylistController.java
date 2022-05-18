@@ -1,18 +1,21 @@
 package com.walab.playlist.presentation;
 
-import com.walab.content.application.dto.ContentDto;
-import com.walab.content.presentation.request.ContentCreateRequest;
-import com.walab.content.presentation.response.ContentResponse;
-import com.walab.playlist.application.PlaylistService;
-import com.walab.playlist.application.dto.MyPlaylistDto;
-import com.walab.playlist.domain.repository.PlaylistRepository;
-import com.walab.playlist.presentation.response.PlaylistResponse;
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.stream.Collectors;
+
+import com.walab.playlist.application.PlaylistService;
+import com.walab.playlist.application.dto.MyPlaylistDto;
+import com.walab.playlist.application.dto.PlaylistNameDto;
+import com.walab.playlist.presentation.response.PlaylistNameResponse;
+import com.walab.playlist.presentation.response.PlaylistResponse;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping(value = "/api/playlist")
@@ -20,20 +23,30 @@ import java.util.stream.Collectors;
 public class PlaylistController {
 
     private final PlaylistService playlistService;
-    private final PlaylistRepository playlistRepository;
 
     @GetMapping
-    public ResponseEntity<Object> getPlaylist(@RequestParam Long userId){
-        List<MyPlaylistDto> playlists =  playlistService.getPlaylist(userId);
-        List<PlaylistResponse> response = playlists.stream().map(MyPlaylistDto::playlistResponse).collect(Collectors.toList());
+    public ResponseEntity<Object> getPlaylist(@RequestParam Long userId) {
+        List<MyPlaylistDto> playlists = playlistService.getPlaylist(userId);
+        List<PlaylistResponse> response = playlists.stream()
+                                                   .map(MyPlaylistDto::playlistResponse)
+                                                   .collect(Collectors.toList());
         return ResponseEntity.ok(response);
 
     }
 
-//    @PostMapping
-//    public ResponseEntity<PlaylistResponse> createPlaylist(@RequestBody PlaylistCreateRequest request) {
-//        ContentDto createdContent = contentService.create(request.contentCUDto(), request.getLectureId(), request.getPlaylistId());
-//        ContentResponse response = createdContent.contentResponse();
-//        return ResponseEntity.ok(response);
-//    }
+    //    @PostMapping
+    //    public ResponseEntity<PlaylistResponse> createPlaylist(@RequestBody PlaylistCreateRequest request) {
+    //        ContentDto createdContent = contentService.create(request.contentCUDto(), request.getLectureId(), request.getPlaylistId());
+    //        ContentResponse response = createdContent.contentResponse();
+    //        return ResponseEntity.ok(response);
+    //    }
+
+    @GetMapping("/name")
+    public ResponseEntity<List<PlaylistNameResponse>> getPlaylistNames(@RequestParam Long userId) {
+        List<PlaylistNameResponse> response = playlistService.getPlaylistName(userId)
+                                                             .stream()
+                                                             .map(PlaylistNameDto::playlistNameResponse)
+                                                             .collect(Collectors.toList());
+        return ResponseEntity.ok(response);
+    }
 }
