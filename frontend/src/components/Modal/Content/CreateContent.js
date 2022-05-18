@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
-import { Button, Form } from "react-bootstrap";
+import { Button, FormSelect } from "react-bootstrap";
 import axios from "axios";
 
 const CreateContent = (props) => {
@@ -17,12 +17,7 @@ const CreateContent = (props) => {
         playlistId: "",
     };
 
-    const initPlaylistsData = [
-        {
-            playlistId: "",
-            playlistName: "",
-        },
-    ];
+    const initPlaylistsData = [{ playlistId: "", playlistName: "" }];
 
     const [createContentData, setCreateContentData] = useState(initCreateContentData);
     const [playlistsData, setPlaylists] = useState(initPlaylistsData);
@@ -38,6 +33,7 @@ const CreateContent = (props) => {
     };
 
     const handleChange = (e) => {
+        console.log(e.target.value);
         setCreateContentData({
             ...createContentData,
             [e.target.name]: e.target.value,
@@ -159,39 +155,30 @@ const CreateContent = (props) => {
                                             </div>
                                             <div className="form-group col-lg-12">
                                                 <div className="my-2">
-                                                    <button
+                                                    <li
                                                         className="fa fa-plus"
                                                         onClick={() => {
                                                             setPlaylistOpen(true);
                                                             loadPlaylists();
                                                         }}
                                                         style={{ backgroundColor: "#6483d8", border: "0px", borderRadius: "10px", color: "white", width: "30px", height: "30px", marginRight: "10px" }}
-                                                    ></button>
+                                                    ></li>
                                                     Playlist 추가하기
                                                 </div>
                                             </div>
                                             {playlistOpen === true ? (
                                                 <div style={{ marginBottom: "50px" }}>
-                                                    {Array.isArray(playlistsData)
-                                                        ? playlistsData.map((playlists, i) => (
-                                                              <div class="dropdown show">
-                                                                  <Form.Select
-                                                                      aria-label="SelectBox"
-                                                                      onChange={() => {
-                                                                          handleChange(playlistsData[i].playlistId);
-                                                                      }}
-                                                                  >
-                                                                      {playlistsData === true ? (
-                                                                          <option key="playlistsData" id="playlistId" name="playlistId">
-                                                                              {playlistsData[i].name}
-                                                                          </option>
-                                                                      ) : (
-                                                                          <option key="playlistsData">Playlist가 존재하지 않습니다.</option>
-                                                                      )}
-                                                                  </Form.Select>
-                                                              </div>
-                                                          ))
-                                                        : null}
+                                                    <div class="dropdown show">
+                                                        <FormSelect aria-label="SelectBox" id="playlistId" name="playlistId" onChange={handleChange}>
+                                                            {Array.isArray(playlistsData)
+                                                                ? playlistsData.map((playlists, i) => (
+                                                                      <option value={playlistsData[i].playlistId} name={playlistsData[i].playlistId}>
+                                                                          {playlistsData[i].playlistName}
+                                                                      </option>
+                                                                  ))
+                                                                : null}
+                                                        </FormSelect>
+                                                    </div>
                                                 </div>
                                             ) : null}
                                         </div>

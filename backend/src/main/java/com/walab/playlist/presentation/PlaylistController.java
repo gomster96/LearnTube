@@ -10,16 +10,14 @@ import com.walab.playlist.presentation.response.PlaylistNameResponse;
 import com.walab.playlist.presentation.response.PlaylistResponse;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping(value = "/api/playlist")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class PlaylistController {
 
     private final PlaylistService playlistService;
@@ -28,8 +26,8 @@ public class PlaylistController {
     public ResponseEntity<Object> getPlaylist(@RequestParam Long userId) {
         List<MyPlaylistDto> playlists = playlistService.getPlaylist(userId);
         List<PlaylistResponse> response = playlists.stream()
-                                                   .map(MyPlaylistDto::playlistResponse)
-                                                   .collect(Collectors.toList());
+                .map(MyPlaylistDto::playlistResponse)
+                .collect(Collectors.toList());
         return ResponseEntity.ok(response);
 
     }
@@ -44,9 +42,9 @@ public class PlaylistController {
     @GetMapping("/name")
     public ResponseEntity<List<PlaylistNameResponse>> getPlaylistNames(@RequestParam Long userId) {
         List<PlaylistNameResponse> response = playlistService.getPlaylistName(userId)
-                                                             .stream()
-                                                             .map(PlaylistNameDto::playlistNameResponse)
-                                                             .collect(Collectors.toList());
+                .stream()
+                .map(PlaylistNameDto::playlistNameResponse)
+                .collect(Collectors.toList());
         return ResponseEntity.ok(response);
     }
 }
