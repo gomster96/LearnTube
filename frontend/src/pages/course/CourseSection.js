@@ -41,17 +41,17 @@ const CoursePart = (props) => {
     //console.log(courses[0][1].className)
     const data_ent = Object.entries(courses);
     //console.log(typeof data_ent[0][1].regDate)
-    const renderCourses = data_ent.map((oneCourse, index) => {
+    const renderCourses = data_ent.map((oneCourse, i) => {
         return (
             <div className="col-lg-4 col-md-6">
                 <CourseSingleTwoCopy
                     courseClass="courses-item mb-30"
-                    courseId={oneCourse[1].classId}
+                    courseId={oneCourse[i].classId}
                     courseImg={courseImg1}
-                    courseTitle={oneCourse[1].className}
+                    courseTitle={oneCourse[i].className}
                     newCourse="New"
-                    openDate={oneCourse[1].regDate}
-                    creatorName={oneCourse[1].instructorName}
+                    openDate={oneCourse[i].regDate}
+                    creatorName={oneCourse[i].instructorName}
                 />
             </div>
         );
@@ -155,23 +155,25 @@ const CoursePart = (props) => {
                             courseTitle="Become a PHP Master and Make Money Fast"
                             newCourse="$22.00"
                         />
-                    </div>
+                    </div>*/}
                     <div className="col-lg-4 col-md-6">
-                        <CourseSingleTwoCopy
-                            courseClass="courses-item mb-30"
-                            courseImg={courseImg4}
-                            courseTitle="Introduction to Quantitativ and Qualitative"
-                            newCourse="$35.00"
-                            openDate="2022.01"
-                        />
+                        <CourseSingleTwoCopy courseClass="courses-item mb-30" courseImg={courseImg1} courseTitle="Introduction to Quantitativ and Qualitative" newCourse="$35.00" openDate="2022.01" />
                     </div>
                     <div className="pagination-area orange-color text-center mt-30 md-mt-0">
                         <ul className="pagination-part">
-                            <li className="active"><Link to="#">1</Link></li>
-                            <li><Link to="#">2</Link></li>
-                            <li><Link to="#">Next <i className="fa fa-long-arrow-right"></i></Link></li>
+                            <li className="active">
+                                <Link to="#">1</Link>
+                            </li>
+                            <li>
+                                <Link to="#">2</Link>
+                            </li>
+                            <li>
+                                <Link to="#">
+                                    Next <i className="fa fa-long-arrow-right"></i>
+                                </Link>
+                            </li>
                         </ul>
-                    </div> */}
+                    </div>
 
                     {/* </div> */}
                 </div>
