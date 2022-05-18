@@ -277,7 +277,7 @@ const CurriculumPart = (props) => {
                                                   {props.classRoomData.instructor.userId === userId ? (
                                                       <div style={{ display: "flex", alignItems: "center", marginRight: "25px" }}>
                                                           <div>
-                                                              <CreateContent lectureId={props.classRoomData.lectures[i].lectureId} userId={userId} />
+                                                              <CreateContent lectureId={props.classRoomData.lectures[i].lectureId} classId={props.classRoomData.classId} userId={userId} />
                                                           </div>
                                                           <span
                                                               onClick={() => {

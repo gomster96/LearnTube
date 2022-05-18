@@ -19,22 +19,8 @@ const CreateContent = (props) => {
 
     const initPlaylistsData = [
         {
-            id: "",
-            name: "",
-            description: "",
-            creater: "",
-            totalTime: "",
-            videos: [
-                {
-                    id: "",
-                    videoTitle: "",
-                    start_s: "",
-                    end_s: "",
-                    seq: "",
-                    duration: "",
-                },
-            ],
-            playlistRegDate: "",
+            playlistId: "",
+            playlistName: "",
         },
     ];
 
@@ -43,7 +29,7 @@ const CreateContent = (props) => {
 
     const loadPlaylists = async () => {
         try {
-            const response = await axios.get(`http://localhost:8080/api/playlist?userId='${props.userId}`);
+            const response = await axios.get(`http://localhost:8080/api/playlist/name?userId=${props.userId}`);
             console.log(response.data);
             setPlaylists(response.data);
         } catch (err) {
@@ -189,16 +175,14 @@ const CreateContent = (props) => {
                                                     {Array.isArray(playlistsData)
                                                         ? playlistsData.map((playlists, i) => (
                                                               <div class="dropdown show">
-                                                                  <Form.Select aria-label="SelectBox">
+                                                                  <Form.Select
+                                                                      aria-label="SelectBox"
+                                                                      onChange={() => {
+                                                                          handleChange(playlistsData[i].playlistId);
+                                                                      }}
+                                                                  >
                                                                       {playlistsData === true ? (
-                                                                          <option
-                                                                              key="playlistsData"
-                                                                              id="playlistId"
-                                                                              name="playlistId"
-                                                                              onChange={() => {
-                                                                                  handleChange(playlistsData[i].id);
-                                                                              }}
-                                                                          >
+                                                                          <option key="playlistsData" id="playlistId" name="playlistId">
                                                                               {playlistsData[i].name}
                                                                           </option>
                                                                       ) : (
