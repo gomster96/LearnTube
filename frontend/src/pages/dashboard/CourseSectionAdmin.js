@@ -86,6 +86,7 @@ const CoursePartAdmin = (props) => {
                                           courseTitle={managesData[i].className}
                                           notice={managesData[i].latestNotice}
                                           progress={0}
+                                          userCount={managesData[i].numberOfTake}
                                           openDate={managesData[i].classRoomRegDate.split("T")[0]}
                                           creatorName={managesData[i].instructorName}
                                           classId={managesData[i].classId}
