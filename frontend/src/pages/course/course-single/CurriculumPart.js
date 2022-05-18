@@ -175,7 +175,7 @@ const CurriculumPart = (props) => {
                                                                               </div>
                                                                               <br></br>
                                                                               <p className="text-muted">
-                                                                                  수정시간:
+                                                                                  최종 수정시간:
                                                                                   {props.classRoomData.notices[noticeIdx].modDate.split("T")[0] +
                                                                                       " " +
                                                                                       props.classRoomData.notices[noticeIdx].modDate.split("T")[1].split(":")[0] +
