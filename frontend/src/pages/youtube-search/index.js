@@ -32,10 +32,12 @@ const YoutubeSearch = () => {
         playerVars: {
             // https://developers.google.com/youtube/player_parameters
             autoplay: 1,
+            start: 30,
+            end: 50,
         },
     };
 
-    const [newQuery, setNewQuery] = useState("한동대학교");
+    const [newQuery, setNewQuery] = useState("알고리즘");
     const [searchedVideos, setSearchedVideos] = useState([]);
     const [selectedVideo, setSelectedVideo] = useState(null);
     const [paginatedVideos, setPaginatedVideos] = useState([]);
@@ -47,6 +49,9 @@ const YoutubeSearch = () => {
     const [newTitle, setNewTitle] = useState('');
     const [newDescription, setNewDescription] = useState('');
     const [playlistName, setPlaylistName] = useState('');
+    const [currentPlayTime, setCurrentPlayTime] = useState();
+    const [startTime, setStartTime] = useState();
+    const [endTime, setEndTime] = useState();
 
     const httpClient = axios.create({
         baseURL: 'https://www.googleapis.com/youtube/v3',
@@ -60,6 +65,8 @@ const YoutubeSearch = () => {
         setNewTitle('');
         setNewDescription('');
         setIsSelected(false);
+        setStartTime(false);
+        setEndTime(false);
         setSelectedVideo(video);
         //console.log(selectedVideo);
         // console.log(selectedVideo.id);
@@ -115,7 +122,7 @@ const YoutubeSearch = () => {
         //newTitle&newDescription 삽입
         video.snippet.newTitle = newTitle;
         video.snippet.newDescription = newDescription;
-        console.log(video.snippet.newTitle +"\n"+newDescription);
+        console.log(video.snippet.newTitle + "\n" + newDescription);
         cart[newId] = video;
         console.log(cart);
         for (const prop in cart) {
@@ -132,9 +139,9 @@ const YoutubeSearch = () => {
         setIsChanged(true);
     };
 
-    useEffect(function(){
+    useEffect(function () {
         setIsChanged(false);
-    },[isChanged]);
+    }, [isChanged]);
     // query를 받아와서 search 후 searchedVideos에 결과 저장
     const search = useCallback(
         (query) => {
@@ -162,11 +169,55 @@ const YoutubeSearch = () => {
 
     const titleChange = (e) => {
         setNewTitle(e.target.value);
-      };
+    };
 
     const descriptionChange = (e) => {
         setNewDescription(e.target.value);
-      };
+    };
+
+    const checkElapsedTime = (e) => {
+        const duration = e.target.getDuration();
+        const currentTime = e.target.getCurrentTime();
+        console.log(currentTime);
+        var toHHMMSS = (secs) => {
+            var sec_num = parseInt(secs, 10)
+            var hours = Math.floor(sec_num / 3600)
+            var minutes = Math.floor(sec_num / 60) % 60
+            var seconds = sec_num % 60
+
+            return [hours, minutes, seconds]
+                .map(v => v < 10 ? "0" + v : v)
+                .filter((v, i) => v !== "00" || i > 0)
+                .join(":")
+        }
+        console.log("duration");
+        console.log(duration);
+        setCurrentPlayTime(toHHMMSS(currentTime));
+
+        // if (currentTime / duration > 0.95) {
+        //     setModalIsOpen(true);
+        // }
+    };
+    const onClickStartTime = (currentPlayTime) => {
+        setStartTime(currentPlayTime);
+        if (endTime && startTime > endTime) {
+            alert("시작 시간을 종료 시간 이전으로 설정해주세요!");
+            setStartTime(0);
+        }
+
+    }
+
+    const onClickEndTime = (currentPlayTime) => {
+        setEndTime(currentPlayTime);
+
+        if (endTime < startTime) {
+            alert("종료 시간을 시작 시간 이전으로 설정해주세요!");
+            setEndTime(startTime)
+        };
+    }
+
+
+
 
     // 처음 페이지를 로딩할 때 default로 query 값 설정
     useEffect(async function () {
@@ -177,7 +228,6 @@ const YoutubeSearch = () => {
         setPlaylistName(location.state.title);
         console.log(location.state.title);
     }, []);
-
 
     return (
         <React.Fragment>
@@ -206,10 +256,12 @@ const YoutubeSearch = () => {
                             < YoutubeVideoSearchWidget onSearch={search} />
                             <Link
                                 className="pt-2"
-                                to={{pathname : "/learntube-studio/myCart",
-                                    state:{cart: cart, title: playlistName}}}
-                                >
-                                    <img src={cartPage} className='goToCart' alt='go to cart page' ></img>
+                                to={{
+                                    pathname: "/learntube-studio/myCart",
+                                    state: { cart: cart, title: playlistName }
+                                }}
+                            >
+                                <img src={cartPage} className='goToCart' alt='go to cart page' ></img>
                             </Link>
                         </div>
                     </div>
@@ -242,10 +294,9 @@ const YoutubeSearch = () => {
                                             cartClick={addVideoToCart} cartUnclick={deleteVideoFromCart} cart={cart} />
                                     </div>
                                 </div>}
-
                             {selectedVideo ? (
-                                <div className="col-lg-6 col-md-5 col-sm-12 overflow-auto mb-500" style={{position: "fixed", right: "0", bottom: "600px;",height: "500px"}}>
-                                    <YouTube videoId={selectedVideo.id} opts={opts} />
+                                <div className="col-lg-6 col-md-5 col-sm-12 mb-500" style={{ position: "fixed", right: "0", bottom: "600px;", height: "500px", overflowX: "hidden", overflowY: "auto" }}>
+                                    <YouTube videoId={selectedVideo.id} opts={opts} onStateChange={(e) => checkElapsedTime(e)} />
                                     <div class="row">
                                         <div class="col-12 my-5 lh-base">
                                             <div class="mx-md-3 fs-3 text-start">{selectedVideo.snippet.title}</div>
@@ -265,31 +316,49 @@ const YoutubeSearch = () => {
                                             <div class="mt-5 mx-md-3 fs-5 text-start text-muted">{selectedVideo.snippet.description}</div>
                                         </div>
                                         <div className="row d-flex justify-content-end ms-3 me-1 mt-3">
-                                            <button className="createbtn text-center me-3" onClick={onToggle}>담기</button>
+                                            {isSelected == false ? <button className="createbtn text-center me-3" onClick={onToggle}>저장</button> : null}
                                         </div>
                                         <div className={isSelected ? "col-12 register-section mx-md-4" : "col-12 register-section mx-md-4 d-none"} >
-                                            <div className="container">
+                                            <div className="">
                                                 <div className="py-3">
                                                     <div className="text-start mb-10">
-                                                        <div className="mt-3 mb-10 fs-3">영상 담기</div>
+                                                        <div className="mt-3 mb-10 fs-3">영상 설정</div>
+                                                    </div>
+                                                    <div className="my-2 text-start mt-4">영상 구간 설정 (원하는 위치에서 버튼을 클릭하세요)</div>
+
+                                                    <div className="d-flex mb-4">
+                                                        <div className="d-flex justify-content-start">
+                                                            <button className="createbtn text-center ms-0" onClick={() => onClickStartTime(currentPlayTime)}>시작 시간</button>
+                                                        </div>
+                                                        <div className="d-flex justify-content-start ms-3 mt-1">
+                                                            <div className="">{startTime ?? currentPlayTime}</div>
+                                                        </div>
+                                                        <div className="d-flex justify-content-start ms-4">
+                                                            <button className="createbtn text-center ms-0" onClick={() => onClickEndTime(currentPlayTime)}>종료 시간</button>
+                                                        </div>
+                                                        <div className="d-flex justify-content-start ms-3 mt-1">
+                                                            <div className="d-flex">{endTime ?? currentPlayTime}</div>
+                                                        </div>
                                                     </div>
                                                     <div className="styled-form">
                                                         <div id="form-messages"></div>
                                                         <form id="contact-form" method="post" action="#">
                                                             <div className="row clearfix">
                                                                 <div className="form-group col-lg-12 mb-25">
-                                                                    <div className="my-2 text-start">영상 제목<span className="ms-1" style={{ color: 'red' }}>*</span></div>
+                                                                    <div className="my-2 text-start">영상 제목</div>
                                                                     <input type="text" id="title" name="title" placeholder="제목을 입력하세요" value={newTitle} onChange={titleChange} required />
                                                                 </div>
                                                                 <div className="form-group col-lg-12">
                                                                     <div className="my-2 text-start">설명</div>
-                                                                    <input type="text" id="description" name="description" placeholder="설명을 입력하세요. 쉼표로 구분됩니다."
-                                                                    value={newDescription} onChange={descriptionChange}/>
+                                                                    <input type="text" id="description" name="description" placeholder="설명을 입력하세요. "
+                                                                        value={newDescription} onChange={descriptionChange} />
                                                                 </div>
                                                             </div>
-                                                            <div className="row d-flex justify-content-end ms-3 me-1 mt-3" onClick={() => addVideoToCart(selectedVideo)}>
-                                                                {/* <button className="createbtn text-center" >저장</button> */}
-                                                                저장!!
+                                                            <div className="col-12 d-flex justify-content-center mt-4">
+                                                                <div className="createbtn ms-0" onClick={() => addVideoToCart(selectedVideo)}>
+                                                                    {/* <button className=" text-center" onClick={() => addVideoToCart(selectedVideo)}>저장</button> */}
+                                                                    저장
+                                                                </div>
                                                             </div>
                                                         </form>
                                                     </div>
