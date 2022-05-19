@@ -68,9 +68,9 @@ public class ClassRoomService {
     public List<ClassRoomCourseDto> findClassRoomsByPage(int condition, String keyword, Pageable pageable){
 
         Page<ClassRoom> classRooms = classRoomRepository.searchClassRoomByCondition(condition, keyword, pageable);
-
+        int totalPage = classRooms.getTotalPages();
         return classRooms.get()
-                         .map(ClassRoom::toCourseDto)
+                         .map(classRoom -> new ClassRoomCourseDto(classRoom, totalPage))
                          .collect(Collectors.toList());
 
     }

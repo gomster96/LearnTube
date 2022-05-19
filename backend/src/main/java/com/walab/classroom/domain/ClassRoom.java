@@ -148,7 +148,4 @@ public class ClassRoom extends BaseEntity {
                            .build();
     }
 
-    public ClassRoomCourseDto toCourseDto(){
-        return new ClassRoomCourseDto(this.id, this.className, this.instructor.getName(), this.takes.size(), this.getCreatedAt());
-    }
 }
