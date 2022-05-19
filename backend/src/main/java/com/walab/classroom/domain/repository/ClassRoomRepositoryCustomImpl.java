@@ -31,16 +31,17 @@ public class ClassRoomRepositoryCustomImpl extends QuerydslRepositorySupport imp
     public Page<ClassRoom> searchClassRoomByCondition(int condition, String keyword, Pageable pageable) {
 
         JPAQuery<ClassRoom> query = queryFactory.select(classRoom)
-                .from(classRoom)
-                .leftJoin(classRoom.takes).fetchJoin()
-                .leftJoin(classRoom.instructor).fetchJoin()
-                .where(classRoom.isActive.eq(true))
-                .where(classRoom.className.containsIgnoreCase(keyword).or(classRoom.instructor.name.containsIgnoreCase(keyword)))
-                .orderBy(courseOrder(condition));
+                                                .distinct()
+                                                .from(classRoom)
+                                                .leftJoin(classRoom.takes).fetchJoin()
+                                                .leftJoin(classRoom.instructor).fetchJoin()
+                                                .where(classRoom.isActive.eq(true))
+                                                .where(classRoom.className.containsIgnoreCase(keyword)
+                                                                          .or(classRoom.instructor.name.containsIgnoreCase(keyword)))
+                                                .orderBy(courseOrder(condition));
 
         JPQLQuery<ClassRoom> pageableQuery = getQuerydsl().applyPagination(pageable, query);
         QueryResults<ClassRoom> fetchResults = pageableQuery.fetchResults();
-
         return new PageImpl<>(fetchResults.getResults(), pageable, fetchResults.getTotal());
     }
 
