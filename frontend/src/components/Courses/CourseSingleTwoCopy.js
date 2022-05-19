@@ -26,7 +26,7 @@ const CourseSingleTwoCopy = (props) => {
                         <p className="creatorName">{creatorName ? creatorName : "-"}</p>
                         <ul>
                             <li className="user">
-                                <i className="fa fa-user"></i> {userCount ? userCount : "245"}
+                                <i className="fa fa-user"></i> {userCount}
                             </li>
                             <li className="ratings">
                                 <span>{openDate ? openDate : "-"}</span>
