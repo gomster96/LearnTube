@@ -8,19 +8,22 @@ import CourseSingleTwoCopy from "../../components/Courses/CourseSingleTwoCopy";
 import courseImg1 from "../../assets/img/courses/1.jpg";
 import SearchBar from "./SearchBar";
 import PagingBar from "./PagingBar";
-
+import SortFilter from "./SortFilter";
+import { Spinner } from "react-bootstrap";
 const CoursePart = (props) => {
     const [courses, setCourse] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
     const [filterStatus, setFilterStatus] = useState({ condition: 0, keyword: "", page: 0, size: 12 });
     const getCourse = async () => {
-        console.log(filterStatus);
         const courseData = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/classroom/courses`, {
             params: filterStatus,
         });
         setCourse(courseData.data);
+        setIsLoading(false);
     };
 
     useEffect(() => {
+        setIsLoading(true);
         getCourse();
     }, [filterStatus]);
 
@@ -32,40 +35,32 @@ const CoursePart = (props) => {
                         <div className="widget-area-mk">
                             <SearchBar setFilterStatus={setFilterStatus} />
                         </div>
-                        <div className="widget-area">
-                            <div className="type-form-mk">
-                                <form method="post" action="#">
-                                    <div className="form-group mb-0">
-                                        <div className="custom-select-box">
-                                            <select id="timing">
-                                                <option>Default</option>
-                                                <option>Newest</option>
-                                                <option>Old</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
+                        <SortFilter setFilterStatus={setFilterStatus} />
                     </div>
-                    {courses
-                        ? courses.map((course) => {
-                              return (
-                                  <div className="col-lg-4 col-md-6">
-                                      <CourseSingleTwoCopy
-                                          courseClass="courses-item mb-30"
-                                          courseId={course.classId}
-                                          courseImg={courseImg1}
-                                          courseTitle={course.className}
-                                          newCourse="New"
-                                          userCount={course.numberOfTake}
-                                          openDate={course.regDate}
-                                          creatorName={course.instructorName}
-                                      />
-                                  </div>
-                              );
-                          })
-                        : null}
+
+                    {isLoading ? (
+                        <div class="text-center" style={{ marginTop: "10%", height: "30rem" }}>
+                            <Spinner animation="grow" variant="primary" style={{ width: "10rem", height: "10rem" }} />
+                        </div>
+                    ) : courses ? (
+                        courses.map((course) => {
+                            return (
+                                <div className="col-lg-4 col-md-6">
+                                    <CourseSingleTwoCopy
+                                        courseClass="courses-item mb-30"
+                                        courseId={course.classId}
+                                        courseImg={courseImg1}
+                                        courseTitle={course.className}
+                                        newCourse="New"
+                                        userCount={course.numberOfTake}
+                                        openDate={course.regDate}
+                                        creatorName={course.instructorName}
+                                    />
+                                </div>
+                            );
+                        })
+                    ) : null}
+
                     {courses ? <PagingBar page={filterStatus.page} totalPage={courses.length !== 0 ? courses[0].totalPage : 0} setFilterStatus={setFilterStatus} /> : null}
                 </div>
             </div>
