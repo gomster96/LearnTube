@@ -49,13 +49,13 @@ const CoursePartAdmin = (props) => {
                                     <button onClick={listClassAdd} className="view-list ">
                                         <i className="fa fa-list-ul"></i>
                                     </button>
-                                    <button onClick={listClassRemove} className="view-grid mr-10 list-view">
+                                    {/* <button onClick={listClassRemove} className="view-grid mr-10 list-view">
                                         <i className="fa fa-th-large"></i>
-                                    </button>
+                                    </button> */}
                                 </div>
-                                <div className="view-text">Showing 1-9 of 11 results</div>
+                                <div className="view-text">Showing 1-9 of 12 results</div>
                             </div>
-                            <div className="type-form">
+                            {/* <div className="type-form">
                                 <form method="post" action="#">
                                     <div className="form-group mb-0">
                                         <div className="custom-select-box">
@@ -67,7 +67,7 @@ const CoursePartAdmin = (props) => {
                                         </div>
                                     </div>
                                 </form>
-                            </div>
+                            </div> */}
                         </div>
                         {managesData
                             ? managesData.map((manageData, i) => (
@@ -99,9 +99,9 @@ const CoursePartAdmin = (props) => {
                                 <li className="active">
                                     <Link to="#">1</Link>
                                 </li>
-                                <li>
+                                {/* <li>
                                     <Link to="#">2</Link>
-                                </li>
+                                </li> */}
                                 <li>
                                     <Link to="#">
                                         Next <i className="fa fa-long-arrow-right"></i>
