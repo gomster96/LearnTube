@@ -49,25 +49,25 @@ function CourseDetailsPart() {
     fetchClassRoom();
   }, []);
 
-    return (
-        <React.Fragment>
-            <div className="intro-section gray-bg pt-94 pb-100 md-pt-80 md-pb-80 loaded">
-                <div className="container">
-                    <h5>커리큘럼</h5>
-                    <h3>{classRoomData.className}</h3>
-                    <p>⇣ {classRoomData.classDescription} </p>
-                    <div className="row clearfix">
-                        <div className="col-lg-8 md-mb-50">
-                            <CurriculumPart classRoomData={classRoomData} />
-                        </div>
-                        <div className="video-column col-lg-4">
-                            <CourseSidebar classRoomData={classRoomData} />
-                        </div>
-                    </div>
-                </div>
+  return (
+    <React.Fragment>
+      <div className="intro-section gray-bg pt-94 pb-100 md-pt-80 md-pb-80 loaded">
+        <div className="container">
+          <h5>커리큘럼</h5>
+          <h3>{classRoomData.className}</h3>
+          <p>⇣ {classRoomData.classDescription} </p>
+          <div className="row clearfix">
+            <div className="col-lg-8 md-mb-50">
+              <CurriculumPart classRoomData={classRoomData} />
             </div>
-        </React.Fragment>
-    );
+            <div className="video-column col-lg-4">
+              <CourseSidebar classRoomData={classRoomData} />
+            </div>
+          </div>
+        </div>
+      </div>
+    </React.Fragment>
+  );
 }
 
 export default CourseDetailsPart;
