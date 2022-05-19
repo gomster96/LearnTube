@@ -1,7 +1,5 @@
 package com.walab.classroom.domain.repository;
 
-import java.time.LocalDateTime;
-import java.util.List;
 import javax.persistence.EntityManager;
 
 import com.querydsl.core.QueryResults;
@@ -10,7 +8,6 @@ import com.querydsl.jpa.JPQLQuery;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.walab.classroom.domain.ClassRoom;
-import com.walab.classroom.domain.QClassRoom;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;

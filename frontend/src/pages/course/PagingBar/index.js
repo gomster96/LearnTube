@@ -39,7 +39,7 @@ export default function PagingBar(props) {
     return (
         <div className="pagination-area orange-color text-center mt-30 md-mt-0">
             <ul className="pagination-part">
-                <li>
+                <li key="leftArrow">
                     <div class="arrow">
                         <i className="fa fa-arrow-left" onClick={onClickLeftArrow}></i>
                     </div>
@@ -47,7 +47,7 @@ export default function PagingBar(props) {
                 {pages.map((pageNum) => {
                     if (pageNum === parseInt(props.page)) {
                         return (
-                            <li className="active">
+                            <li key={pageNum + 1} className="active">
                                 <div class="active pages" value={pageNum} onClick={onClickNumber}>
                                     {pageNum + 1}
                                 </div>
@@ -55,7 +55,7 @@ export default function PagingBar(props) {
                         );
                     }
                     return (
-                        <li>
+                        <li key={pageNum + 1}>
                             <div class="pages" value={pageNum} onClick={onClickNumber}>
                                 {pageNum + 1}
                             </div>
@@ -64,7 +64,7 @@ export default function PagingBar(props) {
                 })}
 
                 <li>
-                    <div class="arrow">
+                    <div class="arrow" key="leftArrow">
                         <i className="fa fa-arrow-right" onClick={onClickRightArrow}></i>
                     </div>
                 </li>
