@@ -43,7 +43,7 @@ const PlaylistWidget = () => {
     };
     const opts2 = {
         height: '350px',
-        width: '85%',
+        width: '100%',
         playerVars: {
             // https://developers.google.com/youtube/player_parameters
             autoplay: 0,
