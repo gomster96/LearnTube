@@ -50,8 +50,11 @@ const YoutubeSearch = () => {
     const [newDescription, setNewDescription] = useState('');
     const [playlistName, setPlaylistName] = useState('');
     const [currentPlayTime, setCurrentPlayTime] = useState();
+    const [currentFloatTime, setCurrentFloatTime] = useState();
     const [startTime, setStartTime] = useState();
+    const [startFloatTime, setStartFloatTime] = useState();
     const [endTime, setEndTime] = useState();
+    const [endFloatTime, setEndFloatTime] = useState();
 
     const httpClient = axios.create({
         baseURL: 'https://www.googleapis.com/youtube/v3',
@@ -122,6 +125,9 @@ const YoutubeSearch = () => {
         //newTitle&newDescription 삽입
         video.snippet.newTitle = newTitle;
         video.snippet.newDescription = newDescription;
+        video.start_s = parseInt(startFloatTime);
+        video.end_s = parseInt(endFloatTime);
+        video.duration = parseInt(endFloatTime - startFloatTime);
         console.log(video.snippet.newTitle + "\n" + newDescription);
         cart[newId] = video;
         console.log(cart);
@@ -178,6 +184,7 @@ const YoutubeSearch = () => {
     const checkElapsedTime = (e) => {
         const duration = e.target.getDuration();
         const currentTime = e.target.getCurrentTime();
+        setCurrentFloatTime(e.target.getCurrentTime());
         console.log(currentTime);
         var toHHMMSS = (secs) => {
             var sec_num = parseInt(secs, 10)
@@ -200,6 +207,7 @@ const YoutubeSearch = () => {
     };
     const onClickStartTime = (currentPlayTime) => {
         setStartTime(currentPlayTime);
+        setStartFloatTime(currentFloatTime);
         if (endTime && startTime > endTime) {
             alert("시작 시간을 종료 시간 이전으로 설정해주세요!");
             setStartTime(0);
@@ -209,7 +217,7 @@ const YoutubeSearch = () => {
 
     const onClickEndTime = (currentPlayTime) => {
         setEndTime(currentPlayTime);
-
+        setEndFloatTime(currentFloatTime);
         if (endTime < startTime) {
             alert("종료 시간을 시작 시간 이전으로 설정해주세요!");
             setEndTime(startTime)
