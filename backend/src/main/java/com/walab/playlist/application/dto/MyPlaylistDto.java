@@ -1,12 +1,10 @@
 package com.walab.playlist.application.dto;
 
+import com.walab.playlist.presentation.response.PlaylistCUResponse;
 import com.walab.playlist.presentation.response.PlaylistResponse;
 import com.walab.video.application.dto.VideoDto;
 import com.walab.video.domain.Video;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -16,6 +14,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class MyPlaylistDto {
     private Long playlistId;
     private String name;
@@ -35,4 +34,10 @@ public class MyPlaylistDto {
         }
         return new PlaylistResponse(this.playlistId, this.name, this.description, this.userName, this.thumbnail, newVideos);
     }
+
+    public PlaylistCUResponse playlistCUResponse() {
+        return new PlaylistCUResponse(playlistId, userName, name, description);
+    }
+
+
 }

@@ -6,30 +6,6 @@ import { useHistory } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
 function CourseDetailsPart() {
-  const initClassRoomData = {
-    classId: "",
-    className: "",
-    classDescription: "",
-    closeDate: "",
-    isOpened: "",
-    entryCode: "",
-    isActive: "",
-    classRoomRegDate: "",
-    instructor: {
-      userId: "",
-      name: "",
-      email: "",
-    },
-    lectures: [
-      {
-        lectureId: "",
-        lectureNum: "",
-        modDate: "",
-        contents: [],
-      },
-    ],
-    notices: [],
-  };
 
   const [classRoomData, setClassRoomData] = useState(initClassRoomData);
   const cid = useLocation().state.classId;
@@ -37,7 +13,13 @@ function CourseDetailsPart() {
     { userId: "", name: "", email: "" },
   ]);
 
+  const [classRoomData, setClassRoomData] = useState();
+  const cid = useLocation().state.classId;
+  console.log("cid in detail part");
+  console.log(cid);
   useEffect(() => {
+    console.log(" ");
+    console.log(cid);
     const fetchClassRoom = async () => {
       try {
         const res1 = await axios.get(
@@ -65,7 +47,7 @@ function CourseDetailsPart() {
       <div className="intro-section gray-bg pt-94 pb-100 md-pt-80 md-pb-80 loaded">
         <div className="container">
           <h5>커리큘럼</h5>
-          <h3>{classRoomData.className}</h3>
+          {classRoomData ? <div><h3>{classRoomData.className}</h3>
           <p>⇣ {classRoomData.classDescription} </p>
           <div className="row clearfix">
             <div className="col-lg-8 md-mb-50">
@@ -77,7 +59,8 @@ function CourseDetailsPart() {
                 students={students}
               />
             </div>
-          </div>
+          </div></div> : null}
+
         </div>
       </div>
     </React.Fragment>
