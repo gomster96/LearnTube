@@ -20,6 +20,7 @@ public class ContentVideoDto {
     private float end_s;
     private int seq;
     private float duration;
+    private String youtubeId;
 
     public ContentVideoDto(Video video) {
         this.id = video.getId();
@@ -28,5 +29,6 @@ public class ContentVideoDto {
         this.end_s = video.getEnd_s();
         this.seq = video.getSeq();
         this.duration = video.getDuration();
+        this.youtubeId = video.getYoutubeId();
     }
 }
