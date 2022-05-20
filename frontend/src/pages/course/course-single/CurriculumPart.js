@@ -175,7 +175,7 @@ const CurriculumPart = (props) => {
                                                                               </div>
                                                                               <br></br>
                                                                               <p className="text-muted">
-                                                                                  수정시간:
+                                                                                  최종 수정시간:
                                                                                   {props.classRoomData.notices[noticeIdx].modDate.split("T")[0] +
                                                                                       " " +
                                                                                       props.classRoomData.notices[noticeIdx].modDate.split("T")[1].split(":")[0] +
@@ -277,7 +277,7 @@ const CurriculumPart = (props) => {
                                                   {props.classRoomData.instructor.userId === userId ? (
                                                       <div style={{ display: "flex", alignItems: "center", marginRight: "25px" }}>
                                                           <div>
-                                                              <CreateContent lectureId={props.classRoomData.lectures[i].lectureId} userId={userId} />
+                                                              <CreateContent lectureId={props.classRoomData.lectures[i].lectureId} classId={props.classRoomData.classId} userId={userId} />
                                                           </div>
                                                           <span
                                                               onClick={() => {

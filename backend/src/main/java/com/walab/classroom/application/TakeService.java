@@ -13,6 +13,7 @@ import com.walab.classroom.domain.take.Take;
 import com.walab.exception.classroom.ClassRoomNotFoundException;
 import com.walab.exception.classroom.TakeNotFoundException;
 import com.walab.exception.user.UserNotFoundException;
+import com.walab.user.application.dto.UserDto;
 import com.walab.user.domain.User;
 import com.walab.user.domain.repository.UserRepository;
 
@@ -89,6 +90,14 @@ public class TakeService {
     public List<TakeClassRoomDto> getClosedClasses(Long userId) {
         List<Take> takes = takeRepository.findDashboardTakeByUserId(userId, false);
         return takes.stream().map(TakeClassRoomDto::new).collect(Collectors.toList());
+    }
+
+    @Transactional
+    public List<UserDto> findStudents(Long classId) {
+        List<Take> takes = takeRepository.findTakeUsersByClassId(classId);
+        return takes.stream()
+                    .map(take -> take.getUser().toDto())
+                    .collect(Collectors.toList());
     }
 }
 

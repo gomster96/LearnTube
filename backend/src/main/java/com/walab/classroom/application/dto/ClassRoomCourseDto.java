@@ -2,6 +2,7 @@ package com.walab.classroom.application.dto;
 
 import java.time.LocalDateTime;
 
+import com.walab.classroom.domain.ClassRoom;
 import com.walab.classroom.presentation.response.ClassRoomCourseResponse;
 
 import lombok.AllArgsConstructor;
@@ -18,9 +19,19 @@ public class ClassRoomCourseDto {
     private String className;
     private String instructorName;
     private int numberOfTake;
+    private int totalPage;
     private LocalDateTime classRoomRegDate;
 
-    public ClassRoomCourseResponse classRoomCourseResponse(){
-        return new ClassRoomCourseResponse(classId, className, instructorName, numberOfTake, classRoomRegDate);
+    public ClassRoomCourseDto(ClassRoom classRoom, int totalPage) {
+        this.classId = classRoom.getId();
+        this.className = classRoom.getClassName();
+        this.instructorName = classRoom.getInstructor().getName();
+        this.numberOfTake = classRoom.getTakes().size();
+        this.totalPage = totalPage;
+        this.classRoomRegDate = classRoom.getCreatedAt();
+    }
+
+    public ClassRoomCourseResponse classRoomCourseResponse() {
+        return new ClassRoomCourseResponse(classId, className, instructorName, numberOfTake, totalPage, classRoomRegDate);
     }
 }

@@ -1,39 +1,24 @@
 import React, { useEffect, useState } from "react";
-import ModalVideo from "react-modal-video";
-import { Link } from "react-router-dom";
-
-// Image
-import videoImg from "../../../assets/img/about/about-video-bg2.png";
-
+import {
+  Accordion,
+  AccordionItem,
+  AccordionItemHeading,
+  AccordionItemPanel,
+  AccordionItemButton,
+} from "react-accessible-accordion";
 const CourseSidebar = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const openModal = () => setIsOpen(!isOpen);
   const [classRoomData, setClassRoomData] = useState();
   useEffect(() => {
-    console.log("sidebar : ", props.classRoomData);
+    // console.log("sidebar : ", props.classRoomData);
+    // console.log("side student: ", props.students);
   });
+
+  const [visible, setVisible] = useState(false);
+
   return (
     <div className="inner-column">
-      <ModalVideo
-        channel="youtube"
-        isOpen={isOpen}
-        videoId="YLN1Argi7ik"
-        onClose={() => {
-          openModal();
-        }}
-      />
-      <div className="intro-video media-icon orange-color2">
-        <img className="video-img" src={videoImg} alt="Video Image" />
-        <Link
-          className="popup-videos"
-          onClick={() => {
-            openModal();
-          }}
-        >
-          <i className="fa fa-play"></i>
-        </Link>
-        <h4>Preview this course</h4>
-      </div>
       <div className="course-features-info">
         <ul>
           <li className="lectures-feature">
@@ -53,17 +38,46 @@ const CourseSidebar = (props) => {
             <span className="value">10 week </span>
           </li> */}
 
-          <li className="students-feature">
+          <li
+            className="students-feature"
+            onClick={() => {
+              setVisible(!visible);
+            }}
+          >
             <i className="fa fa-users"></i>
-            <span className="label">Students</span>
+            <span className="label">
+              Students
+              <i
+                className="fa fa-angle-down"
+                Style="font-size:20px; padding-left:4px;"
+              ></i>
+            </span>
+
             <span className="value">{props.classRoomData.takeNum}</span>
           </li>
+          {visible ? (
+            <div className=" p-2 rounded bg-light">
+              <span className="d-flex flex-fill bd-highlight">
+                <li>#</li>&nbsp;&nbsp;&nbsp;
+                <li>Name</li>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <li>Email</li>
+              </span>
+              {props.students
+                ? props.students.map((students, i) => (
+                    <span className="d-flex flex-fill bd-highlight">
+                      <li>{i + 1}</li>&nbsp;&nbsp;&nbsp;&nbsp;
+                      <li>{props.students[i].name}</li>
+                      <li className="ms-auto bd-highlight">
+                        {props.students[i].email}
+                      </li>
+                    </span>
+                  ))
+                : null}
+            </div>
+          ) : null}
         </ul>
       </div>
-      {/* <div className="btn-part">
-                <a href="#" className="btn readon2 orange">$35</a>
-                <a href="#" className="btn readon2 orange-transparent">Buy Now</a>
-            </div> */}
     </div>
   );
 };
