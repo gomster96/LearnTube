@@ -31,6 +31,8 @@ const PlaylistWidget = () => {
     const [isSelected, setIsSelected] = useState(false);
     const [isClicked,setIsClicked] = useState(false);
     const [clickedVideo,setClickedVideo] = useState({});
+    const [startTime,setStartTime] = useState(null);
+    const [endTime,setEndTime] = useState(null);
     const opts = {
         height: '100',
         width: '150',
@@ -45,6 +47,8 @@ const PlaylistWidget = () => {
         playerVars: {
             // https://developers.google.com/youtube/player_parameters
             autoplay: 0,
+            start: startTime,
+            end: endTime,
         },
     };
 
@@ -72,7 +76,9 @@ const PlaylistWidget = () => {
         console.log(video);
         setClickedVideo(video);
         console.log(clickedVideo);
-        
+        setStartTime(video.start_s);
+        setEndTime(video.end_s);
+        console.log(opts2);
     }
 
     // useEffect(() => {
