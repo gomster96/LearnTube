@@ -34,16 +34,16 @@ const PlaylistWidget = () => {
     const [startTime,setStartTime] = useState(null);
     const [endTime,setEndTime] = useState(null);
     const opts = {
-        height: '100',
-        width: '150',
+        height: '150',
+        width: '100%',
         playerVars: {
             // https://developers.google.com/youtube/player_parameters
             autoplay: 0,
         },
     };
     const opts2 = {
-        height: '400',
-        width: '600',
+        height: '350px',
+        width: '85%',
         playerVars: {
             // https://developers.google.com/youtube/player_parameters
             autoplay: 0,
@@ -120,10 +120,10 @@ const PlaylistWidget = () => {
                             : <option key="playlistsData">Playlist가 존재하지 않습니다.</option>}
                     </Form.Select>
                 </div>
-                <div className=" col search-wrap searchbtn">
+                {/* <div className=" col search-wrap searchbtn">
                     <input type="search" placeholder="Searching..." name="s" className="search-input" val="" />
                     <button type="submit" value="Search"><i className="fa fa-search"></i></button>
-                </div>
+                </div> */}
                 <div className="row">
                     {isSelected ? (
                         <div className="col-lg-4 text-start border-left">
@@ -133,16 +133,16 @@ const PlaylistWidget = () => {
                                     {Array.isArray(selectedVideo)
                                         ? selectedVideo.map((data, i) => (
                                             <div className="row p-1" onClick={(e)=>popUp(data)}>
-                                                <div className="m-0 col-md-5 col-sm-12" >
+                                                <div className="m-0 col-md-6 col-sm-12" >
                                                     {/* <img className="img-fluid" style={{ minWidth: '150px' }}
                                                         src={selectedVideo[i].thumbnail}
                                                         alt="영상제목"
                                                     /> */}
                                                     <YouTube videoId={selectedVideo[i].youtubeId} opts={opts} />
                                                 </div>
-                                                <div className="col-md-7 col-sm-12">
+                                                <div className="col-md-6 col-sm-12">
                                                     <div className="d-flex h5 text-start">
-                                                        {selectedVideo[i].title ? selectedVideo[i].title : '영상제목'}
+                                                        {selectedVideo[i].newTitle ? selectedVideo[i].newTitle : selectedVideo[i].title}
                                                     </div>
                                                     <div className="d-flex fw-light ms-0 ps-0">
                                                         전체 재생 시간: {selectedVideo[i].duration ? selectedVideo[i].duration : '영상제목'}</div>
@@ -159,7 +159,7 @@ const PlaylistWidget = () => {
                     ) : <div className="d-none">
                     </div>}
                     {isClicked
-                        ? <div className=" col-lg-8 overflow-auto " style={{ position: "fixed", right: "0", bottom: "600px;", height: "500px" }}>
+                        ? <div className=" col-lg-8 overflow-auto " style={{ right: "0", bottom: "600px;", height: "500px" }}>
                             <YouTube videoId={clickedVideo.youtubeId} opts={opts2} />
                             <div className='row'>
                                 <div class="col-12 my-5 lh-base">
@@ -176,7 +176,7 @@ const PlaylistWidget = () => {
                                 </div>
                             </div>
                         </div>
-                        : <div>아직 클릭하지 않았습니다.</div>}
+                        :null}
                 </div>
             </div>
         </div>

@@ -23,35 +23,41 @@ import footerLogo from '../../assets/img/logo/lite-logo.png';
 const Playlist = () => {
 
     const initCreatePlaylist = {
-        title: "",
+        userId: 1,
+        playlistName: "",
         description: "",
-        tag: "",
     };
 
     const [isOpen, setIsOpen] = useState(false);
     const openModal = () => setIsOpen(!isOpen);
     const [createPlaylist, setCreatePlaylist] = useState(initCreatePlaylist);
-    const [createResponse, setCreateResponse] = useState();
+    const [newResponse, setNewResponse] = useState(-1);
+    const [isShow, setIsShow] = useState(false);
+    const [playlistName, setPlaylistName] = useState('Playlist 생성');
 
     const handleChange = (e) => {
         setCreatePlaylist({
             ...createPlaylist,
             [e.target.name]: e.target.value.trim(),
+            userId: 1,
         });
     };
 
     const handleSubmit = async () => {
         console.log(JSON.stringify(createPlaylist));
-        // const response = await axios
-        //     .post("http://localhost:3000/api/playlist", JSON.stringify(createPlaylist), {
-        //         method: "POST",
-        //         headers: {
-        //             // Accept: "application/json",
-        //             "Content-Type": "application/json",
-        //         },
-        //     })
-        //     .then((res) => console.log(res));
-        // setCreateResponse(response);
+        let temp;
+        const response = await axios
+            .post("http://localhost:3000/api/playlist/create", JSON.stringify(createPlaylist), {
+                method: "POST",
+                headers: {
+                    // Accept: "application/json",
+                    "Content-Type": "application/json",
+                },
+            }).then(function (res) {
+                console.log(res.data.playlistId); temp = res.data.playlistId; setNewResponse(temp); setIsShow(true);
+            });
+        console.log(createPlaylist.playlistName);
+        setPlaylistName(createPlaylist.playlistName);
     }
     return (
         <React.Fragment>
@@ -106,7 +112,7 @@ const Playlist = () => {
                                         top: '20%',
                                         left: '25%',
                                         right: '25%',
-                                        bottom: '100px',
+                                        bottom: '300px',
                                         background: '#fff',
                                         overflow: 'auto',
                                         WebkitOverflowScrolling: 'touch',
@@ -119,32 +125,37 @@ const Playlist = () => {
                                         <div className="container">
                                             <div className="py-3 px-5">
                                                 <div className="sec-title text-center mb-10">
-                                                    <h2 className="title mt-3 mb-10">Playlist 생성</h2>
+                                                    <h2 className="title mt-3 mb-10">{playlistName}</h2>
                                                 </div>
                                                 <div className="styled-form">
                                                     <div id="form-messages"></div>
                                                     <form id="contact-form" method="post" action="#">
-                                                        <div className="row clearfix">
-                                                            <div className="form-group col-lg-12 mb-25">
-                                                                <div className="my-2">Playlist 이름<span className="ms-1" style={{ color: 'red' }}>*</span></div>
-                                                                <input type="text" id="title" name="title" placeholder="제목을 입력하세요" onChange={handleChange} required />
+                                                        {isShow ? <div></div>
+                                                            : <div className="row clearfix">
+                                                                <div className="form-group col-lg-12 mb-25">
+                                                                    <div className="my-2">Playlist 이름<span className="ms-1" style={{ color: 'red' }}>*</span></div>
+                                                                    <input type="text" id="title" name="playlistName" placeholder="제목을 입력하세요" onChange={handleChange} required />
+                                                                </div>
+                                                                <div className="form-group col-lg-12">
+                                                                    <div className="my-2">Playlist 설명</div>
+                                                                    <textarea type="textarea" id="description" name="description" onChange={handleChange} placeholder="설명을 입력하세요" />
+                                                                </div>
                                                             </div>
-                                                            <div className="form-group col-lg-12">
-                                                                <div className="my-2">Playlist 설명</div>
-                                                                <input type="textarea" id="description" name="description" onChange={handleChange} placeholder="설명을 입력하세요" />
-                                                            </div>
-                                                            <div className="form-group col-lg-12">
-                                                                <div className="my-2">Playlist 태그</div>
-                                                                <input type="text" id="tag" name="tag" onChange={handleChange} placeholder="태그를 입력하세요. 쉼표로 구분됩니다." />
-                                                            </div>
-                                                        </div>
-                                                        <div className="row d-flex justify-content-end ms-3 me-1 mt-3">
-                                                            <button type="submit" className="canclebtn" onClick={() => { openModal(); }}><span className="txt">취소</span></button>
-                                                            <Link className="createbtn text-center pt-2" to={{
+                                                        }
+                                                        {isShow 
+                                                        ?<div className="row d-flex justify-content-center ms-3 me-1 mt-3">
+                                                            <button type="submit" className="canclebtn" onClick={() => { setIsShow(false); setPlaylistName('Playlist 생성'); }}><span className="txt">취소</span></button>
+                                                            <Link className="moveToSearch text-center pt-2 d-flex align-items-center justify-content-center" to={{
                                                                 pathname: "/learntube-studio/youtubeSearch",
-                                                                state: { title: createPlaylist.title }
-                                                            }} onClick={handleSubmit}>생성</Link>
+                                                                state: { playlistName: createPlaylist.playlistName, response: newResponse }
+                                                            }}><span>playlist에 영상 추가하기</span></Link>
                                                         </div>
+                                                        : <div className="row d-flex justify-content-end ms-3 me-1 mt-3">
+                                                            <button type="submit" className="canclebtn" onClick={() => { openModal(); setIsShow(false); setPlaylistName('Playlist 생성'); }}><span className="txt">취소</span></button>
+                                                            <div className="createbtn text-center pt-2 d-flex align-items-center justify-content-center" onClick={handleSubmit}><span>저장</span></div>
+                                                        </div>
+                                                        }
+
                                                     </form>
                                                 </div>
                                             </div>
