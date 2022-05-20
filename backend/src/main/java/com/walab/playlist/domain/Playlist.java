@@ -11,6 +11,7 @@ import com.walab.content.domain.Content;
 import com.walab.playlist.application.dto.MyPlaylistDto;
 import com.walab.playlist.application.dto.PlaylistCUDto;
 import com.walab.playlist.presentation.response.PlaylistCUResponse;
+import com.walab.playlist.application.dto.PlaylistNameDto;
 import com.walab.user.domain.User;
 import com.walab.video.domain.Video;
 
@@ -68,6 +69,9 @@ public class Playlist extends BaseEntity {
                 .build();
     }
 
+    public PlaylistNameDto playlistNameDto(){
+        return new PlaylistNameDto(this.id, this.playlistName);
+    }
 
 
 }

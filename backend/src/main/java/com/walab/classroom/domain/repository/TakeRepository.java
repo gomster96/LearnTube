@@ -33,4 +33,9 @@ public interface TakeRepository extends JpaRepository<Take, Long> {
     @Modifying(clearAutomatically = true)
     @Query("update Take t set t.deleted = 1 where t.classRoom.id = :classId")
     void deleteWaitTakeByClassId(@Param("classId") Long classId);
+
+    @Query("select t from Take t " +
+            "left join fetch t.user " +
+            "where t.classRoom.id = :classId")
+    List<Take> findTakeUsersByClassId(Long classId);
 }

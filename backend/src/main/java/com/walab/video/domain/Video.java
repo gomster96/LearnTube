@@ -4,12 +4,11 @@ import java.util.List;
 import javax.persistence.*;
 
 import com.walab.common.BaseEntity;
-import com.walab.content.application.dto.ContentCUDto;
 import com.walab.playlist.domain.Playlist;
 import com.walab.user.application.videocheck.VideoCheck;
-
 import com.walab.video.application.dto.VideoCUDto;
 import com.walab.video.application.dto.VideoDto;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.SQLDelete;

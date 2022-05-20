@@ -1,7 +1,5 @@
 package com.walab.classroom.domain.repository;
 
-import java.time.LocalDateTime;
-import java.util.List;
 import javax.persistence.EntityManager;
 
 import com.querydsl.core.QueryResults;
@@ -10,7 +8,6 @@ import com.querydsl.jpa.JPQLQuery;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.walab.classroom.domain.ClassRoom;
-import com.walab.classroom.domain.QClassRoom;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -31,16 +28,17 @@ public class ClassRoomRepositoryCustomImpl extends QuerydslRepositorySupport imp
     public Page<ClassRoom> searchClassRoomByCondition(int condition, String keyword, Pageable pageable) {
 
         JPAQuery<ClassRoom> query = queryFactory.select(classRoom)
-                .from(classRoom)
-                .leftJoin(classRoom.takes).fetchJoin()
-                .leftJoin(classRoom.instructor).fetchJoin()
-                .where(classRoom.isActive.eq(true))
-                .where(classRoom.className.containsIgnoreCase(keyword).or(classRoom.instructor.name.containsIgnoreCase(keyword)))
-                .orderBy(courseOrder(condition));
+                                                .distinct()
+                                                .from(classRoom)
+                                                .leftJoin(classRoom.takes).fetchJoin()
+                                                .leftJoin(classRoom.instructor).fetchJoin()
+                                                .where(classRoom.isActive.eq(true))
+                                                .where(classRoom.className.containsIgnoreCase(keyword)
+                                                                          .or(classRoom.instructor.name.containsIgnoreCase(keyword)))
+                                                .orderBy(courseOrder(condition));
 
         JPQLQuery<ClassRoom> pageableQuery = getQuerydsl().applyPagination(pageable, query);
         QueryResults<ClassRoom> fetchResults = pageableQuery.fetchResults();
-
         return new PageImpl<>(fetchResults.getResults(), pageable, fetchResults.getTotal());
     }
 
