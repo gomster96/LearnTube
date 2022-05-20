@@ -295,6 +295,13 @@ const CurriculumPart = (props) => {
                                           {Array.isArray(props.classRoomData.lectures)
                                               ? props.classRoomData.lectures[i].contents.map((contents, j) => (
                                                     <div className="content">
+                                                        <Link
+                                                        to={{
+                                                            pathname: "/course/course-single/content",
+                                                            state: { classId: props.classRoomData.classId },
+                                                        }}
+                                                        >
+                                                            </Link>
                                                         <div className="clearfix">
                                                             <ModalVideo
                                                                 channel="youtube"
