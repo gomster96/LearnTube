@@ -295,27 +295,13 @@ const CurriculumPart = (props) => {
                                           {Array.isArray(props.classRoomData.lectures)
                                               ? props.classRoomData.lectures[i].contents.map((contents, j) => (
                                                     <div className="content">
-                                                        <Link
-                                                        to={{
-                                                            pathname: "/course/course-single/content",
-                                                            state: { classId: props.classRoomData.classId },
-                                                        }}
-                                                        >
-                                                            </Link>
                                                         <div className="clearfix">
-                                                            <ModalVideo
-                                                                channel="youtube"
-                                                                isOpen={isOpen}
-                                                                videoId="YLN1Argi7ik"
-                                                                onClose={() => {
-                                                                    openModal();
-                                                                }}
-                                                            />
                                                             <div className="pull-left">
                                                                 <Link
                                                                     className="popup-videos play-icon"
-                                                                    onClick={() => {
-                                                                        openModal();
+                                                                    to={{
+                                                                        pathname: "/content",
+                                                                        state: { classRoomData: props.classRoomData, i: i, j: j },
                                                                     }}
                                                                 >
                                                                     <i className="fa fa-play"></i>

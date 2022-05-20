@@ -9,8 +9,7 @@ function CourseDetailsPart() {
     const [classRoomData, setClassRoomData] = useState();
     const cid = useLocation().state.classId;
     const [students, setStudents] = useState([{ userId: "", name: "", email: "" }]);
-    console.log("cid in detail part");
-    console.log(cid);
+    console.log("cid in detail part " + cid);
     useEffect(() => {
         console.log(" ");
         console.log(cid);
