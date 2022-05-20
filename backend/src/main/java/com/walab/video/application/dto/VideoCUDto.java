@@ -14,6 +14,7 @@ public class VideoCUDto {
     private String newTitle;
     private Float start_s;
     private Float end_s;
+    private Float duration;
 
     public VideoCUDto(VideoCreateRequest videoCreateRequest) {
         this.playlistId = videoCreateRequest.getPlaylistId();
@@ -22,5 +23,6 @@ public class VideoCUDto {
         this.newTitle = videoCreateRequest.getNewTitle();
         this.start_s = videoCreateRequest.getStart_s();
         this.end_s = videoCreateRequest.getEnd_s();
+        this.duration = videoCreateRequest.getDuration();
     }
 }
