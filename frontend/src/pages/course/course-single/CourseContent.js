@@ -1,25 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
-import { Helmet } from 'react-helmet';
-import Header from '../../../components/Layout/Header/Header';
-import Footer from '../../../components/Layout/Footer/Footer';
-import OffWrap from '../../../components/Layout/Header/OffWrap';
-import SearchModal from '../../../components/Layout/Header/SearchModal';
-import ContentWidget from '../../../components/Widget/ContentWidget';
-import favIcon from '../../../assets/img/fav-orange.png';
-import Logo from '../../../assets/img/logo/Learntube-logos_transparent.png';
-import footerLogo from '../../../assets/img/logo/lite-logo.png';
+import { Helmet } from "react-helmet";
+import Header from "../../../components/Layout/Header/Header";
+import Footer from "../../../components/Layout/Footer/Footer";
+import OffWrap from "../../../components/Layout/Header/OffWrap";
+import SearchModal from "../../../components/Layout/Header/SearchModal";
+import ContentWidget from "../../../components/Widget/ContentWidget";
+import favIcon from "../../../assets/img/fav-orange.png";
+import Logo from "../../../assets/img/logo/Learntube-logos_transparent.png";
+import footerLogo from "../../../assets/img/logo/lite-logo.png";
 
-const Content = (props) => {
-    
+const CourseContent = () => {
+    const location = useLocation();
     const [classRoomData, setClassRoomData] = useState();
     const initCreatePlaylist = {
         title: "",
         description: "",
         tag: "",
     };
-
 
     const [isOpen, setIsOpen] = useState(false);
     const openModal = () => setIsOpen(!isOpen);
@@ -35,25 +34,23 @@ const Content = (props) => {
 
     const handleSubmit = async () => {
         console.log(JSON.stringify(createPlaylist));
-    }
-    const {state} = useLocation();
+    };
+    const { state } = useLocation();
     const cid = state.classId;
     console.log(cid);
     useEffect(() => {
         console.log(cid);
         const fetchClassRoom = async () => {
-          try {
-            const response = await axios.get(
-              `http://localhost:8080/api/classroom?userId=1&classId={$cid}`
-            );
-            console.log(response.data);
-            setClassRoomData(response.data);
-          } catch (err) {
-            console.log("err >> ", err);
-          }
+            try {
+                const response = await axios.get(`http://localhost:8080/api/classroom?userId=1&classId={$cid}`);
+                console.log(response.data);
+                setClassRoomData(response.data);
+            } catch (err) {
+                console.log("err >> ", err);
+            }
         };
         fetchClassRoom();
-      }, []);
+    }, []);
 
     return (
         <React.Fragment>
@@ -62,8 +59,8 @@ const Content = (props) => {
             </Helmet>
             <OffWrap />
             <Header
-                parentMenu='learntube'
-                secondParentMenu='event'
+                parentMenu="learntube"
+                secondParentMenu="event"
                 headerNormalLogo={Logo}
                 headerStickyLogo={Logo}
                 CanvasLogo={Logo}
@@ -72,29 +69,24 @@ const Content = (props) => {
                 headerClass="full-width-header header-style1 home8-style4"
             />
 
-
             <div className="rs-event orange-style pb-100 md-pb-80">
                 <div className="container">
-
                     <div class="container text-center dashboard-tabs">
                         <div className="intro-info-tabs border-none row">
                             <div className="col-lg-12 col-md-12">
                                 <div className="widget-area">
-                                    <ContentWidget className={classRoomData.className} lectureNum={1} content={classRoomData.lectures[0].contents}/>
+                                    <ContentWidget className={location.state.classRoomData.className} content={location.state.classRoomData.lectures[location.state.i].contents[location.state.j]} />
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <Footer
-                footerClass="rs-footer home9-style main-home"
-                footerLogo={footerLogo}
-            />
+            <Footer footerClass="rs-footer home9-style main-home" footerLogo={footerLogo} />
 
             <SearchModal />
         </React.Fragment>
     );
-}
+};
 
-export default Content
+export default CourseContent;
