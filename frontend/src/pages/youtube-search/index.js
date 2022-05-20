@@ -52,6 +52,7 @@ const YoutubeSearch = () => {
     const [currentPlayTime, setCurrentPlayTime] = useState();
     const [startTime, setStartTime] = useState();
     const [endTime, setEndTime] = useState();
+    const [playlistId,setPlaylistId] = useState(0);
 
     const httpClient = axios.create({
         baseURL: 'https://www.googleapis.com/youtube/v3',
@@ -221,12 +222,14 @@ const YoutubeSearch = () => {
 
     // 처음 페이지를 로딩할 때 default로 query 값 설정
     useEffect(async function () {
-        let searchedResults = await youtube.search(location.state.title);
+        let searchedResults = await youtube.search(location.state.playlistName);
         setSearchedVideos(searchedResults);
         console.log(searchedVideos);
         console.log(location);
-        setPlaylistName(location.state.title);
-        console.log(location.state.title);
+        setPlaylistName(location.state.playlistName);
+        setPlaylistId(location.state.playlistId);
+        console.log(location.state.response);
+        console.log(location.state.playlistName);
     }, []);
 
     return (
@@ -251,14 +254,14 @@ const YoutubeSearch = () => {
             <div className="rs-event orange-style pb-100 md-pb-80">
                 <div className="px-5">
                     <div className="container">
-                        <h3 className="ps-2 mb-0"><i className="fa fa-play-circle-o pe-1 pt-3"></i>{location.state.title ? playlistName : '제목'}</h3>
+                        <h3 className="ps-2 mb-0"><i className="fa fa-play-circle-o pe-1 pt-3"></i>{location.state.playlistName ? playlistName : '제목'}</h3>
                         <div className="widget-area d-flex align-items-center">
                             < YoutubeVideoSearchWidget onSearch={search} />
                             <Link
                                 className="pt-2"
                                 to={{
                                     pathname: "/learntube-studio/myCart",
-                                    state: { cart: cart, title: playlistName }
+                                    state: { cart: cart, title: playlistName ,playlistId:location.state.response}
                                 }}
                             >
                                 <img src={cartPage} className='goToCart' alt='go to cart page' ></img>

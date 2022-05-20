@@ -20,7 +20,6 @@ import save from '../../assets/img/icon/save.png';
 
 const Cart = () => {
     const location = useLocation();
-    console.log(location);
     const videos = location.state.cart;
     //console.log(videos);
     const [videoList, setVideoList] = useState(location.state.cart);
@@ -29,10 +28,39 @@ const Cart = () => {
     const [createResponse, setCreateResponse] = useState();
     const [isDeleted, setIsDeleted] = useState(false);
 
+    const [youtubeId,setYoutubeId] = useState('');
+    const [title,setTitle] = useState('');
+    const [newTitle,setNewTitle] = useState('');
+    const [start_s,setStart_s] = useState(0.0);
+    const [end_s,setEnd_s] = useState(0.0);
+    const [seq,setSeq] = useState(0);
+    const [duration,setDuration] = useState(0.0);
+    const initVideolist = {
+        playlistId: 1,
+        youtubeId: "",
+        title: "",
+        newTitle: "",
+        start_s:"",
+        end_s: "",
+        seq: 0,
+    };
+
+    // const initVideolist2 = {
+    //     playlistId: 1,
+    //     youtubeId: "",
+    //     title: "",
+    //     newTitle: "",
+    //     start_s:"",
+    //     end_s: "",
+    //     seq: 0,
+    //     duration:0,
+    // };
+
     let tempArray = [];
     useEffect(function () {
         setVideoList(videos);
         //console.log(videoList);
+        console.log(location.state.playlistId);
         for (const prop in videoList) {
             //console.log(prop);
             //console.log(videoList[prop]);
@@ -62,23 +90,42 @@ const Cart = () => {
         console.log(cartList);
         //setIsDeleted(true);
         console.log(isDeleted);
-        //setCartList(videoList.filter(video => video.num !== num));
-        //console.log(cartList); 
     }
-
+  //     playlistId: 1,
+    //     youtubeId: "",
+    //     title: "",
+    //     newTitle: "",
+    //     start_s:"",
+    //     end_s: "",
+    //     seq: 0,
+    //     duration:0,
     const saveCart = async ()=>{
-        let toObject = JSON.parse(cartList);
+        console.log(cartList);
+        for(let temp in cartList){
+            let obj = JSON.parse(cartList[temp]);
+            console.log(obj);
+            let createRequest={
+                playlistId : location.state.playlistId,
+                youtubeId : obj.id,
+                title : obj.snippet.title,
+                newTitle : obj.snippet.newTitle,
+                start_s : 0,
+                end_s : 0,
+                seq : temp,
+                duration : obj.duration
+            };
+            const response = await axios
+                .post("http://localhost:3000/api/playlist_video/create", createRequest, {
+                    method: "POST",
+                    headers: {
+                        // Accept: "application/json",
+                        "Content-Type": "application/json",
+                    },
+                })
+                .then((res) => console.log(res));
+            
+        }
         window.alert("저장되었습니다!");
-        const response = await axios
-            .post("http://localhost:3000/api/playlist_video", toObject, {
-                method: "POST",
-                headers: {
-                    // Accept: "application/json",
-                    "Content-Type": "application/json",
-                },
-            })
-            .then((res) => console.log(res));
-        setCreateResponse(response);
     }
 
     return (
@@ -103,13 +150,14 @@ const Cart = () => {
                     <div className="container">
                         <div className='d-flex align-items-center'>
                             <h3 className="ps-4 mb-0"><i className="fa fa-play-circle-o pe-1 pt-3 mb-3"></i>{playlistName ? playlistName : 'playlist 이름'}</h3>
-                            <Link
+                            {/* <Link
                                     className="pt-2"
                                     to={{ pathname: "/learntube-studio" }}
                                     onClick={saveCart}
                                 >
                                 <img src={save} className='save' alt='save' ></img>
-                            </Link>
+                            </Link> */}
+                            <div className="pt-2" onClick={saveCart}><img src={save} className='save' alt='save' ></img></div>
                         </div>
                         <div className="row mt-5">
                             {cartList.map(function (video, i) {

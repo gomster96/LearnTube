@@ -50,3 +50,16 @@
 .dropdown{
     padding: 47px 10px;
 }
+
+.show{
+    visibility: visible;
+}
+
+.moveToSearch{
+    width: auto;
+    height: 40px;
+    background-color: $orangeColor; 
+    color: white;
+    border: none;
+    margin-left: 10px;
+}
