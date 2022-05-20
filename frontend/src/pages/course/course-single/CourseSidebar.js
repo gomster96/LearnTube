@@ -16,6 +16,7 @@ const CourseSidebar = (props) => {
   });
 
   const [visible, setVisible] = useState(false);
+  let userId = 1;
 
   return (
     <div className="inner-column">
@@ -47,34 +48,40 @@ const CourseSidebar = (props) => {
             <i className="fa fa-users"></i>
             <span className="label">
               Students
-              <i
-                className="fa fa-angle-down"
-                Style="font-size:20px; padding-left:4px;"
-              ></i>
+              {props.classRoomData.instructor.userId === userId ? (
+                <i
+                  className="fa fa-angle-down"
+                  Style="font-size:20px; padding-left:4px;"
+                ></i>
+              ) : null}
             </span>
 
             <span className="value">{props.classRoomData.takeNum}</span>
           </li>
-          {visible ? (
-            <div className=" p-2 rounded bg-light">
-              <span className="d-flex flex-fill bd-highlight">
-                <li>#</li>&nbsp;&nbsp;&nbsp;
-                <li>Name</li>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <li>Email</li>
-              </span>
-              {props.students
-                ? props.students.map((students, i) => (
-                    <span className="d-flex flex-fill bd-highlight">
-                      <li>{i + 1}</li>&nbsp;&nbsp;&nbsp;&nbsp;
-                      <li>{props.students[i].name}</li>
-                      <li className="ms-auto bd-highlight">
-                        {props.students[i].email}
-                      </li>
-                    </span>
-                  ))
-                : null}
-            </div>
+          {props.classRoomData.instructor.userId === userId ? (
+            <>
+              {visible ? (
+                <div className=" p-2 rounded bg-light">
+                  <span className="d-flex flex-fill bd-highlight">
+                    <li>#</li>&nbsp;&nbsp;&nbsp;
+                    <li>Name</li>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <li>Email</li>
+                  </span>
+                  {props.students
+                    ? props.students.map((students, i) => (
+                        <span className="d-flex flex-fill bd-highlight">
+                          <li>{i + 1}</li>&nbsp;&nbsp;&nbsp;&nbsp;
+                          <li>{props.students[i].name}</li>
+                          <li className="ms-auto bd-highlight">
+                            {props.students[i].email}
+                          </li>
+                        </span>
+                      ))
+                    : null}
+                </div>
+              ) : null}
+            </>
           ) : null}
         </ul>
       </div>
