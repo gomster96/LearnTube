@@ -8,19 +8,17 @@ import java.util.stream.Collectors;
 import javax.persistence.*;
 
 import com.walab.classroom.application.dto.ClassRoomCUDto;
-import com.walab.classroom.application.dto.ClassRoomCourseDto;
 import com.walab.classroom.application.dto.ClassRoomDto;
+import com.walab.classroom.domain.take.Take;
 import com.walab.common.BaseEntity;
 import com.walab.lecture.application.dto.LectureDto;
 import com.walab.lecture.domain.Lecture;
 import com.walab.notice.application.dto.NoticeDetailDto;
 import com.walab.notice.domain.Notice;
-import com.walab.classroom.domain.take.Take;
 import com.walab.user.domain.User;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
