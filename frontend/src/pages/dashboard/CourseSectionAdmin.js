@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import CourseDashBoard from "../../components/Courses/CourseDashBoard";
 
 // Course courseImg
@@ -17,18 +18,30 @@ import courseImg8 from "../../assets/img/courses/8.jpg";
 const CoursePartAdmin = (props) => {
     const [managesData, setManagesData] = useState(null);
     const history = useHistory();
+    const location = useLocation();
+    const [userId, SetUserId] = useState("");
+
     useEffect(() => {
-        const fetchManagesClassRoom = async () => {
-            try {
-                const response = await axios.get("http://localhost:8080/api/classroom/manages?userId=1");
-                console.log(response.data);
-                setManagesData(response.data);
-            } catch (err) {
-                console.log("err >> ", err);
+        const uid = 0;
+        if (location.state) {
+            const uid = location.state.userId;
+            // console.log("uid", uid);
+            SetUserId(uid);
+            console.log("userId", userId);
+            if (userId) {
+                const fetchManagesClassRoom = async () => {
+                    try {
+                        const response = await axios.get(`http://localhost:8080/api/classroom/manages?userId=${userId}`);
+                        console.log(response.data);
+                        setManagesData(response.data);
+                    } catch (err) {
+                        console.log("err >> ", err);
+                    }
+                };
+                fetchManagesClassRoom();
             }
-        };
-        fetchManagesClassRoom();
-    }, []);
+        }
+    }, [userId]);
 
     const listClassAdd = () => {
         document.getElementById("rs-popular-course").classList.add("list-view");
@@ -76,7 +89,7 @@ const CoursePartAdmin = (props) => {
                                       onClick={() => {
                                           history.replace({
                                               pathname: "../course/course-single",
-                                              state: { classId: managesData[i].classId },
+                                              state: { classId: managesData[i].classId, userId: userId },
                                           });
                                       }}
                                   >

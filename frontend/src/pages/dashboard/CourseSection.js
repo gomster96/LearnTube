@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-
+import { useHistory } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import CourseDashBoard from "../../components/Courses/CourseDashBoard";
 
 // Course courseImg
@@ -11,18 +12,31 @@ import courseImg3 from "../../assets/img/courses/3.jpg";
 
 const CoursePart = (props) => {
     const [takesData, setTakesData] = useState(null);
+
+    const location = useLocation();
+    const [userId, SetUserId] = useState("");
+
     useEffect(() => {
-        const fetchTakesClassRoom = async () => {
-            try {
-                const response = await axios.get("http://localhost:8080/api/classroom/takes?userId=1");
-                console.log(response.data);
-                setTakesData(response.data);
-            } catch (err) {
-                console.log("err >> ", err);
+        const uid = 0;
+        if (location.state) {
+            const uid = location.state.userId;
+            // console.log("uid", uid);
+            SetUserId(uid);
+            console.log("userId", userId);
+            if (userId) {
+                const fetchTakesClassRoom = async () => {
+                    try {
+                        const response = await axios.get(`http://localhost:8080/api/classroom/takes?userId=${userId}`);
+                        console.log(response.data);
+                        setTakesData(response.data);
+                    } catch (err) {
+                        console.log("err >> ", err);
+                    }
+                };
+                fetchTakesClassRoom();
             }
-        };
-        fetchTakesClassRoom();
-    }, []);
+        }
+    }, [userId]);
 
     const listClassAdd = () => {
         document.getElementById("rs-popular-course").classList.add("list-view");
@@ -70,6 +84,7 @@ const CoursePart = (props) => {
                             ? takesData.map((takeData, i) => (
                                   <div className="course-part clearfix m-0">
                                       <CourseDashBoard
+                                          userId={userId}
                                           courseClass="courses-item"
                                           courseImg={courseImg1}
                                           courseTitle={takesData[i].className}

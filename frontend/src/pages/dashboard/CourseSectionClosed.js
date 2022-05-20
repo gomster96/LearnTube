@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import CourseDashBoard from "../../components/Courses/CourseDashBoard";
 
 // Course courseImg
@@ -15,6 +16,8 @@ import courseImg7 from "../../assets/img/courses/7.jpg";
 import courseImg8 from "../../assets/img/courses/8.jpg";
 
 const CoursePartClosed = (props) => {
+    // const { classId, userId } = props;
+    // console.log(props.userId);
     // const initClosedData = [
     //   {
     //     classId: "",
@@ -29,18 +32,30 @@ const CoursePartClosed = (props) => {
 
     const [closedData, setClosedData] = useState(null);
     const history = useHistory();
+    const location = useLocation();
+    const [userId, SetUserId] = useState("");
+
     useEffect(() => {
-        const fetchClosedClassRoom = async () => {
-            try {
-                const response = await axios.get("http://localhost:8080/api/classroom/closed?userId=1");
-                console.log(response.data);
-                setClosedData(response.data);
-            } catch (err) {
-                console.log("err >> ", err);
+        const uid = 0;
+        if (location.state) {
+            const uid = location.state.userId;
+            // console.log("uid", uid);
+            SetUserId(uid);
+            console.log("userId", userId);
+            if (userId) {
+                const fetchClosedClassRoom = async () => {
+                    try {
+                        const response = await axios.get(`http://localhost:8080/api/classroom/closed?userId=${userId}`);
+                        console.log(response.data);
+                        setClosedData(response.data);
+                    } catch (err) {
+                        console.log("err >> ", err);
+                    }
+                };
+                fetchClosedClassRoom();
             }
-        };
-        fetchClosedClassRoom();
-    }, []);
+        }
+    }, [userId]);
 
     const listClassAdd = () => {
         document.getElementById("rs-popular-course").classList.add("list-view");
@@ -88,7 +103,7 @@ const CoursePartClosed = (props) => {
                                       onClick={() => {
                                           history.replace({
                                               pathname: "../course/course-single",
-                                              state: { classId: closedData[i].classId },
+                                              state: { classId: closedData[i].classId, userId: userId },
                                           });
                                       }}
                                   >

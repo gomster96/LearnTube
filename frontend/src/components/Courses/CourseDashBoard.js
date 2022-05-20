@@ -3,9 +3,10 @@ import { Link } from "react-router-dom";
 import { ProgressBar } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 const CourseDashBoard = (props) => {
-    const { courseClass, courseImg, courseTitle, progress, userCount, notice, creatorName, openDate, classId } = props;
+    const { courseClass, courseImg, courseTitle, progress, userCount, notice, creatorName, openDate, classId, userId } = props;
     const history = useHistory();
     // console.log("c id : ", classId);
+    console.log("uid : ", userId);
     return (
         <div className={courseClass ? courseClass : "courses-item"}>
             <div className="img-part">
@@ -17,7 +18,7 @@ const CourseDashBoard = (props) => {
                         <Link
                             to={{
                                 pathname: "/course/course-single",
-                                state: { classId: classId },
+                                state: { classId: classId, userId: userId },
                             }}
                         >
                             {courseTitle ? courseTitle : "강의제목"}

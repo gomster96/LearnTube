@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
 import Header from "../components/Layout/Header/Header";
@@ -19,6 +20,7 @@ import footerLogo from "../assets/img/logo/lite-logo.png";
 import bannerbg from "../assets/img/breadcrumbs/inner7.jpg";
 
 export default function Login() {
+    const history = useHistory();
     const [g_data, g_setData] = useState(null);
     const [userData, setUserData] = useState({ userId: "", name: "", email: "" });
 
@@ -55,9 +57,9 @@ scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/
                     },
                 })
                 .then((data) => {
-                    console.log(data);
+                    // console.log(data);
                     g_setData(data.data);
-                    console.log(g_data);
+                    // console.log(g_data);
                     // console.log(g_data.name);
                     // console.log(g_data.email);
                     let body = {
@@ -74,6 +76,7 @@ scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/
                             // console.log(res);
                             // console.log("post", res.data);
                             setUserData(res.data);
+
                             // console.log("userData", userData);
                         });
                 })
@@ -81,8 +84,19 @@ scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/
         }
     }, []);
     useEffect(() => {
-        console.log("userData", userData);
+        // console.log("userData", userData);
         // console.log(g_data);
+        if (userData.userId) {
+            console.log("userId", userData.userId);
+            // history.push({
+            //     pathname: "/",
+            //     state: { userId: userData.userId },
+            // });
+            history.push({
+                pathname: "/dashboard",
+                state: { userId: userData.userId },
+            });
+        }
     }, [userData]);
     return (
         <>
