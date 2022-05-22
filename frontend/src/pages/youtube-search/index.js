@@ -46,9 +46,9 @@ const YoutubeSearch = () => {
     const [isSelected, setIsSelected] = useState(false);
     const [cart, setCart] = useState({});
     const [isChanged, setIsChanged] = useState(false);
-    const [newTitle, setNewTitle] = useState('');
     const [newDescription, setNewDescription] = useState('');
     const [playlistName, setPlaylistName] = useState('');
+    const [newTitle, setNewTitle] = useState(playlistName);
     const [currentPlayTime, setCurrentPlayTime] = useState();
     const [currentFloatTime, setCurrentFloatTime] = useState();
     const [startTime, setStartTime] = useState();
@@ -56,6 +56,8 @@ const YoutubeSearch = () => {
     const [endTime, setEndTime] = useState();
     const [playlistId,setPlaylistId] = useState(0);
     const [endFloatTime, setEndFloatTime] = useState();
+    const [updatePlaylist, setUpdatePlaylist] = useState(false);
+    const [updatePlaylistTitle, setUpdatePlaylistTitle] = useState(playlistName);
 
     const httpClient = axios.create({
         baseURL: 'https://www.googleapis.com/youtube/v3',
@@ -182,6 +184,11 @@ const YoutubeSearch = () => {
         setNewDescription(e.target.value);
     };
 
+    const newTitleChange = (e) => {
+        setUpdatePlaylistTitle(e.target.value);
+    };
+
+
     const checkElapsedTime = (e) => {
         const duration = e.target.getDuration();
         const currentTime = e.target.getCurrentTime();
@@ -262,7 +269,16 @@ const YoutubeSearch = () => {
             <div className="rs-event orange-style pb-100 md-pb-80">
                 <div className="px-5">
                     <div className="container">
-                        <h3 className="ps-2 mb-0"><i className="fa fa-play-circle-o pe-1 pt-3"></i>{location.state.playlistName ? playlistName : '제목'}</h3>
+                        {updatePlaylist 
+                        ? <h3 className="ps-2 mb-0"><i className="fa fa-play-circle-o pe-1 pt-3"></i>
+                        <input type="text" id="updatedTitle" name="updatedTitle" placeholder={playlistName} className="border-0"
+                                value={updatePlaylistTitle} onChange={newTitleChange} />
+                        <i className="fa fa-check ps-3 pt-3 orange-color" onClick={()=>setUpdatePlaylist(!updatePlaylist)}></i>
+                        <i className="fa fa-rotate-left ps-3 pt-3 orange-color" onClick={()=>setUpdatePlaylist(!updatePlaylist)}></i>
+                        </h3> 
+                        : <h3 className="ps-2 mb-0"><i className="fa fa-play-circle-o pe-1 pt-3"></i>
+                        {location.state.playlistName ? playlistName : '제목'}
+                        <i className="fa fa-pencil ps-3 pt-3 orange-color" onClick={()=>setUpdatePlaylist(!updatePlaylist)}></i></h3>}
                         <div className="widget-area d-flex align-items-center">
                             < YoutubeVideoSearchWidget onSearch={search} />
                             <Link
