@@ -6,6 +6,7 @@ import com.walab.playlist.application.PlaylistService;
 import com.walab.playlist.application.dto.MyPlaylistDto;
 import com.walab.playlist.domain.repository.PlaylistRepository;
 import com.walab.playlist.application.dto.PlaylistNameDto;
+import com.walab.playlist.presentation.request.PlaylistUpdateRequest;
 import com.walab.playlist.presentation.response.PlaylistNameResponse;
 import com.walab.playlist.presentation.request.PlaylistCreateRequest;
 import com.walab.playlist.presentation.response.PlaylistCUResponse;
@@ -42,7 +43,14 @@ public class PlaylistController {
         MyPlaylistDto playlistDto = playlistService.create(request.getUserId(), request.playlistCUDto());
         PlaylistCUResponse response = playlistDto.playlistCUResponse();
         return ResponseEntity.ok(response);
-      }
+    }
+
+    @PostMapping("/update")
+    public ResponseEntity<PlaylistCUResponse> updatePlaylist(@RequestBody PlaylistUpdateRequest request) {
+        MyPlaylistDto updatedPlaylist = playlistService.update(request.getPlaylistId(), request.playlistCUDto());
+        PlaylistCUResponse response = updatedPlaylist.playlistCUResponse();
+        return ResponseEntity.ok(response);
+    }
 
 
     //    @PostMapping
