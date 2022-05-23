@@ -35,6 +35,10 @@ const Playlist = () => {
     const [isShow, setIsShow] = useState(false);
     const [playlistName, setPlaylistName] = useState('Playlist 생성');
 
+    const setModal = () =>{
+        openModal();
+    };
+
     const handleChange = (e) => {
         setCreatePlaylist({
             ...createPlaylist,
@@ -93,7 +97,7 @@ const Playlist = () => {
                             </div> */}
                             <div className="col-lg-12 col-md-12">
                                 <div className="widget-area">
-                                    <PlaylistWidget />
+                                    <PlaylistWidget setModal={setModal}/>
                                 </div>
                             </div>
 
@@ -167,11 +171,6 @@ const Playlist = () => {
                     </div>
                 </div>
             </div>
-            <div className='scrollup pe-3'>
-                <div onClick={() => { openModal(); }}>
-                    <i className="fa fa-plus"></i>
-                </div>
-            </div>
             <Footer
                 footerClass="rs-footer home9-style main-home"
                 footerLogo={footerLogo}
@@ -187,7 +186,11 @@ const Playlist = () => {
                 scrollClassName="scrollup orange-color"
             /> */}
             {/* scrolltop-end */}
-
+            <div className='scrollup'>
+                    <div onClick={() => { openModal(); }}>
+                        <i className="fa fa-plus"></i>
+                    </div>
+                </div>
             <SearchModal />
         </React.Fragment>
     );

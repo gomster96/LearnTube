@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useState, useCallback } from 'react';
 import { Helmet } from 'react-helmet';
 import { Link, useLocation } from 'react-router-dom';
+import { Button } from "react-bootstrap";
 import Header from '../../components/Layout/Header/Header';
 import Footer from '../../components/Layout/Footer/Footer';
 import OffWrap from '../../components/Layout/Header/OffWrap';
@@ -268,27 +269,28 @@ const YoutubeSearch = () => {
             {/* <div className="rs-event orange-style pt-50 pb-100 md-pt-80 md-pb-80"> */}
             <div className="rs-event orange-style pb-100 md-pb-80">
                 <div className="px-5">
-                    <div className="container">
+                    <div className="container d-flex align-items-center">
                         {updatePlaylist 
-                        ? <h3 className="ps-2 mb-0"><i className="fa fa-play-circle-o pe-1 pt-3"></i>
+                        ? <h3 className="ps-2 mb-0 col-4"><i className="fa fa-play-circle-o pe-1 pt-3"></i>
                         <input type="text" id="updatedTitle" name="updatedTitle" placeholder={playlistName} className="border-0"
                                 value={updatePlaylistTitle} onChange={newTitleChange} />
                         <i className="fa fa-check ps-3 pt-3 orange-color" onClick={()=>setUpdatePlaylist(!updatePlaylist)}></i>
                         <i className="fa fa-rotate-left ps-3 pt-3 orange-color" onClick={()=>setUpdatePlaylist(!updatePlaylist)}></i>
                         </h3> 
-                        : <h3 className="ps-2 mb-0"><i className="fa fa-play-circle-o pe-1 pt-3"></i>
-                        {location.state.playlistName ? playlistName : '제목'}
+                        : <h3 className="ps-2 mb-0 col-4"><i className="fa fa-play-circle-o pe-1 pt-3"></i>
+                        {location.state.playlistName != undefined || location.state.playlistName ? playlistName : '제목'}
                         <i className="fa fa-pencil ps-3 pt-3 orange-color" onClick={()=>setUpdatePlaylist(!updatePlaylist)}></i></h3>}
-                        <div className="widget-area d-flex align-items-center">
+                        <div className="col-8 widget-area d-flex align-items-center justify-content-end">
                             < YoutubeVideoSearchWidget onSearch={search} />
                             <Link
-                                className="pt-2"
+                                className=" pt-2"
                                 to={{
                                     pathname: "/learntube-studio/myCart",
                                     state: { cart: cart, title: playlistName ,playlistId:location.state.response}
                                 }}
                             >
-                                <img src={cartPage} className='goToCart' alt='go to cart page' ></img>
+                                {/* <img src={cartPage} className='goToCart' alt='go to cart page' ></img> */}
+                                <Button className='cartPage'>담은 비디오 확인하기</Button>
                             </Link>
                         </div>
                     </div>

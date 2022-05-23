@@ -16,9 +16,7 @@ const YoutubeBoard = memo(({ video, video: { snippet, contentDetails }, onVideoC
        console.log(cart);
     }, [ video]);
 
-    const [isOpen, setIsOpen] = useState(false);
     //const [isSelected, setIsSelected] = useState(false);
-    const openModal = () => setIsOpen(!isOpen);
     const [isAdded, setIsAdded] = useState(false);
 
     const [searchedVideos, setSearchedVideos] = useState([]);

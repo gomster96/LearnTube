@@ -33,12 +33,15 @@
     }
 }
 
-.goToCart{
-    height: 50px;
-    width: auto;
-    border: 2px solid black;
-    border-radius: 5px;
-    padding: 5px;
+// .goToCart{
+//     height: 50px;
+//     width: auto;
+//     border: 2px solid black;
+//     border-radius: 5px;
+//     padding: 5px;
+// }
+.cartPage{
+    background-color: #6483d8 !important;
 }
 
 .save{
@@ -62,4 +65,37 @@
     color: white;
     border: none;
     margin-left: 10px;
+}
+
+.playlistWidgetTitle{
+    margin: 0px;
+    padding: 45px 0px 45px 45px !important;
+    min-width: 191px;
+}
+
+.plus{
+    min-width: 40px;
+    text-align: center;
+    cursor: pointer;
+    // right: 20px;
+    z-index: 999;
+    border-radius: 50px 50px 4px 4px;
+}
+
+.plus i {
+    display: block;
+    background: #21a7d0;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0px 0px 2px rgb(0 0 0 / 40%);
+}
+
+.plus i {
+    background-color: #6483d8 !important;
 }

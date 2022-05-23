@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState,useCallback } from 'react';
 import axios from "axios";
 import { Button, Form } from "react-bootstrap";
 import { Link } from 'react-router-dom';
@@ -13,7 +13,7 @@ import courseImg2 from '../../assets/img/courses/2.jpg';
 import courseImg3 from '../../assets/img/courses/3.jpg';
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
-const PlaylistWidget = () => {
+const PlaylistWidget = (setModal) => {
     const initPlaylistData = [
         {
             playlistId: "",
@@ -81,11 +81,10 @@ const PlaylistWidget = () => {
         console.log(opts2);
     }
 
-    // useEffect(() => {
-    //     console.log(isClicked);
-    //     setIsClicked(false);
-    //     console.log(isClicked);
-    // },[isClicked]);
+    const modalClick = useCallback(() =>{
+        console.log("open modal clicked!");
+        setModal();
+    },[]);
 
     useEffect(() => {
         const fetchMyPlaylists = async () => {
@@ -101,9 +100,14 @@ const PlaylistWidget = () => {
     }, []);
     return (
         <div className="mb-50">
-            <div class="row">
-                <h3 className="col text-start p-5">나의 Playlist</h3>
-                <div class="col dropdown show">
+            <div class="row align-items-center">
+                <h3 className="col-2 text-start p-5 playlistWidgetTitle">나의 Playlist</h3>
+                {/* <div className='col-1 plus'>
+                    <div onClick={modalClick}>
+                        <i className="fa fa-plus"></i>
+                    </div>
+                </div> */}
+                <div class="col-5 dropdown show">
                     <Form.Select aria-label="SelectBox" onChange={(e) => { console.log(e.target.value); handleChange(e.target.value); }}>
                         <option>----playlist를 선택해주세요----</option>
                         {playlistData
