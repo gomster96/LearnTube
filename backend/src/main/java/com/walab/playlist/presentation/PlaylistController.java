@@ -4,9 +4,12 @@ import java.util.stream.Collectors;
 
 import com.walab.playlist.application.PlaylistService;
 import com.walab.playlist.application.dto.MyPlaylistDto;
+import com.walab.playlist.application.dto.PlaylistDeleteDto;
 import com.walab.playlist.domain.repository.PlaylistRepository;
 import com.walab.playlist.application.dto.PlaylistNameDto;
+import com.walab.playlist.presentation.request.PlaylistDeleteRequest;
 import com.walab.playlist.presentation.request.PlaylistUpdateRequest;
+import com.walab.playlist.presentation.response.PlaylistDeleteResponse;
 import com.walab.playlist.presentation.response.PlaylistNameResponse;
 import com.walab.playlist.presentation.request.PlaylistCreateRequest;
 import com.walab.playlist.presentation.response.PlaylistCUResponse;
@@ -66,6 +69,13 @@ public class PlaylistController {
                 .stream()
                 .map(PlaylistNameDto::playlistNameResponse)
                 .collect(Collectors.toList());
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/delete")
+    public ResponseEntity<PlaylistDeleteResponse> deletePlaylist(@RequestBody PlaylistDeleteRequest request) {
+        PlaylistDeleteDto deletedPlaylistDto = playlistService.delete(request.toDto());
+        PlaylistDeleteResponse response = deletedPlaylistDto.playlistDeleteResponse();
         return ResponseEntity.ok(response);
     }
 }
