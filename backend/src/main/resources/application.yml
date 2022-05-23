@@ -1,21 +1,26 @@
 spring:
   datasource:
-        url: jdbc:h2:tcp://localhost/~/learntube
-        username: sa
-        password: 1234
-        driver-class-name: org.h2.Driver
+
+  #spring:
+  #  datasource:
+  #        url: jdbc:h2:tcp://localhost/~/learntube
+  #        username: sa
+  #        password: 1234
+  #        driver-class-name: org.h2.Driver
+  #        url: jdbc:mysql://learntube.cafe24.com:3306/learntube?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul
+  #        username: learntube
+  #        password: dhkfkq@@
+  #        driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
     properties:
       hibernate:
         format_sql: true
+        default_batch_fetch_size: 100
   h2:
     console:
       enabled: false
-  properties:
-    hibernate:
-      default_batch_fetch_size: 100
 logging:
   level:
     org.hibernate.SQL: debug

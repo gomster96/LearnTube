@@ -20,21 +20,6 @@ const CourseContent = () => {
         tag: "",
     };
 
-    const [isOpen, setIsOpen] = useState(false);
-    const openModal = () => setIsOpen(!isOpen);
-    const [createPlaylist, setCreatePlaylist] = useState(initCreatePlaylist);
-    const [createResponse, setCreateResponse] = useState();
-
-    const handleChange = (e) => {
-        setCreatePlaylist({
-            ...createPlaylist,
-            [e.target.name]: e.target.value.trim(),
-        });
-    };
-
-    const handleSubmit = async () => {
-        console.log(JSON.stringify(createPlaylist));
-    };
     const { state } = useLocation();
     const cid = state.classId;
     console.log(cid);
@@ -59,7 +44,7 @@ const CourseContent = () => {
             </Helmet>
             <OffWrap />
             <Header
-                parentMenu="learntube"
+                parentMenu="dashboard"
                 secondParentMenu="event"
                 headerNormalLogo={Logo}
                 headerStickyLogo={Logo}
@@ -75,7 +60,7 @@ const CourseContent = () => {
                         <div className="intro-info-tabs border-none row">
                             <div className="col-lg-12 col-md-12">
                                 <div className="widget-area">
-                                    <ContentWidget className={location.state.classRoomData.className} content={location.state.classRoomData.lectures[location.state.i].contents[location.state.j]} />
+                                    <ContentWidget className={location.state.classRoomData.className} lecture={location.state.classRoomData.lectures[location.state.i]} content={location.state.classRoomData.lectures[location.state.i].contents[location.state.j]} />
                                 </div>
                             </div>
                         </div>

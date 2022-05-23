@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useState, useCallback } from 'react';
 import { Helmet } from 'react-helmet';
 import { Link, useLocation } from 'react-router-dom';
+import { Button } from "react-bootstrap";
 import Header from '../../components/Layout/Header/Header';
 import Footer from '../../components/Layout/Footer/Footer';
 import OffWrap from '../../components/Layout/Header/OffWrap';
@@ -46,12 +47,18 @@ const YoutubeSearch = () => {
     const [isSelected, setIsSelected] = useState(false);
     const [cart, setCart] = useState({});
     const [isChanged, setIsChanged] = useState(false);
-    const [newTitle, setNewTitle] = useState('');
     const [newDescription, setNewDescription] = useState('');
     const [playlistName, setPlaylistName] = useState('');
+    const [newTitle, setNewTitle] = useState(playlistName);
     const [currentPlayTime, setCurrentPlayTime] = useState();
+    const [currentFloatTime, setCurrentFloatTime] = useState();
     const [startTime, setStartTime] = useState();
+    const [startFloatTime, setStartFloatTime] = useState();
     const [endTime, setEndTime] = useState();
+    const [playlistId,setPlaylistId] = useState(0);
+    const [endFloatTime, setEndFloatTime] = useState();
+    const [updatePlaylist, setUpdatePlaylist] = useState(false);
+    const [updatePlaylistTitle, setUpdatePlaylistTitle] = useState(playlistName);
 
     const httpClient = axios.create({
         baseURL: 'https://www.googleapis.com/youtube/v3',
@@ -122,6 +129,9 @@ const YoutubeSearch = () => {
         //newTitle&newDescription 삽입
         video.snippet.newTitle = newTitle;
         video.snippet.newDescription = newDescription;
+        video.start_s = parseInt(startFloatTime);
+        video.end_s = parseInt(endFloatTime);
+        video.duration = parseInt(endFloatTime - startFloatTime);
         console.log(video.snippet.newTitle + "\n" + newDescription);
         cart[newId] = video;
         console.log(cart);
@@ -175,9 +185,15 @@ const YoutubeSearch = () => {
         setNewDescription(e.target.value);
     };
 
+    const newTitleChange = (e) => {
+        setUpdatePlaylistTitle(e.target.value);
+    };
+
+
     const checkElapsedTime = (e) => {
         const duration = e.target.getDuration();
         const currentTime = e.target.getCurrentTime();
+        setCurrentFloatTime(e.target.getCurrentTime());
         console.log(currentTime);
         var toHHMMSS = (secs) => {
             var sec_num = parseInt(secs, 10)
@@ -200,6 +216,7 @@ const YoutubeSearch = () => {
     };
     const onClickStartTime = (currentPlayTime) => {
         setStartTime(currentPlayTime);
+        setStartFloatTime(currentFloatTime);
         if (endTime && startTime > endTime) {
             alert("시작 시간을 종료 시간 이전으로 설정해주세요!");
             setStartTime(0);
@@ -209,7 +226,7 @@ const YoutubeSearch = () => {
 
     const onClickEndTime = (currentPlayTime) => {
         setEndTime(currentPlayTime);
-
+        setEndFloatTime(currentFloatTime);
         if (endTime < startTime) {
             alert("종료 시간을 시작 시간 이전으로 설정해주세요!");
             setEndTime(startTime)
@@ -221,12 +238,14 @@ const YoutubeSearch = () => {
 
     // 처음 페이지를 로딩할 때 default로 query 값 설정
     useEffect(async function () {
-        let searchedResults = await youtube.search(location.state.title);
+        let searchedResults = await youtube.search(location.state.playlistName);
         setSearchedVideos(searchedResults);
         console.log(searchedVideos);
         console.log(location);
-        setPlaylistName(location.state.title);
-        console.log(location.state.title);
+        setPlaylistName(location.state.playlistName);
+        setPlaylistId(location.state.playlistId);
+        console.log(location.state.response);
+        console.log(location.state.playlistName);
     }, []);
 
     return (
@@ -250,18 +269,28 @@ const YoutubeSearch = () => {
             {/* <div className="rs-event orange-style pt-50 pb-100 md-pt-80 md-pb-80"> */}
             <div className="rs-event orange-style pb-100 md-pb-80">
                 <div className="px-5">
-                    <div className="container">
-                        <h3 className="ps-2 mb-0"><i className="fa fa-play-circle-o pe-1 pt-3"></i>{location.state.title ? playlistName : '제목'}</h3>
-                        <div className="widget-area d-flex align-items-center">
+                    <div className="container d-flex align-items-center">
+                        {updatePlaylist 
+                        ? <h3 className="ps-2 mb-0 col-4"><i className="fa fa-play-circle-o pe-1 pt-3"></i>
+                        <input type="text" id="updatedTitle" name="updatedTitle" placeholder={playlistName} className="border-0"
+                                value={updatePlaylistTitle} onChange={newTitleChange} />
+                        <i className="fa fa-check ps-3 pt-3 orange-color" onClick={()=>setUpdatePlaylist(!updatePlaylist)}></i>
+                        <i className="fa fa-rotate-left ps-3 pt-3 orange-color" onClick={()=>setUpdatePlaylist(!updatePlaylist)}></i>
+                        </h3> 
+                        : <h3 className="ps-2 mb-0 col-4"><i className="fa fa-play-circle-o pe-1 pt-3"></i>
+                        {location.state.playlistName != undefined || location.state.playlistName ? playlistName : '제목'}
+                        <i className="fa fa-pencil ps-3 pt-3 orange-color" onClick={()=>setUpdatePlaylist(!updatePlaylist)}></i></h3>}
+                        <div className="col-8 widget-area d-flex align-items-center justify-content-end">
                             < YoutubeVideoSearchWidget onSearch={search} />
                             <Link
-                                className="pt-2"
+                                className=" pt-2"
                                 to={{
                                     pathname: "/learntube-studio/myCart",
-                                    state: { cart: cart, title: playlistName }
+                                    state: { cart: cart, title: playlistName ,playlistId:location.state.response}
                                 }}
                             >
-                                <img src={cartPage} className='goToCart' alt='go to cart page' ></img>
+                                {/* <img src={cartPage} className='goToCart' alt='go to cart page' ></img> */}
+                                <Button className='cartPage'>담은 비디오 확인하기</Button>
                             </Link>
                         </div>
                     </div>

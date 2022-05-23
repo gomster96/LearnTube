@@ -68,6 +68,7 @@ public class Video extends BaseEntity {
         this.newTitle = videoCUDto.getNewTitle();
         this.start_s = videoCUDto.getStart_s();
         this.end_s = videoCUDto.getEnd_s();
+        this.duration = videoCUDto.getDuration();
     }
     public VideoDto toDto() {
         return new VideoDto(this.id,this.playlist.getId(), this.youtubeId, this.title,this.newTitle, this.start_s, this.end_s, this.tag, this.seq, this.maxLength, this.duration);

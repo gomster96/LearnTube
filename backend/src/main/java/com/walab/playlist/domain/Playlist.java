@@ -7,6 +7,7 @@ import javax.persistence.*;
 
 import com.walab.classroom.application.dto.ClassRoomCUDto;
 import com.walab.common.BaseEntity;
+import com.walab.content.application.dto.ContentCUDto;
 import com.walab.content.domain.Content;
 import com.walab.playlist.application.dto.MyPlaylistDto;
 import com.walab.playlist.application.dto.PlaylistCUDto;
@@ -67,6 +68,11 @@ public class Playlist extends BaseEntity {
                 .description(this.description)
                 .userName(this.user.getName())
                 .build();
+    }
+
+    public void update(PlaylistCUDto playlistCUDto) {
+        this.playlistName = playlistCUDto.getPlaylistName();
+        this.description = playlistCUDto.getDescription();
     }
 
     public PlaylistNameDto playlistNameDto(){
