@@ -1,9 +1,6 @@
 spring:
   datasource:
-    url: jdbc:Mysql://walab.handong.edu:3306/learntube
-    username: learntube
-    password: learntube1212
-    driver-class-name: com.mysql.cj.jdbc.Driver
+
   #spring:
   #  datasource:
   #        url: jdbc:h2:tcp://localhost/~/learntube
