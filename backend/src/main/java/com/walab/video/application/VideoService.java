@@ -2,9 +2,11 @@ package com.walab.video.application;
 
 import com.walab.content.application.dto.ContentDto;
 import com.walab.content.domain.Content;
+import com.walab.exception.video.VideoNotFoundException;
 import com.walab.playlist.domain.Playlist;
 import com.walab.playlist.domain.repository.PlaylistRepository;
 import com.walab.video.application.dto.VideoCUDto;
+import com.walab.video.application.dto.VideoDeleteDto;
 import com.walab.video.application.dto.VideoDto;
 import com.walab.video.domain.Video;
 import com.walab.video.domain.repository.VideoRepository;
@@ -31,6 +33,21 @@ public class VideoService {
 
         return savedVideo.toDto();
     }
+
+    @Transactional
+    public VideoDeleteDto delete(VideoDeleteDto videoDeleteDto) {
+        Long deleteId = videoDeleteDto.getVideoId();
+        videoRepository.deleteById(deleteId);
+        return videoDeleteDto;
+    }
+
+    @Transactional
+    public VideoDto update(Long videoId, VideoCUDto videoCUDto) {
+        Video video = videoRepository.findById(videoId).orElseThrow(VideoNotFoundException::new);
+        video.update(videoCUDto);
+        return video.toDto();
+    }
+
 
 
 }

@@ -6,8 +6,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class VideoCreateRequest {
-    private Long playlistId;
+public class VideoUpdateRequest {
+    private Long videoId;
     private String youtubeId;
     private String title;
     private String newTitle;
