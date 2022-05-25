@@ -306,7 +306,7 @@ const RSMobileMenu = ({ setMenuOpen, menuOpen, parentMenu, secondParentMenu, hea
 									<Link to="/course-6" className={location.pathname === "/course-6" ? "active-menu" : ""}>Courses Six</Link>
 								</li>
 								<li>
-									<Link to="/course/course-single" className={location.pathname === "/course/course-single" ? "active-menu" : ""}>Courses Single</Link>
+									<Link to="/learntube/course/course-single" className={location.pathname === "/learntube/course/course-single" ? "active-menu" : ""}>Courses Single</Link>
 								</li>
 							</ul>
 						</li>

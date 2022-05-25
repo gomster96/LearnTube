@@ -29,7 +29,7 @@ public class PlaylistService {
     //private final VideoRepository videoRepository;
 
     public List<MyPlaylistDto> getPlaylist(Long userId) {
-        User user = userRepository.findById(userId).orElseThrow();
+        User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
         List<Playlist> playlists = user.getPlaylists();
         //        for (Playlist playlist: playlists) {
         //            List<Video> videos = videoRepository.findById(playlist.getId());

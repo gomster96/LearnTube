@@ -20,7 +20,7 @@ const CourseSingleTwoCopy = (props) => {
                 <h4 className="title title-mk" data-for={courseTitle} data-tip>
                     <Link
                         to={{
-                            pathname: "/course/course-single",
+                            pathname: "/learntube/course/course-single",
                             state: { classId: courseId },
                         }}
                     >

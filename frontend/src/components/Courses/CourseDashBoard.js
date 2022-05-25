@@ -16,7 +16,7 @@ const CourseDashBoard = (props) => {
                     <h3 className="title" onClick={() => {}}>
                         <Link
                             to={{
-                                pathname: "/course/course-single",
+                                pathname: "/learntube/course/course-single",
                                 state: { classId: classId },
                             }}
                         >
