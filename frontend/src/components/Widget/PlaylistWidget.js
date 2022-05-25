@@ -89,7 +89,7 @@ const PlaylistWidget = (setModal) => {
     useEffect(() => {
         const fetchMyPlaylists = async () => {
             try {
-                const response = await axios.get("http://localhost:3000/api/playlist?userId=1");
+                const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/playlist?userId=1`);
                 console.log(response.data);
                 setPlaylistData(response.data);
             } catch (err) {

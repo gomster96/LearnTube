@@ -87,7 +87,7 @@ const CoursePartClosed = (props) => {
                                       className="course-part clearfix m-0"
                                       onClick={() => {
                                           history.replace({
-                                              pathname: "../learntube/course/course-single",
+                                              pathname: "../course/course-single",
                                               state: { classId: closedData[i].classId },
                                           });
                                       }}

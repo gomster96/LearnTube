@@ -68,7 +68,7 @@ const ContentWidget = (props) => {
             // setContentId(props.content.contentId);
             console.log(contentId);
             try {
-                const response = await axios.get(`http://localhost:8080/api/content?contentId=${contentId}`);
+                const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/content?contentId=${contentId}`);
                 console.log(response.data);
                 setContentData(response.data);
             } catch (err) {

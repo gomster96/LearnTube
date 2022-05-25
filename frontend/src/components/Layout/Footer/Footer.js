@@ -115,7 +115,7 @@ const Footer = (props) => {
                                 </div>
                                 <div className="post-item">
                                     <div className="post-desc">
-                                        <Link to="../learntube/course/course-single">나의 첫 안드로이드 앱</Link>
+                                        <Link to="../course/course-single">나의 첫 안드로이드 앱</Link>
                                     </div>
                                     <span className="post-date">
                                         <i className="fa fa-calendar-check-o"></i>
