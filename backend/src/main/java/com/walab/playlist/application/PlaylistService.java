@@ -5,6 +5,7 @@ import com.walab.exception.playlist.PlaylistNotFoundException;
 import com.walab.exception.user.UserNotFoundException;
 import com.walab.playlist.application.dto.MyPlaylistDto;
 import com.walab.playlist.application.dto.PlaylistCUDto;
+import com.walab.playlist.application.dto.PlaylistDeleteDto;
 import com.walab.playlist.application.dto.PlaylistNameDto;
 import com.walab.playlist.domain.Playlist;
 import com.walab.playlist.domain.repository.PlaylistRepository;
@@ -53,5 +54,12 @@ public class PlaylistService {
         List<Playlist> playlists = playlistRepository.getPlaylistNameByUserId(userId);
         return playlists.stream().map(Playlist::playlistNameDto).collect(Collectors.toList());
     }
+
+    public PlaylistDeleteDto delete(PlaylistDeleteDto playlistDeleteDto) {
+        Long deleteId = playlistDeleteDto.getPlaylistId();
+        playlistRepository.deleteById(deleteId);
+        return playlistDeleteDto;
+    }
+
 
 }
