@@ -29,20 +29,20 @@ const App = () => {
             <Router>
                 <LoadTop />
                 <Switch>
-                    <Route path="/learntube-studio/youtubeSearch" component={YoutubeSearch} />
-                    <Route path="/learntube-studio/myCart" component={MyCart} />
-                    <Route path="/learntube-studio" exact component={Playlist} />
-                    <Route path="/learntube-studio/myPlaylist" exact component={MyPlaylist} />
-                    <Route path="/learntube-studio/myPlaylist/create" exact component={CreateMyPlaylist} />
-                    <Route path="/dashboard" component={DashBoard} />
-                    <Route path="/" exact component={Main} />
-                    <Route path="/home" component={Home} />
-                    <Route path="/login" component={Login} />
-                    <Route path="/course" exact component={CourseOne} />
-                    <Route path="/course/course-single" component={CourseSingle} />
-                    <Route path="/content" component={CourseContent} />
-                    <Route path="/course-categories" component={CourseCategoryPage} />
-                    <Route path="/event" component={Event} />
+                    <Route path="/learntube/learntube-studio/youtubeSearch" component={YoutubeSearch} />
+                    <Route path="/learntube/learntube-studio/myCart" component={MyCart} />
+                    <Route path="/learntube/learntube-studio" exact component={Playlist} />
+                    <Route path="/learntube/learntube-studio/myPlaylist" exact component={MyPlaylist} />
+                    <Route path="/learntube/learntube-studio/myPlaylist/create" exact component={CreateMyPlaylist} />
+                    <Route path="/learntube/dashboard" component={DashBoard} />
+                    <Route path="/learntube" exact component={Main} />
+                    <Route path="/learntube/home" component={Home} />
+                    <Route path="/learntube/login" component={Login} />
+                    <Route path="/learntube/course" exact component={CourseOne} />
+                    <Route path="/learntube/course/course-single" component={CourseSingle} />
+                    <Route path="/learntube/content" component={CourseContent} />
+                    <Route path="/learntube/course-categories" component={CourseCategoryPage} />
+                    <Route path="/learntube/event" component={Event} />
                     <Route component={Error} />
                 </Switch>
             </Router>

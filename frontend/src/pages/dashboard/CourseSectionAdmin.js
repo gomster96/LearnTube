@@ -20,7 +20,7 @@ const CoursePartAdmin = (props) => {
     useEffect(() => {
         const fetchManagesClassRoom = async () => {
             try {
-                const response = await axios.get("http://localhost:8080/api/classroom/manages?userId=1");
+                const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/classroom/manages?userId=1`);
                 console.log(response.data);
                 setManagesData(response.data);
             } catch (err) {
@@ -75,7 +75,7 @@ const CoursePartAdmin = (props) => {
                                       className="course-part clearfix m-0"
                                       onClick={() => {
                                           history.replace({
-                                              pathname: "../course/course-single",
+                                              pathname: "../learntube/course/course-single",
                                               state: { classId: managesData[i].classId },
                                           });
                                       }}

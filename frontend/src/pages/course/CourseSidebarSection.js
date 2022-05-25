@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 
 const CourseSidebar = () => {
     return (
@@ -9,7 +9,9 @@ const CourseSidebar = () => {
                     <h3 className="widget-title">Course Search</h3>
                     <div className="search-wrap">
                         <input type="search" placeholder="Searching..." name="s" className="search-input" value="" />
-                        <button type="submit" value="Search"><i className=" flaticon-search"></i></button>
+                        <button type="submit" value="Search">
+                            <i className=" flaticon-search"></i>
+                        </button>
                     </div>
                 </div>
                 <div className="widget-archives mb-50">
@@ -136,17 +138,26 @@ const CourseSidebar = () => {
                 <div className="widget-archives md-mb-50">
                     <h3 className="widget-title">Course Categories</h3>
                     <ul className="categories">
-                        <li><Link to="/course-categories">College</Link></li>
-                        <li><Link to="/course-categories">High School</Link></li>
-                        <li><Link to="/course-categories">Primary</Link></li>
-                        <li><Link to="/course-categories">School</Link></li>
-                        <li><Link to="/course-categories">University</Link></li>
+                        <li>
+                            <Link to="/learntube/course-categories">College</Link>
+                        </li>
+                        <li>
+                            <Link to="/learntube/course-categories">High School</Link>
+                        </li>
+                        <li>
+                            <Link to="/learntube/course-categories">Primary</Link>
+                        </li>
+                        <li>
+                            <Link to="/learntube/course-categories">School</Link>
+                        </li>
+                        <li>
+                            <Link to="/learntube/course-categories">University</Link>
+                        </li>
                     </ul>
                 </div>
             </div>
         </React.Fragment>
     );
-
-}
+};
 
 export default CourseSidebar;

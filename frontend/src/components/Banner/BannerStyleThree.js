@@ -1,10 +1,10 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 
-import leftShapeImg from '../../assets/img/banner/left-shape.png';
-import rightShapeImg from '../../assets/img/banner/right-shape.png';
-import bottomShapeImg from '../../assets/img/banner/bottom-shape.png';
-import bannerImg from '../../assets/img/banner/5.png';
+import leftShapeImg from "../../assets/img/banner/left-shape.png";
+import rightShapeImg from "../../assets/img/banner/right-shape.png";
+import bottomShapeImg from "../../assets/img/banner/bottom-shape.png";
+import bannerImg from "../../assets/img/banner/5.png";
 
 const BannerStyleThree = () => {
     return (
@@ -16,9 +16,14 @@ const BannerStyleThree = () => {
                         <div className="col-lg-6">
                             <div className="banner-content">
                                 <div className="sub-title">Personal Life Coaching</div>
-                                <h1 className="banner-title">Personal Growth <br />With Educavo</h1>
+                                <h1 className="banner-title">
+                                    Personal Growth <br />
+                                    With Educavo
+                                </h1>
                                 <div className="banner-btn">
-                                    <Link to="/contact" className="readon2 banner-style">Hire a Coach Now</Link>
+                                    <Link to="/learntube/contact" className="readon2 banner-style">
+                                        Hire a Coach Now
+                                    </Link>
                                 </div>
                                 <div className="left-shape hidden-md animated pulse infinite">
                                     <img src={leftShapeImg} alt="" />
@@ -42,6 +47,6 @@ const BannerStyleThree = () => {
             {/* <!-- banner section end --> */}
         </React.Fragment>
     );
-}
+};
 
 export default BannerStyleThree;

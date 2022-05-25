@@ -1,27 +1,25 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
-import Header from '../../components/Layout/Header/Header';
-import Footer from '../../components/Layout/Footer/Footer';
-import OffWrap from '../../components/Layout/Header/OffWrap';
-import SearchModal from '../../components/Layout/Header/SearchModal';
-import CreatePlaylistButton from '../../components/Common/CreatePlaylistButton';
-import ScrollToTop from '../../components/Common/ScrollTop';
-import PlaylistWidget from '../../components/Widget/PlaylistWidget';
-import MyPlaylistWidget from '../../components/Widget/MyPlaylistWidget';
-import SearchWidget from '../../components/Widget/SearchWidget';
-import CreatePlaylistWidget from '../../components/Widget/CreatePlaylistWidget';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
+import Header from "../../components/Layout/Header/Header";
+import Footer from "../../components/Layout/Footer/Footer";
+import OffWrap from "../../components/Layout/Header/OffWrap";
+import SearchModal from "../../components/Layout/Header/SearchModal";
+import CreatePlaylistButton from "../../components/Common/CreatePlaylistButton";
+import ScrollToTop from "../../components/Common/ScrollTop";
+import PlaylistWidget from "../../components/Widget/PlaylistWidget";
+import MyPlaylistWidget from "../../components/Widget/MyPlaylistWidget";
+import SearchWidget from "../../components/Widget/SearchWidget";
+import CreatePlaylistWidget from "../../components/Widget/CreatePlaylistWidget";
 import axios from "axios";
 
-
-import Modal from 'react-modal';
+import Modal from "react-modal";
 // Image
-import favIcon from '../../assets/img/fav-orange.png';
-import Logo from '../../assets/img/logo/Learntube-logos_transparent.png';
-import footerLogo from '../../assets/img/logo/lite-logo.png';
+import favIcon from "../../assets/img/fav-orange.png";
+import Logo from "../../assets/img/logo/Learntube-logos_transparent.png";
+import footerLogo from "../../assets/img/logo/lite-logo.png";
 
 const Playlist = () => {
-
     const initCreatePlaylist = {
         userId: 1,
         playlistName: "",
@@ -33,9 +31,9 @@ const Playlist = () => {
     const [createPlaylist, setCreatePlaylist] = useState(initCreatePlaylist);
     const [newResponse, setNewResponse] = useState(-1);
     const [isShow, setIsShow] = useState(false);
-    const [playlistName, setPlaylistName] = useState('Playlist 생성');
+    const [playlistName, setPlaylistName] = useState("Playlist 생성");
 
-    const setModal = () =>{
+    const setModal = () => {
         openModal();
     };
 
@@ -51,18 +49,22 @@ const Playlist = () => {
         console.log(JSON.stringify(createPlaylist));
         let temp;
         const response = await axios
-            .post("http://localhost:3000/api/playlist/create", JSON.stringify(createPlaylist), {
+            .post(`${process.env.REACT_APP_SERVER_URL}/api/playlist/create`, JSON.stringify(createPlaylist), {
                 method: "POST",
                 headers: {
                     // Accept: "application/json",
                     "Content-Type": "application/json",
                 },
-            }).then(function (res) {
-                console.log(res.data.playlistId); temp = res.data.playlistId; setNewResponse(temp); setIsShow(true);
+            })
+            .then(function (res) {
+                console.log(res.data.playlistId);
+                temp = res.data.playlistId;
+                setNewResponse(temp);
+                setIsShow(true);
             });
         console.log(createPlaylist.playlistName);
         setPlaylistName(createPlaylist.playlistName);
-    }
+    };
     return (
         <React.Fragment>
             <Helmet>
@@ -70,8 +72,8 @@ const Playlist = () => {
             </Helmet>
             <OffWrap />
             <Header
-                parentMenu='learntube'
-                secondParentMenu='event'
+                parentMenu="learntube"
+                secondParentMenu="event"
                 headerNormalLogo={Logo}
                 headerStickyLogo={Logo}
                 CanvasLogo={Logo}
@@ -79,7 +81,6 @@ const Playlist = () => {
                 CanvasClass="right_menu_togle hidden-md"
                 headerClass="full-width-header header-style1 home8-style4"
             />
-
 
             <div className="rs-event orange-style pb-100 md-pb-80">
                 <div className="container">
@@ -97,33 +98,39 @@ const Playlist = () => {
                             </div> */}
                             <div className="col-lg-12 col-md-12">
                                 <div className="widget-area">
-                                    <PlaylistWidget setModal={setModal}/>
+                                    <PlaylistWidget setModal={setModal} />
                                 </div>
                             </div>
 
-                            <Modal isOpen={isOpen} onClose={() => { openModal(); }} onRequestClose={() => setIsOpen(false)}
+                            <Modal
+                                isOpen={isOpen}
+                                onClose={() => {
+                                    openModal();
+                                }}
+                                onRequestClose={() => setIsOpen(false)}
                                 style={{
                                     overlay: {
-                                        position: 'fixed',
+                                        position: "fixed",
                                         top: 0,
                                         left: 0,
                                         right: 0,
                                         bottom: 0,
-                                        backgroundColor: 'rgb(0, 0, 0, 0.55)'
+                                        backgroundColor: "rgb(0, 0, 0, 0.55)",
                                     },
                                     content: {
-                                        position: 'absolute',
-                                        top: '20%',
-                                        left: '25%',
-                                        right: '25%',
-                                        bottom: '300px',
-                                        background: '#fff',
-                                        overflow: 'auto',
-                                        WebkitOverflowScrolling: 'touch',
-                                        outline: 'none',
-                                        padding: '0px',
-                                    }
-                                }}>
+                                        position: "absolute",
+                                        top: "20%",
+                                        left: "25%",
+                                        right: "25%",
+                                        bottom: "300px",
+                                        background: "#fff",
+                                        overflow: "auto",
+                                        WebkitOverflowScrolling: "touch",
+                                        outline: "none",
+                                        padding: "0px",
+                                    },
+                                }}
+                            >
                                 <div className="">
                                     <div className="register-section ">
                                         <div className="container">
@@ -134,10 +141,17 @@ const Playlist = () => {
                                                 <div className="styled-form">
                                                     <div id="form-messages"></div>
                                                     <form id="contact-form" method="post" action="#">
-                                                        {isShow ? <div></div>
-                                                            : <div className="row clearfix">
+                                                        {isShow ? (
+                                                            <div></div>
+                                                        ) : (
+                                                            <div className="row clearfix">
                                                                 <div className="form-group col-lg-12 mb-25">
-                                                                    <div className="my-2">Playlist 이름<span className="ms-1" style={{ color: 'red' }}>*</span></div>
+                                                                    <div className="my-2">
+                                                                        Playlist 이름
+                                                                        <span className="ms-1" style={{ color: "red" }}>
+                                                                            *
+                                                                        </span>
+                                                                    </div>
                                                                     <input type="text" id="title" name="playlistName" placeholder="제목을 입력하세요" onChange={handleChange} required />
                                                                 </div>
                                                                 <div className="form-group col-lg-12">
@@ -145,21 +159,47 @@ const Playlist = () => {
                                                                     <textarea type="textarea" id="description" name="description" onChange={handleChange} placeholder="설명을 입력하세요" />
                                                                 </div>
                                                             </div>
-                                                        }
-                                                        {isShow 
-                                                        ?<div className="row d-flex justify-content-center ms-3 me-1 mt-3">
-                                                            <button type="submit" className="canclebtn" onClick={() => { setIsShow(false); setPlaylistName('Playlist 생성'); }}><span className="txt">취소</span></button>
-                                                            <Link className="moveToSearch text-center pt-2 d-flex align-items-center justify-content-center" to={{
-                                                                pathname: "/learntube-studio/youtubeSearch",
-                                                                state: { playlistName: createPlaylist.playlistName, response: newResponse }
-                                                            }}><span>playlist에 영상 추가하기</span></Link>
-                                                        </div>
-                                                        : <div className="row d-flex justify-content-end ms-3 me-1 mt-3">
-                                                            <button type="submit" className="canclebtn" onClick={() => { openModal(); setIsShow(false); setPlaylistName('Playlist 생성'); }}><span className="txt">취소</span></button>
-                                                            <div className="createbtn text-center pt-2 d-flex align-items-center justify-content-center" onClick={handleSubmit}><span>저장</span></div>
-                                                        </div>
-                                                        }
-
+                                                        )}
+                                                        {isShow ? (
+                                                            <div className="row d-flex justify-content-center ms-3 me-1 mt-3">
+                                                                <button
+                                                                    type="submit"
+                                                                    className="canclebtn"
+                                                                    onClick={() => {
+                                                                        setIsShow(false);
+                                                                        setPlaylistName("Playlist 생성");
+                                                                    }}
+                                                                >
+                                                                    <span className="txt">취소</span>
+                                                                </button>
+                                                                <Link
+                                                                    className="moveToSearch text-center pt-2 d-flex align-items-center justify-content-center"
+                                                                    to={{
+                                                                        pathname: "/learntube-studio/youtubeSearch",
+                                                                        state: { playlistName: createPlaylist.playlistName, response: newResponse },
+                                                                    }}
+                                                                >
+                                                                    <span>playlist에 영상 추가하기</span>
+                                                                </Link>
+                                                            </div>
+                                                        ) : (
+                                                            <div className="row d-flex justify-content-end ms-3 me-1 mt-3">
+                                                                <button
+                                                                    type="submit"
+                                                                    className="canclebtn"
+                                                                    onClick={() => {
+                                                                        openModal();
+                                                                        setIsShow(false);
+                                                                        setPlaylistName("Playlist 생성");
+                                                                    }}
+                                                                >
+                                                                    <span className="txt">취소</span>
+                                                                </button>
+                                                                <div className="createbtn text-center pt-2 d-flex align-items-center justify-content-center" onClick={handleSubmit}>
+                                                                    <span>저장</span>
+                                                                </div>
+                                                            </div>
+                                                        )}
                                                     </form>
                                                 </div>
                                             </div>
@@ -171,10 +211,7 @@ const Playlist = () => {
                     </div>
                 </div>
             </div>
-            <Footer
-                footerClass="rs-footer home9-style main-home"
-                footerLogo={footerLogo}
-            />
+            <Footer footerClass="rs-footer home9-style main-home" footerLogo={footerLogo} />
 
             {/* <CreatePlaylistButton
                 scrollClassName="scrollup orange-color"
@@ -186,14 +223,18 @@ const Playlist = () => {
                 scrollClassName="scrollup orange-color"
             /> */}
             {/* scrolltop-end */}
-            <div className='scrollup'>
-                    <div onClick={() => { openModal(); }}>
-                        <i className="fa fa-plus"></i>
-                    </div>
+            <div className="scrollup">
+                <div
+                    onClick={() => {
+                        openModal();
+                    }}
+                >
+                    <i className="fa fa-plus"></i>
                 </div>
+            </div>
             <SearchModal />
         </React.Fragment>
     );
-}
+};
 
-export default Playlist
+export default Playlist;

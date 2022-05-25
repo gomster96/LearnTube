@@ -30,7 +30,7 @@ const CurriculumPart = (props) => {
             classId: e,
         };
         const response = await axios
-            .post("http://localhost:8080/api/lecture", JSON.stringify(body), {
+            .post(`${process.env.REACT_APP_SERVER_URL}/api/lecture`, JSON.stringify(body), {
                 headers: {
                     "Content-Type": "application/json",
                 },
@@ -46,7 +46,7 @@ const CurriculumPart = (props) => {
         };
         if (window.confirm("정말 삭제하시겠습니까?") == true) {
             const response = await axios
-                .post("http://localhost:8080/api/lecture/delete", JSON.stringify(body), {
+                .post(`${process.env.REACT_APP_SERVER_URL}/api/lecture/delete`, JSON.stringify(body), {
                     headers: {
                         "Content-Type": "application/json",
                     },
@@ -65,7 +65,7 @@ const CurriculumPart = (props) => {
         };
         if (window.confirm("정말 삭제하시겠습니까?") == true) {
             const response = await axios
-                .post("http://localhost:8080/api/content/delete", JSON.stringify(body), {
+                .post(`${process.env.REACT_APP_SERVER_URL}/api/content/delete`, JSON.stringify(body), {
                     headers: {
                         "Content-Type": "application/json",
                     },
@@ -300,7 +300,7 @@ const CurriculumPart = (props) => {
                                                                 <Link
                                                                     className="popup-videos play-icon"
                                                                     to={{
-                                                                        pathname: "/content",
+                                                                        pathname: "/learntube/content",
                                                                         state: { classRoomData: props.classRoomData, i: i, j: j },
                                                                     }}
                                                                 >

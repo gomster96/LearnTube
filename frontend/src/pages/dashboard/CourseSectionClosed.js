@@ -32,7 +32,7 @@ const CoursePartClosed = (props) => {
     useEffect(() => {
         const fetchClosedClassRoom = async () => {
             try {
-                const response = await axios.get("http://localhost:8080/api/classroom/closed?userId=1");
+                const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/classroom/closed?userId=1`);
                 console.log(response.data);
                 setClosedData(response.data);
             } catch (err) {
@@ -87,7 +87,7 @@ const CoursePartClosed = (props) => {
                                       className="course-part clearfix m-0"
                                       onClick={() => {
                                           history.replace({
-                                              pathname: "../course/course-single",
+                                              pathname: "../learntube/course/course-single",
                                               state: { classId: closedData[i].classId },
                                           });
                                       }}

@@ -24,7 +24,7 @@ const CreateContent = (props) => {
 
     const loadPlaylists = async () => {
         try {
-            const response = await axios.get(`http://localhost:8080/api/playlist/name?userId=${props.userId}`);
+            const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/playlist/name?userId=${props.userId}`);
             console.log(response.data);
             setPlaylists(response.data);
         } catch (err) {
@@ -43,7 +43,7 @@ const CreateContent = (props) => {
 
     const handleSubmit = async () => {
         const response = await axios
-            .post("http://localhost:3000/api/content", JSON.stringify(createContentData), {
+            .post(`${process.env.REACT_APP_SERVER_URL}/api/content`, JSON.stringify(createContentData), {
                 method: "POST",
                 headers: {
                     // Accept: "application/json",

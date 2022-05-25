@@ -27,7 +27,7 @@ const CourseContent = () => {
         console.log(cid);
         const fetchClassRoom = async () => {
             try {
-                const response = await axios.get(`http://localhost:8080/api/classroom?userId=1&classId={$cid}`);
+                const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/classroom?userId=1&classId={$cid}`);
                 console.log(response.data);
                 setClassRoomData(response.data);
             } catch (err) {
@@ -60,7 +60,11 @@ const CourseContent = () => {
                         <div className="intro-info-tabs border-none row">
                             <div className="col-lg-12 col-md-12">
                                 <div className="widget-area">
-                                    <ContentWidget className={location.state.classRoomData.className} lecture={location.state.classRoomData.lectures[location.state.i]} content={location.state.classRoomData.lectures[location.state.i].contents[location.state.j]} />
+                                    <ContentWidget
+                                        className={location.state.classRoomData.className}
+                                        lecture={location.state.classRoomData.lectures[location.state.i]}
+                                        content={location.state.classRoomData.lectures[location.state.i].contents[location.state.j]}
+                                    />
                                 </div>
                             </div>
                         </div>

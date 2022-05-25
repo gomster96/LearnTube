@@ -41,7 +41,7 @@ const CourseSingleTwoCopy = (props) => {
                         </ul>
                     </div>
                     <div className="btn-part">
-                        <Link to="/course/course-single">
+                        <Link to="/learntube/course/course-single">
                             {props.btnText}
                             <i className="flaticon-right-arrow"></i>
                         </Link>

@@ -65,7 +65,7 @@ scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/
                         email: data.data.email,
                     };
                     axios
-                        .post("http://localhost:8080/api/login", JSON.stringify(body), {
+                        .post(`${process.env.REACT_APP_SERVER_URL}/api/login`, JSON.stringify(body), {
                             headers: {
                                 "Content-Type": `application/json`,
                             },
@@ -138,7 +138,7 @@ scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/
     //                                 <input type="text" name="text" placeholder="Password" required />
     //                                 <button type="submit" className="readon submit-btn">login</button>
     //                                 <div className="last-password">
-    //                                     <p>Not registered? <Link to="/register">Create an account</Link></p>
+    //                                     <p>Not registered? <Link to="/learntube/register">Create an account</Link></p>
     //                                 </div>
     //                             </form>
     //                         </div>

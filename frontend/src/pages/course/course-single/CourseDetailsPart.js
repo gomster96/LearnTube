@@ -15,8 +15,8 @@ function CourseDetailsPart() {
         console.log(cid);
         const fetchClassRoom = async () => {
             try {
-                const res1 = await axios.get(`http://localhost:8080/api/classroom?userId=1&classId=${cid}`);
-                const res2 = await axios.get(`http://localhost:8080/api/user/students?classId=${cid}`);
+                const res1 = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/classroom?userId=1&classId=${cid}`);
+                const res2 = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/user/students?classId=${cid}`);
 
                 // console.log(res1.data);
                 setClassRoomData(res1.data);
