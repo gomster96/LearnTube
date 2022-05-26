@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import com.walab.classroom.application.dto.ClassRoomCUDto;
 import com.walab.classroom.application.dto.ClassRoomCourseDto;
+import com.walab.classroom.application.dto.ClassRoomDetailDto;
 import com.walab.classroom.application.dto.ClassRoomDto;
 import com.walab.classroom.application.dto.take.TakeClassRoomDto;
 import com.walab.classroom.domain.ClassRoom;
@@ -49,11 +50,11 @@ public class ClassRoomService {
     }
 
     @Transactional
-    public ClassRoomDto find(Long userId, Long classId) {
+    public ClassRoomDetailDto find(Long userId, Long classId) {
 
         ClassRoom classroom = classRoomRepository.findById(classId).orElseThrow(ClassRoomNotFoundException::new);
 
-        return classroom.toDto();
+        return classroom.toDetailDto(userId);
     }
 
     @Transactional

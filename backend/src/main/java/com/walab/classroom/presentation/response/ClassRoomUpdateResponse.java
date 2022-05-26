@@ -19,4 +19,5 @@ public class ClassRoomUpdateResponse {
     private String entryCode;
     private Boolean isActive;
     private LocalDateTime closeDate;
+    private String image;
 }

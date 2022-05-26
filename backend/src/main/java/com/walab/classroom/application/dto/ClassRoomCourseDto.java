@@ -20,6 +20,7 @@ public class ClassRoomCourseDto {
     private String instructorName;
     private int numberOfTake;
     private int totalPage;
+    private String image;
     private LocalDateTime classRoomRegDate;
 
     public ClassRoomCourseDto(ClassRoom classRoom, int totalPage) {
@@ -28,10 +29,11 @@ public class ClassRoomCourseDto {
         this.instructorName = classRoom.getInstructor().getName();
         this.numberOfTake = classRoom.getTakes().size();
         this.totalPage = totalPage;
+        this.image = classRoom.getImage();
         this.classRoomRegDate = classRoom.getCreatedAt();
     }
 
     public ClassRoomCourseResponse classRoomCourseResponse() {
-        return new ClassRoomCourseResponse(classId, className, instructorName, numberOfTake, totalPage, classRoomRegDate);
+        return new ClassRoomCourseResponse(classId, className, instructorName, numberOfTake, totalPage, image, classRoomRegDate);
     }
 }

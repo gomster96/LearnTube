@@ -32,13 +32,14 @@ const CourseDashBoard = (props) => {
       <div className="img-part">
         <img style={{ height: "150px" }} src={courseImg} alt={courseTitle} />
       </div>
-      <div className="content-part" style={{ width: "100%" }}>
+
+      <div className="content-part" style={{ width: "80%" }}>
         <div className="row">
           <h3 className="title" onClick={() => {}}>
             <Link
               to={{
                 pathname: "/learntube/course/course-single",
-                state: { classId: classId, userId: userId },
+                state: { classId: classId },
               }}
             >
               {courseTitle ? courseTitle : "강의제목"}
@@ -61,17 +62,17 @@ const CourseDashBoard = (props) => {
                 <li className="user">
                   <i className="fa fa-bullhorn"></i>공지
                 </li>
-                <li className="ratings">
+                <li className="notice">
                   <span>{notice ? notice : "공지가 없습니다."}</span>
                 </li>
               </ul>
             </div>
             <div className="col">
-              <ul>
+              <ul className="pull-right">
                 <li className="user">
                   <i className="fa fa-user"></i> {userCount ? userCount : 0}
                 </li>
-                <li className="ratings">
+                <li className="date">
                   <span>{openDate ? openDate : "-"}</span>
                 </li>
               </ul>

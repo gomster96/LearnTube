@@ -19,4 +19,5 @@ public class ClassRoomDashboardResponse {
     private String latestNotice;
     private int numberOfTake;
     private LocalDateTime classRoomRegDate;
+    private String image;
 }
