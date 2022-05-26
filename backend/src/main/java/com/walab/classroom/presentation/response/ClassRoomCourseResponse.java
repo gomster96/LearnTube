@@ -17,5 +17,6 @@ public class ClassRoomCourseResponse {
     private String instructorName;
     private int numberOfTake;
     private int totalPage;
+    private String image;
     private LocalDateTime classRoomRegDate;
 }
