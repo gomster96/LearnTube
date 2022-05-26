@@ -41,10 +41,16 @@ public class Take extends BaseEntity {
         classRoom.addTake(this);
     }
 
-    public void acceptTake(){
+    public boolean isUserTake(Long userId) {
+        return this.user.getId() == userId;
+    }
+
+    public void acceptTake() {
         this.status = 1;
     }
-    public void rejectTake() { this.status = 2;}
+
+    public void rejectTake() {this.status = 2;}
+
     public TakeUserDto toTakeUserDto() {
         return new TakeUserDto(this);
     }
