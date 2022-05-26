@@ -44,7 +44,7 @@ const CurriculumPart = (props) => {
         let body = {
             lectureId: e,
         };
-        if (window.confirm("정말 삭제하시겠습니까?") == true) {
+        if (window.confirm("강의 차수가 삭제됩니다.(ex.1강) 정말 삭제하시겠습니까?") == true) {
             const response = await axios
                 .post(`${process.env.REACT_APP_SERVER_URL}/api/lecture/delete`, JSON.stringify(body), {
                     headers: {
@@ -63,7 +63,7 @@ const CurriculumPart = (props) => {
         let body = {
             contentId: e,
         };
-        if (window.confirm("정말 삭제하시겠습니까?") == true) {
+        if (window.confirm("강의 차수 내에 컨텐츠가 삭제됩니다. 정말 삭제하시겠습니까?") == true) {
             const response = await axios
                 .post(`${process.env.REACT_APP_SERVER_URL}/api/content/delete`, JSON.stringify(body), {
                     headers: {
