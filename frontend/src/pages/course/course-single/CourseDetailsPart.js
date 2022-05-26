@@ -63,9 +63,10 @@ function CourseDetailsPart(props) {
               `${process.env.REACT_APP_SERVER_URL}/api/user/students?classId=${cid}`
             );
 
-            // console.log(res1.data);
+            console.log(res1.data);
             setClassRoomData(res1.data);
-            console.log("classRoomData", classRoomData);
+            // console.log("classRoomData", classRoomData);
+            // console.log("isTake", classRoomData.isTake);
             // console.log("cid", cid);
             // console.log("res2", res2.data);
             setStudents(res2.data);
@@ -91,7 +92,7 @@ function CourseDetailsPart(props) {
                 <h3>{classRoomData.className}</h3>
                 <p>⇣ {classRoomData.classDescription} </p>
               </div>
-              {userId !== classRoomData.instructor.userId ? (
+              {classRoomData.isTake === false ? (
                 <button
                   id="joinBtn"
                   className="readon2 banner-style flex-fill  align-items-end flex-column bd-highlight mb-3"

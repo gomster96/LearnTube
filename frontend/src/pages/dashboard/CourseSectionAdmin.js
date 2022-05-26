@@ -104,6 +104,7 @@ const CoursePartAdmin = (props) => {
                     }}
                   >
                     <CourseDashBoard
+                      userId={userId}
                       courseClass="courses-item"
                       courseImg={courseImg1}
                       courseTitle={managesData[i].className}
