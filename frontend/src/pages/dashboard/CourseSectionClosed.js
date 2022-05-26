@@ -55,19 +55,20 @@ const CoursePartClosed = (props) => {
             <div className="container">
                 <div className="row">
                     <div className="pr-50 md-pr-14">
-                        <div className="course-search-part">
+                        <div style={{ margin: "15px" }}></div>
+                        {/* <div className="course-search-part">
                             <div className="course-view-part ">
                                 <div className="view-icons">
                                     <button onClick={listClassAdd} className="view-list ">
                                         <i className="fa fa-list-ul"></i>
                                     </button>
-                                    {/* <button onClick={listClassRemove} className="view-grid mr-10 list-view">
+                                    <button onClick={listClassRemove} className="view-grid mr-10 list-view">
                                         <i className="fa fa-th-large"></i>
-                                    </button> */}
+                                    </button>
                                 </div>
                                 <div className="view-text">Showing 1-9 of 12 results</div>
                             </div>
-                            {/* <div className="type-form">
+                            <div className="type-form">
                                 <form method="post" action="#">
                                     <div className="form-group mb-0">
                                         <div className="custom-select-box">
@@ -79,8 +80,8 @@ const CoursePartClosed = (props) => {
                                         </div>
                                     </div>
                                 </form>
-                            </div> */}
-                        </div>
+                            </div>
+                        </div> */}
                         {closedData
                             ? closedData.map((closedDatas, i) => (
                                   <div
