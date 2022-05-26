@@ -99,7 +99,7 @@ const MyPlaylist = () => {
                                     <div className="d-none">
                                     </div>
                                 }
-                                                                {selectedPlaylist ? (
+                                {selectedPlaylist ? (
                                     <div className="p-1">
                                         <div className="row">
                                             <div className="m-0 col-md-3 col-sm-12" >

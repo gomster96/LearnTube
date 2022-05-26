@@ -22,12 +22,22 @@ const Cart = () => {
     const location = useLocation();
     const videos = location.state.cart;
     //console.log(videos);
+    const initPlaylistData = [
+        {
+            playlistId: "",
+            name: "",
+            description: "",
+            userName: "",
+            thumbnail: "",
+            videos: {},
+        },
+    ];
     const [videoList, setVideoList] = useState(location.state.cart);
     const [cartList, setCartList] = useState([]);
     const [playlistName, setPlaylistName] = useState("");
-    const [createResponse, setCreateResponse] = useState();
+    const [playlistData, setPlaylistData] = useState(initPlaylistData.videos);
     const [isDeleted, setIsDeleted] = useState(false);
-
+    const [isUpdate, setIsUpdate] = useState(location.state.update);
     const [youtubeId, setYoutubeId] = useState("");
     const [title, setTitle] = useState("");
     const [newTitle, setNewTitle] = useState("");
@@ -44,7 +54,6 @@ const Cart = () => {
         end_s: "",
         seq: 0,
     };
-
     // const initVideolist2 = {
     //     playlistId: 1,
     //     youtubeId: "",
@@ -55,12 +64,12 @@ const Cart = () => {
     //     seq: 0,
     //     duration:0,
     // };
-
+    //const response = axios.get(`${process.env.REACT_APP_SERVER_URL}/api/playlist?userId=1`).then((res) => setPlaylistData(res.data));
     let tempArray = [];
     useEffect(function () {
         setVideoList(videos);
         //console.log(videoList);
-        console.log(location.state.playlistId);
+        console.log(location);
         for (const prop in videoList) {
             //console.log(prop);
             //console.log(videoList[prop]);
@@ -72,9 +81,9 @@ const Cart = () => {
             setPlaylistName(location.state.title);
         }
         setIsDeleted(false);
+        console.log(location.state.update);
     }, []);
     //console.log(cartList);
-
     //한번 로드 후 삭제로 인해 바뀔때 사용하는 useEffect
     useEffect(
         function () {
@@ -104,28 +113,53 @@ const Cart = () => {
     //     duration:0,
     const saveCart = async () => {
         console.log(cartList);
+
         for (let temp in cartList) {
             let obj = JSON.parse(cartList[temp]);
             console.log(obj);
-            let createRequest = {
-                playlistId: location.state.playlistId,
-                youtubeId: obj.id,
-                title: obj.snippet.title,
-                newTitle: obj.snippet.newTitle,
-                start_s: 0,
-                end_s: 0,
-                seq: temp,
-                duration: obj.duration,
-            };
-            const response = await axios
-                .post(`${process.env.REACT_APP_SERVER_URL}/api/playlist_video/create`, createRequest, {
-                    method: "POST",
-                    headers: {
-                        // Accept: "application/json",
-                        "Content-Type": "application/json",
-                    },
-                })
-                .then((res) => console.log(res));
+            console.log(location.state.update);
+            if (location.state.update === true) {
+                let updateRequest = {
+                    playlistId: location.state.playlistId,
+                    youtubeId: obj.id,
+                    title: obj.snippet.title,
+                    newTitle: obj.snippet.newTitle,
+                    start_s: 0,
+                    end_s: 0,
+                    seq: temp,
+                    duration: 0,
+                };//${process.env.REACT_APP_SERVER_URL}
+                console.log(updateRequest);
+                const response3 = await axios
+                    .post(`http://walab.handong.edu:8080/learntube/api/playlist_video/create`, JSON.stringify(updateRequest), {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                    })
+                    .then((res) => console.log(res));
+
+            } else {
+                let createRequest = {
+                    playlistId: location.state.playlistId,
+                    youtubeId: obj.id,
+                    title: obj.snippet.title,
+                    newTitle: obj.snippet.newTitle,
+                    start_s: 0,
+                    end_s: 0,
+                    seq: temp,
+                    duration: obj.duration,
+                };
+                const response2 = await axios
+                    .post(`${process.env.REACT_APP_SERVER_URL}/api/playlist_video/create`, createRequest, {
+                        method: "POST",
+                        headers: {
+                            // Accept: "application/json",
+                            "Content-Type": "application/json",
+                        },
+                    })
+                    .then((res) => console.log(res));
+            }
         }
         window.alert("저장되었습니다!");
     };
@@ -155,16 +189,16 @@ const Cart = () => {
                                 <i className="fa fa-play-circle-o pe-1 pt-3 mb-3"></i>
                                 {playlistName ? playlistName : "playlist 이름"}
                             </h3>
-                            {/* <Link
-                                    className="pt-2"
-                                    to={{ pathname: "/learntube-studio" }}
-                                    onClick={saveCart}
-                                >
+                            <Link
+                                className="pt-2"
+                                to={{ pathname: "/learntube/learntube-studio" }}
+                                onClick={saveCart}
+                            >
                                 <img src={save} className='save' alt='save' ></img>
-                            </Link> */}
-                            <div className="pt-2" onClick={saveCart}>
+                            </Link>
+                            {/* <div className="pt-2" onClick={saveCart}>
                                 <img src={save} className="save" alt="save"></img>
-                            </div>
+                            </div> */}
                         </div>
                         <div className="row mt-5">
                             {cartList.map(function (video, i) {

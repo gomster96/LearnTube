@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
+import { Button, Form } from "react-bootstrap";
 import Header from "../../components/Layout/Header/Header";
 import Footer from "../../components/Layout/Footer/Footer";
 import OffWrap from "../../components/Layout/Header/OffWrap";
@@ -25,16 +26,60 @@ const Playlist = () => {
         playlistName: "",
         description: "",
     };
-
+    const initPlaylistData = [
+        {
+            playlistId: "",
+            name: "",
+            description: "",
+            userName: "",
+            thumbnail: "",
+            videos: {},
+        },
+    ];
     const [isOpen, setIsOpen] = useState(false);
     const openModal = () => setIsOpen(!isOpen);
     const [createPlaylist, setCreatePlaylist] = useState(initCreatePlaylist);
-    const [newResponse, setNewResponse] = useState(-1);
+    const [playlistId, setPlaylistId] = useState(-1);
     const [isShow, setIsShow] = useState(false);
     const [playlistName, setPlaylistName] = useState("Playlist 생성");
+    const [playlistData, setPlaylistData] = useState(initPlaylistData.videos);
+    const [selectedPlaylist, setSelectedPlaylist] = useState(initPlaylistData);
+    const [playlistSize, setPlaylistSize] = useState(0);
+    const [selectedVideo, setSelectedVideo] = useState(initPlaylistData.videos);
+    const [isSelected, setIsSelected] = useState(false);
 
-    const setModal = () => {
-        openModal();
+    useEffect(() => {
+        const fetchMyPlaylists = async () => {
+            try {
+                const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/playlist?userId=1`);
+                console.log(response.data);
+                setPlaylistData(response.data);
+            } catch (err) {
+                console.log("err >> ", err);
+            }
+        };
+        fetchMyPlaylists();
+    }, []);
+
+    const handlePlaylistChange = (name) => {
+        let num = 0;
+        for (let count = 0; count < playlistData.length; count++) {
+            console.log(playlistData[count]);
+            if (playlistData[count].name == name) {
+
+                break;
+            }
+            num++;
+        }
+        console.log(num);
+        console.log(playlistData[num]);
+        //var selected = playlistData[num].videos;
+        setSelectedVideo( playlistData[num].videos);
+        setPlaylistId(playlistData[num].playlistId);
+        setSelectedPlaylist(playlistData[num].name);
+        setPlaylistSize(playlistData[num].videos.length);
+        setIsSelected(true);
+        console.log(selectedVideo);
     };
 
     const handleChange = (e) => {
@@ -59,7 +104,7 @@ const Playlist = () => {
             .then(function (res) {
                 console.log(res.data.playlistId);
                 temp = res.data.playlistId;
-                setNewResponse(temp);
+                setPlaylistId(temp);
                 setIsShow(true);
             });
         console.log(createPlaylist.playlistName);
@@ -98,7 +143,36 @@ const Playlist = () => {
                             </div> */}
                             <div className="col-lg-12 col-md-12">
                                 <div className="widget-area">
-                                    <PlaylistWidget setModal={setModal} />
+                                    <div className="mb-50">
+                                        <div class="row align-items-center">
+                                            <h3 className="col-2 text-start p-5 playlistWidgetTitle">나의 Playlist</h3>
+                                            <div className='col-1 plus d-flex justify-content-end'>
+                                                <div onClick={() => {
+                                                    openModal();
+                                                }}>
+                                                    <i className="fa fa-plus"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-5 dropdown show">
+                                                <Form.Select aria-label="SelectBox" onChange={(e) => { console.log(e.target.value); handlePlaylistChange(e.target.value); }}>
+                                                    <option>----playlist를 선택해주세요----</option>
+                                                    {playlistData
+                                                        ? playlistData.map((data, i) => (
+                                                            //console.log(playlistData[i].videos.length),({playlistData[i].videos.length})
+                                                            <option
+                                                                key={playlistData[i].playlistId}
+                                                                id={playlistData[i].playlistId}
+                                                                name={playlistData[i].title}
+                                                            >
+                                                                {playlistData[i].name}
+                                                            </option>
+                                                        ))
+                                                        : <option key="playlistsData">Playlist가 존재하지 않습니다.</option>}
+                                                </Form.Select>
+                                            </div>
+                                            <PlaylistWidget isSelected={isSelected} selectedPlaylist={selectedPlaylist} selectedVideo={selectedVideo} playlistId={playlistId} playlistSize={playlistSize} />
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -119,10 +193,10 @@ const Playlist = () => {
                                     },
                                     content: {
                                         position: "absolute",
-                                        top: "20%",
+                                        top: "23%",
                                         left: "25%",
                                         right: "25%",
-                                        bottom: "300px",
+                                        bottom: "160px",
                                         background: "#fff",
                                         overflow: "auto",
                                         WebkitOverflowScrolling: "touch",
@@ -175,8 +249,8 @@ const Playlist = () => {
                                                                 <Link
                                                                     className="moveToSearch text-center pt-2 d-flex align-items-center justify-content-center"
                                                                     to={{
-                                                                        pathname: "/learntube-studio/youtubeSearch",
-                                                                        state: { playlistName: createPlaylist.playlistName, response: newResponse },
+                                                                        pathname: "/learntube/learntube-studio/youtubeSearch",
+                                                                        state: { playlistName: createPlaylist.playlistName, playlistId: playlistId ,update:false},
                                                                     }}
                                                                 >
                                                                     <span>playlist에 영상 추가하기</span>
@@ -223,15 +297,7 @@ const Playlist = () => {
                 scrollClassName="scrollup orange-color"
             /> */}
             {/* scrolltop-end */}
-            <div className="scrollup">
-                <div
-                    onClick={() => {
-                        openModal();
-                    }}
-                >
-                    <i className="fa fa-plus"></i>
-                </div>
-            </div>
+            
             <SearchModal />
         </React.Fragment>
     );

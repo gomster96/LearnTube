@@ -244,7 +244,7 @@ const YoutubeSearch = () => {
         console.log(location);
         setPlaylistName(location.state.playlistName);
         setPlaylistId(location.state.playlistId);
-        console.log(location.state.response);
+        console.log(location.state.playlistId);
         console.log(location.state.playlistName);
     }, []);
 
@@ -285,8 +285,8 @@ const YoutubeSearch = () => {
                             <Link
                                 className=" pt-2"
                                 to={{
-                                    pathname: "/learntube-studio/myCart",
-                                    state: { cart: cart, title: playlistName ,playlistId:location.state.response}
+                                    pathname: "/learntube/learntube-studio/myCart",
+                                    state: { cart: cart, title: playlistName ,playlistId:location.state.playlistId,update:location.state.update}
                                 }}
                             >
                                 {/* <img src={cartPage} className='goToCart' alt='go to cart page' ></img> */}
