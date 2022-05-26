@@ -18,5 +18,5 @@ public class ClassRoomCUDto {
     private Boolean isOpened;
     private String entryCode;
     private Boolean isActive;
-
+    private String iamge;
 }

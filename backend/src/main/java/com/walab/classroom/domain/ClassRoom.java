@@ -51,11 +51,13 @@ public class ClassRoom extends BaseEntity {
 
     private Boolean isActive;
 
+    private String image;
+
     @OneToMany(mappedBy = "classRoom")
     private List<Notice> notices = new ArrayList<>();
 
     @OneToMany(mappedBy = "classRoom")
-    private List<Lecture> lectures;
+    private List<Lecture> lectures = new ArrayList<>();
 
     private LocalDateTime closeDate;
 
@@ -66,6 +68,7 @@ public class ClassRoom extends BaseEntity {
         this.entryCode = classRoomCUDto.getEntryCode();
         this.isActive = classRoomCUDto.getIsActive();
         this.closeDate = classRoomCUDto.getCloseDate();
+        this.image = classRoomCUDto.getIamge();
     }
 
     public ClassRoom(User instructor, ClassRoomCUDto classRoomCUDto) {
@@ -108,6 +111,7 @@ public class ClassRoom extends BaseEntity {
                            .instructor(this.instructor.toDto())
                            .classRoomRegDate(this.getCreatedAt())
                            .closeDate(this.closeDate)
+                           .image(this.image)
                            .build();
     }
 
@@ -120,6 +124,7 @@ public class ClassRoom extends BaseEntity {
                            .entryCode(this.entryCode)
                            .isActive(this.isActive)
                            .closeDate(this.closeDate)
+                           .image(this.image)
                            .build();
     }
 
@@ -142,6 +147,7 @@ public class ClassRoom extends BaseEntity {
                            .instructor(this.instructor.toDto())
                            .takeNum(this.takes.size())
                            .lectures(lectureDtos)
+                           .image(this.image)
                            .notices(noticeDetailDtos)
                            .build();
     }

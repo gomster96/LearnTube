@@ -19,4 +19,5 @@ public class ClassRoomManagedResponse {
     private int numberOfTake;
     private boolean active;
     private LocalDateTime classRoomRegDate;
+    private String image;
 }
