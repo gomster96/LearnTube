@@ -20,7 +20,7 @@ import UpdateNotice from "../../../components/Modal/UpdateNotice";
 import DeleteNotice from "../../../components/Modal/DeleteNotice";
 
 const CurriculumPart = (props) => {
-  console.log(props);
+  // console.log(props);
   const { userId } = props;
   console.log("curi userID", userId);
 
@@ -57,9 +57,8 @@ const CurriculumPart = (props) => {
       lectureId: e,
     };
     if (
-      window.confirm(
-        "강의 차수가 삭제됩니다.(ex.1강) 정말 삭제하시겠습니까?"
-      ) == true
+      window.confirm("강의가 삭제됩니다. 정말 삭제하시겠습니까? (ex.1강)") ==
+      true
     ) {
       const response = await axios
         .post(

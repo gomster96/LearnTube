@@ -136,16 +136,17 @@ const Header = (props) => {
                             // activeMenu={activeMenu}
                           />{" "}
                         </ul>{" "}
-                        <span className="ml-190">
+                        {/* <span className="ml-190">
                           <Login />{" "}
-                        </span>
+                        </span> */}
                       </nav>{" "}
                     </div>{" "}
                   </div>{" "}
                 </div>
 
-                <div className="col-lg-2 text-end hidden-md">
+                <div className="col-lg-2 relative text-end hidden-md">
                   <div className="expand-btn-inner search-icon">
+                    <Login />
                     <ul className="expand-items">
                       <li className="sidebarmenu-search">
                         <Link
@@ -154,6 +155,7 @@ const Header = (props) => {
                           className="rs-search"
                           href="#"
                         >
+                          {" "}
                           <i className="flaticon-search"></i>
                         </Link>
                       </li>
