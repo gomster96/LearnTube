@@ -28,9 +28,24 @@ const CurriculumPart = (props) => {
   const openModal = () => setIsOpen(!isOpen);
 
   const [noticeIdx, setNoticeIdx] = useState(0);
+  // const isTake = false;
+
+  const isTakeCheck = () => {
+    if (props.classRoomData.isTake === false) {
+      alert("수강 신청이 필요합니다. ");
+      window.reload();
+      return;
+    }
+  };
 
   const clickModalHandler = (params) => {
-    setNoticeIdx(params);
+    if (props.classRoomData.isTake === false) {
+      alert("수강 신청이 필요합니다. ");
+      setIsOpen(isOpen);
+      return;
+    } else if (props.classRoomData.isTake === true) {
+      setNoticeIdx(params);
+    }
   };
 
   const createLecture = async (e) => {
@@ -418,6 +433,7 @@ const CurriculumPart = (props) => {
                                           j: j,
                                         },
                                       }}
+                                      onClick={isTakeCheck}
                                     >
                                       <i className="fa fa-play"></i>
                                       {
