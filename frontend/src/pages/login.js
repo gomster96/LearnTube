@@ -113,7 +113,7 @@ scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/
         <button
           id="oAuthBtn"
           onClick={oAuthHandler}
-          className="readon2 banner-style"
+          className="readon2 banner-style mr-2"
         >
           Sign In
         </button>
@@ -121,7 +121,7 @@ scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/
         <button
           id="logoutBtn"
           onClick={logout}
-          className="readon2 banner-style"
+          className="readon2 banner-style mr-2"
         >
           Logout
         </button>
