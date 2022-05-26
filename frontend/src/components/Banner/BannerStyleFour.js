@@ -94,7 +94,7 @@ const BannerStyleFour = ({ onGoogleLogin }) => {
                 >
                   {/* <Link className="readon2 banner-style" to="/login"> */}
                   {/* <button className="readon2 banner-style"> */}
-                  <Login />
+                  {/* <Login /> */}
                   {/* Sign In */}
                   {/* </button> */}
                   {/* </Link> */}
