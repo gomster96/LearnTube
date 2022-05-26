@@ -27,16 +27,17 @@ public class ClassRoomDto {
     private LocalDateTime classRoomRegDate;
     private UserDto instructor;
     private int takeNum;
+    private String image;
     private List<LectureDto> lectures;
     private List<NoticeDetailDto> notices;
 
     public ClassRoomCreateResponse classRoomCreateResponse() {
         return new ClassRoomCreateResponse(classId, className, classDescription, isOpened, entryCode, isActive,
-                instructor.getUserId(), instructor.getName(), classRoomRegDate, closeDate);
+                instructor.getUserId(), instructor.getName(), classRoomRegDate, closeDate, image);
     }
 
     public ClassRoomUpdateResponse classRoomUpdateResponse() {
         return new ClassRoomUpdateResponse(classId, className, classDescription,
-                isOpened, entryCode, isActive, closeDate);
+                isOpened, entryCode, isActive, closeDate, image);
     }
 }
