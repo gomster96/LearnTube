@@ -10,14 +10,13 @@ const CourseSidebar = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const openModal = () => setIsOpen(!isOpen);
   const [classRoomData, setClassRoomData] = useState();
+
+  const [visible, setVisible] = useState(false);
+  const { userId } = props;
   useEffect(() => {
     // console.log("sidebar : ", props.classRoomData);
     // console.log("side student: ", props.students);
-  });
-
-  const [visible, setVisible] = useState(false);
-  let userId = 1;
-
+  }, [userId]);
   return (
     <div className="inner-column">
       <div className="course-features-info">
