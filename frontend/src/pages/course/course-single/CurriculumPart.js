@@ -339,7 +339,7 @@ const CurriculumPart = (props) => {
                                                                                 </span>
                                                                             </div>
                                                                             <div className="pull-right">
-                                                                                <UpdateContent content={props.classRoomData.lectures[i].contents[j]} />
+                                                                                <UpdateContent content={props.classRoomData.lectures[i].contents[j]} userId={userId} />
                                                                             </div>
                                                                         </>
                                                                     ) : null}

@@ -7,7 +7,6 @@ const CreateContent = (props) => {
     const [isOpen, setIsOpen] = useState();
     const openModal = () => setIsOpen(!isOpen);
     const [playlistOpen, setPlaylistOpen] = useState(false);
-    const userId = props.instructorId;
     const initCreateContentData = {
         lectureId: props.lectureId,
         contentName: "",
@@ -153,22 +152,31 @@ const CreateContent = (props) => {
                                                 </div>
                                                 <input type="datetime-local" id="closeDate" name="closeDate" onChange={handleChange} required />
                                             </div>
-                                            <div className="form-group col-lg-12">
-                                                <div className="my-2">
+                                            <div>
+                                                <div>
                                                     <li
                                                         className="fa fa-plus"
                                                         onClick={() => {
                                                             setPlaylistOpen(true);
                                                             loadPlaylists();
                                                         }}
-                                                        style={{ backgroundColor: "#6483d8", border: "0px", borderRadius: "10px", color: "white", width: "30px", height: "30px", marginRight: "10px" }}
+                                                        style={{
+                                                            backgroundColor: "#6483d8",
+                                                            border: "0px",
+                                                            borderRadius: "10px",
+                                                            color: "white",
+                                                            width: "30px",
+                                                            height: "30px",
+                                                            margin: "10px",
+                                                            padding: "8.4px",
+                                                        }}
                                                     ></li>
                                                     Playlist 추가하기
                                                 </div>
                                             </div>
                                             {playlistOpen === true ? (
-                                                <div style={{ marginBottom: "50px" }}>
-                                                    <div class="dropdown show">
+                                                <div>
+                                                    <div class="dropdown show" style={{ marginBottom: "20px" }}>
                                                         <FormSelect aria-label="SelectBox" id="playlistId" name="playlistId" onChange={handleChange}>
                                                             {Array.isArray(playlistsData)
                                                                 ? playlistsData.map((playlists, i) => (
@@ -187,7 +195,7 @@ const CreateContent = (props) => {
                                             <Button
                                                 type="submit"
                                                 className="canclebtn"
-                                                style={{ height: "2px" }}
+                                                style={{ padding: "10.5px" }}
                                                 onClick={() => {
                                                     setPlaylistOpen(false);
                                                     openModal();
@@ -195,7 +203,7 @@ const CreateContent = (props) => {
                                             >
                                                 취소
                                             </Button>
-                                            <Button className="createbtn" type="button" onClick={handleSubmit} style={{ height: "10px", alignContent: "center" }}>
+                                            <Button className="createbtn" type="button" onClick={handleSubmit} style={{ padding: "10.5px" }}>
                                                 저장
                                             </Button>
                                         </div>
@@ -208,10 +216,10 @@ const CreateContent = (props) => {
             </Modal>
             <span onClick={openModal}>
                 <i
-                    className="fa fa-plus p-1"
+                    className="fa fa-plus"
                     id="createContent"
                     style={{
-                        padding: "3px",
+                        padding: "15px",
                         zIndex: "0",
                     }}
                 ></i>

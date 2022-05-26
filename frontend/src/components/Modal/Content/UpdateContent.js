@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import ModalVideo from "react-modal-video";
 import Modal from "react-modal";
-import { Button } from "react-bootstrap";
+import { Button, FormSelect } from "react-bootstrap";
 import axios from "axios";
 
 const UpdateContent = (props) => {
     const [isOpen, setIsOpen] = useState(false);
     const openModal = () => setIsOpen(!isOpen);
-    const [isPlaylistOpen, setIsPlaylistOpen] = useState(false);
-    const openPlaylistModal = () => setIsPlaylistOpen(!isPlaylistOpen);
+    const [playlistOpen, setPlaylistOpen] = useState(false);
+    const userId = props.userId;
 
     const initUpdateContentData = {
         contentId: props.content.contentId,
@@ -20,8 +18,20 @@ const UpdateContent = (props) => {
         playlistId: props.content.playlistId,
     };
 
+    const initPlaylistsData = [{ playlistId: "", playlistName: "" }];
+
     const [updateContentData, setUpdateContentData] = useState(initUpdateContentData);
-    const [createResponse, setCreateResponse] = useState();
+    const [playlistsData, setPlaylists] = useState(initPlaylistsData);
+
+    const loadPlaylists = async () => {
+        try {
+            const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/playlist/name?userId=${userId}`);
+            console.log(response.data);
+            setPlaylists(response.data);
+        } catch (err) {
+            console.log("err >> ", err);
+        }
+    };
 
     const handleChange = (e) => {
         setUpdateContentData({
@@ -149,26 +159,56 @@ const UpdateContent = (props) => {
                                                 </div>
                                                 <input type="datetime-local" id="closeDate" name="closeDate" value={updateContentData.closeDate} onChange={handleChange} />
                                             </div>
-                                            <div className="form-group col-lg-12">
-                                                <div className="my-2">
-                                                    <Button onClick={openPlaylistModal} style={{ backgroundColor: "#6483d8" }}>
-                                                        Playlist 추가
-                                                    </Button>
+                                            <div>
+                                                <div>
+                                                    <li
+                                                        className="fa fa-plus"
+                                                        onClick={() => {
+                                                            setPlaylistOpen(true);
+                                                            loadPlaylists();
+                                                        }}
+                                                        style={{
+                                                            backgroundColor: "#6483d8",
+                                                            border: "0px",
+                                                            borderRadius: "10px",
+                                                            color: "white",
+                                                            width: "30px",
+                                                            height: "30px",
+                                                            margin: "10px",
+                                                            padding: "8.4px",
+                                                        }}
+                                                    ></li>
+                                                    Playlist 수정하기
                                                 </div>
                                             </div>
+                                            {playlistOpen === true ? (
+                                                <div style={{ marginBottom: "50px" }}>
+                                                    <div class="dropdown show">
+                                                        <FormSelect aria-label="SelectBox" id="playlistId" name="playlistId" onChange={handleChange}>
+                                                            {Array.isArray(playlistsData)
+                                                                ? playlistsData.map((playlists, i) => (
+                                                                      <option value={playlistsData[i].playlistId} name={playlistsData[i].playlistId}>
+                                                                          {playlistsData[i].playlistName}
+                                                                      </option>
+                                                                  ))
+                                                                : null}
+                                                        </FormSelect>
+                                                    </div>
+                                                </div>
+                                            ) : null}
                                         </div>
                                         <div className="row d-flex justify-content-end ms-3 me-1 mt-3">
                                             <Button
                                                 type="submit"
                                                 className="canclebtn"
-                                                style={{ height: "2px", justifyContent: "center" }}
+                                                style={{ padding: "10.5px" }}
                                                 onClick={() => {
                                                     openModal();
                                                 }}
                                             >
                                                 취소
                                             </Button>
-                                            <Button className="createbtn" type="button" onClick={handleSubmit} style={{ height: "10px", alignContent: "center" }}>
+                                            <Button className="createbtn" type="button" onClick={handleSubmit} style={{ padding: "10.5px" }}>
                                                 저장
                                             </Button>
                                         </div>
