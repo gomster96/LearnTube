@@ -17,10 +17,40 @@ function CourseDetailsPart(props) {
 
   const uid = location.state.userId;
   //console.log("cid in detail part " + cid);
+
+  const joinClass = () => {
+    if (window.confirm("수강신청 하시겠습니까?")) {
+      const fetchJoinClass = async () => {
+        try {
+          let body = { userId: userId, classId: cid };
+          const response = await axios.post(
+            `${process.env.REACT_APP_SERVER_URL}/api/classroom/enroll`,
+            JSON.stringify(body),
+            {
+              headers: {
+                "Content-Type": `application/json`,
+              },
+            }
+          );
+          console.log(response);
+        } catch (err) {
+          console.log("err >> ", err);
+        }
+      };
+      fetchJoinClass();
+    }
+    alert("신청 되었습니다.");
+  };
+
   useEffect(() => {
     if (location.state) {
       console.log("uid", uid);
-      SetUserId(uid);
+      {
+        uid
+          ? SetUserId(uid)
+          : SetUserId(window.sessionStorage.getItem("userId"));
+      }
+
       console.log("userId", userId);
       if (userId) {
         //console.log(cid);
@@ -35,6 +65,7 @@ function CourseDetailsPart(props) {
 
             // console.log(res1.data);
             setClassRoomData(res1.data);
+            console.log("classRoomData", classRoomData);
             // console.log("cid", cid);
             // console.log("res2", res2.data);
             setStudents(res2.data);
@@ -53,10 +84,22 @@ function CourseDetailsPart(props) {
       <div className="intro-section gray-bg pt-94 pb-100 md-pt-80 md-pb-80 loaded">
         <div className="container">
           <h5>커리큘럼</h5>
+
           {classRoomData ? (
-            <div>
-              <h3>{classRoomData.className}</h3>
-              <p>⇣ {classRoomData.classDescription} </p>
+            <div className="">
+              <div>
+                <h3>{classRoomData.className}</h3>
+                <p>⇣ {classRoomData.classDescription} </p>
+              </div>
+              {userId !== classRoomData.instructor.userId ? (
+                <button
+                  id="joinBtn"
+                  className="readon2 banner-style flex-fill  align-items-end flex-column bd-highlight mb-3"
+                  onClick={joinClass}
+                >
+                  수강 신청
+                </button>
+              ) : null}
               <div className="row clearfix">
                 <div className="col-lg-8 md-mb-50">
                   <CurriculumPart

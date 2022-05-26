@@ -19,14 +19,14 @@ const CourseDashBoard = (props) => {
   const uid = location.state.userId;
   const [userId, SetUserId] = useState("");
   useEffect(() => {
-    if (userId === null) {
+    if (window.sessionStorage.getItem("userId") === null || userId === null) {
       alert("로그인 후 이용해주세요.");
       history.push("/learntube/");
     }
     // console.log("c id : ", classId);
     SetUserId(uid);
     //console.log("userId : ", userId);
-  }, [userId]);
+  }, []);
   return (
     <div className={courseClass ? courseClass : "courses-item"}>
       <div className="img-part">

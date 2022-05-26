@@ -20,7 +20,7 @@ import UpdateNotice from "../../../components/Modal/UpdateNotice";
 import DeleteNotice from "../../../components/Modal/DeleteNotice";
 
 const CurriculumPart = (props) => {
-  console.log(props);
+  // console.log(props);
   const { userId } = props;
   console.log("curi userID", userId);
 
