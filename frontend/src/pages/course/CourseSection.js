@@ -5,7 +5,6 @@ import CourseSidebar from "./CourseSidebarSection";
 import "../../assets/css/courseList.css";
 import CourseSingleTwoCopy from "../../components/Courses/CourseSingleTwoCopy";
 
-import courseImg1 from "../../assets/img/courses/1.jpg";
 import SearchBar from "./SearchBar";
 import PagingBar from "./PagingBar";
 import SortFilter from "./SortFilter";
@@ -16,7 +15,7 @@ const CoursePart = (props) => {
     const [isLoading2, setIsLoading2] = useState(false);
     const [target, setTarget] = useState(null);
     const myPage = useRef(0);
-    const [filterStatus, setFilterStatus] = useState({ condition: 0, keyword: "", page: 0, size: 6 });
+    const [filterStatus, setFilterStatus] = useState({ condition: 0, keyword: "", page: 0, size: 12 });
     const [isLast, setIsLast] = useState(false);
     const getCourse = async () => {
         const courseData = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/classroom/courses`, {
@@ -39,7 +38,7 @@ const CoursePart = (props) => {
                 condition: filterStatus.condition,
                 keyword: filterStatus.keyword,
                 page: ++myPage.current,
-                size: 6,
+                size: 12,
             },
         });
         return response.data;
