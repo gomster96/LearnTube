@@ -158,7 +158,7 @@ const PlaylistWidget = ({ isSelected, selectedPlaylist, selectedVideo, playlistI
                     ? <div className=" col-lg-8 overflow-auto " style={{ right: "0", bottom: "600px;", height: "500px" }}>
                         <YouTube videoId={clickedVideo.youtubeId} opts={opts2} />
                         <div className='row'>
-                            <div class="col-12 my-5 lh-base"> d
+                            <div class="col-12 my-5 lh-base">
                                 <div class="mx-md-3 fs-3 text-start">{clickedVideo.newTitle ? clickedVideo.newTitle : clickedVideo.title}</div>
                                 <div class="d-flex fw-light">
                                     <div class="mx-3 fs-5 text-start text-muted">{clickedVideo.channelTitle}</div>
