@@ -59,15 +59,16 @@ const YoutubeSearch = () => {
     const [endFloatTime, setEndFloatTime] = useState();
     const [updatePlaylist, setUpdatePlaylist] = useState(false);
     const [updatePlaylistTitle, setUpdatePlaylistTitle] = useState(playlistName);
+    const [duration, setDuration] = useState('');
 
     const httpClient = axios.create({
         baseURL: 'https://www.googleapis.com/youtube/v3',
-        params: { key: 'AIzaSyCxrgBVtQtveUX9AOu3CU7YIj4WhyGnTSQ' },
+        params: { key: 'AIzaSyAAQWtwJTH3tLOjqFz7ICVtcUlF_mCJ8xg' },
 
     });
     const youtube = new Youtube(httpClient);
     let finalDuration = '';
-    let duration, viewCountInt, newViewCount;
+    let  viewCountInt, newViewCount;
     const selectVideo = (video) => {
         setNewTitle('');
         setNewDescription('');
@@ -78,7 +79,7 @@ const YoutubeSearch = () => {
         //console.log(selectedVideo);
         // console.log(selectedVideo.id);
         //조회수 커스터마이징
-        duration = video.contentDetails.duration;
+        setDuration(video.contentDetails.duration);
         if (!video.contentDetails.duration) duration = 'PT9M50S';
         let whereH = duration.indexOf('H');
         let whereM = duration.indexOf('M');
@@ -123,15 +124,62 @@ const YoutubeSearch = () => {
         setNewViewCount(newViewCount);
     };
 
+    function customDurationToFloat(durationStringVer){
+        let whereH = durationStringVer.indexOf('H');
+        let whereM = durationStringVer.indexOf('M');
+        let whereS = durationStringVer.indexOf('S');
+        var hour, min, sec;
+        var durationFloat=0.0;
+        
+        if (whereH > -1) {
+            let tempDuration = durationStringVer.split('H');
+            let temp_length = tempDuration[0].length;
+            hour = tempDuration[0].substring(2, temp_length);
+
+            durationFloat = durationFloat + parseFloat(hour)*3600 ;
+        }
+        if (whereM > -1) {
+            let tempDuration = durationStringVer.split('M');
+            let temp_length = tempDuration[0].length;
+            if (whereH > -1) {
+                min = tempDuration[0].substring(whereH + 1, temp_length);
+            } else min = tempDuration[0].substring(2, temp_length);
+            console.log("min: "+min);
+            durationFloat = durationFloat + parseFloat(min)* 60;
+            
+        }
+        if (whereS > -1) {
+            let tempDuration = durationStringVer.split('S');
+            let temp_length = tempDuration[0].length;
+            if (whereH > -1 && whereM == -1) {
+                sec = tempDuration[0].substring(whereH + 1, temp_length);
+            } else if (whereM > -1) {
+                sec = tempDuration[0].substring(whereM + 1, temp_length);
+            } else sec = tempDuration[0].substring(2, temp_length);
+            durationFloat = durationFloat + parseFloat(sec);
+        }
+        // console.log(durationFloat);
+        return durationFloat;
+    }
+
     let newId;
     const addVideoToCart = (video) => {
+       console.log(video);
+        // let totalTime = e.target.getDuration();
+        // console.log("totalTime"+totalTime);
         newId = video.id;
         //newTitle&newDescription 삽입
         video.snippet.newTitle = newTitle;
         video.snippet.newDescription = newDescription;
         video.start_s = parseInt(startFloatTime);
         video.end_s = parseInt(endFloatTime);
-        video.duration = parseInt(endFloatTime - startFloatTime);
+        console.log(isNaN(video.end_s));
+        if(isNaN(video.end_s) || isNaN(video.start_s)) {
+            //console.log(video.contentDetails.duration);
+            video.duration = customDurationToFloat(video.contentDetails.duration);
+            console.log(video.duration);
+        }
+        else video.duration = parseInt(endFloatTime - startFloatTime);
         console.log(video.snippet.newTitle + "\n" + newDescription);
         cart[newId] = video;
         console.log(cart);
@@ -191,6 +239,7 @@ const YoutubeSearch = () => {
 
 
     const checkElapsedTime = (e) => {
+        console.log(e);
         const duration = e.target.getDuration();
         const currentTime = e.target.getCurrentTime();
         setCurrentFloatTime(e.target.getCurrentTime());
@@ -285,8 +334,8 @@ const YoutubeSearch = () => {
                             <Link
                                 className=" pt-2"
                                 to={{
-                                    pathname: "/learntube-studio/myCart",
-                                    state: { cart: cart, title: playlistName ,playlistId:location.state.response}
+                                    pathname: "/learntube/learntube-studio/myCart",
+                                    state: { cart: cart, title: playlistName ,playlistId:location.state.playlistId}
                                 }}
                             >
                                 {/* <img src={cartPage} className='goToCart' alt='go to cart page' ></img> */}
@@ -384,7 +433,7 @@ const YoutubeSearch = () => {
                                                                 </div>
                                                             </div>
                                                             <div className="col-12 d-flex justify-content-center mt-4">
-                                                                <div className="createbtn ms-0" onClick={() => addVideoToCart(selectedVideo)}>
+                                                                <div className="createbtn ms-0" onClick={(e) => addVideoToCart(selectedVideo)}>
                                                                     {/* <button className=" text-center" onClick={() => addVideoToCart(selectedVideo)}>저장</button> */}
                                                                     저장
                                                                 </div>

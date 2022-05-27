@@ -60,7 +60,8 @@ const Cart = () => {
     useEffect(function () {
         setVideoList(videos);
         //console.log(videoList);
-        console.log(location.state.playlistId);
+        console.log(location);
+        //console.log(location.state.playlistId);
         for (const prop in videoList) {
             //console.log(prop);
             //console.log(videoList[prop]);
@@ -70,6 +71,7 @@ const Cart = () => {
             tempArray.push(tempJson);
             setCartList(tempArray);
             setPlaylistName(location.state.title);
+            
         }
         setIsDeleted(false);
     }, []);
@@ -112,11 +114,12 @@ const Cart = () => {
                 youtubeId: obj.id,
                 title: obj.snippet.title,
                 newTitle: obj.snippet.newTitle,
-                start_s: 0,
-                end_s: 0,
+                start_s: obj.start_s,
+                end_s: obj.end_s,
                 seq: temp,
                 duration: obj.duration,
             };
+            console.log(createRequest);
             const response = await axios
                 .post(`${process.env.REACT_APP_SERVER_URL}/api/playlist_video/create`, createRequest, {
                     method: "POST",
@@ -155,16 +158,16 @@ const Cart = () => {
                                 <i className="fa fa-play-circle-o pe-1 pt-3 mb-3"></i>
                                 {playlistName ? playlistName : "playlist 이름"}
                             </h3>
-                            {/* <Link
+                            <Link
                                     className="pt-2"
-                                    to={{ pathname: "/learntube-studio" }}
+                                    to={{ pathname: "/learntube/learntube-studio" }}
                                     onClick={saveCart}
                                 >
                                 <img src={save} className='save' alt='save' ></img>
-                            </Link> */}
-                            <div className="pt-2" onClick={saveCart}>
+                            </Link>
+                            {/* <div className="pt-2" onClick={saveCart}>
                                 <img src={save} className="save" alt="save"></img>
-                            </div>
+                            </div> */}
                         </div>
                         <div className="row mt-5">
                             {cartList.map(function (video, i) {
@@ -181,7 +184,6 @@ const Cart = () => {
                                                 {newObject.snippet.channelTitle ? newObject.snippet.channelTitle : "채널명"}
                                                 <div class="mx-1 border-start border-secondary"></div> {newObject.snippet.publishTime ? newObject.snippet.publishTime.slice(0, 10) : "등록일"}
                                             </div>
-                                            <div className="d-flex fw-light">{newObject.snippet.description ? newObject.snippet.description : "영상설명"}</div>
                                         </div>
                                         <div className="d-flex justify-content-end me-1 mt-1">
                                             <button
