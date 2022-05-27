@@ -25,6 +25,7 @@ public class TakeClassRoomDto {
     private int numberOfTake;
     private boolean isActive;
     private LocalDateTime classRoomRegDate;
+    private String image;
 
     public TakeClassRoomDto(Take take) {
         this.classId = take.getClassRoom().getId();
@@ -33,12 +34,12 @@ public class TakeClassRoomDto {
         // ToDo 캡스톤 팀 개발 후 처리 User와 뭔가 관계가 있어야함
         this.videoCheck = 50;
         this.lastestNotice = take.getClassRoom().getLastestNoticeTitle();
-        // ToDo N+1 발생 예정 해결법 찾기 getTake한번당 한번 쿼리 발생
         this.numberOfTake = take.getClassRoom().getTakes().size();
         this.classRoomRegDate = take.getClassRoom().getCreatedAt();
+        this.image = take.getClassRoom().getImage();
     }
 
-    public TakeClassRoomDto(ClassRoom classRoom){
+    public TakeClassRoomDto(ClassRoom classRoom) {
         this.classId = classRoom.getId();
         this.className = classRoom.getClassName();
         this.instructorName = classRoom.getInstructor().getName();
@@ -47,13 +48,16 @@ public class TakeClassRoomDto {
         this.isActive = classRoom.getIsActive();
         this.numberOfTake = classRoom.getTakes().size();
         this.classRoomRegDate = classRoom.getCreatedAt();
+        this.image = classRoom.getImage();
     }
 
     public ClassRoomDashboardResponse classRoomTakeResponse() {
-        return new ClassRoomDashboardResponse(classId, className, instructorName, videoCheck, lastestNotice, numberOfTake, classRoomRegDate);
+        return new ClassRoomDashboardResponse(classId, className, instructorName, videoCheck
+                , lastestNotice, numberOfTake, classRoomRegDate, image);
     }
 
-    public ClassRoomManagedResponse classRoomManagedResponse(){
-        return new ClassRoomManagedResponse(classId, className, instructorName, lastestNotice, numberOfTake, isActive ,classRoomRegDate);
+    public ClassRoomManagedResponse classRoomManagedResponse() {
+        return new ClassRoomManagedResponse(classId, className, instructorName, lastestNotice,
+                numberOfTake, isActive, classRoomRegDate, image);
     }
 }

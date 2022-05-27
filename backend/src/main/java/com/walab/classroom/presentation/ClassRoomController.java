@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import com.walab.classroom.application.ClassRoomService;
 import com.walab.classroom.application.TakeService;
 import com.walab.classroom.application.dto.ClassRoomCourseDto;
+import com.walab.classroom.application.dto.ClassRoomDetailDto;
 import com.walab.classroom.application.dto.ClassRoomDto;
 import com.walab.classroom.application.dto.ClassRoomEnrollDto;
 import com.walab.classroom.application.dto.take.TakeClassRoomDto;
@@ -57,10 +58,10 @@ public class ClassRoomController {
     }
 
     @GetMapping
-    public ResponseEntity<ClassRoomDto> getClassRoom(@RequestParam Long userId, @RequestParam Long classId) {
+    public ResponseEntity<ClassRoomDetailDto> getClassRoom(@RequestParam Long userId, @RequestParam Long classId) {
         //Todo 나중에 userId로 각 class의 video수강 완료에 대한 정보를 받아야한다.
-        ClassRoomDto classRoomDto = classRoomService.find(userId, classId);
-        return ResponseEntity.ok(classRoomDto);
+        ClassRoomDetailDto classRoomDetailDto = classRoomService.find(userId, classId);
+        return ResponseEntity.ok(classRoomDetailDto);
     }
 
     @PostMapping("/enroll")

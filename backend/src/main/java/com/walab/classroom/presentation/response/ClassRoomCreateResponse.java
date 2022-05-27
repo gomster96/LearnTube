@@ -19,4 +19,5 @@ public class ClassRoomCreateResponse {
     private String instructorName;
     private LocalDateTime classRoomRegDate;
     private LocalDateTime closeDate;
+    private String image;
 }

@@ -19,8 +19,8 @@ public class ClassRoomUpdateRequest {
     private Boolean isOpened;
     private String entryCode;
     private Boolean isActive;
-
+    private String image;
     public ClassRoomCUDto classRoomCUDto(){
-        return new ClassRoomCUDto(className, classDescription, closeDate, isOpened, entryCode, isActive);
+        return new ClassRoomCUDto(className, classDescription, closeDate, isOpened, entryCode, isActive, image);
     }
 }

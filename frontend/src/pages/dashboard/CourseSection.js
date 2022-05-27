@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-
+import { useHistory } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import CourseDashBoard from "../../components/Courses/CourseDashBoard";
 
 // Course courseImg
@@ -11,61 +12,62 @@ import courseImg3 from "../../assets/img/courses/3.jpg";
 
 const CoursePart = (props) => {
     const [takesData, setTakesData] = useState(null);
+
     useEffect(() => {
-        const fetchTakesClassRoom = async () => {
-            try {
-                const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/classroom/takes?userId=1`);
-                console.log(response.data);
-                setTakesData(response.data);
-            } catch (err) {
-                console.log("err >> ", err);
-            }
-        };
-        fetchTakesClassRoom();
-    }, []);
+        if (props.userId) {
+            const fetchTakesClassRoom = async () => {
+                try {
+                    const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/classroom/takes?userId=${props.userId}`);
+                    console.log(response.data);
+                    setTakesData(response.data);
+                } catch (err) {
+                    console.log("err >> ", err);
+                }
+            };
+            fetchTakesClassRoom();
+        }
+    }, [props.userId]);
 
-    const listClassAdd = () => {
-        document.getElementById("rs-popular-course").classList.add("list-view");
-    };
+    // const listClassAdd = () => {
+    //     document.getElementById("rs-popular-course").classList.add("list-view");
+    // };
 
-    const listClassRemove = () => {
-        document.getElementById("rs-popular-course").classList.remove("list-view");
-    };
+    // const listClassRemove = () => {
+    //     document.getElementById("rs-popular-course").classList.remove("list-view");
+    // };
 
     return (
         <div id="rs-popular-course" className="rs-popular-courses list-view style1 course-view-style orange-style rs-inner-blog white-bg pb-100 md-pt-70 md-pb-80 text-start">
             <div className="container">
                 <div className="row">
                     <div className="pr-50 md-pr-14">
-                        <div className="course-search-part">
+                        <div style={{ margin: "15px" }}></div>
+                        {/* <div className="course-search-part">
                             <div className="course-view-part ">
                                 <div className="view-icons">
                                     <button onClick={listClassAdd} className="view-list ">
                                         <i className="fa fa-list-ul"></i>
                                     </button>
-                                    {/* <button
-                                      onClick={listClassRemove}
-                                      className="view-grid mr-10 list-view"
-                                    >
-                                      <i className="fa fa-th-large"></i>
-                                    </button> */}
+                                    <button onClick={listClassRemove} className="view-grid mr-10 list-view">
+                                        <i className="fa fa-th-large"></i>
+                                    </button>
                                 </div>
                                 <div className="view-text">Showing 1-9 of 12 results</div>
                             </div>
                             <div className="type-form">
-                                {/* <form method="post" action="#">
-                  <div className="form-group mb-0">
-                    <div className="custom-select-box">
-                      <select id="timing">
-                        <option>Default</option>
-                        <option>Newest</option>
-                        <option>Old</option>
-                      </select>
-                    </div>
-                  </div>
-                </form> */}
+                                <form method="post" action="#">
+                                    <div className="form-group mb-0">
+                                        <div className="custom-select-box">
+                                            <select id="timing">
+                                                <option>Default</option>
+                                                <option>Newest</option>
+                                                <option>Old</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
-                        </div>
+                        </div> */}
                         {takesData
                             ? takesData.map((takeData, i) => (
                                   <div className="course-part clearfix m-0">
