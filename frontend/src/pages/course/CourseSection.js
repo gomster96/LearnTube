@@ -95,7 +95,6 @@ const CoursePart = (props) => {
                                             courseId={course.classId}
                                             courseImg={course.image}
                                             courseTitle={course.className}
-                                            newCourse="New"
                                             userCount={course.numberOfTake}
                                             openDate={course.regDate}
                                             creatorName={course.instructorName}

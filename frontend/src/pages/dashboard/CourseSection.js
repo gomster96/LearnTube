@@ -73,7 +73,7 @@ const CoursePart = (props) => {
                                   <div className="course-part clearfix m-0">
                                       <CourseDashBoard
                                           courseClass="courses-item"
-                                          courseImg={courseImg1}
+                                          courseImg={takesData[i].image}
                                           courseTitle={takesData[i].className}
                                           notice={takesData[i].latestNotice}
                                           progress={0}
