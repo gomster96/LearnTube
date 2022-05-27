@@ -39,7 +39,7 @@ const CourseDashBoard = (props) => {
             <Link
               to={{
                 pathname: "/learntube/course/course-single",
-                state: { classId: classId },
+                state: { classId: classId, userId: userId },
               }}
             >
               {courseTitle ? courseTitle : "강의제목"}

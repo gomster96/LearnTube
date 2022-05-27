@@ -7,8 +7,9 @@ import { useLocation } from "react-router-dom";
 
 function CourseDetailsPart(props) {
   const location = useLocation();
-  const [userId, SetUserId] = useState("");
-
+  console.log(props);
+  // const [userId, SetUserId] = useState("");
+  const userId = window.sessionStorage.getItem("userId");
   const [classRoomData, setClassRoomData] = useState();
   const cid = useLocation().state.classId;
   const [students, setStudents] = useState([
@@ -17,6 +18,9 @@ function CourseDetailsPart(props) {
 
   const uid = location.state.userId;
   //console.log("cid in detail part " + cid);
+  // {
+  //   uid ? SetUserId(uid) : SetUserId(window.sessionStorage.getItem("userId"));
+  // }
 
   const joinClass = () => {
     if (window.confirm("수강신청 하시겠습니까?")) {
@@ -43,42 +47,43 @@ function CourseDetailsPart(props) {
   };
 
   useEffect(() => {
-    if (location.state) {
-      console.log("uid", uid);
-      {
-        uid
-          ? SetUserId(uid)
-          : SetUserId(window.sessionStorage.getItem("userId"));
-      }
+    // if (location.state) {
+    //   console.log("uid", uid);
+    //   {
+    //     uid
+    //       ? SetUserId(uid)
+    //       : SetUserId(window.sessionStorage.getItem("userId"));
+    //   }
+    // }
+    console.log("userId", userId);
+    // if (classRoomData) {
+    console.log(cid);
+    const fetchClassRoom = async () => {
+      try {
+        if (userId) {
+          const res1 = await axios.get(
+            `${process.env.REACT_APP_SERVER_URL}/api/classroom?userId=${userId}&classId=${cid}`
+          );
+          console.log(res1.data);
+          setClassRoomData(res1.data);
+        }
+        const res2 = await axios.get(
+          `${process.env.REACT_APP_SERVER_URL}/api/user/students?classId=${cid}`
+        );
 
-      console.log("userId", userId);
-      if (userId) {
-        //console.log(cid);
-        const fetchClassRoom = async () => {
-          try {
-            const res1 = await axios.get(
-              `${process.env.REACT_APP_SERVER_URL}/api/classroom?userId=${userId}&classId=${cid}`
-            );
-            const res2 = await axios.get(
-              `${process.env.REACT_APP_SERVER_URL}/api/user/students?classId=${cid}`
-            );
-
-            console.log(res1.data);
-            setClassRoomData(res1.data);
-            // console.log("classRoomData", classRoomData);
-            // console.log("isTake", classRoomData.isTake);
-            // console.log("cid", cid);
-            // console.log("res2", res2.data);
-            setStudents(res2.data);
-            console.log("students", students);
-          } catch (err) {
-            console.log("err >> ", err);
-          }
-        };
-        fetchClassRoom();
+        // console.log("classRoomData", classRoomData);
+        // console.log("isTake", classRoomData.isTake);
+        // console.log("cid", cid);
+        // console.log("res2", res2.data);
+        setStudents(res2.data);
+        console.log("students", students);
+      } catch (err) {
+        console.log("err >> ", err);
       }
-    }
-  }, [userId]);
+    };
+    fetchClassRoom();
+    // }
+  }, []);
 
   return (
     <React.Fragment>
@@ -92,7 +97,8 @@ function CourseDetailsPart(props) {
                 <h3>{classRoomData.className}</h3>
                 <p>⇣ {classRoomData.classDescription} </p>
               </div>
-              {classRoomData.isTake === false ? (
+              {classRoomData.instructor.userId != String(userId) &&
+              classRoomData.isTake === false ? (
                 <button
                   id="joinBtn"
                   className="readon2 banner-style flex-fill  align-items-end flex-column bd-highlight mb-3"

@@ -18,17 +18,19 @@ import Logo from "../../assets/img/logo/Learntube-logos_transparent.png";
 import footerLogo from "../../assets/img/logo/lite-logo.png";
 
 const CourseOne = (props) => {
-  const location = useLocation();
-  const [userId, SetUserId] = useState("");
-
+  console.log(props);
+  // const location =s useLocation();
+  // const [userId, SetUserId] = useState("");
+  const userId = window.sessionStorage.getItem("userId");
+  console.log(userId);
   useEffect(() => {
-    const uid = 0;
-    if (location.state) {
-      const uid = location.state.userId;
-      console.log("uid", uid);
-      SetUserId(uid);
-      console.log("userId", userId);
-    }
+    // const uid = 0;
+    // if (location.state) {
+    //   const uid = location.state.userId;
+    //   console.log("uid", uid);
+    //   SetUserId(uid);
+    //   console.log("userId", userId);
+    // }
   }, [userId]);
   let tab1 = "수강중인 강의실",
     tab2 = "관리중인 강의실",

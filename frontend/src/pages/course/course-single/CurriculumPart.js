@@ -20,18 +20,24 @@ import UpdateNotice from "../../../components/Modal/UpdateNotice";
 import DeleteNotice from "../../../components/Modal/DeleteNotice";
 
 const CurriculumPart = (props) => {
-  // console.log(props);
-  const { userId } = props;
+  console.log(props);
+  // const userId = props.userId;
+  const userId = window.sessionStorage.getItem("userId");
   console.log("curi userID", userId);
 
   const [isOpen, setIsOpen] = useState(false);
   const openModal = () => setIsOpen(!isOpen);
 
+  useEffect(() => {
+    if (String(props.classRoomData.instructor.userId) === userId) {
+      console.log("ture");
+    }
+  }, []);
   const [noticeIdx, setNoticeIdx] = useState(0);
   // const isTake = false;
 
   const isTakeCheck = () => {
-    if (props.classRoomData.isTake === false) {
+    if (String(props.classRoomData.instructor.userId) != userId) {
       alert("수강 신청이 필요합니다. ");
       window.reload();
       return;
@@ -39,7 +45,10 @@ const CurriculumPart = (props) => {
   };
 
   const clickModalHandler = (params) => {
-    if (props.classRoomData.isTake === false) {
+    if (
+      props.classRoomData.isTake === false &&
+      String(props.classRoomData.instructor.userId) != userId
+    ) {
       alert("수강 신청이 필요합니다. ");
       setIsOpen(isOpen);
       return;
@@ -119,6 +128,9 @@ const CurriculumPart = (props) => {
     <>
       {props.classRoomData ? (
         <div className="content">
+          <h>{props.classRoomData.instructor.userId}</h>
+          <h>{userId}</h>
+          <h1>{String(props.classRoomData.instructor.userId) === userId}</h1>
           <Accordion className="accordion-box" preExpanded={"a"}>
             <AccordionItem className="accordion-item" uuid="a">
               <AccordionItemHeading>
