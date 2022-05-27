@@ -16,6 +16,7 @@ const ClassroomContent = (props) => {
         entryCode: "1eFEC6",
         isOpened: true,
         isActive: true,
+        image: "",
     };
 
     const [createClassRoomData, setCreateClassRoomData] = useState(initCreateClassRoomData);
@@ -123,6 +124,15 @@ const ClassroomContent = (props) => {
                                                     required
                                                 />
                                             </div>
+                                        </div>
+                                        <div className="form-group col-lg-12 mb-25">
+                                            <div className="my-2">
+                                                강의실 이미지
+                                                <span className="ms-1" style={{ color: "red" }}>
+                                                    *
+                                                </span>
+                                            </div>
+                                            <input type="text" id="image" name="image" placeholder="이미지 링크 주소를 입력해주세요." onChange={handleChange} required />
                                         </div>
                                         <div className="form-group col-lg-12">
                                             <div className="my-2">

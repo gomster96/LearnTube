@@ -4,21 +4,11 @@ import ScrollToTop from "../../components/Common/ScrollTop";
 import { useHistory } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 function CourseMain(props) {
-    const location = useLocation();
-    const [userId, SetUserId] = useState("");
-    useEffect(() => {
-        const uid = 0;
-        if (location.state) {
-            const uid = location.state.userId;
-            console.log("uid", uid);
-            SetUserId(uid);
-            console.log("userId", userId);
-        }
-    }, []);
+    console.log("test" + props.userId);
     return (
         <React.Fragment>
             {/* CoursePart Start */}
-            <CoursePart />
+            <CoursePart userId={props.userId} />
             {/* CoursePart End */}
 
             {/* scrolltop-start */}
