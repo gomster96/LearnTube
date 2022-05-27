@@ -99,8 +99,8 @@ const Header = (props) => {
                     </Link>
                   </div>
                 </div>
-                <div className="col-lg-7 text-end">
-                  <div className="rs-menu-area">
+                <div className="col-lg-7 text-start">
+                  <div className="rs-menu-area" style={{float:"left"}}>
                     <div className="main-menu">
                       <div className="mobile-menu md-display-block">
                         <Link to="/learntube/" className="mobile-normal-logo">

@@ -1,19 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
-import { Button, Form } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import Header from "../../components/Layout/Header/Header";
 import Footer from "../../components/Layout/Footer/Footer";
 import OffWrap from "../../components/Layout/Header/OffWrap";
 import SearchModal from "../../components/Layout/Header/SearchModal";
-import CreatePlaylistButton from "../../components/Common/CreatePlaylistButton";
-import ScrollToTop from "../../components/Common/ScrollTop";
 import PlaylistWidget from "../../components/Widget/PlaylistWidget";
-import MyPlaylistWidget from "../../components/Widget/MyPlaylistWidget";
-import SearchWidget from "../../components/Widget/SearchWidget";
-import CreatePlaylistWidget from "../../components/Widget/CreatePlaylistWidget";
 import axios from "axios";
-
 import Modal from "react-modal";
 // Image
 import favIcon from "../../assets/img/fav-orange.png";
@@ -21,8 +15,9 @@ import Logo from "../../assets/img/logo/Learntube-logos_transparent.png";
 import footerLogo from "../../assets/img/logo/lite-logo.png";
 
 const Playlist = () => {
+    const userId = window.sessionStorage.getItem("userId");
     const initCreatePlaylist = {
-        userId: 1,
+        userId: userId,
         playlistName: "",
         description: "",
     };
@@ -51,7 +46,7 @@ const Playlist = () => {
     useEffect(() => {
         const fetchMyPlaylists = async () => {
             try {
-                const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/playlist?userId=1`);
+                const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/playlist?userId=${userId}`);
                 console.log(response.data);
                 setPlaylistData(response.data);
             } catch (err) {
@@ -86,7 +81,7 @@ const Playlist = () => {
         setCreatePlaylist({
             ...createPlaylist,
             [e.target.name]: e.target.value.trim(),
-            userId: 1,
+            userId: userId,
         });
     };
 
@@ -146,32 +141,39 @@ const Playlist = () => {
                                     <div className="mb-50">
                                         <div class="row align-items-center">
                                             <h3 className="col-2 text-start p-5 playlistWidgetTitle">나의 Playlist</h3>
+                                            {playlistData
+                                            ? 
+                                            <>
                                             <div className='col-1 plus d-flex justify-content-end'>
-                                                <div onClick={() => {
-                                                    openModal();
-                                                }}>
-                                                    <i className="fa fa-plus"></i>
-                                                </div>
+                                            <div onClick={() => {
+                                                openModal();
+                                            }}>
+                                                <i className="fa fa-plus"></i>
                                             </div>
-                                            <div class="col-5 dropdown show">
-                                                <Form.Select aria-label="SelectBox" onChange={(e) => { console.log(e.target.value); handlePlaylistChange(e.target.value); }}>
-                                                    <option>----playlist를 선택해주세요----</option> 
-                                                    {playlistData
-                                                        ? playlistData.map((data, i) => (
-                                                            //console.log(playlistData[i].videos.length),({playlistData[i].videos.length})
-                                                            <option
-                                                                key={playlistData[i].playlistId}
-                                                                id={playlistData[i].playlistId}
-                                                                name={playlistData[i].title}
-                                                            >
-                                                                {playlistData[i].name}
-                                                            </option>
-                                                        ))
-                                                        : <option key="playlistsData">Playlist가 존재하지 않습니다.</option>}
-                                                </Form.Select>
-                                            </div>
+                                        </div>
+                                        <div class="col-5 dropdown show">
+                                            <Form.Select aria-label="SelectBox" onChange={(e) => { console.log(e.target.value); handlePlaylistChange(e.target.value); }}>
+                                                <option>----Playlist를 선택해주세요----</option> 
+                                                {playlistData
+                                                    ? playlistData.map((data, i) => (
+                                                        //console.log(playlistData[i].videos.length),({playlistData[i].videos.length})
+                                                        <option
+                                                            key={playlistData[i].playlistId}
+                                                            id={playlistData[i].playlistId}
+                                                            name={playlistData[i].title}
+                                                        >
+                                                            {playlistData[i].name}
+                                                        </option>
+                                                    ))
+                                                    : <option key="playlistsData">Playlist가 존재하지 않습니다.</option>}
+                                            </Form.Select>
+                                        </div>
+                                        </>
+                                            : <></>
+                                            }
+
                                             {selectedPlaylist? <div></div> : <div>선택된 Playlist가 없습니다.</div>}
-                                            <PlaylistWidget isSelected={isSelected} selectedPlaylist={selectedPlaylist} selectedVideo={selectedVideo} playlistId={playlistId} playlistSize={playlistSize} />
+                                            <PlaylistWidget isSelected={isSelected} selectedPlaylist={selectedPlaylist} selectedVideo={selectedVideo} playlistId={playlistId} playlistSize={playlistSize} userId={userId} />
                                         </div>
                                     </div>
                                 </div>
@@ -197,7 +199,7 @@ const Playlist = () => {
                                         top: "23%",
                                         left: "25%",
                                         right: "25%",
-                                        bottom: "160px",
+                                        bottom: "140px",
                                         background: "#fff",
                                         overflow: "auto",
                                         WebkitOverflowScrolling: "touch",
@@ -231,7 +233,7 @@ const Playlist = () => {
                                                                 </div>
                                                                 <div className="form-group col-lg-12">
                                                                     <div className="my-2">Playlist 설명</div>
-                                                                    <textarea type="textarea" id="description" name="description" onChange={handleChange} placeholder="설명을 입력하세요" />
+                                                                    <textarea type="textarea" id="description" name="description" onChange={handleChange} placeholder="설명을 입력하세요" style={{height:"80px"}}/>
                                                                 </div>
                                                             </div>
                                                         )}

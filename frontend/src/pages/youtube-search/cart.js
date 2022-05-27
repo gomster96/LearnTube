@@ -140,7 +140,7 @@ const Cart = () => {
             </Helmet>
             <OffWrap />
             <Header
-                parentMenu="pages"
+                parentMenu="learntube"
                 secondParentMenu="event"
                 headerNormalLogo={Logo}
                 headerStickyLogo={Logo}
@@ -154,17 +154,25 @@ const Cart = () => {
                 <div className="px-5">
                     <div className="container">
                         <div className="d-flex align-items-center">
-                            <h3 className="ps-4 mb-0">
+                            <h3 className="mb-0">
                                 <i className="fa fa-play-circle-o pe-1 pt-3 mb-3"></i>
                                 {playlistName ? playlistName : "playlist 이름"}
                             </h3>
+                            <div className="ms-5">
                             <Link
                                     className="pt-2"
                                     to={{ pathname: "/learntube/learntube-studio" }}
                                     onClick={saveCart}
                                 >
-                                <img src={save} className='save' alt='save' ></img>
+                                   <div className="d-flex justify-content-end me-1 mt-1">
+                                            <button
+                                                className="createbtn text-center me-3"
+                                                onClick= {saveCart}
+                                            > 저장
+                                            </button>
+                                    </div>
                             </Link>
+                            </div>
                             {/* <div className="pt-2" onClick={saveCart}>
                                 <img src={save} className="save" alt="save"></img>
                             </div> */}

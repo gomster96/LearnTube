@@ -63,7 +63,7 @@ const YoutubeSearch = () => {
 
     const httpClient = axios.create({
         baseURL: 'https://www.googleapis.com/youtube/v3',
-        params: { key: 'AIzaSyAAQWtwJTH3tLOjqFz7ICVtcUlF_mCJ8xg' },
+        params: { key: process.env.REACT_APP_YOUTUBE_API },
 
     });
     const youtube = new Youtube(httpClient);
@@ -323,12 +323,13 @@ const YoutubeSearch = () => {
                         ? <h3 className="ps-2 mb-0 col-4"><i className="fa fa-play-circle-o pe-1 pt-3"></i>
                         <input type="text" id="updatedTitle" name="updatedTitle" placeholder={playlistName} className="border-0"
                                 value={updatePlaylistTitle} onChange={newTitleChange} />
-                        <i className="fa fa-check ps-3 pt-3 orange-color" onClick={()=>setUpdatePlaylist(!updatePlaylist)}></i>
-                        <i className="fa fa-rotate-left ps-3 pt-3 orange-color" onClick={()=>setUpdatePlaylist(!updatePlaylist)}></i>
+                        {/* <i className="fa fa-check ps-3 pt-3 orange-color" onClick={()=>setUpdatePlaylist(!updatePlaylist)}></i>
+                        <i className="fa fa-rotate-left ps-3 pt-3 orange-color" onClick={()=>setUpdatePlaylist(!updatePlaylist)}></i> */}
                         </h3> 
                         : <h3 className="ps-2 mb-0 col-4"><i className="fa fa-play-circle-o pe-1 pt-3"></i>
                         {location.state.playlistName != undefined || location.state.playlistName ? playlistName : '제목'}
-                        <i className="fa fa-pencil ps-3 pt-3 orange-color" onClick={()=>setUpdatePlaylist(!updatePlaylist)}></i></h3>}
+                        {/* <i className="fa fa-pencil ps-3 pt-3 orange-color" onClick={()=>setUpdatePlaylist(!updatePlaylist)}></i> */}
+                        </h3>}
                         <div className="col-8 widget-area d-flex align-items-center justify-content-end">
                             < YoutubeVideoSearchWidget onSearch={search} />
                             <Link
@@ -339,7 +340,7 @@ const YoutubeSearch = () => {
                                 }}
                             >
                                 {/* <img src={cartPage} className='goToCart' alt='go to cart page' ></img> */}
-                                <Button className='cartPage'>담은 비디오 확인하기</Button>
+                                <Button className='cartPage py-3'>담은 비디오 확인하기</Button>
                             </Link>
                         </div>
                     </div>
@@ -373,7 +374,7 @@ const YoutubeSearch = () => {
                                     </div>
                                 </div>}
                             {selectedVideo ? (
-                                <div className="col-lg-6 col-md-5 col-sm-12 mb-500" style={{ position: "fixed", right: "0", bottom: "600px;", height: "500px", overflowX: "hidden", overflowY: "auto" }}>
+                                <div className="col-lg-6 col-md-5 col-sm-12 mb-500">
                                     <YouTube videoId={selectedVideo.id} opts={opts} onStateChange={(e) => checkElapsedTime(e)} />
                                     <div class="row">
                                         <div class="col-12 my-5 lh-base">
@@ -432,8 +433,8 @@ const YoutubeSearch = () => {
                                                                         value={newDescription} onChange={descriptionChange} />
                                                                 </div>
                                                             </div>
-                                                            <div className="col-12 d-flex justify-content-center mt-4">
-                                                                <div className="createbtn ms-0" onClick={(e) => addVideoToCart(selectedVideo)}>
+                                                            <div className="col-12 d-flex justify-content-center mt-4 align-items-center">
+                                                                <div className="createbtn ms-0 pt-1" onClick={(e) => addVideoToCart(selectedVideo)} alert={"저장되었습니다!"}>
                                                                     {/* <button className=" text-center" onClick={() => addVideoToCart(selectedVideo)}>저장</button> */}
                                                                     저장
                                                                 </div>
