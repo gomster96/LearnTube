@@ -31,7 +31,10 @@ const CurriculumPart = (props) => {
   // const isTake = false;
 
   const isTakeCheck = () => {
-    if (props.classRoomData.isTake === false) {
+    if (
+      props.classRoomData.isTake === false &&
+      props.classRoomData.instructor.userId != userId
+    ) {
       alert("수강 신청이 필요합니다. ");
       window.reload();
       return;
@@ -39,11 +42,14 @@ const CurriculumPart = (props) => {
   };
 
   const clickModalHandler = (params) => {
-    if (props.classRoomData.isTake === false) {
+    if (
+      props.classRoomData.isTake === false &&
+      props.classRoomData.instructor.userId != userId
+    ) {
       alert("수강 신청이 필요합니다. ");
       setIsOpen(isOpen);
       return;
-    } else if (props.classRoomData.isTake === true) {
+    } else {
       setNoticeIdx(params);
     }
   };
