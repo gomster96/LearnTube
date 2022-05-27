@@ -90,7 +90,7 @@ const CoursePartClosed = (props) => {
                                   >
                                       <CourseDashBoard
                                           courseClass="courses-item"
-                                          courseImg={courseImg1}
+                                          courseImg={closedData[i].image}
                                           courseTitle={closedData[i].className}
                                           notice={closedData[i].latestNotice}
                                           progress={100}
