@@ -15,13 +15,13 @@ import YouTube from 'react-youtube';
 
 
 const PlaylistWidget = ({ isSelected, selectedPlaylist, selectedVideo, playlistId, playlistSize }) => {
-    console.log(selectedPlaylist);
-    console.log(selectedVideo);
     const [isClicked, setIsClicked] = useState(false);
     const [clickedVideo, setClickedVideo] = useState({});
     const [startTime, setStartTime] = useState(null);
     const [endTime, setEndTime] = useState(null);
     const [playlistData, setPlaylistData] = useState(null);
+    const [updatePlaylist, setUpdatePlaylist] = useState(false);
+    const [updatePlaylistTitle, setUpdatePlaylistTitle] = useState(selectedPlaylist.name);
     useEffect(() => {
         const fetchMyPlaylists = async () => {
             try {
@@ -35,6 +35,12 @@ const PlaylistWidget = ({ isSelected, selectedPlaylist, selectedVideo, playlistI
         };
         fetchMyPlaylists();
     }, []);
+
+    const initUpdatePlaylistData = {
+        playlistId: playlistId,
+        playlistName : updatePlaylistTitle,
+        description : '',
+    };
     const opts = {
         height: '125',
         width: '100%',
@@ -70,21 +76,58 @@ const PlaylistWidget = ({ isSelected, selectedPlaylist, selectedVideo, playlistI
             event.preventDefault();
         }
     }
+
+    const newTitleChange = (e) => {
+        console.log(updatePlaylistTitle);
+        setUpdatePlaylistTitle(e.target.value);
+    };
+    const updatePlaylistData = {
+        playlistId: playlistId,
+        playlistName : updatePlaylistTitle,
+        description : '',
+    };
+    const handleSubmit = async () => {
+        const response = await axios
+            .post(`${process.env.REACT_APP_SERVER_URL}/api/playlist/update`, JSON.stringify(updatePlaylistData), {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            })
+            .then((res) => console.log(res));
+        alert(updatePlaylistTitle+'로 playlist 정보가 업데이트 되었습니다.');
+        //window.location.reload();
+    };
     //JSON.stringify(selectedPlaylist)
     return (
 
         <div>
             <div className="row">
-                <div className='d-flex justify-content-start align-items-center row mb-3'>
-                    <h3 className='col-4 text-start m-0'><i className="fa fa-play-circle-o pe-1"></i> {typeof selectedPlaylist === 'string' ? selectedPlaylist + '(' + playlistSize + ')' : '선택된 playlist 제목'} </h3>
-                    <Link
-                        className="col-2 text-center pt-2 d-flex align-items-center justify-content-center"
-                        to={{
-                            pathname: "/learntube/learntube-studio/youtubeSearch",
-                            state: { playlistName: selectedPlaylist, playlistId: playlistId, update: true },
-                        }}
-                    ><Button className='updateVideo' onClick={(e) => { checkPlaylistName(e, selectedPlaylist); }}>영상 더 추가하기</Button>
-                    </Link>
+                <div className='d-flex justify-content-between align-items-center row mb-3'>
+                    {typeof selectedPlaylist != 'string' ?<div className='col'><h3 className='col text-start m-0'><i className="fa fa-play-circle-o pe-1"></i> {typeof selectedPlaylist === 'string' ? selectedPlaylist : '선택된 playlist 제목'}</h3></div>
+                    : <div className='col'>{ updatePlaylist 
+                        ? <h3 className='col text-start m-0'><i className="fa fa-play-circle-o pe-1"></i> {/*{typeof selectedPlaylist === 'string' ? selectedPlaylist : '선택된 playlist 제목'}}*/}
+                            <input type="text" id="updatedTitle" name="updatedTitle" placeholder={ selectedPlaylist } className="border-0"
+                                    value={updatePlaylistTitle} onChange={newTitleChange} />
+                            <i className="fa fa-check ps-3 pt-3 orange-color" onClick={()=>{setUpdatePlaylist(!updatePlaylist);handleSubmit();}}></i>
+                            <i className="fa fa-rotate-left ps-3 pt-3 orange-color" onClick={()=>{setUpdatePlaylist(!updatePlaylist);setUpdatePlaylistTitle('');}}></i>
+                        </h3>
+                        :<h3 className='col text-start m-0'><i className="fa fa-play-circle-o pe-1"></i> {typeof selectedPlaylist === 'string' ? selectedPlaylist : '선택된 playlist 제목'}
+                            <i className="fa fa-pencil ps-3 pt-3 orange-color" onClick={()=>setUpdatePlaylist(!updatePlaylist)}></i>
+                        </h3>}</div>
+                    }
+                    
+                    <div className='col d-flex justify-content-end align-items-center'>
+                        <h5 className=' text-start m-0 '>{ playlistSize + '개의 동영상 | 총 영상 시간 : '}</h5>
+                        <Link
+                            className=" text-center pt-2 d-flex align-items-center justify-content-end"
+                            to={{
+                                pathname: "/learntube/learntube-studio/youtubeSearch",
+                                state: { playlistName: selectedPlaylist, playlistId: playlistId, update: true },
+                            }}
+                        ><Button className='updateVideo' onClick={(e) => { checkPlaylistName(e, selectedPlaylist); }}>영상 더 추가하기</Button>
+                        </Link>
+                    </div>
                 </div>
                 {isSelected ? (
                     <div className="col-lg-4 text-start border-left">
