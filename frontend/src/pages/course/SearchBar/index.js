@@ -8,6 +8,7 @@ export default function SearchBar(props) {
     };
 
     const onClick = () => {
+        props.setIsLast(false);
         props.setFilterStatus((prevState) => {
             return { ...prevState, page: 0, keyword: input };
         });
