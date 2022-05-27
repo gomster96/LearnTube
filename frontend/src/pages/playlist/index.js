@@ -155,7 +155,7 @@ const Playlist = () => {
                                             </div>
                                             <div class="col-5 dropdown show">
                                                 <Form.Select aria-label="SelectBox" onChange={(e) => { console.log(e.target.value); handlePlaylistChange(e.target.value); }}>
-                                                    <option>----playlist를 선택해주세요----</option>
+                                                    <option>----playlist를 선택해주세요----</option> 
                                                     {playlistData
                                                         ? playlistData.map((data, i) => (
                                                             //console.log(playlistData[i].videos.length),({playlistData[i].videos.length})
