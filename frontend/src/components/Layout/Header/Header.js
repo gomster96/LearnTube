@@ -99,7 +99,7 @@ const Header = (props) => {
                     </Link>
                   </div>
                 </div>
-                <div className="col-lg-8 text-end">
+                <div className="col-lg-7 text-end">
                   <div className="rs-menu-area">
                     <div className="main-menu">
                       <div className="mobile-menu md-display-block">
@@ -144,11 +144,11 @@ const Header = (props) => {
                   </div>{" "}
                 </div>
 
-                <div className="col-lg-2 relative text-end hidden-md">
+                <div className="col-lg-3 relative text-end hidden-md">
                   <div className="expand-btn-inner search-icon">
                     <Login />
                     <ul className="expand-items">
-                      <li className="sidebarmenu-search">
+                      {/* <li className="sidebarmenu-search">
                         <Link
                           to="#"
                           onClick={searchModalAdd}
@@ -158,7 +158,7 @@ const Header = (props) => {
                           {" "}
                           <i className="flaticon-search"></i>
                         </Link>
-                      </li>
+                      </li> */}
                       <li>
                         <a
                           onClick={canvasMenuAdd}
