@@ -15,8 +15,24 @@ const ContentWidget = (props) => {
     console.log(props.className);
     console.log(props.content.contentId);
     console.log(props.lecture);
+    const initContentData = {
+        id: "",
+        contentName: "",
+        contentDescription: "",
+        openDate: "",
+        closeDate: "",
+        playlist: [{
+            id: "",
+            playlistTitle: "",
+            totalTime: "",
+            videos: [{
 
-    const [contentData, setContentData] = useState();
+            }],
+        }],
+    };
+
+
+    const [contentData, setContentData] = useState(initContentData);
     const [contentId, setContentId] = useState(props.content.contentId);
     const [lectureNum, setLectureNum] = useState(props.lecture.lectureNum);
     const [selectedPlaylist, setSelectedPlaylist] = useState();
@@ -68,13 +84,15 @@ const ContentWidget = (props) => {
             // setContentId(props.content.contentId);
             console.log(contentId);
             try {
-                const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/content?contentId=${contentId}`);
-                console.log(response.data);
-                setContentData(response.data);
+                const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/content?contentId=${contentId}`).then((res) => setContentData(res.data)); 
+                console.log(contentData);
+                //console.log(response.data);
+                //setContentData(response.data);
             } catch (err) {
                 console.log("err >> ", err);
             }
-            setDefaultVideo(contentData.playlist.videos[0]);
+            //  if(typeof contentData.playlist != "undefined") 
+            // setDefaultVideo(contentData.playlist.videos[0]);
         };
         fetchContent();
     }, []);
@@ -91,7 +109,11 @@ const ContentWidget = (props) => {
                     <div>
                         <div className="row">
                             <h3 className="text-start pt-5 mb-0 orange-color">{contentData.contentName}</h3>
+                            {contentData.openDate 
+                            ?  
                             <div className="text-start mt-5">학습 기간 : {contentData.openDate.split("T")[0]} | {contentData.openDate.split("T")[1].substring(0, 5)} ~ {contentData.closeDate.split("T")[0]} | {contentData.closeDate.split("T")[1].substring(0, 5)}</div>
+                            :<div></div> }
+                           
                         </div>
                         {contentData.contentDescription ?
                             <div className="row text-start pt-50">
@@ -125,6 +147,9 @@ const ContentWidget = (props) => {
                                             </div>
                                             :
                                             <div>
+                                            {contentData.playlist.videos === null
+                                            ?
+                                                <div>
                                                 <div className="row">
                                                     <YouTube videoId={contentData.playlist.videos[0].youtubeId} opts={opts2} />
                                                 </div>
@@ -136,21 +161,30 @@ const ContentWidget = (props) => {
                                                         전체 재생 시간: {toHHMMSS(contentData.playlist.videos[0].duration) ? toHHMMSS(contentData.playlist.videos[0].duration) : 'duration 없음'}</div>
                                                     <div className="d-flex fw-light"> 시작 시간: {toHHMMSS(contentData.playlist.videos[0].start_s) ? toHHMMSS(contentData.playlist.videos[0].start_s) : '영상제목'} ~ 끝시간: {toHHMMSS(contentData.playlist.videos[0].end_s) ? toHHMMSS(contentData.playlist.videos[0].end_s) : '영상제목'} </div>
                                                 </div>
+                                            </div> 
+                                            : '비디오가 없습니다.'}
                                             </div>
 
 
                                         }
                                     </div>
                                     <div className="col-md-4 col-sm-12">
-                                        {contentData.playlist.videos.map((data, i) => (
-                                            <div className="d-flex" onClick={() => selectVideo(data)}>
-                                                <YouTube videoId={contentData.playlist.videos[i].youtubeId} opts={opts} />
-                                                <div className="ms-3">
-                                                    {contentData.playlist.videos[i].videoTitle}
+                                        {contentData.playlist.videos
+                                        ?
+                                        <>
+                                            {contentData.playlist.videos.map((data, i) => (
+                                                <div className="d-flex" onClick={() => selectVideo(data)}>
+                                                    <YouTube videoId={contentData.playlist.videos[i].youtubeId} opts={opts} />
+                                                    <div className="ms-3">
+                                                        {contentData.playlist.videos[i].videoTitle}
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        ))
+                                            ))
+                                            }
+                                        </>
+                                        : <></>
                                         }
+
                                     </div>
                                 </div>
                             </div>

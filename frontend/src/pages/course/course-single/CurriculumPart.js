@@ -344,12 +344,21 @@ const CurriculumPart = (props) => {
                                                                         paddingTop: "10px",
                                                                     }}
                                                                 >
-                                                                    마감일:
+                                                                    {props.classRoomData.lectures[i].contents[j].closeDate
+                                                                    ? 
+                                                                    <>
+                                                                    {/* 마감일: {props.classRoomData.lectures[i].contents[j].closeDate} */}
                                                                     {props.classRoomData.lectures[i].contents[j].closeDate.split("T")[0] +
                                                                         " " +
                                                                         props.classRoomData.lectures[i].contents[j].closeDate.split("T")[1].split(":")[0] +
                                                                         ":" +
                                                                         props.classRoomData.lectures[i].contents[j].closeDate.split("T")[1].split(":")[1]}
+                                                                    </>
+                                                                      :
+                                                                      <></>
+                                                                    
+                                                                
+                                                                    }
                                                                     {props.classRoomData.instructor.userId === userId ? (
                                                                         <>
                                                                             <div className="pull-right">
