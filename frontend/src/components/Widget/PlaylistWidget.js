@@ -166,7 +166,7 @@ const PlaylistWidget = ({ isSelected, selectedPlaylist, selectedVideo, playlistI
                                                 </div>
                                                 <div className="d-flex fw-light ms-0 ps-0">
                                                     전체 재생 시간: {selectedVideo[i].duration ? toHHMMSS(selectedVideo[i].duration) : '전체길이'}</div>
-                                                <div className="d-flex fw-light"> 시작 시간: {selectedVideo[i].start_s ? toHHMMSS(selectedVideo[i].start_s) : '00:00'} ~ 끝시간: {selectedVideo[i].end_s ? toHHMMSS(selectedVideo[i].end_s) : selectedVideo[i].duration} </div>
+                                                <div className="d-flex fw-light"> 시작 시간: {selectedVideo[i].start_s ? toHHMMSS(selectedVideo[i].start_s) : '00:00'} ~ 끝시간: {selectedVideo[i].end_s ? toHHMMSS(selectedVideo[i].end_s) : toHHMMSS(selectedVideo[i].duration)} </div>
                                             </div>
                                         </div>
 
