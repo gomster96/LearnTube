@@ -70,13 +70,24 @@ const PlaylistWidget = ({ isSelected, selectedPlaylist, selectedVideo, playlistI
             event.preventDefault();
         }
     }
+    var toHHMMSS = (secs) => {
+        var sec_num = parseInt(secs, 10)
+        var hours = Math.floor(sec_num / 3600)
+        var minutes = Math.floor(sec_num / 60) % 60
+        var seconds = sec_num % 60
+
+        return [hours, minutes, seconds]
+            .map(v => v < 10 ? "0" + v : v)
+            .filter((v, i) => v !== "00" || i > 0)
+            .join(":")
+    }
     //JSON.stringify(selectedPlaylist)
     return (
 
         <div>
             <div className="row">
                 <div className='d-flex justify-content-start align-items-center row mb-3'>
-                    <h3 className='col-4 text-start m-0'><i className="fa fa-play-circle-o pe-1"></i> {typeof selectedPlaylist === 'string' ? selectedPlaylist + '(' + playlistSize + ')' : '선택된 playlist 제목'} </h3>
+                    <h3 className='col-4 text-start m-0 ps-0'><i className="fa fa-play-circle-o pe-1"></i> {typeof selectedPlaylist === 'string' ? selectedPlaylist + '(' + playlistSize + ')' : '선택된 playlist 제목'} </h3>
                     <Link
                         className="col-2 text-center pt-2 d-flex align-items-center justify-content-center"
                         to={{
@@ -87,7 +98,7 @@ const PlaylistWidget = ({ isSelected, selectedPlaylist, selectedVideo, playlistI
                     </Link>
                 </div>
                 {isSelected ? (
-                    <div className="col-lg-4 text-start border-left">
+                    <div className="col-lg-5 text-start border-left">
                         <div className="p-1 row">
                             <div>
                                 {Array.isArray(selectedVideo)
@@ -105,8 +116,8 @@ const PlaylistWidget = ({ isSelected, selectedPlaylist, selectedVideo, playlistI
                                                     {selectedVideo[i].newTitle ? selectedVideo[i].newTitle : selectedVideo[i].title}
                                                 </div>
                                                 <div className="d-flex fw-light ms-0 ps-0">
-                                                    전체 재생 시간: {selectedVideo[i].duration ? selectedVideo[i].duration : '영상제목'}</div>
-                                                <div className="d-flex fw-light"> 시작 시간: {selectedVideo[i].start_s ? selectedVideo[i].start_s : '영상제목'} ~ 끝시간: {selectedVideo[i].end_s ? selectedVideo[i].end_s : '영상제목'} </div>
+                                                    전체 재생 시간: {selectedVideo[i].duration ? toHHMMSS(selectedVideo[i].duration) : '없습니다.'}</div>
+                                                <div className="d-flex fw-light"> 시작 시간: {selectedVideo[i].start_s ? toHHMMSS(selectedVideo[i].start_s) : '설정되지 않았습니다.'} ~ 끝시간: {selectedVideo[i].end_s ? toHHMMSS(selectedVideo[i].end_s) : '설정되지 않았습니다.'} </div>
                                             </div>
                                         </div>
 
@@ -155,19 +166,25 @@ const PlaylistWidget = ({ isSelected, selectedPlaylist, selectedVideo, playlistI
                     </div>
                 }
                 {isClicked
-                    ? <div className=" col-lg-8 overflow-auto " style={{ right: "0", bottom: "600px;", height: "500px" }}>
+                    ? <div className=" col-lg-7" style={{ right: "0", bottom: "600px;", height: "500px" }}>
                         <YouTube videoId={clickedVideo.youtubeId} opts={opts2} />
                         <div className='row'>
-                            <div class="col-12 my-5 lh-base">
-                                <div class="mx-md-3 fs-3 text-start">{clickedVideo.newTitle ? clickedVideo.newTitle : clickedVideo.title}</div>
-                                <div class="d-flex fw-light">
-                                    <div class="mx-3 fs-5 text-start text-muted">{clickedVideo.channelTitle}</div>
-                                    <div class="mx-2"></div>
+                            <div class="col-12 my-5 lh-base ms-0 ps-0">
+                                <div class="mx-md-3 fs-3 text-start ms-0 ps-0">{clickedVideo.newTitle ? clickedVideo.newTitle : clickedVideo.title}</div>
+                                <div class="d-flex fw-light ms-0 ps-0">
+                                    <div class="fs-5 text-start text-muted ms-0 ps-0">{clickedVideo.channelTitle}</div>
+                                    
+                                    <div className="row fw-light ms-0 ps-0">
+                                                    전체 재생 시간: {clickedVideo.duration ? toHHMMSS(clickedVideo.duration) : '없습니다.'}</div>
+                                                    </div>
+                                                    
+                                    <div className="row fw-light ms-0 ps-0"> 시작 시간: {clickedVideo.start_s ? toHHMMSS(clickedVideo.start_s) : '설정되지 않았습니다.'} ~ 끝시간: {clickedVideo.end_s ? toHHMMSS(clickedVideo.end_s) : '설정되지 않았습니다.'} </div>
+                                   
                                     {/* <div class="ms-3 fs-5 text-start text-muted">영상 총 시간 {selectedVideo.contentDetails.duration ? selectedVideo.contentDetails.duration : '0'}</div> */}
                                     {/* <div class="mx-2"></div>
             //                             <div class="mx-1 border-start border-secondary"></div> */}
                                     {/* <div class="ms-3 fs-5 text-start text-mute">{selectedVideo.snippet.publishTime.slice(0, 10)}</div> */}
-                                </div>
+                                
                                 <div class="mt-5 mx-md-3 fs-5 text-start text-muted">{clickedVideo.tag}</div>
                             </div>
                         </div>

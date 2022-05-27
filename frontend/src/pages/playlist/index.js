@@ -145,7 +145,7 @@ const Playlist = () => {
                                 <div className="widget-area">
                                     <div className="mb-50">
                                         <div class="row align-items-center">
-                                            <h3 className="col-2 text-start p-5 playlistWidgetTitle">나의 Playlist</h3>
+                                            <h3 className="col-2 p-5 playlistWidgetTitle text-start" style={{paddingLeft:"0px !important"}}>나의 Playlist</h3>
                                             <div className='col-1 plus d-flex justify-content-end'>
                                                 <div onClick={() => {
                                                     openModal();
