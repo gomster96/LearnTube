@@ -102,6 +102,15 @@ scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/
         }
     }, [userData.userId]);
 
+    useEffect(() => {
+        if (userData.userId) {
+            history.push({
+                pathname: "/learntube/learntube-studio",
+                state: { userId: userData.userId },
+            });
+        }
+    }, [userData.userId]);
+
     return (
         <div className="d-flex mt-3 align-items-center">
             <div className="d-flex me-3 mb-10">{window.sessionStorage.getItem("name")? window.sessionStorage.getItem("name")+"님" : window.sessionStorage.getItem("name")}</div>
