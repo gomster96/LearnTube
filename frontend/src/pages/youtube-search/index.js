@@ -29,12 +29,11 @@ const YoutubeSearch = () => {
 
     const opts = {
         height: '360',
-        width: '560',
+        width: '600',
         playerVars: {
             // https://developers.google.com/youtube/player_parameters
             autoplay: 1,
-            start: 30,
-            end: 50,
+            start: 0,
         },
     };
 
@@ -374,30 +373,32 @@ const YoutubeSearch = () => {
                                     </div>
                                 </div>}
                             {selectedVideo ? (
-                                <div className="col-lg-6 col-md-5 col-sm-12 mb-500">
-                                    <YouTube videoId={selectedVideo.id} opts={opts} onStateChange={(e) => checkElapsedTime(e)} />
+                                <div className="col-lg-6 col-md-5 col-sm-12 mb-100">
+                                   
                                     <div class="row">
-                                        <div class="col-12 my-5 lh-base">
-                                            <div class="mx-md-3 fs-3 text-start">{selectedVideo.snippet.title}</div>
+                                        <div class="col-12 my-2 lh-base">
+                                            <div class="fs-3 text-start">{selectedVideo.snippet.title}</div>
                                             <div class="d-flex fw-light">
-                                                <div class="mx-3 fs-5 text-start text-muted">{selectedVideo.snippet.channelTitle}</div>
-                                                <div class="mx-2"></div>
-                                                <div class="mx-1 border-start border-secondary"></div>
-                                                <div class="ms-3 fs-5 text-start text-muted">조회수 {selectedVideo.statistics.viewCount ? realNewViewCount : '0'}회</div>
-                                                <div class="mx-2"></div>
-                                                <div class="mx-1 border-start border-secondary"></div>
-                                                <div class="ms-3 fs-5 text-start text-muted">영상 총 시간 {selectedVideo.contentDetails.duration ? realFinalDuration : '0'}</div>
-                                                <div class="mx-2"></div>
-                                                <div class="mx-1 border-start border-secondary"></div>
-                                                <div class="ms-3 fs-5 text-start text-mute">{selectedVideo.snippet.publishTime.slice(0, 10)}</div>
+                                                <div class="fs-6 text-start text-muted">{selectedVideo.snippet.channelTitle}</div>
+                                                <div class="ms-2 border-start border-secondary"></div>
+                                                <div class="ms-2 fs-6 text-start text-muted">{selectedVideo.statistics.viewCount ? realNewViewCount : '0'}회</div>
+                                                <div class="mx-2 border-start border-secondary"></div>
+                                                <div class="ms-2 fs-6 text-start text-muted">영상 총 시간 : {selectedVideo.contentDetails.duration ? finalDuration : '0'}</div>
+                                                <div class="mx-2 border-start border-secondary"></div>
+                                                <div class="ms- fs-6 text-start text-mute">{selectedVideo.snippet.publishTime.slice(0, 10)}</div>
                                             </div>
-                                            <div class="mx-3 my-3 border-bottom"></div>
-                                            <div class="mt-5 mx-md-3 fs-5 text-start text-muted">{selectedVideo.snippet.description}</div>
+                                            {/* <div class="mx-3 my-3 border-bottom"></div>
+                                            <div class="mt-5 mx-md-3 fs-5 text-start text-muted">{selectedVideo.snippet.description}</div> */}
+
+                                          
                                         </div>
-                                        <div className="row d-flex justify-content-end ms-3 me-1 mt-3">
+                                        <div className="row d-flex justify-content-center">
+                                        <YouTube videoId={selectedVideo.id} opts={opts} onStateChange={(e) => checkElapsedTime(e)} />
+                                        </div>
+                                        <div className="row d-flex justify-content-end ms-3 me-1">
                                             {isSelected == false ? <button className="createbtn text-center me-3" onClick={onToggle}>저장</button> : null}
                                         </div>
-                                        <div className={isSelected ? "col-12 register-section mx-md-4" : "col-12 register-section mx-md-4 d-none"} >
+                                        <div className={isSelected ? "col-12 register-section" : "col-12 register-section d-none"} >
                                             <div className="">
                                                 <div className="py-3">
                                                     <div className="text-start mb-10">
@@ -433,8 +434,8 @@ const YoutubeSearch = () => {
                                                                         value={newDescription} onChange={descriptionChange} />
                                                                 </div>
                                                             </div>
-                                                            <div className="col-12 d-flex justify-content-center mt-4 align-items-center">
-                                                                <div className="createbtn ms-0 pt-1" onClick={(e) => addVideoToCart(selectedVideo)} alert={"저장되었습니다!"}>
+                                                            <div className="col-12 d-flex justify-content-center mt-4 align-items-center me-5">
+                                                                <div className="createbtn ms-0 pt-1 me-4" onClick={(e) => addVideoToCart(selectedVideo)} alert={"저장되었습니다!"}>
                                                                     {/* <button className=" text-center" onClick={() => addVideoToCart(selectedVideo)}>저장</button> */}
                                                                     저장
                                                                 </div>

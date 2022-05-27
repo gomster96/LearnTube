@@ -48,7 +48,7 @@ const CreateContent = (props) => {
         setCreatePlaylist({
             ...createPlaylist,
             [e.target.name]: e.target.value.trim(),
-            userId: 1,
+            userId: props.userId,
         });
     };
     const handleSubmit = async () => {
