@@ -1,7 +1,8 @@
 export default function SortFilter(props) {
     const onChange = (e) => {
+        props.setIsLast(false);
         props.setFilterStatus((prevState) => {
-            return { ...prevState, condition: parseInt(e.target.value) };
+            return { ...prevState, condition: parseInt(e.target.value), page: 0 };
         });
     };
 
