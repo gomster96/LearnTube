@@ -80,27 +80,28 @@ const YoutubeSearch = () => {
         // console.log(selectedVideo.id);
         //조회수 커스터마이징
         setDuration(video.contentDetails.duration);
-        if (!video.contentDetails.duration) duration = 'PT9M50S';
-        let whereH = duration.indexOf('H');
-        let whereM = duration.indexOf('M');
-        let whereS = duration.indexOf('S');
+        // if (!video.contentDetails.duration) duration = 'PT9M50S';
+        let whereH = video.contentDetails.duration.indexOf('H');
+        let whereM = video.contentDetails.duration.indexOf('M');
+        let whereS = video.contentDetails.duration.indexOf('S');
         let hour, min, sec;
         if (whereH > -1) {
-            let tempDuration = duration.split('H');
+            let tempDuration = video.contentDetails.duration.split('H');
             let temp_length = tempDuration[0].length;
             hour = tempDuration[0].substring(2, temp_length);
             finalDuration = finalDuration + hour + "시간 ";
         }
         if (whereM > -1) {
-            let tempDuration = duration.split('M');
+            let tempDuration = video.contentDetails.duration.split('M');
             let temp_length = tempDuration[0].length;
             if (whereH > -1) {
                 min = tempDuration[0].substring(whereH + 1, temp_length);
             } else min = tempDuration[0].substring(2, temp_length);
             finalDuration = finalDuration + min + "분 ";
+            console.log(finalDuration);
         }
         if (whereS > -1) {
-            let tempDuration = duration.split('S');
+            let tempDuration = video.contentDetails.duration.split('S');
             let temp_length = tempDuration[0].length;
             if (whereH > -1 && whereM == -1) {
                 sec = tempDuration[0].substring(whereH + 1, temp_length);
@@ -108,6 +109,7 @@ const YoutubeSearch = () => {
                 sec = tempDuration[0].substring(whereM + 1, temp_length);
             } else sec = tempDuration[0].substring(2, temp_length);
             finalDuration = finalDuration + sec + "초";
+            console.log(finalDuration);
         }
         console.log(finalDuration);
         setFinalDuration(finalDuration);
