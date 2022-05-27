@@ -118,48 +118,27 @@ const Cart = () => {
             let obj = JSON.parse(cartList[temp]);
             console.log(obj);
             console.log(location.state.update);
-            if (location.state.update === true) {
-                let updateRequest = {
-                    playlistId: location.state.playlistId,
-                    youtubeId: obj.id,
-                    title: obj.snippet.title,
-                    newTitle: obj.snippet.newTitle,
-                    start_s: 0,
-                    end_s: 0,
-                    seq: temp,
-                    duration: 0,
-                };//${process.env.REACT_APP_SERVER_URL}
-                console.log(updateRequest);
-                const response3 = await axios
-                    .post(`http://walab.handong.edu:8080/learntube/api/playlist_video/create`, JSON.stringify(updateRequest), {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                    })
-                    .then((res) => console.log(res));
 
-            } else {
-                let createRequest = {
-                    playlistId: location.state.playlistId,
-                    youtubeId: obj.id,
-                    title: obj.snippet.title,
-                    newTitle: obj.snippet.newTitle,
-                    start_s: 0,
-                    end_s: 0,
-                    seq: temp,
-                    duration: obj.duration,
-                };
-                const response2 = await axios
-                    .post(`${process.env.REACT_APP_SERVER_URL}/api/playlist_video/create`, createRequest, {
-                        method: "POST",
-                        headers: {
-                            // Accept: "application/json",
-                            "Content-Type": "application/json",
-                        },
-                    })
-                    .then((res) => console.log(res));
-            }
+            let createRequest = {
+                playlistId: location.state.playlistId,
+                youtubeId: obj.id,
+                title: obj.snippet.title,
+                newTitle: obj.snippet.newTitle,
+                start_s: 0,
+                end_s: 0,
+                seq: temp,
+                duration: obj.duration,
+            };
+            const response2 = await axios
+                .post(`${process.env.REACT_APP_SERVER_URL}/api/playlist_video/create`, createRequest, {
+                    method: "POST",
+                    headers: {
+                        // Accept: "application/json",
+                        "Content-Type": "application/json",
+                    },
+                })
+                .then((res) => console.log(res));
+
         }
         window.alert("저장되었습니다!");
     };
