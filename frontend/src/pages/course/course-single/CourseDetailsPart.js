@@ -38,8 +38,8 @@ function CourseDetailsPart(props) {
         }
       };
       fetchJoinClass();
+      alert("신청 되었습니다.");
     }
-    alert("신청 되었습니다.");
   };
 
   useEffect(() => {
@@ -92,7 +92,8 @@ function CourseDetailsPart(props) {
                 <h3>{classRoomData.className}</h3>
                 <p>⇣ {classRoomData.classDescription} </p>
               </div>
-              {classRoomData.isTake === false ? (
+              {classRoomData.instructor.userId != userId &&
+              classRoomData.isTake === false ? (
                 <button
                   id="joinBtn"
                   className="readon2 banner-style flex-fill  align-items-end flex-column bd-highlight mb-3"
