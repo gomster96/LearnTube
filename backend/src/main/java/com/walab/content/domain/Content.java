@@ -62,14 +62,20 @@ public class Content extends BaseEntity {
     }
 
     private void updatePlaylist(Playlist playlist) {
-        this.playlist.getContents().remove(this);
+
+        if (!Objects.isNull(this.playlist))
+            this.playlist.getContents().remove(this);
         this.playlist = playlist;
-        playlist.getContents().add(this);
+        if(!Objects.isNull(playlist)) playlist.getContents().add(this);
     }
 
     public void update(ContentCUDto contentCUDto, Playlist playlist) {
         setContentDatas(contentCUDto);
         updatePlaylist(playlist);
+    }
+
+    public boolean isPlaylistExist() {
+        return Objects.isNull(this.playlist);
     }
 
     public void setContentDatas(ContentCUDto contentCUDto) {
@@ -81,9 +87,9 @@ public class Content extends BaseEntity {
 
     public ContentDto toDto() {
         if (Objects.isNull(this.playlist)) {
-            return new ContentDto(this.id, this.contentName, this.contentDescription,this.openDate, this.closeDate, null);
+            return new ContentDto(this.id, this.contentName, this.contentDescription, this.openDate, this.closeDate, null);
         }
-        return new ContentDto(this.id, this.contentName, this.contentDescription,this.openDate, this.closeDate, this.playlist.getId());
+        return new ContentDto(this.id, this.contentName, this.contentDescription, this.openDate, this.closeDate, this.playlist.getId());
     }
 
 }
