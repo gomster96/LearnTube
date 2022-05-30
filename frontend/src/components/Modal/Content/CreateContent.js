@@ -7,6 +7,9 @@ const CreateContent = (props) => {
     const [isOpen, setIsOpen] = useState();
     const openModal = () => setIsOpen(!isOpen);
     const [playlistOpen, setPlaylistOpen] = useState(false);
+    const [newPlaylistOpen, setNewPlaylistOpen] = useState(false);
+    const [playlistId, setPlaylistId] = useState(-1);
+    const [playlistName, setPlaylistName] = useState(null);
     const initCreateContentData = {
         lectureId: props.lectureId,
         contentName: "",
@@ -15,12 +18,14 @@ const CreateContent = (props) => {
         closeDate: "",
         playlistId: "",
     };
+    const [newPlaylistContentData, setNewPlaylistContentData] = useState(initCreateContentData);
+
 
     const initPlaylistsData = [{ playlistId: "", playlistName: "" }];
 
     const [createContentData, setCreateContentData] = useState(initCreateContentData);
     const [playlistsData, setPlaylists] = useState(initPlaylistsData);
-
+    const [createPlaylist, setCreatePlaylist] = useState();
     const loadPlaylists = async () => {
         try {
             const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/playlist/name?userId=${props.userId}`);
@@ -39,7 +44,13 @@ const CreateContent = (props) => {
             lectureId: props.lectureId,
         });
     };
-
+    const handlePlaylistChange = (e) => {
+        setCreatePlaylist({
+            ...createPlaylist,
+            [e.target.name]: e.target.value.trim(),
+            userId: props.userId,
+        });
+    };
     const handleSubmit = async () => {
         const response = await axios
             .post(`${process.env.REACT_APP_SERVER_URL}/api/content`, JSON.stringify(createContentData), {
@@ -52,6 +63,45 @@ const CreateContent = (props) => {
             .then((res) => console.log(res));
         openModal();
         window.location.reload();
+    };
+    const handleNewSubmit = async () => {
+
+        console.log(JSON.stringify(createPlaylist));
+        let temp;
+        const response = await axios
+            .post(`${process.env.REACT_APP_SERVER_URL}/api/playlist/create`, JSON.stringify(createPlaylist), {
+                method: "POST",
+                headers: {
+                    // Accept: "application/json",
+                    "Content-Type": "application/json",
+                },
+            })
+            .then(function (res) {
+                console.log(res.data.playlistId);
+                temp = res.data.playlistId;
+                setPlaylistId(temp);
+            });
+        console.log(createPlaylist.playlistName);
+        setPlaylistName(createPlaylist.playlistName);
+        setNewPlaylistContentData(createContentData);
+        newPlaylistContentData.playlistId = temp;
+
+
+        console.log(newPlaylistContentData);
+        setCreateContentData(newPlaylistContentData);
+        handleSubmit();
+
+        // const response = await axios
+        // .post(`${process.env.REACT_APP_SERVER_URL}/api/content`, JSON.stringify(createContentData), {
+        //     method: "POST",
+        //     headers: {
+        //         // Accept: "application/json",
+        //         "Content-Type": "application/json",
+        //     },
+        // })
+        // .then((res) => console.log(res));
+        // openModal();
+        // window.location.reload();
     };
 
     return (
@@ -152,12 +202,13 @@ const CreateContent = (props) => {
                                                 </div>
                                                 <input type="datetime-local" id="closeDate" name="closeDate" onChange={handleChange} required />
                                             </div>
-                                            <div>
-                                                <div>
+                                            <div className="row">
+                                                <div className="col-6">
                                                     <li
-                                                        className="fa fa-plus"
+                                                        className="fa fa-check"
                                                         onClick={() => {
                                                             setPlaylistOpen(true);
+                                                            setNewPlaylistOpen(false);
                                                             loadPlaylists();
                                                         }}
                                                         style={{
@@ -171,7 +222,28 @@ const CreateContent = (props) => {
                                                             padding: "8.4px",
                                                         }}
                                                     ></li>
-                                                    Playlist 추가하기
+                                                    Playlist 선택하기
+                                                </div>
+                                                <div className="col-6">
+                                                    <li
+                                                        className="fa fa-plus"
+                                                        onClick={() => {
+                                                            setPlaylistOpen(false);
+                                                            setNewPlaylistOpen(true);
+                                                            
+                                                        }}
+                                                        style={{
+                                                            backgroundColor: "#6483d8",
+                                                            border: "0px",
+                                                            borderRadius: "10px",
+                                                            color: "white",
+                                                            width: "30px",
+                                                            height: "30px",
+                                                            margin: "10px",
+                                                            padding: "8.4px",
+                                                        }}
+                                                    ></li>
+                                                    Playlist 생성하기
                                                 </div>
                                             </div>
                                             {playlistOpen === true ? (
@@ -189,6 +261,24 @@ const CreateContent = (props) => {
                                                     </div>
                                                 </div>
                                             ) : null}
+                                            {newPlaylistOpen === true ? (
+                                                <div className="row clearfix">
+                                                    <div className="form-group col-lg-12 mb-25">
+                                                        <div className="my-2">
+                                                            Playlist 이름
+                                                            <span className="ms-1" style={{ color: "red" }}>
+                                                                *
+                                                            </span>
+                                                        </div>
+                                                        <input type="text" id="title" name="playlistName" placeholder="제목을 입력하세요" onChange={handlePlaylistChange} required />
+                                                    </div>
+                                                    <div className="form-group col-lg-12">
+                                                        <div className="my-2">Playlist 설명</div>
+                                                        <textarea type="textarea" id="description" name="description" onChange={handlePlaylistChange} placeholder="설명을 입력하세요" />
+                                                    </div>
+                                                </div>
+                                            ) : null}
+
                                         </div>
 
                                         <div className="row d-flex justify-content-end ms-3 me-1 mt-3">
@@ -203,7 +293,7 @@ const CreateContent = (props) => {
                                             >
                                                 취소
                                             </Button>
-                                            <Button className="createbtn" type="button" onClick={handleSubmit} style={{ padding: "10.5px" }}>
+                                            <Button className="createbtn" type="button" onClick={newPlaylistOpen ? handleNewSubmit : handleSubmit} style={{ padding: "10.5px" }}>
                                                 저장
                                             </Button>
                                         </div>

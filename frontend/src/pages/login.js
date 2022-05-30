@@ -102,19 +102,28 @@ scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/
         }
     }, [userData.userId]);
 
+    useEffect(() => {
+        if (userData.userId) {
+            history.push({
+                pathname: "/learntube/learntube-studio",
+                state: { userId: userData.userId },
+            });
+        }
+    }, [userData.userId]);
+
     return (
-        <>
-            <h>{window.sessionStorage.getItem("name")}님</h>
+        <div className="d-flex mt-3 align-items-center">
+            <div className="d-flex me-3 mb-10">{window.sessionStorage.getItem("name")? window.sessionStorage.getItem("name")+"님" : window.sessionStorage.getItem("name")}</div>
             {window.sessionStorage.getItem("userId") === null ? (
-                <button id="oAuthBtn" onClick={oAuthHandler} className="readon2 banner-style mr-2 btn display-4">
+                <button id="oAuthBtn" onClick={oAuthHandler} className="loginbtn btn display-4 white-color orange-color mr-30 mb-10" style={{backgroundColor:"transparent", border:"1px solid"}}>
                     Sign In
                 </button>
             ) : (
-                <button id="logoutBtn" onClick={logout} className="readon2 banner-style mr-2 btn display-4">
+                <button id="logoutBtn" onClick={logout} className="loginbtn btn display-4 white-color orange-color mr-30 mb-10" style={{backgroundColor:"transparent", border:"1px solid"}}>
                     Logout
                 </button>
             )}
-        </>
+        </div>
     );
     // return (
     //     <React.Fragment>

@@ -96,7 +96,7 @@ const CoursePartAdmin = (props) => {
                                   >
                                       <CourseDashBoard
                                           courseClass="courses-item"
-                                          courseImg={courseImg1}
+                                          courseImg={managesData[i].image}
                                           courseTitle={managesData[i].className}
                                           notice={managesData[i].latestNotice}
                                           progress={0}
