@@ -71,7 +71,7 @@ const Cart = () => {
             tempArray.push(tempJson);
             setCartList(tempArray);
             setPlaylistName(location.state.title);
-            
+
         }
         setIsDeleted(false);
     }, []);
@@ -119,7 +119,6 @@ const Cart = () => {
                 seq: temp,
                 duration: obj.duration,
             };
-            console.log(createRequest);
             const response = await axios
                 .post(`${process.env.REACT_APP_SERVER_URL}/api/playlist_video/create`, createRequest, {
                     method: "POST",

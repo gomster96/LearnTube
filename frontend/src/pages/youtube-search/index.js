@@ -29,12 +29,11 @@ const YoutubeSearch = () => {
 
     const opts = {
         height: '360',
-        width: '560',
+        width: '600',
         playerVars: {
             // https://developers.google.com/youtube/player_parameters
             autoplay: 1,
-            start: 30,
-            end: 50,
+            start: 0,
         },
     };
 
@@ -84,15 +83,20 @@ const YoutubeSearch = () => {
         let whereH = duration.indexOf('H');
         let whereM = duration.indexOf('M');
         let whereS = duration.indexOf('S');
+        setDuration(video.contentDetails.duration);
+        // if (!video.contentDetails.duration) duration = 'PT9M50S';
+        let whereH = video.contentDetails.duration.indexOf('H');
+        let whereM = video.contentDetails.duration.indexOf('M');
+        let whereS = video.contentDetails.duration.indexOf('S');
         let hour, min, sec;
         if (whereH > -1) {
-            let tempDuration = duration.split('H');
+            let tempDuration = video.contentDetails.duration.split('H');
             let temp_length = tempDuration[0].length;
             hour = tempDuration[0].substring(2, temp_length);
             finalDuration = finalDuration + hour + "시간 ";
         }
         if (whereM > -1) {
-            let tempDuration = duration.split('M');
+            let tempDuration = video.contentDetails.duration.split('M');
             let temp_length = tempDuration[0].length;
             if (whereH > -1) {
                 min = tempDuration[0].substring(whereH + 1, temp_length);
@@ -101,7 +105,7 @@ const YoutubeSearch = () => {
             console.log(finalDuration);
         }
         if (whereS > -1) {
-            let tempDuration = duration.split('S');
+            let tempDuration = video.contentDetails.duration.split('S');
             let temp_length = tempDuration[0].length;
             if (whereH > -1 && whereM == -1) {
                 sec = tempDuration[0].substring(whereH + 1, temp_length);
@@ -132,7 +136,7 @@ const YoutubeSearch = () => {
         let whereS = durationStringVer.indexOf('S');
         var hour, min, sec;
         var durationFloat=0.0;
-        
+
         if (whereH > -1) {
             let tempDuration = durationStringVer.split('H');
             let temp_length = tempDuration[0].length;
@@ -148,7 +152,7 @@ const YoutubeSearch = () => {
             } else min = tempDuration[0].substring(2, temp_length);
             console.log("min: "+min);
             durationFloat = durationFloat + parseFloat(min)* 60;
-            
+
         }
         if (whereS > -1) {
             let tempDuration = durationStringVer.split('S');
@@ -241,7 +245,6 @@ const YoutubeSearch = () => {
 
 
     const checkElapsedTime = (e) => {
-        console.log(e);
         const duration = e.target.getDuration();
         const currentTime = e.target.getCurrentTime();
         setCurrentFloatTime(e.target.getCurrentTime());

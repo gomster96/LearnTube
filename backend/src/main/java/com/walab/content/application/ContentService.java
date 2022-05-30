@@ -54,6 +54,14 @@ public class ContentService {
     @Transactional
     public ContentDto update(Long contentId, ContentCUDto contentCUDto, Long playlistId) {
         Content content = contentRepository.findById(contentId).orElseThrow(ContentNotFoundException::new);
+        if(Objects.isNull(playlistId)){
+            if(Objects.isNull(content.getPlaylist())){
+                content.setContentDatas(contentCUDto);
+            } else {
+                content.update(contentCUDto, null);
+            }
+            return content.toDto();
+        }
         Playlist playlist = playlistRepository.findById(playlistId).orElseThrow(PlaylistNotFoundException::new);
         content.update(contentCUDto, playlist);
 
