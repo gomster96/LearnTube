@@ -167,7 +167,6 @@ const Cart = () => {
                                    <div className="d-flex justify-content-end me-1 mt-1">
                                             <button
                                                 className="createbtn text-center me-3"
-                                                onClick= {saveCart}
                                             > 저장
                                             </button>
                                     </div>

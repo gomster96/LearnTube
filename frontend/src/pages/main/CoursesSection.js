@@ -128,9 +128,8 @@ function Courses(props) {
                     <CourseSingleTwoCopy
                       userId={userId}
                       courseClass="courses-item mb-30"
-                      courseImg={images[i]}
+                      courseImg={popularClass[i].image}
                       courseTitle={popularClass[i].className}
-                      newCourse="New"
                       openDate={
                         popularClass[i].classRoomRegDate.split("-")[0] +
                         "." +
