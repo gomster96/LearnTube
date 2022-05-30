@@ -80,11 +80,6 @@ const YoutubeSearch = () => {
         //조회수 커스터마이징
         setDuration(video.contentDetails.duration);
         // if (!video.contentDetails.duration) duration = 'PT9M50S';
-        let whereH = duration.indexOf('H');
-        let whereM = duration.indexOf('M');
-        let whereS = duration.indexOf('S');
-        setDuration(video.contentDetails.duration);
-        // if (!video.contentDetails.duration) duration = 'PT9M50S';
         let whereH = video.contentDetails.duration.indexOf('H');
         let whereM = video.contentDetails.duration.indexOf('M');
         let whereS = video.contentDetails.duration.indexOf('S');
