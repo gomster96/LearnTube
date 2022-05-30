@@ -86,7 +86,7 @@ const CoursePartAdmin = (props) => {
                                       className="course-part clearfix m-0"
                                       onClick={() => {
                                           history.replace({
-                                              pathname: "../learntube/course/course-single",
+                                              pathname: "/learntube/course/course-single",
                                               state: {
                                                   classId: managesData[i].classId,
                                                   userId: props.userId,

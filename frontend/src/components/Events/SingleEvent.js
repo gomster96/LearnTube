@@ -11,7 +11,7 @@ const SingleEvent = (props) => {
                 </div>
                 {eventCategory ? (
                     <div className="categorie">
-                        <Link href="/event/style-1">{eventCategory}</Link>
+                        <Link href="/learntube/event/style-1">{eventCategory}</Link>
                     </div>
                 ) : (
                     ""
