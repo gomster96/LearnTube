@@ -1,16 +1,16 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 
-import bannerImg from '../../assets/img/banner/home12/1.png';
+import bannerImg from "../../assets/img/banner/home12/1.png";
 
-import shapeImg1 from '../../assets/img/banner/home12/dotted-shape.png';
-import shapeImg2 from '../../assets/img/banner/home12/intro-box.png';
+import shapeImg1 from "../../assets/img/banner/home12/dotted-shape.png";
+import shapeImg2 from "../../assets/img/banner/home12/intro-box.png";
 
-import bgImg from '../../assets/img/banner/home12/banner-home12.jpg';
+import bgImg from "../../assets/img/banner/home12/banner-home12.jpg";
 
 const bgStyle = {
-    backgroundImage: `url(${bgImg})`
-}
+    backgroundImage: `url(${bgImg})`,
+};
 
 const BannerStyleEight = () => {
     return (
@@ -21,7 +21,7 @@ const BannerStyleEight = () => {
                     <div className="row">
                         <div className="col-lg-6 pl-60 relative order-last">
                             <div className="img-part">
-                               <img className="up-down-new" src={bannerImg} alt="" />
+                                <img className="up-down-new" src={bannerImg} alt="" />
                             </div>
                         </div>
                         <div className="col-lg-6 pr-0">
@@ -29,7 +29,9 @@ const BannerStyleEight = () => {
                                 <div className="sl-sub-title">Freelancer Courses</div>
                                 <h1 className="sl-title">We Proudly Teaching Online Courses With Online Experts.</h1>
                                 <div className="banner-btn">
-                                    <Link className="readon green-banner" to="/about">Get Started</Link>
+                                    <Link className="readon green-banner" to="/learntube/about">
+                                        Get Started
+                                    </Link>
                                 </div>
                             </div>
                         </div>
@@ -47,6 +49,6 @@ const BannerStyleEight = () => {
             {/* <!-- banner section end --> */}
         </React.Fragment>
     );
-}
+};
 
 export default BannerStyleEight;

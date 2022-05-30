@@ -136,10 +136,10 @@ const HeaderStyleSix = (props) => {
                                                         </div>
 
                                                         <div className="cart-btn text-center">
-                                                            <Link className="crt-btn btn1" to="/shop/cart">
+                                                            <Link className="crt-btn btn1" to="/learntube/shop/cart">
                                                                 View Cart
                                                             </Link>
-                                                            <Link className="crt-btn btn2" to="/shop/checkout">
+                                                            <Link className="crt-btn btn2" to="/learntube/shop/checkout">
                                                                 Check Out
                                                             </Link>
                                                         </div>
