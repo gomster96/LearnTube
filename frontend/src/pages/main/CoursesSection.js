@@ -41,9 +41,7 @@ function Courses(props) {
         const uid = 0;
         if (location.state) {
             const uid = location.state.userId;
-            console.log("uid", uid);
             SetUserId(uid);
-            console.log("location userId", userId);
         }
     }, [userId]);
 
@@ -94,6 +92,17 @@ function Courses(props) {
         ],
     };
 
+    const clickCourse = (i) => {
+        if (userId) {
+            history.replace({
+                pathname: "/learntube/course/course-single",
+                state: { classId: popularClass[i].classId },
+            });
+        } else {
+            alert("로그인이 필요합니다.");
+        }
+    };
+
     return (
         <React.Fragment>
             <div className="rs-popular-courses style1 pb-200 orange-style md-pb-170 sm-pb-100" style={bgStyle}>
@@ -106,14 +115,7 @@ function Courses(props) {
                     <Slider {...coursesSliderSettings}>
                         {popularClass
                             ? popularClass.map((classes, i) => (
-                                  <div
-                                      onClick={() => {
-                                          history.replace({
-                                              pathname: "/learntube/course/course-single",
-                                              state: { classId: popularClass[i].classId },
-                                          });
-                                      }}
-                                  >
+                                  <div onClick={clickCourse.bind(this, i)}>
                                       <CourseSingleTwoCopy
                                           userId={userId}
                                           courseClass="courses-item mb-30"
