@@ -4,6 +4,7 @@ import axios, * as others from "axios";
 import CourseSidebar from "./CourseSidebarSection";
 import "../../assets/css/courseList.css";
 import CourseSingleTwoCopy from "../../components/Courses/CourseSingleTwoCopy";
+import { useHistory } from "react-router-dom";
 
 import SearchBar from "./SearchBar";
 import PagingBar from "./PagingBar";
@@ -15,6 +16,7 @@ const CoursePart = (props) => {
     const [isLoading2, setIsLoading2] = useState(false);
     const [target, setTarget] = useState(null);
     const myPage = useRef(0);
+    const history = useHistory();
     const [filterStatus, setFilterStatus] = useState({ condition: 0, keyword: "", page: 0, size: 12 });
     const [isLast, setIsLast] = useState(false);
     const getCourse = async () => {
@@ -24,7 +26,7 @@ const CoursePart = (props) => {
         setCourse(courseData.data);
         setIsLoading(false);
     };
-
+    const userId = window.sessionStorage.getItem("userId");
     useEffect(() => {
         setIsLast(false);
         setIsLoading(true);
@@ -69,7 +71,16 @@ const CoursePart = (props) => {
         }
         return () => observer && observer.disconnect();
     }, [target, filterStatus]);
-
+    const clickCourse = (i) => {
+        if (userId) {
+            history.replace({
+                pathname: "/learntube/course/course-single",
+                state: { classId: courses[i].classId },
+            });
+        } else {
+            alert("로그인이 필요합니다.");
+        }
+    };
     return (
         <>
             <div id="rs-popular-course" className="rs-popular-courses style1 course-view-style orange-style rs-inner-blog white-bg pb-100 md-pb-80">
@@ -87,9 +98,9 @@ const CoursePart = (props) => {
                                 <Spinner animation="grow" variant="primary" style={{ width: "10rem", height: "10rem" }} />
                             </div>
                         ) : courses ? (
-                            courses.map((course) => {
+                            courses.map((course, idx) => {
                                 return (
-                                    <div className="col-lg-4 col-md-6">
+                                    <div className="col-lg-4 col-md-6" onClick={clickCourse.bind(this, idx)}>
                                         <CourseSingleTwoCopy
                                             courseClass="courses-item mb-30"
                                             courseId={course.classId}
