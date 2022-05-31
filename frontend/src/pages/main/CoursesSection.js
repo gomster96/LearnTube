@@ -25,7 +25,7 @@ const bgStyle = {
 
 function Courses(props) {
     const location = useLocation();
-    const [userId, SetUserId] = useState("");
+    const userId = window.sessionStorage.getItem("userId");
     const history = useHistory();
     const [images, setImages] = useState([image1, image2, image3]);
     const [popularClass, setPopularClass] = useState([
@@ -37,21 +37,12 @@ function Courses(props) {
             classRoomRegDate: "",
         },
     ]);
-    useEffect(() => {
-        const uid = 0;
-        if (location.state) {
-            const uid = location.state.userId;
-            SetUserId(uid);
-        }
-    }, [userId]);
 
     useEffect(() => {
         const fetchPopularClass = async () => {
             try {
                 const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/classroom/popular`);
-                // console.log(response.data);
                 setPopularClass(response.data);
-                // console.log(popularClass);
             } catch (err) {
                 console.log("err >> ", err);
             }
