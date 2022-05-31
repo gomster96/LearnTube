@@ -16,48 +16,48 @@ import darkLogo from "../../assets/img/logo/logo-dark.png";
 import smallDeviceLogo from "../../assets/img/logo/logo-dark2.png";
 
 function HomeFive(props) {
-    const location = useLocation();
+  const location = useLocation();
 
-    const [userId, SetUserId] = useState("");
+  const [userId, SetUserId] = useState("");
 
-    useEffect(() => {
-        const uid = 0;
-        if (location.state) {
-            const uid = location.state.userId;
-            console.log("uid", uid);
-            SetUserId(uid);
-            console.log("userId", userId);
-        }
-    }, [userId]);
-    return (
-        <React.Fragment>
-            <Helmet>
-                <link rel="icon" href={favIcon} />
-            </Helmet>
-            <OffWrap />
-            <Header
-                userId={userId}
-                parentMenu="main"
-                headerNormalLogo={Logo}
-                headerStickyLogo={Logo}
-                CanvasLogo={Logo}
-                mobileNormalLogo={Logo}
-                CanvasClass="right_menu_togle hidden-md"
-                headerClass="full-width-header header-style1 home8-style4"
-                // headerNormalLogo={Logo}
-                // headerStickyLogo={stickyLogo}
-                // CanvasLogo={darkLogo}
-                // responsiveLogo={smallDeviceLogo}
-                // CanvasClass="right_menu_togle hidden-md"
-                // headerClass="full-width-header header-style3 modify"
-                // TopBarClass="topbar-area dark-parimary-bg"
-                // mobileNormalLogo={Logo}
-            />
-            <HomeFiveMain userId={userId} />
-            <FooterStyleTwo />
-            <SearchModal />
-        </React.Fragment>
-    );
+  useEffect(() => {
+    const uid = 0;
+    if (location.state) {
+      const uid = location.state.userId;
+      // console.log("uid", uid);
+      SetUserId(uid);
+      // console.log("userId", userId);
+    }
+  }, [userId]);
+  return (
+    <React.Fragment>
+      <Helmet>
+        <link rel="icon" href={favIcon} />
+      </Helmet>
+      <OffWrap />
+      <Header
+        userId={userId}
+        parentMenu="main"
+        headerNormalLogo={Logo}
+        headerStickyLogo={Logo}
+        CanvasLogo={Logo}
+        mobileNormalLogo={Logo}
+        CanvasClass="right_menu_togle hidden-md"
+        headerClass="full-width-header header-style1 home8-style4"
+        // headerNormalLogo={Logo}
+        // headerStickyLogo={stickyLogo}
+        // CanvasLogo={darkLogo}
+        // responsiveLogo={smallDeviceLogo}
+        // CanvasClass="right_menu_togle hidden-md"
+        // headerClass="full-width-header header-style3 modify"
+        // TopBarClass="topbar-area dark-parimary-bg"
+        // mobileNormalLogo={Logo}
+      />
+      <HomeFiveMain userId={userId} />
+      <FooterStyleTwo />
+      <SearchModal />
+    </React.Fragment>
+  );
 }
 
 export default HomeFive;
