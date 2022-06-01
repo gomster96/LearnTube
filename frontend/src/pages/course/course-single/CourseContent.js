@@ -31,7 +31,7 @@ const CourseContent = () => {
         const response = await axios.get(
           `${process.env.REACT_APP_SERVER_URL}/api/classroom?userId=${userId}&classId=${cid}`
         );
-        console.log(response.data);
+        // console.log(response.data);
         setClassRoomData(response.data);
       } catch (err) {
         console.log("err >> ", err);

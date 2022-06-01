@@ -26,7 +26,7 @@ const UpdateContent = (props) => {
     const loadPlaylists = async () => {
         try {
             const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/playlist/name?userId=${userId}`);
-            console.log(response.data);
+            // console.log(response.data);
             setPlaylists(response.data);
         } catch (err) {
             console.log("err >> ", err);

@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 const SingleServiceFlip = (props) => {
     return (
@@ -8,19 +8,14 @@ const SingleServiceFlip = (props) => {
                     <div className="front-content-part">
                         <div className="front-icon-part">
                             <div className="icon-part">
-                                <img
-                                    src={props.serviceImage}
-                                    alt={props.Title}
-                                />
+                                <img src={props.serviceImage} alt={props.Title} />
                             </div>
                         </div>
                         <div className="front-title-part">
                             <h3 className="title">{props.Title}</h3>
                         </div>
                         <div className="front-desc-part">
-                            <p>
-                                {props.TextDesc}
-                            </p>
+                            <p>{props.TextDesc}</p>
                         </div>
                     </div>
                 </div>
@@ -28,24 +23,23 @@ const SingleServiceFlip = (props) => {
                     <div className="back-front-content">
                         <div className="back-title-part">
                             <h3 className="back-title">
-                                <Link to='/course-categories'>
-                                    {props.Title}
-                                </Link>
+                                <Link to="/learntube/course-categories">{props.Title}</Link>
                             </h3>
                         </div>
                         <div className="back-desc-part">
-                            <p className="back-desc">
-                                {props.TextDesc}
-                            </p>
+                            <p className="back-desc">{props.TextDesc}</p>
                         </div>
                         <div className="back-btn-part">
-                            <Link to='/course-categories' className={props.ButtonClass}> {props.ButtonText}</Link>
+                            <Link to="/learntube/course-categories" className={props.ButtonClass}>
+                                {" "}
+                                {props.ButtonText}
+                            </Link>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default SingleServiceFlip
+export default SingleServiceFlip;

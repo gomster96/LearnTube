@@ -1,22 +1,17 @@
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 const SingleTeamThree = (props) => {
     const { teamClass, Image, Title, Designation } = props;
-    
-	return(
-        <div className={teamClass ? teamClass : 'team-item'}>
+
+    return (
+        <div className={teamClass ? teamClass : "team-item"}>
             <div className="team-item">
-                <img 
-                    src={Image} 
-                    alt={Title}
-                />
+                <img src={Image} alt={Title} />
                 <div className="content-part">
                     <h4 className="name">
-                        <Link to='/team/team-single'>
-                            {Title ? Title : 'Jhon Pedrocas'}
-                        </Link>
+                        <Link to="/learntube/team/team-single">{Title ? Title : "Jhon Pedrocas"}</Link>
                     </h4>
-                    <span className="designation">{Designation ? Designation : 'Professor'}</span>
+                    <span className="designation">{Designation ? Designation : "Professor"}</span>
                     <ul className="social-links">
                         <li>
                             <Link to="#">
@@ -42,7 +37,7 @@ const SingleTeamThree = (props) => {
                 </div>
             </div>
         </div>
-	)
-}
+    );
+};
 
-export default SingleTeamThree
+export default SingleTeamThree;

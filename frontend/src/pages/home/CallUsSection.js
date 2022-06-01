@@ -1,10 +1,9 @@
-import React  from 'react';
-import { Link } from 'react-router-dom';
-import SectionTitle from '../../components/Common/SectionTitle';
-import CounterDefault from '../../components/Elements/Counter/CounterDefault';
+import React from "react";
+import { Link } from "react-router-dom";
+import SectionTitle from "../../components/Common/SectionTitle";
+import CounterDefault from "../../components/Elements/Counter/CounterDefault";
 
 const CallUs = () => {
-
     return (
         <div className="rs-call-us relative pt-120 md-pt-70 md-pb-80">
             <div className="container">
@@ -31,7 +30,9 @@ const CallUs = () => {
                                 description="Have any idea or project for in your mind call us or schedule a appointment. Our representative will reply you shortly."
                             />
                             <div className="btn-part mt-40">
-                                <Link className="readon lets-talk" to="/contact">Let's Talk</Link>
+                                <Link className="readon lets-talk" to="/learntube/contact">
+                                    Let's Talk
+                                </Link>
                             </div>
                         </div>
                     </div>
@@ -42,6 +43,6 @@ const CallUs = () => {
             {/* counter area end */}
         </div>
     );
-}
+};
 
 export default CallUs;

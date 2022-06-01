@@ -18,14 +18,15 @@ const CourseSingleTwoCopy = (props) => {
             </div>
             <div className="content-part">
                 <h4 className="title title-mk" data-for={courseTitle} data-tip>
-                    <Link
+                    {courseTitle ? courseTitle : "강의의 제목이 설정되지 않았습니다."}
+                    {/* <Link
                         to={{
                             pathname: "/learntube/course/course-single",
                             state: { classId: courseId },
                         }}
                     >
                         {courseTitle ? courseTitle : "강의의 제목이 설정되지 않았습니다."}
-                    </Link>
+                    </Link> */}
                 </h4>
                 <ReactTooltip id={courseTitle}>{courseTitle}</ReactTooltip>
                 <div className="bottom-part">
