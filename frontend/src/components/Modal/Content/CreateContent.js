@@ -84,11 +84,14 @@ const CreateContent = (props) => {
         console.log(createPlaylist.playlistName);
         setPlaylistName(createPlaylist.playlistName);
         setNewPlaylistContentData(createContentData);
-        newPlaylistContentData.playlistId = temp;
+        newPlaylistContentData.playlistId = playlistId;
+        console.log(temp);
+        console.log(newPlaylistContentData.playlistId);
 
 
         console.log(newPlaylistContentData);
         setCreateContentData(newPlaylistContentData);
+        console.log(createContentData.playlistId);
         handleSubmit();
 
         // const response = await axios
