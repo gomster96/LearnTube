@@ -14,8 +14,8 @@ import YouTube from 'react-youtube';
 
 
 
-const PlaylistWidget = ({ isSelected, selectedPlaylist, selectedVideo, playlistId, playlistSize, userId }) => {
-    const [isClicked, setIsClicked] = useState(false);
+const PlaylistWidget = ({ isSelected, selectedPlaylist, selectedVideo, playlistId, playlistSize, userId, isClicked }) => {
+    const [isVideoClicked, setIsVideoClicked] = useState(isClicked);
     const [clickedVideo, setClickedVideo] = useState({});
     const [startTime, setStartTime] = useState(null);
     const [endTime, setEndTime] = useState(null);
@@ -61,7 +61,7 @@ const PlaylistWidget = ({ isSelected, selectedPlaylist, selectedVideo, playlistI
     };
 
     const popUp = (video) => {
-        setIsClicked(true);
+        setIsVideoClicked(true);
         console.log(video);
         setClickedVideo(video);
         console.log(clickedVideo);
@@ -154,11 +154,12 @@ const PlaylistWidget = ({ isSelected, selectedPlaylist, selectedVideo, playlistI
                                     ? selectedVideo.map((data, i) => (
                                         <div className="row p-1" onClick={(e) => popUp(data)}>
                                             <div className="m-0 col-md-6 col-sm-12" >
-                                                {/* <img className="img-fluid" style={{ minWidth: '150px' }}
-                                                             src={selectedVideo[i].thumbnail}
+                                                 <img className="img-fluid" style={{ minWidth: '150px' }}
+                                                             src={"https://i.ytimg.com/vi/".concat(selectedVideo[i].youtubeId, "/hqdefault.jpg")}
                                                          alt="영상제목"
-                                                         /> */}
-                                                <YouTube videoId={selectedVideo[i].youtubeId} opts={opts} />
+                                                         /> 
+                                                
+                                                {/* <YouTube videoId={selectedVideo[i].youtubeId} opts={opts} /> */}
                                             </div>
                                             <div className="col-md-6 col-sm-12">
                                                 <div className="d-flex h5 text-start">
@@ -187,26 +188,8 @@ const PlaylistWidget = ({ isSelected, selectedPlaylist, selectedVideo, playlistI
                                             <div className="m-0 row-3 justify-content-center">
                                                 <img className="img-fluid" style={{ height: "180px" }} src={video.videos[0] ? "https://i.ytimg.com/vi/".concat(video.videos[0].youtubeId, "/hqdefault.jpg") : "https://i.ibb.co/HDm4g2y/Learntube-logos-transparent-2-1.png"} alt={video.name} />
                                             </div>
-                                            {video.videos
-                                                ? <div>
-                                                    {/* {video.videos.reduce((acc, cur, i) => {
-                                                return acc + videos[cur].duration;
-                                            }, 0)} */}
-                                                    {/* {video.videos.map(function(v, k) {
-                                                
-                                                return(
-                                                    <div key={k}> {v.duration}</div>
-                                                );
-                                            })} */}
-                                                </div>
-                                                : <div></div>}
                                             <div className="pt-3 px-3" style={{ minHeight: "160px", maxHeight: "160px" }}>
                                                 <div className="d-flex h4">{video.name ? video.name : "영상제목"}</div>
-                                                {/* <div className="d-flex fw-light ms-0 ps-0">
-                                    {newObject.snippet.channelTitle ? newObject.snippet.channelTitle : "채널명"}
-                                    <div class="mx-1 border-start border-secondary"></div> {newObject.snippet.publishTime ? newObject.snippet.publishTime.slice(0, 10) : "등록일"}
-                                </div>
-                                <div className="d-flex fw-light">{newObject.snippet.description ? newObject.snippet.description : "영상설명"}</div> */}
                                             </div>
                                         </div>
                                     );
@@ -214,8 +197,9 @@ const PlaylistWidget = ({ isSelected, selectedPlaylist, selectedVideo, playlistI
                             </div> : <div className="text-start fs-4">로그인하여 Playlist를 제작해 보세요.</div>}
                     </div>
                 }
-                {isClicked
-                    ? <div className=" col-lg-8" style={{ right: "0", bottom: "600px;" }}>
+                {isVideoClicked
+                    ? 
+                    <div className=" col-lg-8" style={{ right: "0", bottom: "600px;" }}>
                         <YouTube videoId={clickedVideo.youtubeId} opts={opts2} />
                         <div className='row'>
                             <div class="col-12 my-5 lh-base">
@@ -231,7 +215,14 @@ const PlaylistWidget = ({ isSelected, selectedPlaylist, selectedVideo, playlistI
                             </div>
                         </div>
                     </div>
-                    : null}
+                    :  <>
+                    {selectedVideo === null
+                        ? <div className=" col-lg-12 text-start fs-4 mt-50" style={{ right: "0", bottom: "600px;" }}>Playlist에 영상이 없습니다.</div>
+                        : null          
+
+                    }
+                    </>
+                    }
             </div>
         </div>
     )

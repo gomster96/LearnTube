@@ -42,6 +42,7 @@ const Playlist = () => {
     const [playlistSize, setPlaylistSize] = useState(0);
     const [selectedVideo, setSelectedVideo] = useState(initPlaylistData.videos);
     const [isSelected, setIsSelected] = useState(false);
+    const [isClicked, setIsClicked] = useState(false);
 
     useEffect(() => {
         const fetchMyPlaylists = async () => {
@@ -152,7 +153,7 @@ const Playlist = () => {
                                             </div>
                                         </div>
                                         <div class="col-5 dropdown show">
-                                            <Form.Select aria-label="SelectBox" onChange={(e) => { console.log(e.target.value); handlePlaylistChange(e.target.value); }}>
+                                            <Form.Select aria-label="SelectBox" onChange={(e) => { console.log(e.target.value); handlePlaylistChange(e.target.value); setIsClicked(false);}}>
                                                 <option>----Playlist를 선택해주세요----</option> 
                                                 {playlistData
                                                     ? playlistData.map((data, i) => (
@@ -172,8 +173,8 @@ const Playlist = () => {
                                             : <></>
                                             }
 
-                                            {selectedPlaylist? <div></div> : <div>선택된 Playlist가 없습니다.</div>}
-                                            <PlaylistWidget isSelected={isSelected} selectedPlaylist={selectedPlaylist} selectedVideo={selectedVideo} playlistId={playlistId} playlistSize={playlistSize} userId={userId} />
+                                            {selectedPlaylist? <div></div> : <div className="fs-4 text-start">선택된 Playlist가 없습니다.</div>}
+                                            <PlaylistWidget isSelected={isSelected} selectedPlaylist={selectedPlaylist} selectedVideo={selectedVideo} playlistId={playlistId} playlistSize={playlistSize} userId={userId} isClicked={isClicked}/>
                                         </div>
                                     </div>
                                 </div>
