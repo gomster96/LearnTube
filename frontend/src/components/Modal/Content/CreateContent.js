@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
 import { Button, FormSelect } from "react-bootstrap";
 import axios from "axios";
+import { faCaretSquareDown } from "@fortawesome/free-solid-svg-icons";
 
 const CreateContent = (props) => {
     const [isOpen, setIsOpen] = useState();
@@ -38,12 +39,17 @@ const CreateContent = (props) => {
 
     const handleChange = (e) => {
         console.log(e.target.value);
+
+        if(playlistOpen)
         setCreateContentData({
             ...createContentData,
             [e.target.name]: e.target.value,
             lectureId: props.lectureId,
         });
+        
+        console.log(createContentData);
     };
+    
     const handlePlaylistChange = (e) => {
         setCreatePlaylist({
             ...createPlaylist,
@@ -52,6 +58,13 @@ const CreateContent = (props) => {
         });
     };
     const handleSubmit = async () => {
+        console.log(playlistId);
+        if(newPlaylistOpen) {
+            setCreateContentData({
+                ...createContentData,
+                playlistId: playlistId,
+            });
+        }
         const response = await axios
             .post(`${process.env.REACT_APP_SERVER_URL}/api/content`, JSON.stringify(createContentData), {
                 method: "POST",
@@ -62,7 +75,7 @@ const CreateContent = (props) => {
             })
             .then((res) => console.log(res));
         openModal();
-        window.location.reload();
+        //window.location.reload();
     };
     const handleNewSubmit = async () => {
 
@@ -80,29 +93,15 @@ const CreateContent = (props) => {
                 console.log(res.data.playlistId);
                 temp = res.data.playlistId;
                 setPlaylistId(temp);
+                createContentData.playlistId = playlistId;
+                handleSubmit();
+                //handleSubmit();
             });
-        console.log(createPlaylist.playlistName);
-        setPlaylistName(createPlaylist.playlistName);
-        setNewPlaylistContentData(createContentData);
-        newPlaylistContentData.playlistId = temp;
 
+            //handleSubmit();
 
-        console.log(newPlaylistContentData);
-        setCreateContentData(newPlaylistContentData);
-        handleSubmit();
-
-        // const response = await axios
-        // .post(`${process.env.REACT_APP_SERVER_URL}/api/content`, JSON.stringify(createContentData), {
-        //     method: "POST",
-        //     headers: {
-        //         // Accept: "application/json",
-        //         "Content-Type": "application/json",
-        //     },
-        // })
-        // .then((res) => console.log(res));
-        // openModal();
-        // window.location.reload();
     };
+    //console.log(playlistId);
 
     return (
         <>
@@ -229,8 +228,7 @@ const CreateContent = (props) => {
                                                         className="fa fa-plus"
                                                         onClick={() => {
                                                             setPlaylistOpen(false);
-                                                            setNewPlaylistOpen(true);
-                                                            
+                                                            setNewPlaylistOpen(true); 
                                                         }}
                                                         style={{
                                                             backgroundColor: "#6483d8",
@@ -293,7 +291,17 @@ const CreateContent = (props) => {
                                             >
                                                 취소
                                             </Button>
-                                            <Button className="createbtn" type="button" onClick={newPlaylistOpen ? handleNewSubmit : handleSubmit} style={{ padding: "10.5px" }}>
+                                            <Button className="createbtn" type="button" onClick=
+                                            {()=> {
+                                                if(newPlaylistOpen) {
+                                                    handleNewSubmit();
+                                                    
+                                                    createContentData.playlistId(playlistId);
+                                                    console.log(createContentData);
+                                                    handleSubmit();
+                                                } else handleSubmit();
+                                                
+                                            }} style={{ padding: "10.5px" }}>
                                                 저장
                                             </Button>
                                         </div>
