@@ -8,13 +8,14 @@ import FooterStyleTwo from "../../components/Layout/Footer/FooterStyleTwo";
 import HomeFiveMain from "./HomeFiveMain";
 import { useHistory } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import Footer from '../../components/Layout/Footer/Footer';
 import favIcon from "../../assets/img/fav.png";
 //import Logo from '../../assets/img/logo/logo3.png';
 import Logo from "../../assets/img/logo/Learntube-logos_transparent.png";
 import stickyLogo from "../../assets/img/logo/logo.png";
 import darkLogo from "../../assets/img/logo/logo-dark.png";
 import smallDeviceLogo from "../../assets/img/logo/logo-dark2.png";
-
+import footerLogo from '../../assets/img/logo/lite-logo.png';
 function HomeFive(props) {
   const location = useLocation();
 
@@ -54,7 +55,10 @@ function HomeFive(props) {
         // mobileNormalLogo={Logo}
       />
       <HomeFiveMain userId={userId} />
-      <FooterStyleTwo />
+      <Footer
+                footerClass="rs-footer home9-style main-home"
+                footerLogo={footerLogo}
+            />
       <SearchModal />
     </React.Fragment>
   );

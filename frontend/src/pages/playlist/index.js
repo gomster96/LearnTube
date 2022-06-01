@@ -76,6 +76,7 @@ const Playlist = () => {
         setPlaylistSize(playlistData[num].videos.length);
         setIsSelected(true);
         console.log(selectedVideo);
+        setIsClicked(false);
     };
 
     const handleChange = (e) => {
@@ -173,7 +174,8 @@ const Playlist = () => {
                                             : <></>
                                             }
 
-                                            {selectedPlaylist? <div></div> : <div className="fs-4 text-start">선택된 Playlist가 없습니다.</div>}
+                                            {selectedPlaylist
+                                            ? <div></div> : <div className="fs-4 text-start">선택된 Playlist가 없습니다.</div>}
                                             <PlaylistWidget isSelected={isSelected} selectedPlaylist={selectedPlaylist} selectedVideo={selectedVideo} playlistId={playlistId} playlistSize={playlistSize} userId={userId} isClicked={isClicked}/>
                                         </div>
                                     </div>

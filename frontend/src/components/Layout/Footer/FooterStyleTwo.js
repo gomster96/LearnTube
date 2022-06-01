@@ -11,12 +11,12 @@ const FooterStyleTwo = (props) => {
     props;
 
   const footerBGStyle = {
-    backgroundImage: `url(${footerBG})`,
-    backgroundColor: `url(${footerColor})`,
+    backgroundImage: `url(${"https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.analogouscolors.com%2Fkr%2F%25EC%25A7%2599%25EC%259D%2580%25C2%25A0%25EB%2582%25A8%25EC%2583%2589&psig=AOvVaw0OY1VJ07fpvVB262PB8y1D&ust=1654200563302000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCNDB7bmHjfgCFQAAAAAdAAAAABAH"})`,
+    backgroundColor: `url(${"https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.analogouscolors.com%2Fkr%2F%25EC%25A7%2599%25EC%259D%2580%25C2%25A0%25EB%2582%25A8%25EC%2583%2589&psig=AOvVaw0OY1VJ07fpvVB262PB8y1D&ust=1654200563302000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCNDB7bmHjfgCFQAAAAAdAAAAABAH"})`,
   };
   const defaultBGStyle = {
     backgroundImage: `url(${defaultBG})`,
-    backgroundColor: "#273c66",
+    backgroundColor: "#black",
   };
 
   return (
@@ -143,7 +143,7 @@ const FooterStyleTwo = (props) => {
               </div>
             </div>
             <div className="col-lg-4 text-right md-text-left">
-              <ul className="footer-social">
+              {/* <ul className="footer-social">
                 <li>
                   <Link to="#">
                     <i className="fa fa-facebook-f"></i>
@@ -169,7 +169,7 @@ const FooterStyleTwo = (props) => {
                     <i className="fa fa-instagram"></i>
                   </Link>
                 </li>
-              </ul>
+              </ul> */}
             </div>
           </div>
         </div>

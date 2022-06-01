@@ -26,7 +26,7 @@ const Footer = (props) => {
                   제작자들이 체계적으로 짠 강의들을 골라 수강해보세요!
                 </p>
               </div>
-              <ul className="footer_social">
+              {/* <ul className="footer_social">
                 <li>
                   <a href="#">
                     <i className="fa fa-facebook-f"></i>
@@ -52,7 +52,7 @@ const Footer = (props) => {
                     <i className="fa fa-instagram"></i>
                   </a>
                 </li>
-              </ul>
+              </ul> */}
             </div>
             <div className="col-lg-3 col-md-12 col-sm-12 footer-widget md-mb-50">
               <h3 className="widget-title">Address</h3>
@@ -67,14 +67,14 @@ const Footer = (props) => {
                 <li>
                   <i className="flaticon-call"></i>
                   <div className="desc">
-                    <a href="tel:(+880)155-69569">(+82)054-260-1378</a>
+                    <a href="tel:(+82)010-5564-0429">(+82)010-5564-0429</a>
                   </div>
                 </li>
                 <li>
                   <i className="flaticon-email"></i>
                   <div className="desc">
-                    <a href="mailto:support@rstheme.com">
-                      moomin@handong.ac.kr
+                    <a href="mailto:zihooy@handong.ac.kr">
+                      zihooy@handong.ac.kr
                     </a>
                   </div>
                 </li>
@@ -105,13 +105,13 @@ const Footer = (props) => {
               <h3 className="widget-title">Recent Classes</h3>
               <div className="recent-post mb-20">
                 <div className="post-img">
-                  <img src={postImg1} alt="blog image" />
+                  <img src={"https://i.ibb.co/0mngfYR/Java.png"} alt="blog image" />
                 </div>
                 <div className="post-item">
                   <div className="post-desc">
-                    <Link to="/learntube/course/course-single">
+                    {/* <Link to="/learntube/course/course-single">
                       JAVA 프로그래밍 기초
-                    </Link>
+                    </Link> */}
                   </div>
                   <span className="post-date">
                     <i className="fa fa-calendar-check-o"></i>
@@ -121,13 +121,13 @@ const Footer = (props) => {
               </div>
               <div className="recent-post mb-20">
                 <div className="post-img">
-                  <img src={postImg2} alt="blog image" />
+                  <img src={"https://i.ibb.co/7GqtTYt/image.png"} alt="blog image" />
                 </div>
                 <div className="post-item">
                   <div className="post-desc">
-                    <Link to="../course/course-single">
+                    {/* <Link to="../course/course-single">
                       나의 첫 안드로이드 앱
-                    </Link>
+                    </Link> */}
                   </div>
                   <span className="post-date">
                     <i className="fa fa-calendar-check-o"></i>

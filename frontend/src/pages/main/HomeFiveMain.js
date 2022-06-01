@@ -25,17 +25,19 @@ function HomeFiveMain(props) {
       <BannerStyleFour />
       {/* BannerStyleFour-End */}
 
-      {/* About-Start */}
-      <About />
-      {/* About-End */}
-
       {/* Courses-Start */}
       <Courses userId={userId} />
       {/* Courses-End */}
 
+
       {/* About-Work-Start */}
       <AboutWork />
       {/* About-Work-End */}
+
+
+      {/* About-Start */}
+      <About />
+      {/* About-End */}
 
       {/* Counter-Start */}
       {/* <Counter /> */}

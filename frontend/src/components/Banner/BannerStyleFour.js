@@ -61,10 +61,10 @@ const BannerStyleFour = ({ onGoogleLogin }) => {
                                     LearnTube
                                 </h1>
                                 <h2 className=" white-color" data-aos="fade-left" data-aos-duration="1000">
-                                    유튜브 영상 + 체계적인 학습
+                                    YouTube 영상을 활용한 학습 지원 서비스
                                 </h2>
                                 <div className="desc white-color mb-40" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="300">
-                                    YouTube에서 원하는 영상들만 골라 강의리스트를 완성하고, <br /> 강의실 제작자들이 체계적으로 짠 강의들을 골라 수강해보세요!
+                                    YouTube에서 원하는 영상을 검색하고, 선택하여 학습 컨텐츠를 생성해보세요. <br /> 여러 강의실을 구경하고 수강신청하세요.
                                 </div>
                                 <div className="banner-btn z-index-1" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="600">
                                     {/* <Link className="readon2 banner-style" to="/learntube/login"> */}

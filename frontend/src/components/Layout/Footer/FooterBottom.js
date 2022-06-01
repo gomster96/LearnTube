@@ -16,7 +16,7 @@ const FooterBottom = () => {
                             </p>
                         </div>
                     </div>
-                    <div className="col-lg-6 text-end md-text-left">
+                    {/* <div className="col-lg-6 text-end md-text-left">
                         <ul className="copy-right-menu">
                             <li>
                                 <Link to="/learntube/event" as="/learntube/event">
@@ -34,7 +34,7 @@ const FooterBottom = () => {
                                 </Link>
                             </li>
                         </ul>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </div>

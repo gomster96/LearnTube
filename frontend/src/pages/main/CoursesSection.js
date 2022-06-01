@@ -100,7 +100,7 @@ function Courses(props) {
                 <div className="container">
                     <div className="row y-middle mb-50">
                         <div className="col-lg-6">
-                            <SectionTitle sectionClass="sec-title" subtitleClass="sub-title primary" subtitle="Top Courses" titleClass="title mb-0" title="Popular Courses" />
+                            <SectionTitle sectionClass="sec-title" subtitleClass="sub-title primary" subtitle="수강생이 가장 많은" titleClass="title mb-0" title="Popular Courses" />
                         </div>
                     </div>
                     <Slider {...coursesSliderSettings}>
@@ -110,7 +110,7 @@ function Courses(props) {
                                       <CourseSingleTwoCopy
                                           userId={userId}
                                           courseClass="courses-item mb-30"
-                                          courseImg={images[i]}
+                                          courseImg={popularClass[i].image}
                                           courseTitle={popularClass[i].className}
                                           newCourse="New"
                                           openDate={popularClass[i].classRoomRegDate.split("-")[0] + "." + popularClass[i].classRoomRegDate.split("-")[1]}
