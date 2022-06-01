@@ -18,43 +18,48 @@ import courseImg7 from "../../assets/img/courses/7.jpg";
 import courseImg8 from "../../assets/img/courses/8.jpg";
 
 const CoursePartAdmin = (props) => {
-    const [managesData, setManagesData] = useState(null);
-    const history = useHistory();
+  const [managesData, setManagesData] = useState(null);
+  const history = useHistory();
 
-    useEffect(() => {
-        if (props.userId) {
-            const fetchManagesClassRoom = async () => {
-                try {
-                    const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/classroom/manages?userId=${props.userId}`);
-                    console.log(response.data);
-                    setManagesData(response.data);
-                } catch (err) {
-                    console.log("err >> ", err);
-                }
-            };
-            fetchManagesClassRoom();
+  useEffect(() => {
+    if (props.userId) {
+      const fetchManagesClassRoom = async () => {
+        try {
+          const response = await axios.get(
+            `${process.env.REACT_APP_SERVER_URL}/api/classroom/manages?userId=${props.userId}`
+          );
+          // console.log(response.data);
+          setManagesData(response.data);
+        } catch (err) {
+          console.log("err >> ", err);
         }
-    }, [props.userId]);
+      };
+      fetchManagesClassRoom();
+    }
+  }, [props.userId]);
 
-    // const listClassAdd = () => {
-    //   document.getElementById("rs-popular-course").classList.add("list-view");
-    // };
+  // const listClassAdd = () => {
+  //   document.getElementById("rs-popular-course").classList.add("list-view");
+  // };
 
-    // const listClassRemove = () => {
-    //   document.getElementById("rs-popular-course").classList.remove("list-view");
-    // };
+  // const listClassRemove = () => {
+  //   document.getElementById("rs-popular-course").classList.remove("list-view");
+  // };
 
-    return (
-        <div id="rs-popular-course" className="rs-popular-courses list-view style1 course-view-style orange-style rs-inner-blog white-bg pb-100 md-pt-70 md-pb-80 text-start">
-            <div className="container">
-                <div className="row">
-                    <div className="pr-50 md-pr-14">
-                        <div className="pull-right" style={{ margin: "13px" }}>
-                            <ClassroomContent userId={props.userId} />
-                        </div>
-                    </div>
-                    <div className="pr-50 md-pr-14">
-                        {/* <div className="course-search-part">
+  return (
+    <div
+      id="rs-popular-course"
+      className="rs-popular-courses list-view style1 course-view-style orange-style rs-inner-blog white-bg pb-100 md-pt-70 md-pb-80 text-start"
+    >
+      <div className="container">
+        <div className="row">
+          <div className="pr-50 md-pr-14">
+            <div className="pull-right" style={{ margin: "13px" }}>
+              <ClassroomContent userId={props.userId} />
+            </div>
+          </div>
+          <div className="pr-50 md-pr-14">
+            {/* <div className="course-search-part">
                             <div className="course-view-part ">
                                 <div className="view-icons">
                                     <button onClick={listClassAdd} className="view-list ">
@@ -80,54 +85,54 @@ const CoursePartAdmin = (props) => {
                                 </form>
                             </div>
                         </div> */}
-                        {managesData
-                            ? managesData.map((manageData, i) => (
-                                  <div
-                                      className="course-part clearfix m-0"
-                                      onClick={() => {
-                                          history.replace({
-                                              pathname: "../learntube/course/course-single",
-                                              state: {
-                                                  classId: managesData[i].classId,
-                                                  userId: props.userId,
-                                              },
-                                          });
-                                      }}
-                                  >
-                                      <CourseDashBoard
-                                          courseClass="courses-item"
-                                          courseImg={managesData[i].image}
-                                          courseTitle={managesData[i].className}
-                                          notice={managesData[i].latestNotice}
-                                          progress={0}
-                                          userCount={managesData[i].numberOfTake}
-                                          openDate={managesData[i].classRoomRegDate.split("T")[0]}
-                                          creatorName={managesData[i].instructorName}
-                                          classId={managesData[i].classId}
-                                      />
-                                  </div>
-                              ))
-                            : null}
-                        <div className="pagination-area orange-color text-center mt-30 md-mt-0">
-                            <ul className="pagination-part">
-                                <li className="active">
-                                    <Link to="#">1</Link>
-                                </li>
-                                {/* <li>
+            {managesData
+              ? managesData.map((manageData, i) => (
+                  <div
+                    className="course-part clearfix m-0"
+                    onClick={() => {
+                      history.replace({
+                        pathname: "/learntube/course/course-single",
+                        state: {
+                          classId: managesData[i].classId,
+                          userId: props.userId,
+                        },
+                      });
+                    }}
+                  >
+                    <CourseDashBoard
+                      courseClass="courses-item"
+                      courseImg={managesData[i].image}
+                      courseTitle={managesData[i].className}
+                      notice={managesData[i].latestNotice}
+                      progress={0}
+                      userCount={managesData[i].numberOfTake}
+                      openDate={managesData[i].classRoomRegDate.split("T")[0]}
+                      creatorName={managesData[i].instructorName}
+                      classId={managesData[i].classId}
+                    />
+                  </div>
+                ))
+              : null}
+            <div className="pagination-area orange-color text-center mt-30 md-mt-0">
+              <ul className="pagination-part">
+                <li className="active">
+                  <Link to="#">1</Link>
+                </li>
+                {/* <li>
                                     <Link to="#">2</Link>
                                 </li> */}
-                                <li>
-                                    <Link to="#">
-                                        Next <i className="fa fa-long-arrow-right"></i>
-                                    </Link>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+                <li>
+                  <Link to="#">
+                    Next <i className="fa fa-long-arrow-right"></i>
+                  </Link>
+                </li>
+              </ul>
             </div>
+          </div>
         </div>
-    );
+      </div>
+    </div>
+  );
 };
 
 export default CoursePartAdmin;

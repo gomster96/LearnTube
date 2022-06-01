@@ -30,7 +30,7 @@ const CreateContent = (props) => {
     const loadPlaylists = async () => {
         try {
             const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/playlist/name?userId=${props.userId}`);
-            console.log(response.data);
+            // console.log(response.data);
             setPlaylists(response.data);
         } catch (err) {
             console.log("err >> ", err);
@@ -40,7 +40,7 @@ const CreateContent = (props) => {
     const handleChange = (e) => {
         console.log(e.target.value);
 
-        if(playlistOpen)
+        //if(playlistOpen)
         setCreateContentData({
             ...createContentData,
             [e.target.name]: e.target.value,
@@ -58,11 +58,10 @@ const CreateContent = (props) => {
         });
     };
     const handleSubmit = async () => {
-        console.log(playlistId);
+        //console.log(playlistId);
         if(newPlaylistOpen) {
             setCreateContentData({
                 ...createContentData,
-                playlistId: playlistId,
             });
         }
         const response = await axios
@@ -73,13 +72,13 @@ const CreateContent = (props) => {
                     "Content-Type": "application/json",
                 },
             })
-            .then((res) => console.log(res));
+            //.then((res) => console.log(res));
         openModal();
-        //window.location.reload();
+        window.location.reload();
     };
     const handleNewSubmit = async () => {
 
-        console.log(JSON.stringify(createPlaylist));
+        //console.log(JSON.stringify(createPlaylist));
         let temp;
         const response = await axios
             .post(`${process.env.REACT_APP_SERVER_URL}/api/playlist/create`, JSON.stringify(createPlaylist), {
@@ -90,10 +89,11 @@ const CreateContent = (props) => {
                 },
             })
             .then(function (res) {
-                console.log(res.data.playlistId);
+                //console.log(res.data.playlistId);
                 temp = res.data.playlistId;
                 setPlaylistId(temp);
-                createContentData.playlistId = playlistId;
+                createContentData.playlistId = temp;
+                //console.log(createContentData);
                 handleSubmit();
                 //handleSubmit();
             });
@@ -297,8 +297,8 @@ const CreateContent = (props) => {
                                                     handleNewSubmit();
                                                     
                                                     createContentData.playlistId(playlistId);
-                                                    console.log(createContentData);
-                                                    handleSubmit();
+                                                    //console.log(createContentData);
+                                                    // handleSubmit();
                                                 } else handleSubmit();
                                                 
                                             }} style={{ padding: "10.5px" }}>

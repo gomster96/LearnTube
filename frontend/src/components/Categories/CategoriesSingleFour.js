@@ -1,36 +1,36 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 
 const CategoriesSingleFour = (props) => {
     const { categoriesClass, categoriesImg, catLink, categoriesIcon, categoriesTitle, categoriesDesc, btnText } = props;
 
     return (
-        <div className={categoriesClass ? categoriesClass : 'categories-items'}>
+        <div className={categoriesClass ? categoriesClass : "categories-items"}>
             <div className="categories-items">
                 <div className="images-part">
-                    <Link to={catLink ? catLink : '/course-categories'}>
+                    <Link to={catLink ? catLink : "/learntube/course-categories"}>
                         <img src={categoriesImg} alt="" />
                     </Link>
                 </div>
                 <div className="image-content">
                     <div className="effect-icon">
-                        <i className={categoriesIcon ? categoriesIcon : 'fa fa-paperclip'}></i>
+                        <i className={categoriesIcon ? categoriesIcon : "fa fa-paperclip"}></i>
                     </div>
                     <div className="title">
-                        <Link to={catLink ? catLink : '/course-categories'}>{categoriesTitle ? categoriesTitle : 'Undergraduate Programs'}</Link>
+                        <Link to={catLink ? catLink : "/learntube/course-categories"}>{categoriesTitle ? categoriesTitle : "Undergraduate Programs"}</Link>
                     </div>
                     <div className="description">
-                        <p>{categoriesDesc ? categoriesDesc : 'Arts, business, health, science and more, begin your journey with a program educavo.'}</p>
+                        <p>{categoriesDesc ? categoriesDesc : "Arts, business, health, science and more, begin your journey with a program educavo."}</p>
                     </div>
                     <div className="button-bottom">
                         <div className="button-effect">
-                            <Link to={catLink ? catLink : '/course-categories'}>{btnText ? btnText : 'Join Program'}</Link>
+                            <Link to={catLink ? catLink : "/learntube/course-categories"}>{btnText ? btnText : "Join Program"}</Link>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default CategoriesSingleFour
+export default CategoriesSingleFour;
