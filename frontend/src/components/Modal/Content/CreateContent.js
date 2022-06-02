@@ -248,6 +248,7 @@ const CreateContent = (props) => {
                                                 <div>
                                                     <div class="dropdown show" style={{ marginBottom: "20px" }}>
                                                         <FormSelect aria-label="SelectBox" id="playlistId" name="playlistId" onChange={handleChange}>
+                                                        <option value="------playlist를 선택해주세요-------" name="default">------playlist를 선택해주세요-------</option>
                                                             {Array.isArray(playlistsData)
                                                                 ? playlistsData.map((playlists, i) => (
                                                                       <option value={playlistsData[i].playlistId} name={playlistsData[i].playlistId}>
