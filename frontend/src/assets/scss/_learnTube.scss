@@ -147,6 +147,9 @@
     }
 }
 
+.btn-my-playlist{
+    
+}
 
 @media #{$lg} {
     .dashboard-tabs .react-tabs__tab button {
@@ -181,7 +184,7 @@
 }
 
 .searchbtn {
-    padding: 40px 30px 40px;
+    padding: 40px 10px 40px;
     position: relative;
     [type=search] {
         border: 1px solid #ddd;
@@ -214,4 +217,8 @@
             color: $primaryColor;
         }
     }
+}
+
+.loginbtn {
+    padding: 9px 18px;
 }

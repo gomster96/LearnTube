@@ -5,3 +5,103 @@
     line-height: 60px;
     box-shadow: 0px 8px 26px 0px rgb(0 0 0 / 10%);
 }
+
+.cart{
+    height: 30px;
+    width: auto;
+    min-height: 30px;
+    min-width: 30px;
+}
+
+.cart:hover{
+    cursor: pointer;
+}
+
+.toRight{
+    float: right;
+}
+
+.eclipse{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+@media only screen and (max-width: 991px){
+    .md-pt-70 {
+        padding-top: 0px;
+    }
+}
+
+// .goToCart{
+//     height: 50px;
+//     width: auto;
+//     border: 2px solid black;
+//     border-radius: 5px;
+//     padding: 5px;
+// }
+.cartPage{
+    background-color: #6483d8 !important;
+}
+
+.save{
+    height: 30px;
+    width: auto;
+    margin-left: 10px;
+}
+
+.dropdown{
+    padding: 47px 10px;
+}
+
+.show{
+    visibility: visible;
+}
+
+.moveToSearch{
+    width: auto;
+    height: 40px;
+    background-color: $orangeColor; 
+    color: white;
+    border: none;
+    margin-left: 10px;
+}
+
+.updateVideo{
+    background-color: #6483d8;
+    padding: 10px 30px;
+    font-size: 16px;
+}
+
+.playlistWidgetTitle{
+    margin: 0px;
+    padding: 45px 0px 45px 15px !important;
+    min-width: 191px;
+}
+
+.plus{
+    min-width: 40px;
+    text-align: center;
+    cursor: pointer;
+    // right: 20px;
+    z-index: 999;
+    border-radius: 50px 50px 4px 4px;
+}
+
+.plus i {
+    display: block;
+    background: #21a7d0;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0px 0px 2px rgb(0 0 0 / 40%);
+}
+
+.plus i {
+    background-color: #6483d8 !important;
+}

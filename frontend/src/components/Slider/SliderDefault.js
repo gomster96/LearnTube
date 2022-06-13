@@ -1,10 +1,9 @@
-import React from 'react';
+import React from "react";
 import Slider from "react-slick";
-import { Link } from 'react-router-dom';
-import FeatureStyle1 from '../Feature/FeatureStyle1';
+import { Link } from "react-router-dom";
+import FeatureStyle1 from "../Feature/FeatureStyle1";
 
 const SliderDefault = () => {
-
     const sliderSettings = {
         dots: false,
         centerMode: false,
@@ -17,9 +16,9 @@ const SliderDefault = () => {
                 breakpoint: 768,
                 settings: {
                     arrows: false,
-                }
-            }
-        ]
+                },
+            },
+        ],
     };
 
     return (
@@ -32,7 +31,9 @@ const SliderDefault = () => {
                                 <div className="sl-sub-title">Start to learning today</div>
                                 <h1 className="sl-title">Online Courses From Leading Experts</h1>
                                 <div className="sl-btn">
-                                    <Link className="readon orange-btn main-home" to="/course">Find Course</Link>
+                                    <Link className="readon orange-btn main-home" to="/learntube/course">
+                                        Find Course
+                                    </Link>
                                 </div>
                             </div>
                         </div>
@@ -44,7 +45,9 @@ const SliderDefault = () => {
                                 <div className="sl-sub-title">Start to learning today</div>
                                 <h1 className="sl-title">Explore Interests and Career With Courses</h1>
                                 <div className="sl-btn">
-                                    <Link className="readon orange-btn main-home" to="/course">Find Course</Link>
+                                    <Link className="readon orange-btn main-home" to="/learntube/course">
+                                        Find Course
+                                    </Link>
                                 </div>
                             </div>
                         </div>
@@ -54,6 +57,6 @@ const SliderDefault = () => {
             </div>
         </React.Fragment>
     );
-}
+};
 
 export default SliderDefault;

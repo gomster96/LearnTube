@@ -20,6 +20,8 @@
 # Mac
 .DS_Store
 
+application.yml
+
 # Maven
 log/
 target/

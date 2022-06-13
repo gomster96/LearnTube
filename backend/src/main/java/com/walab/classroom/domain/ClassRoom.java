@@ -8,19 +8,21 @@ import java.util.stream.Collectors;
 import javax.persistence.*;
 
 import com.walab.classroom.application.dto.ClassRoomCUDto;
+import com.walab.classroom.application.dto.ClassRoomDetailDto;
 import com.walab.classroom.application.dto.ClassRoomDto;
+import com.walab.classroom.domain.take.Take;
 import com.walab.common.BaseEntity;
 import com.walab.lecture.application.dto.LectureDto;
 import com.walab.lecture.domain.Lecture;
 import com.walab.notice.application.dto.NoticeDetailDto;
 import com.walab.notice.domain.Notice;
-import com.walab.classroom.domain.take.Take;
 import com.walab.user.domain.User;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
+
 
 @Entity
 @Getter
@@ -50,11 +52,13 @@ public class ClassRoom extends BaseEntity {
 
     private Boolean isActive;
 
+    private String image;
+
     @OneToMany(mappedBy = "classRoom")
     private List<Notice> notices = new ArrayList<>();
 
     @OneToMany(mappedBy = "classRoom")
-    private List<Lecture> lectures;
+    private List<Lecture> lectures = new ArrayList<>();
 
     private LocalDateTime closeDate;
 
@@ -65,6 +69,7 @@ public class ClassRoom extends BaseEntity {
         this.entryCode = classRoomCUDto.getEntryCode();
         this.isActive = classRoomCUDto.getIsActive();
         this.closeDate = classRoomCUDto.getCloseDate();
+        this.image = classRoomCUDto.getIamge();
     }
 
     public ClassRoom(User instructor, ClassRoomCUDto classRoomCUDto) {
@@ -107,6 +112,7 @@ public class ClassRoom extends BaseEntity {
                            .instructor(this.instructor.toDto())
                            .classRoomRegDate(this.getCreatedAt())
                            .closeDate(this.closeDate)
+                           .image(this.image)
                            .build();
     }
 
@@ -119,10 +125,16 @@ public class ClassRoom extends BaseEntity {
                            .entryCode(this.entryCode)
                            .isActive(this.isActive)
                            .closeDate(this.closeDate)
+                           .image(this.image)
                            .build();
     }
 
-    public ClassRoomDto toDto() {
+    private boolean isTakeClass(Long userId) {
+        return this.takes.stream()
+                         .anyMatch(take -> take.isUserTake(userId));
+    }
+
+    public ClassRoomDetailDto toDetailDto(Long userId) {
         List<LectureDto> lectureDtos = this.lectures.stream()
                                                     .sorted((l1, l2) -> Integer.compare(l1.getLectureNum(), l2.getLectureNum()))
                                                     .map(Lecture::toDto)
@@ -130,17 +142,21 @@ public class ClassRoom extends BaseEntity {
         List<NoticeDetailDto> noticeDetailDtos = this.notices.stream()
                                                              .map(NoticeDetailDto::new)
                                                              .collect(Collectors.toList());
-        return ClassRoomDto.builder()
-                           .classId(this.id)
-                           .className(this.className)
-                           .classDescription(this.classDescription)
-                           .closeDate(closeDate)
-                           .isOpened(isOpened)
-                           .isActive(isActive)
-                           .classRoomRegDate(getCreatedAt())
-                           .instructor(this.instructor.toDto())
-                           .lectures(lectureDtos)
-                           .notices(noticeDetailDtos)
-                           .build();
+        return ClassRoomDetailDto.builder()
+                                 .classId(this.id)
+                                 .className(this.className)
+                                 .classDescription(this.classDescription)
+                                 .closeDate(closeDate)
+                                 .isOpened(isOpened)
+                                 .isActive(isActive)
+                                 .classRoomRegDate(getCreatedAt())
+                                 .instructor(this.instructor.toDto())
+                                 .takeNum(this.takes.size())
+                                 .lectures(lectureDtos)
+                                 .isTake(isTakeClass(userId))
+                                 .image(this.image)
+                                 .notices(noticeDetailDtos)
+                                 .build();
     }
+
 }

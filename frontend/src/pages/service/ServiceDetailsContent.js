@@ -1,27 +1,27 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import Brand from '../../components/Common/Brand'
-import CounterStyleThree from '../../components/Elements/Counter/CounterStyleThree';
-import SectionTitle from '../../components/Common/SectionTitle';
-import SingleService from '../../components/Service/SingleService';
-import SinglePricing from '../../components/Pricing/SinglePricing';
-import ProgressBar from '../../components/Elements/Progress/ProgressBar';
-import ScrollToTop from '../../components/Common/ScrollTop';
+import React from "react";
+import { Link } from "react-router-dom";
+import Brand from "../../components/Common/Brand";
+import CounterStyleThree from "../../components/Elements/Counter/CounterStyleThree";
+import SectionTitle from "../../components/Common/SectionTitle";
+import SingleService from "../../components/Service/SingleService";
+import SinglePricing from "../../components/Pricing/SinglePricing";
+import ProgressBar from "../../components/Elements/Progress/ProgressBar";
+import ScrollToTop from "../../components/Common/ScrollTop";
 
 // Service Image
-import serviceIcon1 from '../../assets/img/service/style7/1.png';
-import serviceIcon2 from '../../assets/img/service/style7/2.png';
-import serviceIcon3 from '../../assets/img/service/style7/3.png';
+import serviceIcon1 from "../../assets/img/service/style7/1.png";
+import serviceIcon2 from "../../assets/img/service/style7/2.png";
+import serviceIcon3 from "../../assets/img/service/style7/3.png";
 
-import aboutImg1 from '../../assets/img/about/1.jpg';
+import aboutImg1 from "../../assets/img/about/1.jpg";
 
 // Pricing Image
-import silverImg from '../../assets/img/pricing/1.png';
-import goldImg from '../../assets/img/pricing/2.png';
-import platinumImg from '../../assets/img/pricing/3.png';
+import silverImg from "../../assets/img/pricing/1.png";
+import goldImg from "../../assets/img/pricing/2.png";
+import platinumImg from "../../assets/img/pricing/3.png";
 
 // Choose Us Image
-import whyChooseUsImg from '../../assets/img/choose/3.png';
+import whyChooseUsImg from "../../assets/img/choose/3.png";
 
 const ServiceDetailsContent = () => {
     return (
@@ -49,7 +49,7 @@ const ServiceDetailsContent = () => {
                             />
                             {/* Section Title End */}
                             <div className="btn-part mt-46">
-                                <Link to="/contact">
+                                <Link to="/learntube/contact">
                                     <a className="readon learn-more">Contact Us</a>
                                 </Link>
                             </div>
@@ -64,28 +64,13 @@ const ServiceDetailsContent = () => {
                         <div className="container">
                             <div className="row">
                                 <div className="col-lg-4 md-mb-30">
-                                    <SingleService
-                                        itemClass="services-item"
-                                        serviceImage={serviceIcon1}
-                                        Title="Expert Peoples"
-                                        Text="At vero eos et accusamus etiusto odio praesentium. "
-                                    />
+                                    <SingleService itemClass="services-item" serviceImage={serviceIcon1} Title="Expert Peoples" Text="At vero eos et accusamus etiusto odio praesentium. " />
                                 </div>
                                 <div className="col-lg-4 md-mb-30">
-                                    <SingleService
-                                        itemClass="services-item"
-                                        serviceImage={serviceIcon2}
-                                        Title="First Growing Process"
-                                        Text="At vero eos et accusamus etiusto odio praesentium. "
-                                    />
+                                    <SingleService itemClass="services-item" serviceImage={serviceIcon2} Title="First Growing Process" Text="At vero eos et accusamus etiusto odio praesentium. " />
                                 </div>
                                 <div className="col-lg-4">
-                                    <SingleService
-                                        itemClass="services-item"
-                                        serviceImage={serviceIcon3}
-                                        Title="Creative Ideas"
-                                        Text="At vero eos et accusamus etiusto odio praesentium. "
-                                    />
+                                    <SingleService itemClass="services-item" serviceImage={serviceIcon3} Title="Creative Ideas" Text="At vero eos et accusamus etiusto odio praesentium. " />
                                 </div>
                             </div>
                         </div>
@@ -206,17 +191,13 @@ const ServiceDetailsContent = () => {
                                 buttonClass="readon buy-now"
                                 buttonText="Buy Now"
                                 buttonURL="#"
-
                                 // Feature List (1 to 4 item)
                                 featureText1="Powerful Admin Panel"
                                 ability1="yes"
-
                                 featureText2="1 Native Android App"
                                 ability2="yes"
-
                                 featureText3="Multi-Language Support"
                                 ability3="no"
-
                                 featureText4="Support via E-mail and Phone"
                                 ability4="no"
                             />
@@ -233,17 +214,13 @@ const ServiceDetailsContent = () => {
                                 buttonClass="readon buy-now"
                                 buttonText="Buy Now"
                                 buttonURL="#"
-
                                 // Feature List (1 to 4 item)
                                 featureText1="Powerful Admin Panel"
                                 ability1="yes"
-
                                 featureText2="1 Native Android App"
                                 ability2="yes"
-
                                 featureText3="Multi-Language Support"
                                 ability3="yes"
-
                                 featureText4="Support via E-mail and Phone"
                                 ability4="no"
                             />
@@ -260,17 +237,13 @@ const ServiceDetailsContent = () => {
                                 buttonClass="readon buy-now"
                                 buttonText="Buy Now"
                                 buttonURL="#"
-
                                 // Feature List (1 to 4 item)
                                 featureText1="Powerful Admin Panel"
                                 ability1="yes"
-
                                 featureText2="1 Native Android App"
                                 ability2="yes"
-
                                 featureText3="Multi-Language Support"
                                 ability3="yes"
-
                                 featureText4="Support via E-mail and Phone"
                                 ability4="yes"
                             />
@@ -288,8 +261,7 @@ const ServiceDetailsContent = () => {
             <ScrollToTop />
             {/* scrolltop-end */}
         </React.Fragment>
-
     );
-}
+};
 
 export default ServiceDetailsContent;

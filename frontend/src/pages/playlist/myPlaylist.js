@@ -55,7 +55,7 @@ const MyPlaylist = () => {
                     </div> */}
                     <div class="container text-center dashboard-tabs">
                         <div className="intro-info-tabs border-none row">
-                            <div className="col-lg-4 col-md-12">
+                            <div className="col-lg-4 col-md-8">
                                 <div className="widget-area">
                                     <div className="playlist mb-50">
                                         <h3 className="widget-title">나의 Playlist</h3>
@@ -67,40 +67,65 @@ const MyPlaylist = () => {
                                         <Playlist_listview
                                             onPlaylistClick={selectPlaylist}
                                             playlistTitle='BFS 알고리즘'
-                                            playlistTime='30'
+                                            playlistTime='79'
                                         />
                                     </div>
                                 </div>
                             </div>
-                            {selectedPlaylist ? (
-                        <div className='courses-item p-0 m-1 rounded-0 col-8' >
-                            <div className="m-0" >
-                                <img style={{ height: '200px' }}
-                                    src="https://i.ytimg.com/vi/vorIqiLM7jc/default.jpg"
-                                />
-                            </div>
-                            <div className="content-part" >
-                                <div className="row ps-3 mb-3">
-                                    <h3 className="title">
-                                        <Link >{selectedPlaylist}</Link>
-                                    </h3>
-                                </div>
-                                <div className="info-meta p-0">
-                                    <div className="row">
-                                        <ul>
-                                            <li>
-                                                <i className="fa fa-user pe-1 "></i>"쉬운코드"
-                                            </li>
-                                        </ul>
+                            <div className="col-lg-8 px-4 text-start mt-4">
+                                <h3> {selectedPlaylist ? <span><i className="fa fa-play-circle-o pe-1"></i> {selectedPlaylist} </span>: <div></div>}</h3>
+                                {selectedPlaylist ? (
+                                    <div className="p-1">
+                                        <div className="row">
+                                            <div className="m-0 col-md-3 col-sm-12" >
+                                                <img className="img-fluid" style={{ minWidth: '120px' }}
+                                                    src="https://i.ytimg.com/vi/vorIqiLM7jc/default.jpg"
+                                                    alt="영상제목"
+                                                />
+                                            </div>
+                                            <div className="col-md-9 col-sm-12">
+                                                <div className="d-flex h4 text-start">
+                                                    {selectedPlaylist ? selectedPlaylist : '영상제목'}
+                                                </div>
+                                                <div className="d-flex fw-light ms-0 ps-0">
+                                                    채널명
+                                            <div class="mx-1 border-start border-secondary">
+                                                    </div> 등록일 </div>
+                                                <div className="d-flex fw-light"> 영상설명 </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                                
                                 ) :
-                                <div className="d-none">
-                                </div>
-                            }
+                                    <div className="d-none">
+                                    </div>
+                                }
+                                                                {selectedPlaylist ? (
+                                    <div className="p-1">
+                                        <div className="row">
+                                            <div className="m-0 col-md-3 col-sm-12" >
+                                                <img className="img-fluid" style={{ minWidth: '120px' }}
+                                                    src="https://i.ytimg.com/vi/vorIqiLM7jc/default.jpg"
+                                                    alt="영상제목"
+                                                />
+                                            </div>
+                                            <div className="col-md-9 col-sm-12">
+                                                <div className="d-flex h4 text-start">
+                                                    {selectedPlaylist ? selectedPlaylist : '영상제목'}
+                                                </div>
+                                                <div className="d-flex fw-light ms-0 ps-0">
+                                                    채널명
+                                            <div class="mx-1 border-start border-secondary">
+                                                    </div> 등록일 </div>
+                                                <div className="d-flex fw-light"> 영상설명 </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ) :
+                                    <div className="d-none">
+                                    </div>
+                                }
+                            </div>
+
                         </div>
                     </div>
                 </div>

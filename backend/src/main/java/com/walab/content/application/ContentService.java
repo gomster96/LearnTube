@@ -7,6 +7,9 @@ import java.util.stream.Collectors;
 import com.walab.content.application.dto.*;
 import com.walab.content.domain.Content;
 import com.walab.content.domain.repository.ContentRepository;
+import com.walab.exception.content.ContentNotFoundException;
+import com.walab.exception.lecture.LectureNotFoundException;
+import com.walab.exception.playlist.PlaylistNotFoundException;
 import com.walab.lecture.domain.Lecture;
 import com.walab.lecture.domain.repository.LectureRepository;
 import com.walab.playlist.domain.Playlist;
@@ -34,14 +37,14 @@ public class ContentService {
     @Transactional
     public ContentDto create(ContentCUDto contentCreateDto, Long lectureId, Long playlistId) {
 
-        Lecture lecture = lectureRepository.findById(lectureId).orElseThrow();
+        Lecture lecture = lectureRepository.findById(lectureId).orElseThrow(LectureNotFoundException::new);
 
         if (Objects.isNull(playlistId)) {
             Content newContent = new Content(lecture, contentCreateDto);
             Content savedContent = contentRepository.save(newContent);
             return savedContent.toDto();
         }
-        Playlist playlist = playlistRepository.findById(playlistId).orElseThrow();
+        Playlist playlist = playlistRepository.findById(playlistId).orElseThrow(PlaylistNotFoundException::new);
         Content newContent = new Content(lecture, contentCreateDto, playlist);
         Content savedContent = contentRepository.save(newContent);
 
@@ -50,8 +53,16 @@ public class ContentService {
 
     @Transactional
     public ContentDto update(Long contentId, ContentCUDto contentCUDto, Long playlistId) {
-        Content content = contentRepository.findById(contentId).orElseThrow();
-        Playlist playlist = playlistRepository.findById(playlistId).orElseThrow();
+        Content content = contentRepository.findById(contentId).orElseThrow(ContentNotFoundException::new);
+        if(Objects.isNull(playlistId)){
+            if(Objects.isNull(content.getPlaylist())){
+                content.setContentDatas(contentCUDto);
+            } else {
+                content.update(contentCUDto, null);
+            }
+            return content.toDto();
+        }
+        Playlist playlist = playlistRepository.findById(playlistId).orElseThrow(PlaylistNotFoundException::new);
         content.update(contentCUDto, playlist);
 
         return content.toDto();

@@ -1,16 +1,13 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 
 const CourseSingle = (props) => {
     return (
         <div className={props.itemClass}>
             <div className="courses-grid">
                 <div className="img-part">
-                    <Link to="/course/course-single">
-                        <img
-                            src={props.image}
-                            alt={props.title}
-                        />
+                    <Link to="/learntube/course/course-single">
+                        <img src={props.image} alt={props.title} />
                     </Link>
                 </div>
                 <div className="content-part">
@@ -30,7 +27,7 @@ const CourseSingle = (props) => {
                         <span className="price">{props.pricing}</span>
                     </div>
                     <h3 className="title">
-                        <Link to="/course/course-single">{props.title}</Link>
+                        <Link to="/learntube/course/course-single">{props.title}</Link>
                     </h3>
                     <ul className="meta-part">
                         <li className="user">
@@ -46,7 +43,7 @@ const CourseSingle = (props) => {
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default CourseSingle
+export default CourseSingle;

@@ -1,8 +1,10 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import axios from "axios";
 import { Link } from 'react-router-dom';
 import Playlist_listview from '../Events/Playlist_listview';
 
 const MyPlaylistWidget = () => {
+
     return (
         <div className="playlist mb-50">
             <h3 className="widget-title">나의 Playlist</h3>

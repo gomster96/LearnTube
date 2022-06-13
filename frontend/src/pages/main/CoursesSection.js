@@ -1,26 +1,54 @@
-import React from 'react';
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState, useRef } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
+import { useHistory } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Slider from "react-slick";
-import SectionTitle from '../../components/Common/SectionTitle';
+import SectionTitle from "../../components/Common/SectionTitle";
 //import CourseSingleFour from '../../components/Courses/CourseSingleFour';
-import CourseSingleTwoCopy from '../../components/Courses/CourseSingleTwoCopy';
-import '../../assets/css/courseList.css';
+import CourseSingleTwoCopy from "../../components/Courses/CourseSingleTwoCopy";
+import "../../assets/css/courseList.css";
 //import '../../assets/css/mainCourseList.css';
 
 // Courses Image
-import image1 from '../../assets/img/courses/7.jpg';
-import image2 from '../../assets/img/courses/8.jpg';
-import image3 from '../../assets/img/courses/9.jpg';
+import image1 from "../../assets/img/courses/7.jpg";
+import image2 from "../../assets/img/courses/8.jpg";
+import image3 from "../../assets/img/courses/9.jpg";
 
-import bgImg from '../../assets/img/bg/course-shape-bg.jpg';
+import bgImg from "../../assets/img/bg/course-shape-bg.jpg";
 const bgStyle = {
     backgroundImage: `url(${bgImg})`,
-    'background-size': 'cover',
-    'background-repeat': 'no-repeat',
-    'background-position': 'center'
-}
+    "background-size": "cover",
+    "background-repeat": "no-repeat",
+    "background-position": "center",
+};
 
-const Courses = () => {
+function Courses(props) {
+    const location = useLocation();
+    const userId = window.sessionStorage.getItem("userId");
+    const history = useHistory();
+    const [images, setImages] = useState([image1, image2, image3]);
+    const [popularClass, setPopularClass] = useState([
+        {
+            classId: "",
+            className: "",
+            instructorName: "",
+            numberOfTake: "",
+            classRoomRegDate: "",
+        },
+    ]);
+
+    useEffect(() => {
+        const fetchPopularClass = async () => {
+            try {
+                const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/classroom/popular`);
+                setPopularClass(response.data);
+            } catch (err) {
+                console.log("err >> ", err);
+            }
+        };
+        fetchPopularClass();
+    }, []);
 
     const coursesSliderSettings = {
         dots: false,
@@ -35,14 +63,14 @@ const Courses = () => {
                 settings: {
                     slidesToShow: 3,
                     slidesToScroll: 1,
-                }
+                },
             },
             {
                 breakpoint: 991,
                 settings: {
                     slidesToShow: 2,
                     slidesToScroll: 1,
-                }
+                },
             },
             {
                 breakpoint: 767,
@@ -50,11 +78,21 @@ const Courses = () => {
                     slidesToShow: 1,
                     slidesToScroll: 1,
                     dots: false,
-                }
-            }
-        ]
+                },
+            },
+        ],
     };
 
+    const clickCourse = (i) => {
+        if (userId) {
+            history.replace({
+                pathname: "/learntube/course/course-single",
+                state: { classId: popularClass[i].classId },
+            });
+        } else {
+            alert("로그인이 필요합니다.");
+        }
+    };
 
     return (
         <React.Fragment>
@@ -62,55 +100,38 @@ const Courses = () => {
                 <div className="container">
                     <div className="row y-middle mb-50">
                         <div className="col-lg-6">
-                            <SectionTitle
-                                sectionClass="sec-title"
-                                subtitleClass="sub-title primary"
-                                subtitle="Top Courses"
-                                titleClass="title mb-0"
-                                title="Popular Courses"
-                            />
+                            <SectionTitle sectionClass="sec-title" subtitleClass="sub-title primary" subtitle="수강생이 가장 많은" titleClass="title mb-0" title="Popular Courses" />
                         </div>
                     </div>
                     <Slider {...coursesSliderSettings}>
-                        <CourseSingleTwoCopy
-                            courseClass="courses-item mb-30"
-                            courseImg={image1}
-                            courseTitle="Become a PHP Master and Make Money Fast"
-                            newCourse="New"
-                            openDate="2022.03"
-                            creatorName="이지슬"
-                        />
-                        <CourseSingleTwoCopy
-                            courseClass="courses-item mb-30"
-                            courseImg={image2}
-                            courseTitle="Learning jQuery Mobile for Beginners"
-                            openDate="2022.03"
-                            creatorName="양지후"
-                        />
-                        <CourseSingleTwoCopy
-                            courseClass="courses-item mb-30"
-                            courseImg={image3}
-                            courseTitle="The Art of Black and White Photography"
-                            newCourse="New"
-                            openDate="2022.03"
-                            creatorName="이지슬"
-                        />
-                        <CourseSingleTwoCopy
-                            courseClass="courses-item mb-30"
-                            courseImg={image1}
-                            courseTitle="Learn Python – Interactive Python Tutorial"
-                            newCourse="$35.00"
-                            openDate="2022.03"
-                        />
+                        {popularClass
+                            ? popularClass.map((classes, i) => (
+                                  <div onClick={clickCourse.bind(this, i)}>
+                                      <CourseSingleTwoCopy
+                                          userId={userId}
+                                          courseClass="courses-item mb-30"
+                                          courseImg={popularClass[i].image}
+                                          courseTitle={popularClass[i].className}
+                                          newCourse="New"
+                                          openDate={popularClass[i].classRoomRegDate.split("-")[0] + "." + popularClass[i].classRoomRegDate.split("-")[1]}
+                                          creatorName={popularClass[i].instructorName}
+                                          userCount={popularClass[i].numberOfTake}
+                                      />
+                                  </div>
+                              ))
+                            : null}
                     </Slider>
                     <div className="view-all-btn text-center pt-50 mb-60 md-pt-30 md-mb-30">
                         Start Learning With Our Online Courses.
-                        <Link className="title-color" to="/course"> View All Courses <i className="flaticon-right-arrow ml-6 body-color"></i></Link>
+                        <Link className="title-color" to="/learntube/course">
+                            {" "}
+                            View All Courses <i className="flaticon-right-arrow ml-6 body-color"></i>
+                        </Link>
                     </div>
                 </div>
             </div>
         </React.Fragment>
-    )
+    );
 }
 
-export default Courses
+export default Courses;

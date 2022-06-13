@@ -5,6 +5,8 @@ import java.util.stream.Collectors;
 
 import com.walab.classroom.application.ClassRoomService;
 import com.walab.classroom.application.TakeService;
+import com.walab.classroom.application.dto.ClassRoomCourseDto;
+import com.walab.classroom.application.dto.ClassRoomDetailDto;
 import com.walab.classroom.application.dto.ClassRoomDto;
 import com.walab.classroom.application.dto.ClassRoomEnrollDto;
 import com.walab.classroom.application.dto.take.TakeClassRoomDto;
@@ -18,6 +20,8 @@ import com.walab.classroom.presentation.response.*;
 import com.walab.classroom.presentation.response.take.TakeAcceptRejectResponse;
 import com.walab.classroom.presentation.response.take.TakeUserResponse;
 
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,6 +30,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/api/classroom")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class ClassRoomController {
 
     private final ClassRoomService classRoomService;
@@ -53,10 +58,10 @@ public class ClassRoomController {
     }
 
     @GetMapping
-    public ResponseEntity<ClassRoomDto> getClassRoom(@RequestParam Long userId, @RequestParam Long classId) {
+    public ResponseEntity<ClassRoomDetailDto> getClassRoom(@RequestParam Long userId, @RequestParam Long classId) {
         //Todo 나중에 userId로 각 class의 video수강 완료에 대한 정보를 받아야한다.
-        ClassRoomDto classRoomDto = classRoomService.find(userId, classId);
-        return ResponseEntity.ok(classRoomDto);
+        ClassRoomDetailDto classRoomDetailDto = classRoomService.find(userId, classId);
+        return ResponseEntity.ok(classRoomDetailDto);
     }
 
     @PostMapping("/enroll")
@@ -131,6 +136,25 @@ public class ClassRoomController {
         List<ClassRoomManagedResponse> response = managedClasses.stream()
                                                                 .map(TakeClassRoomDto::classRoomManagedResponse)
                                                                 .collect(Collectors.toList());
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/courses")
+    public ResponseEntity<List<ClassRoomCourseResponse>> getCourses(@RequestParam int condition, @RequestParam String keyword, Pageable pageable) {
+
+        List<ClassRoomCourseDto> courseClassRooms = classRoomService.findClassRoomsByPage(condition, keyword, pageable);
+        List<ClassRoomCourseResponse> response = courseClassRooms.stream()
+                                                                 .map(ClassRoomCourseDto::classRoomCourseResponse)
+                                                                 .collect(Collectors.toList());
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/popular")
+    public ResponseEntity<List<ClassRoomCourseResponse>> getPopularCourses(){
+        List<ClassRoomCourseDto> courseClassRooms = classRoomService.findClassRoomsByPage(1, "", PageRequest.of(0,3));
+        List<ClassRoomCourseResponse> response = courseClassRooms.stream()
+                                                                 .map(ClassRoomCourseDto::classRoomCourseResponse)
+                                                                 .collect(Collectors.toList());
         return ResponseEntity.ok(response);
     }
 }
